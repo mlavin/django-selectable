@@ -1,0 +1,11 @@
+# use glob syntax.
+syntax: glob
+.project
+.pydevproject
+*.pyc
+*.pyo
+*~
+*.db
+*.orig
+docs/_build/*
+docs/_static/*
