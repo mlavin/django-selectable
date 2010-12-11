@@ -1,2 +1,1 @@
-from selectable.fields import *
-from selectable.widgets import *
+from selectable.forms.widgets import *

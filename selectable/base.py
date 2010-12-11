@@ -1,3 +1,4 @@
+from django.core.urlresolvers import reverse
 from django.utils.encoding import smart_unicode
 
 
@@ -10,9 +11,27 @@ class LookupBase(object):
         return name
     name = classmethod(_name)
 
+    def _url(cls):
+        return reverse('selectable-lookup', args=[cls.name()])
+    url = classmethod(_url)
+
     def get_query(self, request):
         return []
 
-    def format_item(self, item):
+    def get_item_name(self, item):
         return smart_unicode(item)
+
+    def get_item_id(self, item):
+        return smart_unicode(item)
+
+    def get_item_value(self, item):
+        return smart_unicode(item)
+
+    def format_item(self, item):
+         return {
+            'id': self.get_item_id(item),
+            'value': self.get_item_value(item),
+            'name': self.get_item_name(item)
+        }
+
 
