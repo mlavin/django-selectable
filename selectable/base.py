@@ -27,6 +27,9 @@ class LookupBase(object):
     def get_item_value(self, item):
         return smart_unicode(item)
 
+    def get_item(self, value):
+        return []
+
     def format_item(self, item):
          return {
             'id': self.get_item_id(item),

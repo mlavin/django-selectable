@@ -19,4 +19,15 @@ $(document).ready(function() {
             }
         });
     });
+    $(":input[data-selectable-is-hidden]").each(function(i, elem) {
+        var hiddenName = $(elem).attr('name');
+        var textName = hiddenName.replace('_1', '_0');
+        $(":input[name=" + textName + "][data-selectable-url]").bind("autocompletechange", function(event, ui) {
+            if (ui.item && ui.item.id) {
+                $(elem).val(ui.item.id);
+            } else {
+                $(elem).val("");
+            }
+        });
+    });
 });
