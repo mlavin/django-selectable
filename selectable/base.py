@@ -18,7 +18,7 @@ class LookupBase(object):
     def get_query(self, request):
         return []
 
-    def get_item_name(self, item):
+    def get_item_label(self, item):
         return smart_unicode(item)
 
     def get_item_id(self, item):
@@ -31,7 +31,7 @@ class LookupBase(object):
          return {
             'id': self.get_item_id(item),
             'value': self.get_item_value(item),
-            'name': self.get_item_name(item)
+            'label': self.get_item_label(item)
         }
 
 
