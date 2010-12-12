@@ -34,7 +34,6 @@ $(document).ready(function() {
                 text: false
             })
             .click(function() {
-                console.log('Click!');
                 // close if already visible
                 if ($(elem).autocomplete("widget").is(":visible")) {
                     $(elem).autocomplete("close");
