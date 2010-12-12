@@ -12,11 +12,5 @@ def get_lookup(request, lookup_name):
         raise Http404(u'Lookup %s not found' % lookup_name)
 
     lookup = lookup_cls()
-    raw_data = lookup.get_query(request)
-    data = []
-    for item in raw_data:
-        data.append(lookup.format_item(item))
-
-    content = simplejson.dumps(data, cls=json.DjangoJSONEncoder, ensure_ascii=False)
-    return HttpResponse(content, content_type='application/json')
+    return lookup.results(request)
 
