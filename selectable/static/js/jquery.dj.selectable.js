@@ -18,6 +18,35 @@ $(document).ready(function() {
                 }
             }
         });
+        if ($(elem).attr('data-selectable-type') === 'combobox') {
+            // Change auto-complete options
+            $(elem).autocomplete("option", {
+                delay: 0,
+                minLength: 0
+            });
+
+            $("<button>&nbsp;</button>").attr("tabIndex", -1).attr("title", "Show All Items")
+            .insertAfter($(elem))
+            .button({
+                icons: {
+                    primary: "ui-icon-triangle-1-s"
+                },
+                text: false
+            })
+            .click(function() {
+                console.log('Click!');
+                // close if already visible
+                if ($(elem).autocomplete("widget").is(":visible")) {
+                    $(elem).autocomplete("close");
+                    return false;
+                }
+
+                // pass empty string as value to search for, displaying all results
+                $(elem).autocomplete("search", "");
+                $(elem).focus();
+                return false;
+            });
+        }
     });
     $(":input[data-selectable-is-hidden]").each(function(i, elem) {
         var hiddenName = $(elem).attr('name');

@@ -5,6 +5,8 @@ from django.conf import settings
 __all__ = (
     'AutoCompleteWidget',
     'AutoCompleteSelectWidget',
+    'AutoComboboxWidget',
+    'AutoComboboxSelectWidget'
 )
 
 
@@ -38,4 +40,32 @@ class AutoCompleteSelectWidget(forms.MultiWidget):
             item_value = lookup.get_item_value(item)
             return [item_value, value]
         return [None, None]
+
+
+class AutoComboboxWidget(AutoCompleteWidget):
+    
+    def __init__(self, lookup_class, *args, **kwargs):
+        super(AutoComboboxWidget, self).__init__(lookup_class, *args, **kwargs)
+        self.attrs[u'data-selectable-type'] = 'combobox'
+
+
+class AutoComboboxSelectWidget(forms.MultiWidget):
+
+    def __init__(self, lookup_class, *args, **kwargs):
+        self.lookup_class = lookup_class
+        self.allow_new = kwargs.pop('allow_new', False)
+        widgets = [
+            AutoComboboxWidget(lookup_class, allow_new=self.allow_new),
+            forms.HiddenInput(attrs={u'data-selectable-is-hidden': 'true'})
+        ]
+        super(AutoComboboxSelectWidget, self).__init__(widgets, *args, **kwargs)
+
+    def decompress(self, value):
+        if value:
+            lookup = self.lookup_class()
+            item = lookup.get_item(value)
+            item_value = lookup.get_item_value(item)
+            return [item_value, value]
+        return [None, None]
+
 
