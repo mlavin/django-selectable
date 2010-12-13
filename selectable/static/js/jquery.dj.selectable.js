@@ -23,13 +23,15 @@
                             }
                         }
                     }
-                });
+                }).addClass("ui-widget ui-widget-content ui-corner-all");
                 if (type === 'combobox') {
                     // Change auto-complete options
                     $(input).autocomplete("option", {
                         delay: 0,
                         minLength: 0
-                    });
+                    })
+                    .removeClass("ui-corner-all")
+                    .addClass("ui-corner-left ui-combo-input");
 
                     $("<button>&nbsp;</button>").attr("tabIndex", -1).attr("title", "Show All Items")
                     .insertAfter($(input))
@@ -39,6 +41,8 @@
                         },
                         text: false
                     })
+                    .removeClass("ui-corner-all")
+			        .addClass("ui-corner-right ui-button-icon ui-combo-button")
                     .click(function() {
                         // close if already visible
                         if ($(input).autocomplete("widget").is(":visible")) {
