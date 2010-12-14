@@ -1,3 +1,4 @@
+import re
 from django.core.urlresolvers import reverse
 from django.core.serializers import json
 from django.http import HttpResponse
@@ -38,6 +39,9 @@ class LookupBase(object):
 
     def get_item(self, value):
         return None
+
+    def create_item(self, value):
+        raise NotImplemented()
 
     def format_item(self, item):
          return {
@@ -85,4 +89,12 @@ class ModelLookup(LookupBase):
             except IndexError:
                 pass
         return item
+
+    def create_item(self, value):
+        data = {}
+        if self.search_field:
+            field_name = re.sub(r'__\w+$', '',  self.search_field)
+            if field_name:
+                data = {field_name: value}
+        return self.model(**data)
 
