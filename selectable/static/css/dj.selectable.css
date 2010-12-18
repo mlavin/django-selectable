@@ -1,0 +1,10 @@
+ul.selectable-deck {
+    list-style: none outside none;
+}
+ul.selectable-deck li.selectable-deck-item {
+    margin: 0;
+    padding: 0.4em;
+}
+ul.selectable-deck li.selectable-deck-item .selectable-deck-remove {
+    float: right;
+}
