@@ -17,7 +17,7 @@
             var deck = null;
             var textName = $(input).attr('name');
             var hiddenName = textName.replace('_0', '_1');
-            var hiddenSelector = 'input[type=hidden][name=' + hiddenName + ']';
+            var hiddenSelector = 'input[type=hidden][data-selectable-type=hidden-multiple][name=' + hiddenName + ']';
             if (typeof multipleAttr !== 'undefined' && multipleAttr === 'true') {
                 allowMultiple = true;
                 allowNew = false;

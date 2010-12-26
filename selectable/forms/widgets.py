@@ -101,6 +101,11 @@ class LookupMultipleHiddenInput(forms.MultipleHiddenInput):
             inputs.append(u'<input%s />' % flatatt(input_attrs))
         return mark_safe(u'\n'.join(inputs))
 
+    def build_attrs(self, extra_attrs=None, **kwargs):
+        attrs = super(LookupMultipleHiddenInput, self).build_attrs(extra_attrs, **kwargs)
+        attrs[u'data-selectable-type'] = 'hidden-multiple'
+        return attrs
+
 
 class AutoCompleteSelectMultipleWidget(forms.MultiWidget):
 
