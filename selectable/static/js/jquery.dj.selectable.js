@@ -41,8 +41,8 @@
                                 text: false
                             })
                             .click(function() {
-                                newInput.remove();
-                                $(this).parent('li').remove();
+                                $(elem).remove();
+                                $(this).parents('li').remove();
                             })
                         )
                     );
@@ -94,7 +94,7 @@
                                     })
                                     .click(function() {
                                         newInput.remove();
-                                        $(this).parent('li').remove();
+                                        $(this).parents('li').remove();
                                     })
                                 )
                             );
