@@ -1,0 +1,2 @@
+django>=1.2
+django-staticfiles==1.0rc1
