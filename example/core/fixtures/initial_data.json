@@ -1,0 +1,30 @@
+[
+    {
+        "pk": 1, 
+        "model": "core.fruit", 
+        "fields": {
+            "name": "Apple"
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "core.fruit", 
+        "fields": {
+            "name": "Pear"
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "core.fruit", 
+        "fields": {
+            "name": "Grape"
+        }
+    }, 
+    {
+        "pk": 4, 
+        "model": "core.fruit", 
+        "fields": {
+            "name": "Orange"
+        }
+    }
+]
