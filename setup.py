@@ -17,7 +17,7 @@ setup(
     version=__import__('selectable').__version__,
     author='Mark Lavin',
     author_email='markdlavin@gmail.com',
-    packages=find_packages(),
+    packages=find_packages(exclude=['example']),
     include_package_data=True,
     url='http://bitbucket.org/mlavin/django-selectable',
     license='LICENSE.txt',
