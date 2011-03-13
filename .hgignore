@@ -9,3 +9,5 @@ syntax: glob
 *.orig
 docs/_build/*
 docs/_static/*
+dist/*
+*.egg-info/*
