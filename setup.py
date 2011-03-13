@@ -28,7 +28,7 @@ setup(
         'License :: OSI Approved :: BSD License',
         'Programming Language :: Python',
         'Topic :: Software Development :: Libraries :: Python Modules',
-        'Development Status :: 2 - Pre-Alpha',
+        'Development Status :: 4 - Beta',
         'Operating System :: OS Independent',
     ],
     long_description=read_file('README.rst'),
