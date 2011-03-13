@@ -5,6 +5,8 @@ Contents:
 .. toctree::
     :maxdepth: 2
 
+    overview
+    quick-start
     fields
     widgets
 

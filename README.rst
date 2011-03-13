@@ -32,3 +32,12 @@ The jQuery and jQuery UI libraries are not included in the distribution but shou
 in your templates. See the example project for an example using these libraries from the
 Google CDN.
 
+Once installed you should add the urls to your root url patterns::
+
+    .. code-block::
+
+        urlpatterns = patterns('',
+            # Other patterns go here
+            (r'^selectable/', include('selectable.urls')),
+        )
+
