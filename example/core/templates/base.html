@@ -6,10 +6,10 @@
 	<title>Django-Selectable Example</title>
         <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.10/themes/base/jquery-ui.css" type="text/css" media="screen">
         <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.10/themes/ui-lightness/jquery-ui.css" type="text/css" media="screen">
-        <link rel="stylesheet" href="{{ STATIC_URL }}css/dj.selectable.css" type="text/css" media="screen">
+        {{ form.media.css }}
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.10/jquery-ui.min.js"></script>
-        <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.dj.selectable.js"></script>
+        {{ form.media.js }}
     </head>
     <body>
         <form action="{% url example-index %}" method="post" >

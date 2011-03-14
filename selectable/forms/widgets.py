@@ -15,7 +15,21 @@ __all__ = (
 )
 
 
-class AutoCompleteWidget(forms.TextInput):
+MEDIA_URL = settings.MEDIA_URL
+STATIC_URL = getattr(settings, 'STATIC_URL', '')
+MEDIA_PREFIX = STATIC_URL or MEDIA_URL
+
+
+class SelectableMediaMixin(object):
+
+    class Media(object):
+        css = {
+            'all': ('%scss/dj.selectable.css' % MEDIA_PREFIX, )
+        }
+        js = ('%sjs/jquery.dj.selectable.js' % MEDIA_PREFIX, )
+
+
+class AutoCompleteWidget(forms.TextInput, SelectableMediaMixin):
 
     def __init__(self, lookup_class, *args, **kwargs):
         self.lookup_class = lookup_class
@@ -29,7 +43,8 @@ class AutoCompleteWidget(forms.TextInput):
         attrs[u'data-selectable-allow-new'] = str(self.allow_new).lower()
         return attrs
 
-class AutoCompleteSelectWidget(forms.MultiWidget):
+
+class AutoCompleteSelectWidget(forms.MultiWidget, SelectableMediaMixin):
 
     def __init__(self, lookup_class, *args, **kwargs):
         self.lookup_class = lookup_class
@@ -49,7 +64,7 @@ class AutoCompleteSelectWidget(forms.MultiWidget):
         return [None, None]
 
 
-class AutoComboboxWidget(AutoCompleteWidget):
+class AutoComboboxWidget(AutoCompleteWidget, SelectableMediaMixin):
 
     def build_attrs(self, extra_attrs=None, **kwargs):
         attrs = super(AutoComboboxWidget, self).build_attrs(extra_attrs, **kwargs)
@@ -57,7 +72,7 @@ class AutoComboboxWidget(AutoCompleteWidget):
         return attrs
 
 
-class AutoComboboxSelectWidget(forms.MultiWidget):
+class AutoComboboxSelectWidget(forms.MultiWidget, SelectableMediaMixin):
 
     def __init__(self, lookup_class, *args, **kwargs):
         self.lookup_class = lookup_class
@@ -107,7 +122,7 @@ class LookupMultipleHiddenInput(forms.MultipleHiddenInput):
         return attrs
 
 
-class AutoCompleteSelectMultipleWidget(forms.MultiWidget):
+class AutoCompleteSelectMultipleWidget(forms.MultiWidget, SelectableMediaMixin):
 
     def __init__(self, lookup_class, *args, **kwargs):
         self.lookup_class = lookup_class
@@ -125,7 +140,7 @@ class AutoCompleteSelectMultipleWidget(forms.MultiWidget):
         return [None, None]
 
 
-class AutoComboboxSelectMultipleWidget(forms.MultiWidget):
+class AutoComboboxSelectMultipleWidget(forms.MultiWidget, SelectableMediaMixin):
 
     def __init__(self, lookup_class, *args, **kwargs):
         self.lookup_class = lookup_class
