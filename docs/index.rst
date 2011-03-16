@@ -7,6 +7,7 @@ Contents:
 
     overview
     quick-start
+    lookups
     fields
     widgets
 

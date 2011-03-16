@@ -1,8 +1,8 @@
 import re
 from django.core.urlresolvers import reverse
-from django.core.serializers import json
+from django.core.serializers.json import DjangoJSONEncoder
 from django.http import HttpResponse
-from django.utils import simplejson
+from django.utils import simplejson as json
 from django.utils.encoding import smart_unicode
 
 
@@ -38,7 +38,7 @@ class LookupBase(object):
         return smart_unicode(item)
 
     def get_item(self, value):
-        return None
+        return value
 
     def create_item(self, value):
         raise NotImplemented()
@@ -50,14 +50,13 @@ class LookupBase(object):
             'label': self.get_item_label(item)
         }
 
-
     def results(self, request):
         term = request.GET.get('term', '')
         raw_data = self.get_query(request, term)
         data = []
         for item in raw_data:
             data.append(self.format_item(item))
-        content = simplejson.dumps(data, cls=json.DjangoJSONEncoder, ensure_ascii=False)
+        content = json.dumps(data, cls=DjangoJSONEncoder, ensure_ascii=False)
         return HttpResponse(content, content_type='application/json')    
 
 
