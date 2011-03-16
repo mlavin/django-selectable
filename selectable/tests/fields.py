@@ -1,8 +1,10 @@
 from django import forms
+from django.utils import unittest
 
 from selectable.forms import fields
-from selectable.tests import ThingLookup
+from selectable.tests import Thing, ThingLookup
 from selectable.tests.base import BaseSelectableTestCase
+from selectable.tests.forms import Form1
 
 
 __all__ = (
@@ -94,6 +96,55 @@ class AutoCompleteSelectMultipleFieldTestCase(BaseFieldTestCase):
         value = field.clean([names, ids])
         self.assertEqual([thing, other_thing], value)
 
+    def test_initial(self):
+        t1 = self.create_thing()
+        f1 = Form1(initial={
+            'f': Thing.objects.filter(
+                pk=t1.pk
+            ).values_list('pk', flat=True)})
+        rendered_value = f1.as_p()
+        hidden_widget_expected = 'value="%d" data-selectable-type="hidden-multiple" type="hidden"' % t1.pk
+        c = rendered_value.count(hidden_widget_expected)
+        ev = 1
+        msg = c < ev and \
+            'Did not find:\n\t%s\nas expected in:\n\t%s' % (hidden_widget_expected, rendered_value) or \
+            'Found:\n\t%s\ntoo many times (%d) in:\n\t%s\nexpecting onnly %d' % (hidden_widget_expected, c, rendered_value, ev)
+        self.assertEquals(c, ev, msg)
+
+    def test_initial_multiple(self):
+        t1 = self.create_thing()
+        t2 = self.create_thing()
+        f1 = Form1(initial={
+            'f': Thing.objects.filter(
+                pk__in=[t1.pk, t2.pk]
+            ).values_list('pk', flat=True)})
+        rendered_value = f1.as_p()
+        ev = 1
+        for t in [t1, t2]:
+            hidden_widget_expected = 'value="%d" data-selectable-type="hidden-multiple" type="hidden"' % t.pk
+            c = rendered_value.count(hidden_widget_expected)
+            msg = c < ev and \
+                'Did not find:\n\t%s\nas expected in:\n\t%s' % (hidden_widget_expected, rendered_value) or \
+                'Found:\n\t%s\ntoo many times (%d) in:\n\t%s\nexpecting onnly %d' % (hidden_widget_expected, c, rendered_value, ev)
+            self.assertEquals(c, ev, msg)
+
+    @unittest.expectedFailure
+    def test_initial_multiple_list(self):
+        t1 = self.create_thing()
+        t2 = self.create_thing()
+        f1 = Form1(initial={
+            'f': list(Thing.objects.filter(
+                pk__in=[t1.pk, t2.pk]
+            ).values_list('pk', flat=True))})
+        rendered_value = f1.as_p()
+        ev = 1
+        for t in [t1, t2]:
+            hidden_widget_expected = 'value="%d" data-selectable-type="hidden-multiple" type="hidden"' % t.pk
+            c = rendered_value.count(hidden_widget_expected)
+            msg = c < ev and \
+                'Did not find:\n\t%s\nas expected in:\n\t%s' % (hidden_widget_expected, rendered_value) or \
+                'Found:\n\t%s\ntoo many times (%d) in:\n\t%s\nexpecting onnly %d' % (hidden_widget_expected, c, rendered_value, ev)
+            self.assertEquals(c, ev, msg)
 
 class AutoComboboxSelectMultipleFieldTestCase(BaseFieldTestCase):
     field_cls = fields.AutoComboboxSelectMultipleField

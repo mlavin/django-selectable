@@ -134,7 +134,7 @@ class AutoCompleteSelectMultipleWidget(forms.MultiWidget, SelectableMediaMixin):
 
     def decompress(self, value):
         if value:
-            if not isinstance(value, list):
+            if not hasattr(value, '__iter__'):
                 value = [value]
             return [None, value]
         return [None, None]
