@@ -139,6 +139,10 @@ class AutoCompleteSelectMultipleWidget(forms.MultiWidget, SelectableMediaMixin):
             return [None, value]
         return [None, None]
 
+    def render(self, name, value, attrs=None):
+        value = self.decompress(value)
+        return super(AutoCompleteSelectMultipleWidget, self).render(name, value, attrs)
+
 
 class AutoComboboxSelectMultipleWidget(forms.MultiWidget, SelectableMediaMixin):
 
@@ -152,8 +156,12 @@ class AutoComboboxSelectMultipleWidget(forms.MultiWidget, SelectableMediaMixin):
 
     def decompress(self, value):
         if value:
-            if not isinstance(value, list):
+            if not hasattr(value, '__iter__'):
                 value = [value]
             return [None, value]
         return [None, None]
+
+    def render(self, name, value, attrs=None):
+        value = self.decompress(value)
+        return super(AutoComboboxSelectMultipleWidget, self).render(name, value, attrs)
 
