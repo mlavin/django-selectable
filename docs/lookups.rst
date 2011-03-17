@@ -19,10 +19,10 @@ you must register in with django-selectable. All lookups must extend from
 
 .. code-block:: python
 
-    from selectable.base import BaseLookup
+    from selectable.base import LookupBase
     from selectable.registry import registry
 
-    class MyLookup(BaseLookup):
+    class MyLookup(LookupBase):
         def get_query(self, request, term):
             data = ['Foo', 'Bar']
             return filter(lambda x: x.startswith(term), data)
@@ -33,7 +33,7 @@ you must register in with django-selectable. All lookups must extend from
 Lookup API
 --------------------------------------
 
-.. py:method:: BaseLookup.get_query(request, term)
+.. py:method:: LookupBase.get_query(request, term)
 
     This is the main method which takes the current request
     from the user and returns the data which matches their search.
@@ -42,7 +42,7 @@ Lookup API
     :param term: The search term from the widget input
     :return: An iterable set of data of items matching the search term
 
-.. py:method:: BaseLookup.get_item_label(item)
+.. py:method:: LookupBase.get_item_label(item)
 
     This is first of three formatting methods. The label is shown in the
     drop down menu of search results. This defaults to `item.__unicode__`.
@@ -50,7 +50,7 @@ Lookup API
     :param item: An item from the search results.
     :return: A string representation of the item to be shown in the search results.
 
-.. py:method:: BaseLookup.get_item_id(item)
+.. py:method:: LookupBase.get_item_id(item)
 
     This is second of three formatting methods. The id is the value that will eventually
     be returned by the field/widget. This defaults to `item.__unicode__`.
@@ -58,7 +58,7 @@ Lookup API
     :param item: An item from the search results.
     :return: A string representation of the item to be returned by the field/widget.
 
-.. py:method:: BaseLookup.get_item_value(item)
+.. py:method:: LookupBase.get_item_value(item)
 
     This is last of three formatting methods. The value is shown in the
     input once the item has been selected. This defaults to `item.__unicode__`.
@@ -66,7 +66,7 @@ Lookup API
     :param item: An item from the search results.
     :return: A string representation of the item to be shown in the input.
 
-.. py:method:: BaseLookup.get_item(value)
+.. py:method:: LookupBase.get_item(value)
 
     `get_item` is the reverse of `get_item_id`. This should take the value
     from the form initial values and return the current item. This defaults
