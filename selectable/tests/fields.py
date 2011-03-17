@@ -3,7 +3,6 @@ from django import forms
 from selectable.forms import fields
 from selectable.tests import ThingLookup
 from selectable.tests.base import BaseSelectableTestCase
-from selectable.tests.forms import Form1
 
 
 __all__ = (
