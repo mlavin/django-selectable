@@ -75,3 +75,39 @@ Lookup API
     :param value: Value from the form inital value.
     :return: The item corresponding to the initial value.
 
+.. py:method:: LookupBase.create_item(value)
+
+    If you plan to use a lookup with a field or widget which allows the user
+    to input new values then you must define what it means to create a new item
+    for your lookup. By default this raises a `NotImplemented` error.
+
+    :param value: The user given value.
+    :return: The new item created from the item.
+
+.. py:method:: LookupBase.format_item(item)
+
+    By default `format_item` creates a dictionary with the three keys used by
+    the UI plugin: id, value, label. These are generated from the calls to
+    `get_item_id`, `get_item_value`, and `get_item_label`. If you want to
+    add additional keys you should add them here.
+
+    :param item: An item from the search results.
+    :return: A dictionary of information for this item to be sent back to the client.
+
+
+Lookups Based on Models
+--------------------------------------
+
+Perhaps the most common use case is to define a lookup based on a given Django model.
+For this you can extend `selectable.base.ModelLookup`. To extend `ModelLookup` you
+should set two class attributes: `model` and `search_field`.
+
+    .. literalinclude:: ../example/core/lookups.py
+        :lines: 1-10
+
+The syntax for `search_field` is the same as the Django 
+`field lookup syntax <http://docs.djangoproject.com/en/1.2/ref/models/querysets/#field-lookups>`_. 
+You may optionally define a third class attribute `filters` which is a dictionary of
+filters to be applied to the model queryset. The keys should be a string defining a field lookup
+and the value should be the value for the field lookup.
+
