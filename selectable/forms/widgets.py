@@ -1,6 +1,7 @@
 from django import forms
 from django.conf import settings
 from django.forms.util import flatatt
+from django.utils.http import urlencode
 from django.utils.encoding import force_unicode
 from django.utils.safestring import mark_safe
 
@@ -34,11 +35,18 @@ class AutoCompleteWidget(forms.TextInput, SelectableMediaMixin):
     def __init__(self, lookup_class, *args, **kwargs):
         self.lookup_class = lookup_class
         self.allow_new = kwargs.pop('allow_new', False)
+        self.qs = {}
         super(AutoCompleteWidget, self).__init__(*args, **kwargs)
+
+    def update_query_parameters(self, qs_dict):
+        self.qs.update(qs_dict)
 
     def build_attrs(self, extra_attrs=None, **kwargs):
         attrs = super(AutoCompleteWidget, self).build_attrs(extra_attrs, **kwargs)
-        attrs[u'data-selectable-url'] = self.lookup_class.url()
+        url = self.lookup_class.url()
+        if self.qs:
+            url = '%s?%s' % (url, urlencode(self.qs))
+        attrs[u'data-selectable-url'] = url
         attrs[u'data-selectable-type'] = 'text'
         attrs[u'data-selectable-allow-new'] = str(self.allow_new).lower()
         return attrs
@@ -54,6 +62,9 @@ class AutoCompleteSelectWidget(forms.MultiWidget, SelectableMediaMixin):
             forms.HiddenInput(attrs={u'data-selectable-type': 'hidden'})
         ]
         super(AutoCompleteSelectWidget, self).__init__(widgets, *args, **kwargs)
+
+    def update_query_parameters(self, qs_dict):
+        self.widgets[0].update_query_parameters(qs_dict)
 
     def decompress(self, value):
         if value:
@@ -82,6 +93,9 @@ class AutoComboboxSelectWidget(forms.MultiWidget, SelectableMediaMixin):
             forms.HiddenInput(attrs={u'data-selectable-type': 'hidden'})
         ]
         super(AutoComboboxSelectWidget, self).__init__(widgets, *args, **kwargs)
+
+    def update_query_parameters(self, qs_dict):
+        self.widgets[0].update_query_parameters(qs_dict)
 
     def decompress(self, value):
         if value:
@@ -132,6 +146,9 @@ class AutoCompleteSelectMultipleWidget(forms.MultiWidget, SelectableMediaMixin):
         ]
         super(AutoCompleteSelectMultipleWidget, self).__init__(widgets, *args, **kwargs)
 
+    def update_query_parameters(self, qs_dict):
+        self.widgets[0].update_query_parameters(qs_dict)
+
     def decompress(self, value):
         if value:
             if not hasattr(value, '__iter__'):
@@ -153,6 +170,9 @@ class AutoComboboxSelectMultipleWidget(forms.MultiWidget, SelectableMediaMixin):
             LookupMultipleHiddenInput(lookup_class)
         ]
         super(AutoComboboxSelectMultipleWidget, self).__init__(widgets, *args, **kwargs)
+
+    def update_query_parameters(self, qs_dict):
+        self.widgets[0].update_query_parameters(qs_dict)
 
     def decompress(self, value):
         if value:
