@@ -49,8 +49,16 @@
                 });
             }
 
+            function dataSource(request, response) {
+                var now = new Date().getTime();
+				$.getJSON(url, {
+					term: request.term,
+                    timestamp: now
+				}, response);
+            }
+
             $(input).autocomplete({
-                source: url,
+                source: dataSource,
                 change: function(event, ui) {
                     if (!ui.item) {
                         if (!allowNew) {
