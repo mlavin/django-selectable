@@ -1,4 +1,7 @@
+from urlparse import urlparse
+
 from django import forms
+from django.utils.http import urlencode
 
 from selectable.forms import widgets
 from selectable.tests import Thing, ThingLookup
@@ -38,6 +41,16 @@ class AutoCompleteWidgetTestCase(BaseWidgetTestCase):
         self.assertTrue('data-selectable-type' in attrs)
         self.assertTrue('data-selectable-allow-new' in attrs)
 
+    def test_update_query_parameters(self):
+        params = {'active': 1} 
+        widget = self.get_widget_instance()
+        widget.update_query_parameters(params)
+        attrs = widget.build_attrs()
+        url = attrs['data-selectable-url']
+        parse = urlparse(url)
+        query = parse.query
+        self.assertEqual(query, urlencode(params))
+
 
 class AutoCompleteSelectWidgetTestCase(BaseWidgetTestCase):
     widget_cls = widgets.AutoCompleteSelectWidget
@@ -58,6 +71,17 @@ class AutoCompleteSelectWidgetTestCase(BaseWidgetTestCase):
         self.assertTrue('data-selectable-type' in attrs)
         self.assertEqual(attrs['data-selectable-type'], 'hidden')
 
+    def test_update_query_parameters(self):
+        params = {'active': 1} 
+        widget = self.get_widget_instance()
+        widget.update_query_parameters(params)
+        sub_widget = widget.widgets[0]
+        attrs = sub_widget.build_attrs()
+        url = attrs['data-selectable-url']
+        parse = urlparse(url)
+        query = parse.query
+        self.assertEqual(query, urlencode(params))
+
 
 class AutoComboboxWidgetTestCase(BaseWidgetTestCase):
     widget_cls = widgets.AutoComboboxWidget
@@ -69,6 +93,16 @@ class AutoComboboxWidgetTestCase(BaseWidgetTestCase):
         self.assertTrue('data-selectable-url' in attrs)
         self.assertTrue('data-selectable-type' in attrs)
         self.assertTrue('data-selectable-allow-new' in attrs)
+
+    def test_update_query_parameters(self):
+        params = {'active': 1} 
+        widget = self.get_widget_instance()
+        widget.update_query_parameters(params)
+        attrs = widget.build_attrs()
+        url = attrs['data-selectable-url']
+        parse = urlparse(url)
+        query = parse.query
+        self.assertEqual(query, urlencode(params))
 
 
 class AutoComboboxSelectWidgetTestCase(BaseWidgetTestCase):
@@ -89,6 +123,17 @@ class AutoComboboxSelectWidgetTestCase(BaseWidgetTestCase):
         attrs = sub_widget.build_attrs()
         self.assertTrue('data-selectable-type' in attrs)
         self.assertEqual(attrs['data-selectable-type'], 'hidden')
+
+    def test_update_query_parameters(self):
+        params = {'active': 1} 
+        widget = self.get_widget_instance()
+        widget.update_query_parameters(params)
+        sub_widget = widget.widgets[0]
+        attrs = sub_widget.build_attrs()
+        url = attrs['data-selectable-url']
+        parse = urlparse(url)
+        query = parse.query
+        self.assertEqual(query, urlencode(params))
 
 
 class AutoCompleteSelectMultipleWidgetTestCase(BaseWidgetTestCase):
@@ -145,6 +190,18 @@ class AutoCompleteSelectMultipleWidgetTestCase(BaseWidgetTestCase):
             self.assertTrue(ev in rendered_value,
                 "Did not find:\n\t%s\nin rendered value:\n\t%s" % (ev, rendered_value))
 
+    def test_update_query_parameters(self):
+        params = {'active': 1} 
+        widget = self.get_widget_instance()
+        widget.update_query_parameters(params)
+        sub_widget = widget.widgets[0]
+        attrs = sub_widget.build_attrs()
+        url = attrs['data-selectable-url']
+        parse = urlparse(url)
+        query = parse.query
+        self.assertEqual(query, urlencode(params))
+
+
 class AutoComboboxSelectMultipleWidgetTestCase(BaseWidgetTestCase):
     widget_cls = widgets.AutoComboboxSelectMultipleWidget
     lookup_cls = ThingLookup
@@ -199,4 +256,14 @@ class AutoComboboxSelectMultipleWidgetTestCase(BaseWidgetTestCase):
             self.assertTrue(ev in rendered_value,
                 "Did not find:\n\t%s\nin rendered value:\n\t%s" % (ev, rendered_value))
 
+    def test_update_query_parameters(self):
+        params = {'active': 1} 
+        widget = self.get_widget_instance()
+        widget.update_query_parameters(params)
+        sub_widget = widget.widgets[0]
+        attrs = sub_widget.build_attrs()
+        url = attrs['data-selectable-url']
+        parse = urlparse(url)
+        query = parse.query
+        self.assertEqual(query, urlencode(params))
 

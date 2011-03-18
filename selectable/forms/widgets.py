@@ -52,7 +52,13 @@ class AutoCompleteWidget(forms.TextInput, SelectableMediaMixin):
         return attrs
 
 
-class AutoCompleteSelectWidget(forms.MultiWidget, SelectableMediaMixin):
+class SelectableMultiWidget(forms.MultiWidget):
+
+    def update_query_parameters(self, qs_dict):
+        self.widgets[0].update_query_parameters(qs_dict)
+
+
+class AutoCompleteSelectWidget(SelectableMultiWidget, SelectableMediaMixin):
 
     def __init__(self, lookup_class, *args, **kwargs):
         self.lookup_class = lookup_class
@@ -62,9 +68,6 @@ class AutoCompleteSelectWidget(forms.MultiWidget, SelectableMediaMixin):
             forms.HiddenInput(attrs={u'data-selectable-type': 'hidden'})
         ]
         super(AutoCompleteSelectWidget, self).__init__(widgets, *args, **kwargs)
-
-    def update_query_parameters(self, qs_dict):
-        self.widgets[0].update_query_parameters(qs_dict)
 
     def decompress(self, value):
         if value:
@@ -83,7 +86,7 @@ class AutoComboboxWidget(AutoCompleteWidget, SelectableMediaMixin):
         return attrs
 
 
-class AutoComboboxSelectWidget(forms.MultiWidget, SelectableMediaMixin):
+class AutoComboboxSelectWidget(SelectableMultiWidget, SelectableMediaMixin):
 
     def __init__(self, lookup_class, *args, **kwargs):
         self.lookup_class = lookup_class
@@ -93,9 +96,6 @@ class AutoComboboxSelectWidget(forms.MultiWidget, SelectableMediaMixin):
             forms.HiddenInput(attrs={u'data-selectable-type': 'hidden'})
         ]
         super(AutoComboboxSelectWidget, self).__init__(widgets, *args, **kwargs)
-
-    def update_query_parameters(self, qs_dict):
-        self.widgets[0].update_query_parameters(qs_dict)
 
     def decompress(self, value):
         if value:
@@ -136,7 +136,7 @@ class LookupMultipleHiddenInput(forms.MultipleHiddenInput):
         return attrs
 
 
-class AutoCompleteSelectMultipleWidget(forms.MultiWidget, SelectableMediaMixin):
+class AutoCompleteSelectMultipleWidget(SelectableMultiWidget, SelectableMediaMixin):
 
     def __init__(self, lookup_class, *args, **kwargs):
         self.lookup_class = lookup_class
@@ -145,9 +145,6 @@ class AutoCompleteSelectMultipleWidget(forms.MultiWidget, SelectableMediaMixin):
             LookupMultipleHiddenInput(lookup_class)
         ]
         super(AutoCompleteSelectMultipleWidget, self).__init__(widgets, *args, **kwargs)
-
-    def update_query_parameters(self, qs_dict):
-        self.widgets[0].update_query_parameters(qs_dict)
 
     def decompress(self, value):
         if value and isinstance(value, list) and len(value) == 2 and isinstance(value[1], list):
@@ -163,7 +160,7 @@ class AutoCompleteSelectMultipleWidget(forms.MultiWidget, SelectableMediaMixin):
         return super(AutoCompleteSelectMultipleWidget, self).render(name, value, attrs)
 
 
-class AutoComboboxSelectMultipleWidget(forms.MultiWidget, SelectableMediaMixin):
+class AutoComboboxSelectMultipleWidget(SelectableMultiWidget, SelectableMediaMixin):
 
     def __init__(self, lookup_class, *args, **kwargs):
         self.lookup_class = lookup_class
@@ -172,9 +169,6 @@ class AutoComboboxSelectMultipleWidget(forms.MultiWidget, SelectableMediaMixin):
             LookupMultipleHiddenInput(lookup_class)
         ]
         super(AutoComboboxSelectMultipleWidget, self).__init__(widgets, *args, **kwargs)
-
-    def update_query_parameters(self, qs_dict):
-        self.widgets[0].update_query_parameters(qs_dict)
 
     def decompress(self, value):
         if value and isinstance(value, list) and len(value) == 2 and isinstance(value[1], list):
