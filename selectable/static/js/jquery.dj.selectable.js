@@ -69,12 +69,12 @@
                         $(input).val("");
 		                $(input).data("autocomplete").term = "";
                         if ($(hiddenSelector + '[value=' + ui.item.id + ']').length === 0) {
-                            // TODO: This won't work in IE...
-                            var newInput = $('<input>').attr({
-                                type: 'hidden',
-                                name: hiddenName,
-                                value: ui.item.id,
-                                title: ui.item.value
+                            var newInput = $('<input />', {
+                                'type': 'hidden',
+                                'name': hiddenName,
+                                'value': ui.item.id,
+                                'title': ui.item.value,
+                                'data-selectable-type': 'hidden-multiple'
                             });
                             $(input).after(newInput);
                             $('<li>')
