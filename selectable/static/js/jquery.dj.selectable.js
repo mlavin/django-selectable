@@ -42,7 +42,7 @@
                             })
                             .click(function() {
                                 $(elem).remove();
-                                $(this).parents('li').remove();
+                                $(this).closest('li').remove();
                             })
                         )
                     );
@@ -102,7 +102,7 @@
                                     })
                                     .click(function() {
                                         newInput.remove();
-                                        $(this).parents('li').remove();
+                                        $(this).closest('li').remove();
                                     })
                                 )
                             );
