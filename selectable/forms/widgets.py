@@ -150,6 +150,8 @@ class AutoCompleteSelectMultipleWidget(forms.MultiWidget, SelectableMediaMixin):
         self.widgets[0].update_query_parameters(qs_dict)
 
     def decompress(self, value):
+        if value and isinstance(value, list) and len(value) == 2 and isinstance(value[1], list):
+            return value
         if value:
             if not hasattr(value, '__iter__'):
                 value = [value]
@@ -175,6 +177,8 @@ class AutoComboboxSelectMultipleWidget(forms.MultiWidget, SelectableMediaMixin):
         self.widgets[0].update_query_parameters(qs_dict)
 
     def decompress(self, value):
+        if value and isinstance(value, list) and len(value) == 2 and isinstance(value[1], list):
+            return value
         if value:
             if not hasattr(value, '__iter__'):
                 value = [value]
