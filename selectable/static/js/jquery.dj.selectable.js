@@ -2,23 +2,15 @@
 	$.widget("ui.djselectable", {
         _create: function() {
             var self = $(this),
-            input = this.element,
-            type = $(input).attr('data-selectable-type');
-            
-            var allowAttr = $(input).attr('data-selectable-allow-new');
-            var allowNew = false;
-            if (typeof allowAttr !== 'undefined' && allowAttr === 'true') {
-                allowNew = true;
-            }
-
-            var multipleAttr = $(input).attr('data-selectable-multiple');
-            var allowMultiple = false;
+            input = this.element;
+            var data = $(input).data();
+            var allowNew = data['selectable-allow-new'];
+            var allowMultiple = data['selectable-multiple'];
             var deck = null;
             var textName = $(input).attr('name');
             var hiddenName = textName.replace('_0', '_1');
             var hiddenSelector = 'input[type=hidden][data-selectable-type=hidden-multiple][name=' + hiddenName + ']';
-            if (typeof multipleAttr !== 'undefined' && multipleAttr === 'true') {
-                allowMultiple = true;
+            if (allowMultiple) {
                 allowNew = false;
                 $(input).val("");
                 deck = $('<ul>').addClass('ui-widget selectable-deck');
@@ -49,7 +41,7 @@
             }
 
             function dataSource(request, response) {
-                var url = $(input).attr('data-selectable-url');
+                var url = data['selectable-url'];
                 var now = new Date().getTime();
 				$.getJSON(url, {
 					term: request.term,
@@ -110,7 +102,7 @@
                     }
                 }
             }).addClass("ui-widget ui-widget-content ui-corner-all");
-            if (type === 'combobox') {
+            if (data['selectable-type'] === 'combobox') {
                 // Change auto-complete options
                 $(input).autocomplete("option", {
                     delay: 0,
