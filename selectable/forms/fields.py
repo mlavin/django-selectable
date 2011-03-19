@@ -67,29 +67,18 @@ class AutoCompleteSelectMultipleField(forms.Field):
         kwargs['widget'] = self.widget(lookup_class)
         super(AutoCompleteSelectMultipleField, self).__init__(*args, **kwargs)
 
-
     def to_python(self, value):
         if value in EMPTY_VALUES:
             return None
-        if isinstance(value, list):
-            # Input comes from an AutoComplete widget. It's two
-            # components: text and id
-            if len(value) != 2:
-                raise ValidationError(self.error_messages['invalid_choice'])
-            lookup =self.lookup_class()
-            if value[1] in EMPTY_VALUES:
-                return None
-            else:
-                ids = value[1]
-                if not isinstance(ids, list):
-                    ids = [ids]
-                value = []
-                for v in ids:
-                    item = lookup.get_item(v)
-                    if item is None:
-                        raise ValidationError(self.error_messages['invalid_choice'])
-                    value.append(item)
-        return value
+        lookup = self.lookup_class()
+        items = []
+        for v in value:
+            if v not in EMPTY_VALUES:
+                item = lookup.get_item(v)
+                if item is None:
+                    raise ValidationError(self.error_messages['invalid_choice'])
+                items.append(item)
+        return items
 
 
 class AutoComboboxSelectMultipleField(AutoCompleteSelectMultipleField):

@@ -9,6 +9,9 @@ def index(request):
     if request.method == 'POST':
         form = FruitForm(request.POST)
     else:
-        form = FruitForm()
+        if request.GET:
+            form = FruitForm(initial=request.GET)
+        else:
+            form = FruitForm()
 
     return render_to_response('base.html', {'form': form}, context_instance=RequestContext(request))

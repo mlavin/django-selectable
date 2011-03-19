@@ -82,16 +82,15 @@ class AutoCompleteSelectMultipleFieldTestCase(BaseFieldTestCase):
     def test_clean(self):
         thing = self.create_thing()
         field = self.get_field_instance()
-        value = field.clean([thing.name, thing.id])
+        value = field.clean([thing.id])
         self.assertEqual([thing], value)
 
     def test_clean_multiple(self):
         thing = self.create_thing()
         other_thing = self.create_thing()
         field = self.get_field_instance()
-        names = [thing.name, other_thing.name]
         ids = [thing.id, other_thing.id]
-        value = field.clean([names, ids])
+        value = field.clean(ids)
         self.assertEqual([thing, other_thing], value)
 
 
@@ -105,15 +104,14 @@ class AutoComboboxSelectMultipleFieldTestCase(BaseFieldTestCase):
     def test_clean(self):
         thing = self.create_thing()
         field = self.get_field_instance()
-        value = field.clean([thing.name, thing.id])
+        value = field.clean([thing.id])
         self.assertEqual([thing], value)
 
     def test_clean_multiple(self):
         thing = self.create_thing()
         other_thing = self.create_thing()
         field = self.get_field_instance()
-        names = [thing.name, other_thing.name]
         ids = [thing.id, other_thing.id]
-        value = field.clean([names, ids])
+        value = field.clean(ids)
         self.assertEqual([thing, other_thing], value)
 

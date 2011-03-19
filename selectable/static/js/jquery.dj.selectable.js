@@ -4,7 +4,7 @@
             var self = $(this),
             input = this.element;
             type = $(input).attr('data-selectable-type');
-            url = $(input).attr('data-selectable-url');
+            
             
             var allowAttr = $(input).attr('data-selectable-allow-new');
             var allowNew = false;

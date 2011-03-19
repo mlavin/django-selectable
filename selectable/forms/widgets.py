@@ -72,7 +72,12 @@ class AutoCompleteSelectWidget(SelectableMultiWidget, SelectableMediaMixin):
     def decompress(self, value):
         if value:
             lookup = self.lookup_class()
-            item = lookup.get_item(value)
+            model = getattr(self.lookup_class, 'model', None)
+            if model and isinstance(value, model):
+                item = value
+                value = lookup.get_item_id(item)
+            else:
+                item = lookup.get_item(value)
             item_value = lookup.get_item_value(item)
             return [item_value, value]
         return [None, None]
@@ -100,7 +105,12 @@ class AutoComboboxSelectWidget(SelectableMultiWidget, SelectableMediaMixin):
     def decompress(self, value):
         if value:
             lookup = self.lookup_class()
-            item = lookup.get_item(value)
+            model = getattr(self.lookup_class, 'model', None)
+            if model and isinstance(value, model):
+                item = value
+                value = lookup.get_item_id(item)
+            else:
+                item = lookup.get_item(value)
             item_value = lookup.get_item_value(item)
             return [item_value, value]
         return [None, None]
@@ -118,14 +128,19 @@ class LookupMultipleHiddenInput(forms.MultipleHiddenInput):
         final_attrs = self.build_attrs(attrs, type=self.input_type, name=name)
         id_ = final_attrs.get('id', None)
         inputs = []
+        model = getattr(self.lookup_class, 'model', None)
         for i, v in enumerate(value):
+            item = None
+            if model and isinstance(v, model):
+                item = v
+                v = lookup.get_item_id(item)
             input_attrs = dict(value=force_unicode(v), **final_attrs)
             if id_:
                 # An ID attribute was given. Add a numeric index as a suffix
                 # so that the inputs don't all have the same ID attribute.
                 input_attrs['id'] = '%s_%s' % (id_, i)
             if v:
-                item = lookup.get_item(v)
+                item = item or lookup.get_item(v)
                 input_attrs['title'] = lookup.get_item_value(item)
             inputs.append(u'<input%s />' % flatatt(input_attrs))
         return mark_safe(u'\n'.join(inputs))
@@ -146,17 +161,13 @@ class AutoCompleteSelectMultipleWidget(SelectableMultiWidget, SelectableMediaMix
         ]
         super(AutoCompleteSelectMultipleWidget, self).__init__(widgets, *args, **kwargs)
 
-    def decompress(self, value):
-        if value and isinstance(value, list) and len(value) == 2 and isinstance(value[1], list):
-            return value
-        if value:
-            if not hasattr(value, '__iter__'):
-                value = [value]
-            return [None, value]
-        return [None, None]
+    def value_from_datadict(self, data, files, name):
+        return self.widgets[1].value_from_datadict(data, files, name + '_1')
 
     def render(self, name, value, attrs=None):
-        value = self.decompress(value)
+        if value and not hasattr(value, '__iter__'):
+            value = [value]
+        value = [u'', value]
         return super(AutoCompleteSelectMultipleWidget, self).render(name, value, attrs)
 
 
@@ -170,16 +181,12 @@ class AutoComboboxSelectMultipleWidget(SelectableMultiWidget, SelectableMediaMix
         ]
         super(AutoComboboxSelectMultipleWidget, self).__init__(widgets, *args, **kwargs)
 
-    def decompress(self, value):
-        if value and isinstance(value, list) and len(value) == 2 and isinstance(value[1], list):
-            return value
-        if value:
-            if not hasattr(value, '__iter__'):
-                value = [value]
-            return [None, value]
-        return [None, None]
+    def value_from_datadict(self, data, files, name):
+        return self.widgets[1].value_from_datadict(data, files, name + '_1')
 
     def render(self, name, value, attrs=None):
-        value = self.decompress(value)
+        if value and not hasattr(value, '__iter__'):
+            value = [value]
+        value = [u'', value]
         return super(AutoComboboxSelectMultipleWidget, self).render(name, value, attrs)
 
