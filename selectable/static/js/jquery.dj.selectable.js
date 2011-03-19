@@ -2,9 +2,8 @@
 	$.widget("ui.djselectable", {
         _create: function() {
             var self = $(this),
-            input = this.element;
+            input = this.element,
             type = $(input).attr('data-selectable-type');
-            
             
             var allowAttr = $(input).attr('data-selectable-allow-new');
             var allowNew = false;
@@ -50,6 +49,7 @@
             }
 
             function dataSource(request, response) {
+                var url = $(input).attr('data-selectable-url');
                 var now = new Date().getTime();
 				$.getJSON(url, {
 					term: request.term,
