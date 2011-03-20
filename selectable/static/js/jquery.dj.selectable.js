@@ -1,5 +1,10 @@
 (function($) {
 	$.widget("ui.djselectable", {
+
+        options: {
+            removeIcon: "ui-icon-close",
+            comboboxIcon: "ui-icon-triangle-1-s"
+        },
         
         _initDeck: function(hiddenInputs) {
             var self = this;
@@ -11,6 +16,7 @@
         },
 
         _addDeckItem: function(input) {
+            var self = this;
             $('<li>')
             .text($(input).attr('title'))
             .addClass('selectable-deck-item')
@@ -22,13 +28,14 @@
                     $('<button>')
                     .button({
                         icons: {
-                            primary: "ui-icon-close"
+                            primary: self.options.removeIcon
                         },
                         text: false
                     })
                     .click(function() {
                         $(input).remove();
                         $(this).closest('li').remove();
+                        return false;
                     })
                 )
             );
@@ -105,7 +112,7 @@
                 .insertAfter($(input))
                 .button({
                     icons: {
-                        primary: "ui-icon-triangle-1-s"
+                        primary: self.options.comboboxIcon
                     },
                     text: false
                 })
@@ -128,10 +135,10 @@
 	});
 })(jQuery);
 
-$(document).ready(function() {
-    $(":input[data-selectable-type=text]").djselectable();
-    $(":input[data-selectable-type=combobox]").djselectable();
-    $(":input[data-selectable-type=hidden]").each(function(i, elem) {
+function bindSelectables(context) {
+    $(":input[data-selectable-type=text]", context).djselectable();
+    $(":input[data-selectable-type=combobox]", context).djselectable();
+    $(":input[data-selectable-type=hidden]", context).each(function(i, elem) {
         var hiddenName = $(elem).attr('name');
         var textName = hiddenName.replace('_1', '_0');
         $(":input[name=" + textName + "][data-selectable-url]").bind("autocompletechange", function(event, ui) {
@@ -142,4 +149,8 @@ $(document).ready(function() {
             }
         });
     });
+}
+
+$(document).ready(function() {
+    bindSelectables('body');
 });
