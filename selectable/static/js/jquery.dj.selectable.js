@@ -1,43 +1,52 @@
 (function($) {
 	$.widget("ui.djselectable", {
+        
+        _initDeck: function(hiddenInputs) {
+            var self = this;
+            this.deck = $('<ul>').addClass('ui-widget selectable-deck');
+            $(this.element).after(this.deck);
+            $(hiddenInputs).each(function(i, input) {
+                self._addDeckItem(input);
+            });
+        },
+
+        _addDeckItem: function(input) {
+            $('<li>')
+            .text($(input).attr('title'))
+            .addClass('selectable-deck-item')
+            .appendTo(this.deck)
+            .append(
+                $('<div>')
+                .addClass('selectable-deck-remove')
+                .append(
+                    $('<button>')
+                    .button({
+                        icons: {
+                            primary: "ui-icon-close"
+                        },
+                        text: false
+                    })
+                    .click(function() {
+                        $(input).remove();
+                        $(this).closest('li').remove();
+                    })
+                )
+            );
+        },
+
         _create: function() {
-            var self = $(this),
+            var self = this,
             input = this.element;
             var data = $(input).data();
             var allowNew = data['selectable-allow-new'];
             var allowMultiple = data['selectable-multiple'];
-            var deck = null;
             var textName = $(input).attr('name');
             var hiddenName = textName.replace('_0', '_1');
             var hiddenSelector = 'input[type=hidden][data-selectable-type=hidden-multiple][name=' + hiddenName + ']';
             if (allowMultiple) {
                 allowNew = false;
                 $(input).val("");
-                deck = $('<ul>').addClass('ui-widget selectable-deck');
-                $(input).after(deck);
-                $(hiddenSelector).each(function(i, elem) {
-                    $('<li>')
-                    .text($(elem).attr('title'))
-                    .addClass('selectable-deck-item')
-                    .appendTo(deck)
-                    .append(
-                        $('<div>')
-                        .addClass('selectable-deck-remove')
-                        .append(
-                            $('<button>')
-                            .button({
-                                icons: {
-                                    primary: "ui-icon-close"
-                                },
-                                text: false
-                            })
-                            .click(function() {
-                                $(elem).remove();
-                                $(this).closest('li').remove();
-                            })
-                        )
-                    );
-                });
+                this._initDeck(hiddenSelector);
             }
 
             function dataSource(request, response) {
@@ -52,19 +61,19 @@
             $(input).autocomplete({
                 source: dataSource,
                 change: function(event, ui) {
+                    $(input).removeClass('ui-state-error');
                     if (!ui.item) {
                         if (!allowNew) {
-                            $(input).val("");
-			                $(input).data("autocomplete").term = "";
-			                return false;
+                            $(input).addClass('ui-state-error');
                         } 
                     } 
-                    if (allowMultiple) {
+                    if (allowMultiple && !$(input).hasClass('ui-state-error')) {
                         $(input).val("");
 	                    $(input).data("autocomplete").term = "";
                     }
                 },
                 select: function(event, ui) {
+                    $(input).removeClass('ui-state-error');
                     if (ui.item && allowMultiple) {
                         $(input).val("");
 		                $(input).data("autocomplete").term = "";
@@ -77,27 +86,8 @@
                                 'data-selectable-type': 'hidden-multiple'
                             });
                             $(input).after(newInput);
-                            $('<li>')
-                            .text(ui.item.value)
-                            .addClass('selectable-deck-item')
-                            .appendTo(deck)
-                            .append(
-                                $('<div>')
-                                .addClass('selectable-deck-remove')
-                                .append(
-                                    $('<button>')
-                                    .button({
-                                        icons: {
-                                            primary: "ui-icon-close"
-                                        },
-                                        text: false
-                                    })
-                                    .click(function() {
-                                        newInput.remove();
-                                        $(this).closest('li').remove();
-                                    })
-                                )
-                            );
+                            self._addDeckItem(newInput);
+                            return false;
                         }
                     }
                 }
