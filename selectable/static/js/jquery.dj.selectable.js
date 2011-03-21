@@ -69,7 +69,7 @@
                 source: dataSource,
                 change: function(event, ui) {
                     $(input).removeClass('ui-state-error');
-                    if (!ui.item) {
+                    if ($(input).val() && !ui.item) {
                         if (!allowNew) {
                             $(input).addClass('ui-state-error');
                         } 
