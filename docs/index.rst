@@ -10,6 +10,7 @@ Contents:
     lookups
     fields
     widgets
+    releases
 
 
 Indices and tables
