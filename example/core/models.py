@@ -13,3 +13,5 @@ class Farm(models.Model):
     owner = models.ForeignKey('auth.User', related_name='farms')
     fruit = models.ManyToManyField(Fruit)
 
+    def __unicode__(self):
+        return u"%s's Farm: %s" % (self.owner.username, self.name)
