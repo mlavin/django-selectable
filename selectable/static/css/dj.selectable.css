@@ -1,10 +1,13 @@
-ul.selectable-deck {
+ul.selectable-deck, ul.ui-autocomplete {
     list-style: none outside none;
 }
-ul.selectable-deck li.selectable-deck-item {
+ul.selectable-deck li.selectable-deck-item,
+ul.ui-autocomplete li.ui-menu-item {
     margin: 0;
     padding: 0.4em;
+    list-style-type: none;
 }
 ul.selectable-deck li.selectable-deck-item .selectable-deck-remove {
     float: right;
 }
+
