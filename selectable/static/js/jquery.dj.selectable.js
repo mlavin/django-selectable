@@ -151,6 +151,25 @@ function bindSelectables(context) {
     });
 }
 
+if (typeof(django) != "undefined" && typeof(django.jQuery) != "undefined") {
+    if (django.jQuery.fn.formset) {
+        var oldformset = django.jQuery.fn.formset;
+	    django.jQuery.fn.formset = function(opts) {
+            var options = $.extend({}, opts);
+            var addedevent = function(row) {
+                bindSelectables($(row));
+            };
+            var added = null;
+            if (options.added) {
+                var oldadded = options.added;
+                added = function(row) { oldadded(row); addedevent(row); };
+            }
+            options.added = added || addedevent;
+            return oldformset.call(this, options);
+        }
+    }
+}
+
 $(document).ready(function() {
     bindSelectables('body');
 });
