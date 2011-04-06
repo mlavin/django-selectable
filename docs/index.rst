@@ -10,6 +10,7 @@ Contents:
     lookups
     fields
     widgets
+    admin
     releases
 
 

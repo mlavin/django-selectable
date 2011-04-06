@@ -4,7 +4,6 @@ from django.contrib.auth.models import User
 from django import forms
 
 import selectable.forms as selectable
-from selectable.forms.widgets import MEDIA_PREFIX
 
 from example.core.models import Fruit, Farm
 from example.core.lookups import FruitLookup, OwnerLookup
@@ -18,13 +17,19 @@ class FarmAdminForm(forms.ModelForm):
         widgets = {
             'fruit': selectable.AutoCompleteSelectMultipleWidget(lookup_class=FruitLookup),
         }
+        exclude = ('owner', )
 
-    def clean(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
+        super(FarmAdminForm, self).__init__(*args, **kwargs)
+        if self.instance and self.instance.pk and self.instance.owner:
+            self.initial['owner'] = self.instance.owner
+
+    def save(self, *args, **kwargs):
         owner = self.cleaned_data['owner']
         if owner and not owner.pk:
             owner = User.objects.create_user(username=owner.username, email='')
-            self.cleaned_data['owner'] = owner
-        return self.cleaned_data
+        self.instance.owner = owner
+        return super(FarmAdminForm, self).save(*args, **kwargs)
 
 
 class FarmAdmin(admin.ModelAdmin):
