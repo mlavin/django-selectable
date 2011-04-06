@@ -151,6 +151,14 @@ function bindSelectables(context) {
     });
 }
 
+if (typeof(django) != "undefined" && typeof(django.jQuery) != "undefined") {
+    if (django.jQuery.fn.formset) {
+        django.jQuery('.add-row a').live('formsetadd', function(e, row) {
+            bindSelectables($(row));
+        });
+    }
+}
+
 $(document).ready(function() {
     bindSelectables('body');
 });
