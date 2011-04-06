@@ -10,4 +10,17 @@ ul.ui-autocomplete li.ui-menu-item {
 ul.selectable-deck li.selectable-deck-item .selectable-deck-remove {
     float: right;
 }
-
+ul.selectable-deck-bottom-inline,
+ul.selectable-deck-top-inline {
+    padding: 0;
+}
+ul.selectable-deck-bottom-inline li.selectable-deck-item,
+ul.selectable-deck-top-inline li.selectable-deck-item {
+    display: inline;
+}
+ul.selectable-deck-bottom-inline li.selectable-deck-item .selectable-deck-remove,
+ul.selectable-deck-top-inline li.selectable-deck-item .selectable-deck-remove {
+    margin-left: 0.4em;
+    display: inline;
+    float: none;
+}

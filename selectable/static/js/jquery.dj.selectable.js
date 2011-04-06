@@ -8,8 +8,14 @@
         
         _initDeck: function(hiddenInputs) {
             var self = this;
-            this.deck = $('<ul>').addClass('ui-widget selectable-deck');
-            $(this.element).after(this.deck);
+            var data = $(this.element).data();
+            var style = data['selectable-position'] || 'bottom';
+            this.deck = $('<ul>').addClass('ui-widget selectable-deck selectable-deck-' + style);
+            if (style === 'bottom' || style === 'bottom-inline') {
+                $(this.element).after(this.deck);
+            } else {
+                $(this.element).before(this.deck);
+            }
             $(hiddenInputs).each(function(i, input) {
                 self._addDeckItem(input);
             });
