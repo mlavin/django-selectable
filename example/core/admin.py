@@ -35,9 +35,6 @@ class FarmInline(admin.TabularInline):
     model = Farm
     form = FarmAdminForm
 
-    class Media(object):
-        js = ('%sjs/inlines.js' % MEDIA_PREFIX, )
-
 
 class NewUserAdmin(UserAdmin):
     inlines = [
