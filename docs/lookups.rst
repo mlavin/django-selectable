@@ -103,7 +103,7 @@ For this you can extend `selectable.base.ModelLookup`. To extend `ModelLookup` y
 should set two class attributes: `model` and `search_field`.
 
     .. literalinclude:: ../example/core/lookups.py
-        :lines: 1-10
+        :pyobject: FruitLookup
 
 The syntax for `search_field` is the same as the Django 
 `field lookup syntax <http://docs.djangoproject.com/en/1.2/ref/models/querysets/#field-lookups>`_. 

@@ -18,12 +18,12 @@ The lookup classes define the backend views. The most common case is defining a
 lookup which searchs models based on a particular field. Let's define a simple model:
 
     .. literalinclude:: ../example/core/models.py
-        :lines: 1-10
+        :pyobject: Fruit
 
 In a `lookups.py` we will define our lookup:
 
     .. literalinclude:: ../example/core/lookups.py
-        :lines: 1-10
+        :pyobject: FruitLookup
 
 This lookups extends `selectable.base.ModelLookup` and defines two things: one is
 the model on which we will be searching and the other is the field which we are searching.
@@ -32,8 +32,9 @@ for making queries in Django.
 
 Below this definition we will register our lookup class.
 
-    .. literalinclude:: ../example/core/lookups.py
-        :lines: 12
+    .. code-block:: python
+
+        registry.register(FruitLookup)
 
 
 Defining Forms
@@ -42,7 +43,8 @@ Defining Forms
 Now that we have a working lookup we will define a form which uses it:
 
     .. literalinclude:: ../example/core/forms.py
-        :lines: 1-13
+        :pyobject: FruitForm
+        :end-before: newautocomplete
 
 This replaces the default widget for the `CharField` with the `AutoCompleteWidget`.
 This will allow the user to fill this field with values taken from the names of
