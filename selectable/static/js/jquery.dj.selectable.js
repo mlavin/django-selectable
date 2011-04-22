@@ -68,7 +68,7 @@
                 var now = new Date().getTime();
                 var query = {term: request.term, timestamp: now};
                 if (self.options.prepareQuery) {
-                    self.options.prepareQuery(request, query);
+                    self.options.prepareQuery(query);
                 }
 				$.getJSON(url, query, response);
             }
