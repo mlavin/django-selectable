@@ -3,7 +3,8 @@
 
         options: {
             removeIcon: "ui-icon-close",
-            comboboxIcon: "ui-icon-triangle-1-s"
+            comboboxIcon: "ui-icon-triangle-1-s",
+            prepareQuery: null
         },
         
         _initDeck: function(hiddenInputs) {
@@ -65,10 +66,11 @@
             function dataSource(request, response) {
                 var url = data['selectable-url'];
                 var now = new Date().getTime();
-				$.getJSON(url, {
-					term: request.term,
-                    timestamp: now
-				}, response);
+                var query = {term: request.term, timestamp: now};
+                if (self.options.prepareQuery) {
+                    self.options.prepareQuery(request, query);
+                }
+				$.getJSON(url, query, response);
             }
 
             $(input).autocomplete({
