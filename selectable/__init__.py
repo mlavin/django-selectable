@@ -4,10 +4,9 @@ django-selectable is a collection of tools and widgets for using/creating auto-c
 
 __version_info__ = {
     'major': 0,
-    'minor': 1,
-    'micro': 1,
-    'releaselevel': 'final',
-    'serial': 1
+    'minor': 2,
+    'micro': 0,
+    'releaselevel': 'beta',
 }
 
 def get_version():
@@ -19,7 +18,7 @@ def get_version():
     if __version_info__['micro']:
         vers.append(".%(micro)i" % __version_info__)
     if __version_info__['releaselevel'] != 'final':
-        vers.append('%(releaselevel)s%(serial)i' % __version_info__)
+        vers.append('%(releaselevel)s' % __version_info__)
     return ''.join(vers)
 
 __version__ = get_version()
