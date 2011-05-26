@@ -1,6 +1,15 @@
 Release Notes
 ==================
 
+v0.1.2
+--------------------------------------
+
+Bug Fixes
+_________________
+
+- Fixed issue `#17 <https://bitbucket.org/mlavin/django-selectable/issue/17/update-not-working>`_
+
+
 v0.1.1
 --------------------------------------
 
