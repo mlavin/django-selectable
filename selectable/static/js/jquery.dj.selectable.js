@@ -10,7 +10,7 @@
         _initDeck: function(hiddenInputs) {
             var self = this;
             var data = $(this.element).data();
-            var style = data['selectable-position'] || 'bottom';
+            var style = data.selectablePosition || data['selectable-position'] || 'bottom';
             this.deck = $('<ul>').addClass('ui-widget selectable-deck selectable-deck-' + style);
             if (style === 'bottom' || style === 'bottom-inline') {
                 $(this.element).after(this.deck);
@@ -52,8 +52,8 @@
             var self = this,
             input = this.element;
             var data = $(input).data();
-            var allowNew = data['selectable-allow-new'];
-            var allowMultiple = data['selectable-multiple'];
+            var allowNew = data.selectableAllowNew || data['selectable-allow-new'];
+            var allowMultiple = data.selectableMultiple || data['selectable-multiple'];
             var textName = $(input).attr('name');
             var hiddenName = textName.replace('_0', '_1');
             var hiddenSelector = 'input[type=hidden][data-selectable-type=hidden-multiple][name=' + hiddenName + ']';
@@ -64,7 +64,7 @@
             }
 
             function dataSource(request, response) {
-                var url = data['selectable-url'];
+                var url = data.selectableUrl || data['selectable-url'];
                 var now = new Date().getTime();
                 var query = {term: request.term, timestamp: now};
                 if (self.options.prepareQuery) {
@@ -107,7 +107,8 @@
                     }
                 }
             }).addClass("ui-widget ui-widget-content ui-corner-all");
-            if (data['selectable-type'] === 'combobox') {
+            var selectableType = data.selectableType || data['selectable-type'];
+            if (selectableType === 'combobox') {
                 // Change auto-complete options
                 $(input).autocomplete("option", {
                     delay: 0,
@@ -177,7 +178,7 @@ if (typeof(django) != "undefined" && typeof(django.jQuery) != "undefined") {
             }
             options.added = added || addedevent;
             return oldformset.call(this, options);
-        }
+        };
     }
 }
 
