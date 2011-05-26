@@ -12,6 +12,25 @@ on `overriding the default widgets <http://docs.djangoproject.com/en/1.3/topics/
 is the same as working with regular forms.
 
 
+Including jQuery & jQuery UI
+--------------------------------------
+
+As noted :ref:`in the quick start guide <start-include-jquery>`, the jQuery and jQuery UI libraries 
+are not included in the distribution but must be included in your templates. For the
+Django admin that means overriding 
+`admin/base_site.html <https://code.djangoproject.com/browser/django/trunk/django/contrib/admin/templates/admin/base_site.html>`_.
+You can include this media in the block name `extrahead` which is defined in
+`admin/base.html <https://code.djangoproject.com/browser/django/trunk/django/contrib/admin/templates/admin/base.html>`_.
+
+    .. literalinclude:: ../example/templates/admin/base_site.html
+        :start-after: {% endblock title %}
+        :end-before: {% block branding %}
+
+See the Django documentation on
+`overriding admin templates <https://docs.djangoproject.com/en/1.3/ref/contrib/admin/#overriding-admin-templates>`_.
+See the example project for the full template example.
+
+
 Basic Example
 --------------------------------------
 

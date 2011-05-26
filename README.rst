@@ -28,7 +28,7 @@ To install::
 If you are using `django-staticfiles` (or `django.contrib.staticfiles` in Django 1.3) then
 add `selectable` to your `INSTALLED_APPS` to include the related css/js.
 
-The jQuery and jQuery UI libraries are not included in the distribution but should be included
+The jQuery and jQuery UI libraries are not included in the distribution but must be included
 in your templates. See the example project for an example using these libraries from the
 Google CDN.
 
