@@ -106,7 +106,7 @@ should set two class attributes: `model` and `search_field`.
         :pyobject: FruitLookup
 
 The syntax for `search_field` is the same as the Django 
-`field lookup syntax <http://docs.djangoproject.com/en/1.2/ref/models/querysets/#field-lookups>`_. 
+`field lookup syntax <http://docs.djangoproject.com/en/1.3/ref/models/querysets/#field-lookups>`_. 
 You may optionally define a third class attribute `filters` which is a dictionary of
 filters to be applied to the model queryset. The keys should be a string defining a field lookup
 and the value should be the value for the field lookup.

@@ -7,8 +7,8 @@ The workflow for using `django-selectable` involves two main parts:
 
 This guide assumes that you have a basic knowledge of creating Django models and
 forms. If not you should first read through the documentation on
-`defining models <http://docs.djangoproject.com/en/1.2/topics/db/models/>`_
-and `using forms <http://docs.djangoproject.com/en/1.2/topics/forms/>`_.
+`defining models <http://docs.djangoproject.com/en/1.3/topics/db/models/>`_
+and `using forms <http://docs.djangoproject.com/en/1.3/topics/forms/>`_.
 
 
 Defining a Lookup
@@ -27,7 +27,7 @@ In a `lookups.py` we will define our lookup:
 
 This lookups extends `selectable.base.ModelLookup` and defines two things: one is
 the model on which we will be searching and the other is the field which we are searching.
-This syntax should look familiar as it is the same as the `field lookup syntax <http://docs.djangoproject.com/en/1.2/ref/models/querysets/#field-lookups>`_
+This syntax should look familiar as it is the same as the `field lookup syntax <http://docs.djangoproject.com/en/1.3/ref/models/querysets/#field-lookups>`_
 for making queries in Django.
 
 Below this definition we will register our lookup class.
