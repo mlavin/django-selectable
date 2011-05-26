@@ -155,8 +155,13 @@ class AutoCompleteSelectMultipleWidget(SelectableMultiWidget, SelectableMediaMix
 
     def __init__(self, lookup_class, *args, **kwargs):
         self.lookup_class = lookup_class
+        position = kwargs.pop('position', 'bottom')
+        attrs = {
+            u'data-selectable-multiple': 'true',
+            u'data-selectable-position': position
+        }
         widgets = [
-            AutoCompleteWidget(lookup_class, allow_new=False, attrs={u'data-selectable-multiple': 'true'}),
+            AutoCompleteWidget(lookup_class, allow_new=False, attrs=attrs),
             LookupMultipleHiddenInput(lookup_class)
         ]
         super(AutoCompleteSelectMultipleWidget, self).__init__(widgets, *args, **kwargs)
@@ -175,8 +180,13 @@ class AutoComboboxSelectMultipleWidget(SelectableMultiWidget, SelectableMediaMix
 
     def __init__(self, lookup_class, *args, **kwargs):
         self.lookup_class = lookup_class
+        position = kwargs.pop('position', 'bottom')
+        attrs = {
+            u'data-selectable-multiple': 'true',
+            u'data-selectable-position': position
+        }
         widgets = [
-            AutoComboboxWidget(lookup_class, allow_new=False, attrs={u'data-selectable-multiple': 'true'}),
+            AutoComboboxWidget(lookup_class, allow_new=False, attrs=attrs),
             LookupMultipleHiddenInput(lookup_class)
         ]
         super(AutoComboboxSelectMultipleWidget, self).__init__(widgets, *args, **kwargs)

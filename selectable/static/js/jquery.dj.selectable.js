@@ -3,13 +3,20 @@
 
         options: {
             removeIcon: "ui-icon-close",
-            comboboxIcon: "ui-icon-triangle-1-s"
+            comboboxIcon: "ui-icon-triangle-1-s",
+            prepareQuery: null
         },
         
         _initDeck: function(hiddenInputs) {
             var self = this;
-            this.deck = $('<ul>').addClass('ui-widget selectable-deck');
-            $(this.element).after(this.deck);
+            var data = $(this.element).data();
+            var style = data['selectable-position'] || 'bottom';
+            this.deck = $('<ul>').addClass('ui-widget selectable-deck selectable-deck-' + style);
+            if (style === 'bottom' || style === 'bottom-inline') {
+                $(this.element).after(this.deck);
+            } else {
+                $(this.element).before(this.deck);
+            }
             $(hiddenInputs).each(function(i, input) {
                 self._addDeckItem(input);
             });
@@ -59,10 +66,11 @@
             function dataSource(request, response) {
                 var url = data['selectable-url'];
                 var now = new Date().getTime();
-				$.getJSON(url, {
-					term: request.term,
-                    timestamp: now
-				}, response);
+                var query = {term: request.term, timestamp: now};
+                if (self.options.prepareQuery) {
+                    self.options.prepareQuery(query);
+                }
+				$.getJSON(url, query, response);
             }
 
             $(input).autocomplete({
@@ -152,6 +160,25 @@ function bindSelectables(context) {
             }
         );
     });
+}
+
+if (typeof(django) != "undefined" && typeof(django.jQuery) != "undefined") {
+    if (django.jQuery.fn.formset) {
+        var oldformset = django.jQuery.fn.formset;
+	    django.jQuery.fn.formset = function(opts) {
+            var options = $.extend({}, opts);
+            var addedevent = function(row) {
+                bindSelectables($(row));
+            };
+            var added = null;
+            if (options.added) {
+                var oldadded = options.added;
+                added = function(row) { oldadded(row); addedevent(row); };
+            }
+            options.added = added || addedevent;
+            return oldformset.call(this, options);
+        }
+    }
 }
 
 $(document).ready(function() {

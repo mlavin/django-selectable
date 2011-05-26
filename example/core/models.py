@@ -1,4 +1,3 @@
-from django.contrib import admin
 from django.db import models
 
 
@@ -9,4 +8,10 @@ class Fruit(models.Model):
         return self.name
 
 
-admin.site.register(Fruit)
+class Farm(models.Model):
+    name = models.CharField(max_length=200)
+    owner = models.ForeignKey('auth.User', related_name='farms')
+    fruit = models.ManyToManyField(Fruit)
+
+    def __unicode__(self):
+        return u"%s's Farm: %s" % (self.owner.username, self.name)

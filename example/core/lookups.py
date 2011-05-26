@@ -1,3 +1,5 @@
+from django.contrib.auth.models import User
+
 from selectable.base import ModelLookup
 from selectable.registry import registry
 
@@ -11,3 +13,10 @@ class FruitLookup(ModelLookup):
 
 registry.register(FruitLookup)
 
+
+class OwnerLookup(ModelLookup):
+    model = User
+    search_field = 'username__icontains'
+
+
+registry.register(OwnerLookup)

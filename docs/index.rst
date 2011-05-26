@@ -8,6 +8,8 @@ Contents:
     overview
     quick-start
     lookups
+    parameters
+    admin    
     fields
     widgets
     releases

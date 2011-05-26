@@ -34,8 +34,6 @@ Google CDN.
 
 Once installed you should add the urls to your root url patterns::
 
-    .. code-block::
-
         urlpatterns = patterns('',
             # Other patterns go here
             (r'^selectable/', include('selectable.urls')),
