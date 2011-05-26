@@ -141,13 +141,16 @@ function bindSelectables(context) {
     $(":input[data-selectable-type=hidden]", context).each(function(i, elem) {
         var hiddenName = $(elem).attr('name');
         var textName = hiddenName.replace('_1', '_0');
-        $(":input[name=" + textName + "][data-selectable-url]").bind("autocompletechange", function(event, ui) {
-            if (ui.item && ui.item.id) {
-                $(elem).val(ui.item.id);
-            } else {
-                $(elem).val("");
+        $(":input[name=" + textName + "][data-selectable-url]").bind(
+            "autocompletechange autocompleteselect",
+            function(event, ui) {
+                if (ui.item && ui.item.id) {
+                    $(elem).val(ui.item.id);
+                } else {
+                    $(elem).val("");
+                }
             }
-        });
+        );
     });
 }
 
