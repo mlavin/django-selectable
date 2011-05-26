@@ -15,7 +15,8 @@ How Parameters are Passed
 
 As with the search term the additional parameters you define will be passed in
 `request.GET`. Since `get_query` gets the current request so you will have access to
-them.
+them. Since they can be manipulated on the client side, these parameters should be
+treated like all user input. It should be properly validated and sanitized.
 
 
 Adding Parameters on the Server Side
