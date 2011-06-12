@@ -1,6 +1,7 @@
 import random
 import string
 
+from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.test import TestCase
 
@@ -10,6 +11,20 @@ from selectable.tests import Thing
 __all__ = (
     'ModelLookupTestCase',
 )
+
+
+class PatchSettingsMixin(object):
+    def setUp(self):
+        super(PatchSettingsMixin, self).setUp()
+        self.is_limit_set = hasattr(settings, 'SELECTABLE_MAX_LIMIT')
+        if self.is_limit_set:
+            self.original_limit = settings.SELECTABLE_MAX_LIMIT
+        settings.SELECTABLE_MAX_LIMIT = 25
+
+    def tearDown(self):
+        super(PatchSettingsMixin, self).tearDown()
+        if self.is_limit_set:
+            settings.SELECTABLE_MAX_LIMIT = self.original_limit
 
 
 class BaseSelectableTestCase(TestCase):

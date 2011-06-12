@@ -1,9 +1,10 @@
+from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseNotFound, HttpResponseServerError
 from django.utils import simplejson as json
 
 from selectable.tests import ThingLookup
-from selectable.tests.base import BaseSelectableTestCase
+from selectable.tests.base import BaseSelectableTestCase, PatchSettingsMixin
 
 
 __all__ = (
@@ -19,7 +20,7 @@ def test_500(request):
     return HttpResponseServerError()
 
 
-class SelectableViewTest(BaseSelectableTestCase):
+class SelectableViewTest(PatchSettingsMixin, BaseSelectableTestCase):
     
     def setUp(self):
         super(SelectableViewTest, self).setUp()
@@ -56,4 +57,13 @@ class SelectableViewTest(BaseSelectableTestCase):
         unknown_url = reverse('selectable-lookup', args=["XXXXXXX"])
         response = self.client.get(unknown_url)
         self.assertEqual(response.status_code, 404)
+
+    def test_basic_limit(self):
+        for i in range(settings.SELECTABLE_MAX_LIMIT):
+            self.create_thing(data={'name': 'Thing%s' % i})
+        response = self.client.get(self.url)
+        data = json.loads(response.content)
+        self.assertEqual(len(data), settings.SELECTABLE_MAX_LIMIT + 1)
+        last_item = data[-1]
+        self.assertTrue('page' in last_item)
             
