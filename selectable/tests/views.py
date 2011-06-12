@@ -1,4 +1,5 @@
-from django.test.client import Client
+from django.core.urlresolvers import reverse
+from django.http import HttpResponseNotFound, HttpResponseServerError
 from django.utils import simplejson as json
 
 from selectable.tests import ThingLookup
@@ -10,11 +11,18 @@ __all__ = (
 )
 
 
+def test_404(request):
+    return HttpResponseNotFound()
+
+
+def test_500(request):
+    return HttpResponseServerError()
+
+
 class SelectableViewTest(BaseSelectableTestCase):
     
     def setUp(self):
         super(SelectableViewTest, self).setUp()
-        self.client = Client()
         self.url = ThingLookup.url()
         self.lookup = ThingLookup()
         self.thing = self.create_thing()
@@ -43,4 +51,9 @@ class SelectableViewTest(BaseSelectableTestCase):
         response = self.client.get(self.url, data)
         data = json.loads(response.content)
         self.assertEqual(len(data), 1)
+
+    def test_unknown_lookup(self):
+        unknown_url = reverse('selectable-lookup', args=["XXXXXXX"])
+        response = self.client.get(unknown_url)
+        self.assertEqual(response.status_code, 404)
             
