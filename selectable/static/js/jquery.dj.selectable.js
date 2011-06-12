@@ -1,4 +1,5 @@
 (function($) {
+
 	$.widget("ui.djselectable", {
 
         options: {
@@ -70,6 +71,10 @@
                 if (self.options.prepareQuery) {
                     self.options.prepareQuery(query);
                 }
+                var page = $(input).data("page");
+                if (page) {
+                    query.page = page;
+                }
 				$.getJSON(url, query, response);
             }
 
@@ -89,6 +94,12 @@
                 },
                 select: function(event, ui) {
                     $(input).removeClass('ui-state-error');
+                    if (ui.item && ui.item.page) {
+                        $(input).data("page", ui.item.page);
+                        $('.selectable-paginator', self.menu).remove();
+                        $(input).autocomplete("search");
+                        return false;
+                    }
                     if (ui.item && allowMultiple) {
                         $(input).val("");
 		                $(input).data("autocomplete").term = "";
@@ -107,6 +118,35 @@
                     }
                 }
             }).addClass("ui-widget ui-widget-content ui-corner-all");
+            $(input).data("autocomplete")._renderItem = function(ul, item) {
+                var li =  $("<li></li>")
+			        .data("item.autocomplete", item)
+			        .append($("<a></a>").text(item.label))
+			        .appendTo(ul);
+                if (item.page) {
+                    li.addClass('selectable-paginator');
+                }
+	            return li;
+            };
+            $(input).data("autocomplete")._suggest = function(items) {
+                var page = $(input).data('page');
+                var ul = this.menu.element;
+                if (!page) {
+                    ul.empty();
+                }
+                $(input).data('page', null);
+			    ul.zIndex(this.element.zIndex() + 1);
+		        this._renderMenu(ul, items);
+	            this.menu.deactivate();
+                this.menu.refresh();
+		        // size and position menu
+		        ul.show();
+		        this._resizeMenu();
+		        ul.position($.extend({of: this.element}, this.options.position));
+		        if (this.options.autoFocus) {
+			        this.menu.next(new $.Event("mouseover"));
+		        }
+	        };
             var selectableType = data.selectableType || data['selectable-type'];
             if (selectableType === 'combobox') {
                 // Change auto-complete options

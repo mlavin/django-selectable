@@ -1,9 +1,15 @@
 import re
+
+from django.conf import settings
+from django.core.paginator import Paginator, InvalidPage, EmptyPage
 from django.core.urlresolvers import reverse
 from django.core.serializers.json import DjangoJSONEncoder
 from django.http import HttpResponse
 from django.utils import simplejson as json
 from django.utils.encoding import smart_unicode
+from django.utils.translation import ugettext as _
+
+from selectable.forms import BaseLookupForm
 
 
 __all__ = (
@@ -13,6 +19,7 @@ __all__ = (
 
 
 class LookupBase(object):
+    form = BaseLookupForm
 
     def _name(cls):
         app_name = cls.__module__.split('.')[-2].lower()
@@ -50,12 +57,38 @@ class LookupBase(object):
             'label': self.get_item_label(item)
         }
 
+    def paginate_results(self, request, results, limit):
+        paginator = Paginator(results, limit)
+        try:
+            page = int(request.GET.get('page', '1'))
+        except ValueError:
+            page = 1
+        try:
+            results = paginator.page(page)
+        except (EmptyPage, InvalidPage):
+            results = paginator.page(paginator.num_pages)
+        return results
+
     def results(self, request):
-        term = request.GET.get('term', '')
-        raw_data = self.get_query(request, term)
         data = []
-        for item in raw_data:
-            data.append(self.format_item(item))
+        form = self.form(request.GET)
+        if form.is_valid():
+            term = form.cleaned_data.get('term', '')
+            limit = form.cleaned_data.get('limit', None)
+            raw_data = self.get_query(request, term)
+            page_data = None      
+            if limit:
+                page_data = self.paginate_results(request, raw_data, limit)
+                raw_data = page_data.object_list
+            for item in raw_data:
+                data.append(self.format_item(item))
+            if page_data and hasattr(page_data, 'has_next') and page_data.has_next():
+                data.append({
+                    'id': '',
+                    'value': '',
+                    'label': _('Show more results'),
+                    'page': page_data.next_page_number()
+                })        
         content = json.dumps(data, cls=DjangoJSONEncoder, ensure_ascii=False)
         return HttpResponse(content, content_type='application/json')    
 
