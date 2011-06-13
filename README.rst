@@ -39,3 +39,10 @@ Once installed you should add the urls to your root url patterns::
             (r'^selectable/', include('selectable.urls')),
         )
 
+
+Contributing
+--------------------------------------
+
+If you think you've found a bug or are interested in contributing to this project
+check out our :ref:`contributing guide <contributing-guide>`.
+

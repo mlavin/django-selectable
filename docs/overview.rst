@@ -27,4 +27,3 @@ Related Projects
 Much of the work here was inspired by things that I like (and things I don't like) about
 `django-ajax-selects <http://code.google.com/p/django-ajax-selects/>`_. To see some of the
 other Django apps for handling auto-completion see `Django-Packages <http://djangopackages.com/grids/g/auto-complete/>`_.
-

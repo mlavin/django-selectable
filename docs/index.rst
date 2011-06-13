@@ -13,6 +13,7 @@ Contents:
     fields
     widgets
     settings
+    contribute
     releases
 
 
