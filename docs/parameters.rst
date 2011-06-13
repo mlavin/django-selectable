@@ -73,3 +73,24 @@ You are free to make adjustments to  the query dictionary as needed.
         });
     </script>
 
+
+.. _client-side-changes:
+
+Detecting Client Side Changes
+--------------------------------------
+
+Since django-selectable is built on top of the jQuery UI 
+`Autocomplete plug-in <http://jqueryui.com/demos/autocomplete/>`_, the widgets
+expose the events defined by the plugin.
+
+    - autocompletecreate
+    - autocompletesearch
+    - autocompleteopen
+    - autocompletefocus
+    - autocompleteselect
+    - autocompleteclose
+    - autocompletechange
+
+For the most part these event names should be self-explanatory. If you need additional
+detail you should refer to the `jQuery UI docs on these events <http://jqueryui.com/demos/autocomplete/#events>`_.
+
