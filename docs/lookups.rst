@@ -95,6 +95,8 @@ Lookup API
     :return: A dictionary of information for this item to be sent back to the client.
 
 
+.. _ModelLookup:
+
 Lookups Based on Models
 --------------------------------------
 
