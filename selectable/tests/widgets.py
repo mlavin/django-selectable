@@ -22,8 +22,8 @@ class BaseWidgetTestCase(BaseSelectableTestCase):
     widget_cls = None
     lookup_cls = None
 
-    def get_widget_instance(self):
-        return self.__class__.widget_cls(self.__class__.lookup_cls)
+    def get_widget_instance(self, limit=None):
+        return self.__class__.widget_cls(self.__class__.lookup_cls, limit=limit)
 
     def test_init(self):
         widget = self.get_widget_instance()
@@ -50,6 +50,14 @@ class AutoCompleteWidgetTestCase(BaseWidgetTestCase):
         parse = urlparse(url)
         query = parse.query
         self.assertEqual(query, urlencode(params))
+        
+    def test_limit_paramter(self):
+        widget = self.get_widget_instance(limit=10)
+        attrs = widget.build_attrs()
+        url = attrs['data-selectable-url']
+        parse = urlparse(url)
+        query = parse.query
+        self.assertTrue('limit=10' in query)
 
 
 class AutoCompleteSelectWidgetTestCase(BaseWidgetTestCase):
@@ -82,6 +90,15 @@ class AutoCompleteSelectWidgetTestCase(BaseWidgetTestCase):
         query = parse.query
         self.assertEqual(query, urlencode(params))
 
+    def test_limit_paramter(self):
+        widget = self.get_widget_instance(limit=10)
+        sub_widget = widget.widgets[0]
+        attrs = sub_widget.build_attrs()
+        url = attrs['data-selectable-url']
+        parse = urlparse(url)
+        query = parse.query
+        self.assertTrue('limit=10' in query)
+
 
 class AutoComboboxWidgetTestCase(BaseWidgetTestCase):
     widget_cls = widgets.AutoComboboxWidget
@@ -103,6 +120,14 @@ class AutoComboboxWidgetTestCase(BaseWidgetTestCase):
         parse = urlparse(url)
         query = parse.query
         self.assertEqual(query, urlencode(params))
+
+    def test_limit_paramter(self):
+        widget = self.get_widget_instance(limit=10)
+        attrs = widget.build_attrs()
+        url = attrs['data-selectable-url']
+        parse = urlparse(url)
+        query = parse.query
+        self.assertTrue('limit=10' in query)
 
 
 class AutoComboboxSelectWidgetTestCase(BaseWidgetTestCase):
@@ -134,6 +159,15 @@ class AutoComboboxSelectWidgetTestCase(BaseWidgetTestCase):
         parse = urlparse(url)
         query = parse.query
         self.assertEqual(query, urlencode(params))
+
+    def test_limit_paramter(self):
+        widget = self.get_widget_instance(limit=10)
+        sub_widget = widget.widgets[0]
+        attrs = sub_widget.build_attrs()
+        url = attrs['data-selectable-url']
+        parse = urlparse(url)
+        query = parse.query
+        self.assertTrue('limit=10' in query)
 
 
 class AutoCompleteSelectMultipleWidgetTestCase(BaseWidgetTestCase):
@@ -201,6 +235,15 @@ class AutoCompleteSelectMultipleWidgetTestCase(BaseWidgetTestCase):
         query = parse.query
         self.assertEqual(query, urlencode(params))
 
+    def test_limit_paramter(self):
+        widget = self.get_widget_instance(limit=10)
+        sub_widget = widget.widgets[0]
+        attrs = sub_widget.build_attrs()
+        url = attrs['data-selectable-url']
+        parse = urlparse(url)
+        query = parse.query
+        self.assertTrue('limit=10' in query)
+
 
 class AutoComboboxSelectMultipleWidgetTestCase(BaseWidgetTestCase):
     widget_cls = widgets.AutoComboboxSelectMultipleWidget
@@ -266,4 +309,13 @@ class AutoComboboxSelectMultipleWidgetTestCase(BaseWidgetTestCase):
         parse = urlparse(url)
         query = parse.query
         self.assertEqual(query, urlencode(params))
+
+    def test_limit_paramter(self):
+        widget = self.get_widget_instance(limit=10)
+        sub_widget = widget.widgets[0]
+        attrs = sub_widget.build_attrs()
+        url = attrs['data-selectable-url']
+        parse = urlparse(url)
+        query = parse.query
+        self.assertTrue('limit=10' in query)
 

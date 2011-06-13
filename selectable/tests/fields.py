@@ -17,12 +17,17 @@ class BaseFieldTestCase(BaseSelectableTestCase):
     field_cls = None
     lookup_cls = None
 
-    def get_field_instance(self, allow_new=False):
-        return self.__class__.field_cls(self.__class__.lookup_cls, allow_new=allow_new)
+    def get_field_instance(self, allow_new=False, limit=None):
+        return self.__class__.field_cls(self.__class__.lookup_cls, allow_new=allow_new, limit=limit)
 
     def test_init(self):
         field = self.get_field_instance()
         self.assertEqual(field.lookup_class, self.__class__.lookup_cls)
+
+    def test_init_with_limit(self):
+        field = self.get_field_instance(limit=10)
+        self.assertEqual(field.limit, 10)
+        self.assertEqual(field.widget.limit, 10)
 
     def test_clean(self):
         self.fail('This test has not yet been written')
@@ -76,8 +81,8 @@ class AutoCompleteSelectMultipleFieldTestCase(BaseFieldTestCase):
     field_cls = fields.AutoCompleteSelectMultipleField
     lookup_cls = ThingLookup
 
-    def get_field_instance(self):
-        return self.__class__.field_cls(self.__class__.lookup_cls)
+    def get_field_instance(self, limit=None):
+        return self.__class__.field_cls(self.__class__.lookup_cls, limit=limit)
 
     def test_clean(self):
         thing = self.create_thing()
@@ -98,8 +103,8 @@ class AutoComboboxSelectMultipleFieldTestCase(BaseFieldTestCase):
     field_cls = fields.AutoComboboxSelectMultipleField
     lookup_cls = ThingLookup
 
-    def get_field_instance(self):
-        return self.__class__.field_cls(self.__class__.lookup_cls)
+    def get_field_instance(self, limit=None):
+        return self.__class__.field_cls(self.__class__.lookup_cls, limit=limit)
 
     def test_clean(self):
         thing = self.create_thing()

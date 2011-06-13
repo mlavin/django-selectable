@@ -24,7 +24,8 @@ class AutoCompleteSelectField(forms.Field):
     def __init__(self, lookup_class, *args, **kwargs):
         self.lookup_class = lookup_class
         self.allow_new = kwargs.pop('allow_new', False)
-        kwargs['widget'] = self.widget(lookup_class, allow_new=self.allow_new)
+        self.limit = kwargs.pop('limit', None)
+        kwargs['widget'] = self.widget(lookup_class, allow_new=self.allow_new, limit=self.limit)
         super(AutoCompleteSelectField, self).__init__(*args, **kwargs)
 
 
@@ -64,7 +65,8 @@ class AutoCompleteSelectMultipleField(forms.Field):
 
     def __init__(self, lookup_class, *args, **kwargs):
         self.lookup_class = lookup_class
-        kwargs['widget'] = self.widget(lookup_class)
+        self.limit = kwargs.pop('limit', None)
+        kwargs['widget'] = self.widget(lookup_class, limit=self.limit)
         super(AutoCompleteSelectMultipleField, self).__init__(*args, **kwargs)
 
     def to_python(self, value):

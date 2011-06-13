@@ -36,6 +36,7 @@ class AutoCompleteWidget(forms.TextInput, SelectableMediaMixin):
         self.lookup_class = lookup_class
         self.allow_new = kwargs.pop('allow_new', False)
         self.qs = {}
+        self.limit = kwargs.pop('limit', None)
         super(AutoCompleteWidget, self).__init__(*args, **kwargs)
 
     def update_query_parameters(self, qs_dict):
@@ -44,6 +45,8 @@ class AutoCompleteWidget(forms.TextInput, SelectableMediaMixin):
     def build_attrs(self, extra_attrs=None, **kwargs):
         attrs = super(AutoCompleteWidget, self).build_attrs(extra_attrs, **kwargs)
         url = self.lookup_class.url()
+        if self.limit and 'limit' not in self.qs:
+            self.qs['limit'] = self.limit
         if self.qs:
             url = '%s?%s' % (url, urlencode(self.qs))
         attrs[u'data-selectable-url'] = url
@@ -63,8 +66,9 @@ class AutoCompleteSelectWidget(SelectableMultiWidget, SelectableMediaMixin):
     def __init__(self, lookup_class, *args, **kwargs):
         self.lookup_class = lookup_class
         self.allow_new = kwargs.pop('allow_new', False)
+        self.limit = kwargs.pop('limit', None)
         widgets = [
-            AutoCompleteWidget(lookup_class, allow_new=self.allow_new),
+            AutoCompleteWidget(lookup_class, allow_new=self.allow_new, limit=self.limit),
             forms.HiddenInput(attrs={u'data-selectable-type': 'hidden'})
         ]
         super(AutoCompleteSelectWidget, self).__init__(widgets, *args, **kwargs)
@@ -96,8 +100,9 @@ class AutoComboboxSelectWidget(SelectableMultiWidget, SelectableMediaMixin):
     def __init__(self, lookup_class, *args, **kwargs):
         self.lookup_class = lookup_class
         self.allow_new = kwargs.pop('allow_new', False)
+        self.limit = kwargs.pop('limit', None)
         widgets = [
-            AutoComboboxWidget(lookup_class, allow_new=self.allow_new),
+            AutoComboboxWidget(lookup_class, allow_new=self.allow_new, limit=self.limit),
             forms.HiddenInput(attrs={u'data-selectable-type': 'hidden'})
         ]
         super(AutoComboboxSelectWidget, self).__init__(widgets, *args, **kwargs)
@@ -155,13 +160,14 @@ class AutoCompleteSelectMultipleWidget(SelectableMultiWidget, SelectableMediaMix
 
     def __init__(self, lookup_class, *args, **kwargs):
         self.lookup_class = lookup_class
+        self.limit = kwargs.pop('limit', None)
         position = kwargs.pop('position', 'bottom')
         attrs = {
             u'data-selectable-multiple': 'true',
             u'data-selectable-position': position
         }
         widgets = [
-            AutoCompleteWidget(lookup_class, allow_new=False, attrs=attrs),
+            AutoCompleteWidget(lookup_class, allow_new=False, limit=self.limit, attrs=attrs),
             LookupMultipleHiddenInput(lookup_class)
         ]
         super(AutoCompleteSelectMultipleWidget, self).__init__(widgets, *args, **kwargs)
@@ -180,13 +186,14 @@ class AutoComboboxSelectMultipleWidget(SelectableMultiWidget, SelectableMediaMix
 
     def __init__(self, lookup_class, *args, **kwargs):
         self.lookup_class = lookup_class
+        self.limit = kwargs.pop('limit', None)
         position = kwargs.pop('position', 'bottom')
         attrs = {
             u'data-selectable-multiple': 'true',
             u'data-selectable-position': position
         }
         widgets = [
-            AutoComboboxWidget(lookup_class, allow_new=False, attrs=attrs),
+            AutoComboboxWidget(lookup_class, allow_new=False, limit=self.limit, attrs=attrs),
             LookupMultipleHiddenInput(lookup_class)
         ]
         super(AutoComboboxSelectMultipleWidget, self).__init__(widgets, *args, **kwargs)
