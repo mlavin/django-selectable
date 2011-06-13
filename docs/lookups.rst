@@ -38,9 +38,9 @@ Lookup API
     This is the main method which takes the current request
     from the user and returns the data which matches their search.
 
-    :param request: The current request object
-    :param term: The search term from the widget input
-    :return: An iterable set of data of items matching the search term
+    :param request: The current request object.
+    :param term: The search term from the widget input.
+    :return: An iterable set of data of items matching the search term.
 
 .. py:method:: LookupBase.get_item_label(item)
 
@@ -93,6 +93,19 @@ Lookup API
 
     :param item: An item from the search results.
     :return: A dictionary of information for this item to be sent back to the client.
+
+.. py:method:: LookupBase.paginate_results(request, results, limit)
+
+    If :ref:`SELECTABLE_MAX_LIMIT` is defined or `limit` is passed in request.GET
+    then `paginate_results` will return the current page using Django's
+    built in pagination. See the Django docs on `pagination <https://docs.djangoproject.com/en/1.3/topics/pagination/>`_
+    for more info.
+
+    :param request: The current request object.
+    :param results: The set of all matched results.
+    :param limit: The number of results per page.
+    :return: The current `Page object <https://docs.djangoproject.com/en/1.3/topics/pagination/#page-objects>`_
+        of results.
 
 
 .. _ModelLookup:

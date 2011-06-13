@@ -31,6 +31,8 @@ See the Django documentation on
 See the example project for the full template example.
 
 
+.. _admin-basic-example:
+
 Basic Example
 --------------------------------------
 
@@ -55,6 +57,8 @@ that means we must set the owner manual in the save and in the initial data beca
 the `ModelForm` will no longer do this for you. Since `fruit` does not allow new
 items you'll see these steps are not necessary.
 
+
+.. _admin-inline-example:
 
 Inline Example
 --------------------------------------

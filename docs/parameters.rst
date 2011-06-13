@@ -19,6 +19,18 @@ them. Since they can be manipulated on the client side, these parameters should 
 treated like all user input. It should be properly validated and sanitized.
 
 
+Limiting the Result Set
+--------------------------------------
+
+The number of results are globally limited/paginated by the :ref:`SELECTABLE_MAX_LIMIT`
+but you can also lower this limit on the field or widget level. Each field and widget
+takes a `limit` argument in the `__init__` that will be passed back to the lookup
+through the `limit` query parameter. The result set will be automatically paginated
+for you if you use either this parameter or the global setting.
+
+
+.. _server-side-parameters:
+
 Adding Parameters on the Server Side
 --------------------------------------
 
@@ -38,6 +50,8 @@ most common way to use this would be in the form `__init__`.
             super(FruitForm, self).__init__(*args, **kwargs)
             self.fields['autocomplete'].widget.update_query_parameters({'foo': 'bar'})
 
+
+.. _client-side-parameters:
 
 Adding Parameters on the Client Side
 --------------------------------------

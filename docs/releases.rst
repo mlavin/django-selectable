@@ -1,6 +1,20 @@
 Release Notes
 ==================
 
+v0.2.0
+--------------------------------------
+
+Features
+_________________
+
+- Additional documentation
+- :ref:`Positional configuration <AutoCompleteSelectMultipleWidget>` for multiple select fields/widgets
+- :ref:`Settings/configuration <SELECTABLE_MAX_LIMIT>` for limiting/paginating result sets
+- Compatibility and examples for :ref:`Admin inlines <admin-inline-example>`
+- JS updated for jQuery 1.6 compatibility
+- :ref:`JS hooks <client-side-parameters>` for updating query parameters
+
+
 v0.1.2
 --------------------------------------
 

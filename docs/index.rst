@@ -12,6 +12,7 @@ Contents:
     admin    
     fields
     widgets
+    settings
     releases
 
 
