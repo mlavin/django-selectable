@@ -6,12 +6,14 @@
 <title>Django-Selectable Example</title>
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.13/themes/ui-lightness/jquery-ui.css" type="text/css" media="screen">
 {{ form.media.css }}
+{% block extra-css %}{% endblock %}
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.13/jquery-ui.min.js"></script>
 {{ form.media.js }}
+{% block extra-js %}{% endblock %}
 </head>
     <body>
-        <form action="{% url example-index %}" method="post" >
+        <form action="" method="post" >
             {% csrf_token %}
             {% if form.is_valid %}
                 {{ form.as_p }}

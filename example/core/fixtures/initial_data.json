@@ -26,5 +26,2941 @@
         "fields": {
             "name": "Orange"
         }
+    },
+{
+        "pk": 1, 
+        "model": "core.city", 
+        "fields": {
+            "state": "WA", 
+            "name": "Olympia"
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "core.city", 
+        "fields": {
+            "state": "CO", 
+            "name": "Boulder"
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "core.city", 
+        "fields": {
+            "state": "CT", 
+            "name": "Hartford-West Hartford-East Hartford"
+        }
+    }, 
+    {
+        "pk": 4, 
+        "model": "core.city", 
+        "fields": {
+            "state": "VT", 
+            "name": "Burlington-South Burlington"
+        }
+    }, 
+    {
+        "pk": 5, 
+        "model": "core.city", 
+        "fields": {
+            "state": "WA", 
+            "name": "Seattle-Tacoma-Bellevue"
+        }
+    }, 
+    {
+        "pk": 6, 
+        "model": "core.city", 
+        "fields": {
+            "state": "DC-VA-MD-WV", 
+            "name": "Washington-Arlington-Alexandria"
+        }
+    }, 
+    {
+        "pk": 7, 
+        "model": "core.city", 
+        "fields": {
+            "state": "IA", 
+            "name": "Des Moines-West Des Moines"
+        }
+    }, 
+    {
+        "pk": 8, 
+        "model": "core.city", 
+        "fields": {
+            "state": "IA", 
+            "name": "Cedar Rapids"
+        }
+    }, 
+    {
+        "pk": 9, 
+        "model": "core.city", 
+        "fields": {
+            "state": "ID", 
+            "name": "Pocatello"
+        }
+    }, 
+    {
+        "pk": 10, 
+        "model": "core.city", 
+        "fields": {
+            "state": "UT", 
+            "name": "Salt Lake City"
+        }
+    }, 
+    {
+        "pk": 11, 
+        "model": "core.city", 
+        "fields": {
+            "state": "AL", 
+            "name": "Dothan"
+        }
+    }, 
+    {
+        "pk": 12, 
+        "model": "core.city", 
+        "fields": {
+            "state": "KS", 
+            "name": "Topeka"
+        }
+    }, 
+    {
+        "pk": 13, 
+        "model": "core.city", 
+        "fields": {
+            "state": "MN", 
+            "name": "Rochester"
+        }
+    }, 
+    {
+        "pk": 14, 
+        "model": "core.city", 
+        "fields": {
+            "state": "TX", 
+            "name": "Austin-Round Rock"
+        }
+    }, 
+    {
+        "pk": 15, 
+        "model": "core.city", 
+        "fields": {
+            "state": "CA", 
+            "name": "San Francisco-Oakland-Fremont"
+        }
+    }, 
+    {
+        "pk": 16, 
+        "model": "core.city", 
+        "fields": {
+            "state": "MA-NH", 
+            "name": "Boston-Cambridge-Quincy"
+        }
+    }, 
+    {
+        "pk": 17, 
+        "model": "core.city", 
+        "fields": {
+            "state": "PA", 
+            "name": "Pittsburgh"
+        }
+    }, 
+    {
+        "pk": 18, 
+        "model": "core.city", 
+        "fields": {
+            "state": "IL", 
+            "name": "Springfield"
+        }
+    }, 
+    {
+        "pk": 19, 
+        "model": "core.city", 
+        "fields": {
+            "state": "WA", 
+            "name": "Kennewick-Richland-Pasco"
+        }
+    }, 
+    {
+        "pk": 20, 
+        "model": "core.city", 
+        "fields": {
+            "state": "MN-WI", 
+            "name": "Minneapolis-St. Paul-Bloomington"
+        }
+    }, 
+    {
+        "pk": 21, 
+        "model": "core.city", 
+        "fields": {
+            "state": "NY", 
+            "name": "Binghamton"
+        }
+    }, 
+    {
+        "pk": 22, 
+        "model": "core.city", 
+        "fields": {
+            "state": "NC", 
+            "name": "Durham"
+        }
+    }, 
+    {
+        "pk": 23, 
+        "model": "core.city", 
+        "fields": {
+            "state": "CO", 
+            "name": "Denver-Aurora"
+        }
+    }, 
+    {
+        "pk": 24, 
+        "model": "core.city", 
+        "fields": {
+            "state": "MD", 
+            "name": "Baltimore-Towson"
+        }
+    }, 
+    {
+        "pk": 25, 
+        "model": "core.city", 
+        "fields": {
+            "state": "WI", 
+            "name": "Madison"
+        }
+    }, 
+    {
+        "pk": 26, 
+        "model": "core.city", 
+        "fields": {
+            "state": "VA", 
+            "name": "Charlottesville"
+        }
+    }, 
+    {
+        "pk": 27, 
+        "model": "core.city", 
+        "fields": {
+            "state": "WV", 
+            "name": "Morgantown"
+        }
+    }, 
+    {
+        "pk": 28, 
+        "model": "core.city", 
+        "fields": {
+            "state": "IL-IN-WI", 
+            "name": "Chicago-Naperville-Joliet"
+        }
+    }, 
+    {
+        "pk": 29, 
+        "model": "core.city", 
+        "fields": {
+            "state": "CA", 
+            "name": "San Jose-Sunnyvale-Santa Clara"
+        }
+    }, 
+    {
+        "pk": 30, 
+        "model": "core.city", 
+        "fields": {
+            "state": "OR-WA", 
+            "name": "Portland-Vancouver-Beaverton"
+        }
+    }, 
+    {
+        "pk": 31, 
+        "model": "core.city", 
+        "fields": {
+            "state": "NY", 
+            "name": "Albany-Schenectady-Troy"
+        }
+    }, 
+    {
+        "pk": 32, 
+        "model": "core.city", 
+        "fields": {
+            "state": "NC", 
+            "name": "Raleigh-Cary"
+        }
+    }, 
+    {
+        "pk": 33, 
+        "model": "core.city", 
+        "fields": {
+            "state": "IA", 
+            "name": "Ames"
+        }
+    }, 
+    {
+        "pk": 34, 
+        "model": "core.city", 
+        "fields": {
+            "state": "NY-NJ-PA", 
+            "name": "New York-Northern New Jersey-Long Island"
+        }
+    }, 
+    {
+        "pk": 35, 
+        "model": "core.city", 
+        "fields": {
+            "state": "MA", 
+            "name": "Pittsfield"
+        }
+    }, 
+    {
+        "pk": 36, 
+        "model": "core.city", 
+        "fields": {
+            "state": "TX", 
+            "name": "San Angelo"
+        }
+    }, 
+    {
+        "pk": 37, 
+        "model": "core.city", 
+        "fields": {
+            "state": "MI", 
+            "name": "Lansing-East Lansing"
+        }
+    }, 
+    {
+        "pk": 38, 
+        "model": "core.city", 
+        "fields": {
+            "state": "TX", 
+            "name": "Houston-Sugar Land-Baytown"
+        }
+    }, 
+    {
+        "pk": 39, 
+        "model": "core.city", 
+        "fields": {
+            "state": "PA-NJ-DE-MD", 
+            "name": "Philadelphia-Camden-Wilmington"
+        }
+    }, 
+    {
+        "pk": 40, 
+        "model": "core.city", 
+        "fields": {
+            "state": "NC-SC", 
+            "name": "Charlotte-Gastonia-Concord"
+        }
+    }, 
+    {
+        "pk": 41, 
+        "model": "core.city", 
+        "fields": {
+            "state": "AK", 
+            "name": "Anchorage"
+        }
+    }, 
+    {
+        "pk": 42, 
+        "model": "core.city", 
+        "fields": {
+            "state": "TX", 
+            "name": "Sherman-Denison"
+        }
+    }, 
+    {
+        "pk": 43, 
+        "model": "core.city", 
+        "fields": {
+            "state": "NY", 
+            "name": "Rochester"
+        }
+    }, 
+    {
+        "pk": 44, 
+        "model": "core.city", 
+        "fields": {
+            "state": "IL", 
+            "name": "Bloomington-Normal"
+        }
+    }, 
+    {
+        "pk": 45, 
+        "model": "core.city", 
+        "fields": {
+            "state": "AL", 
+            "name": "Huntsville"
+        }
+    }, 
+    {
+        "pk": 46, 
+        "model": "core.city", 
+        "fields": {
+            "state": "NY", 
+            "name": "Syracuse"
+        }
+    }, 
+    {
+        "pk": 47, 
+        "model": "core.city", 
+        "fields": {
+            "state": "FL", 
+            "name": "Palm Bay-Melbourne-Titusville"
+        }
+    }, 
+    {
+        "pk": 48, 
+        "model": "core.city", 
+        "fields": {
+            "state": "IL", 
+            "name": "Decatur"
+        }
+    }, 
+    {
+        "pk": 49, 
+        "model": "core.city", 
+        "fields": {
+            "state": "MI", 
+            "name": "Ann Arbor"
+        }
+    }, 
+    {
+        "pk": 50, 
+        "model": "core.city", 
+        "fields": {
+            "state": "WA", 
+            "name": "Bremerton-Silverdale"
+        }
+    }, 
+    {
+        "pk": 51, 
+        "model": "core.city", 
+        "fields": {
+            "state": "PA", 
+            "name": "Johnstown"
+        }
+    }, 
+    {
+        "pk": 52, 
+        "model": "core.city", 
+        "fields": {
+            "state": "IN", 
+            "name": "Bloomington"
+        }
+    }, 
+    {
+        "pk": 53, 
+        "model": "core.city", 
+        "fields": {
+            "state": "CO", 
+            "name": "Fort Collins-Loveland"
+        }
+    }, 
+    {
+        "pk": 54, 
+        "model": "core.city", 
+        "fields": {
+            "state": "IA", 
+            "name": "Iowa City"
+        }
+    }, 
+    {
+        "pk": 55, 
+        "model": "core.city", 
+        "fields": {
+            "state": "PA", 
+            "name": "State College"
+        }
+    }, 
+    {
+        "pk": 56, 
+        "model": "core.city", 
+        "fields": {
+            "state": "CO", 
+            "name": "Colorado Springs"
+        }
+    }, 
+    {
+        "pk": 57, 
+        "model": "core.city", 
+        "fields": {
+            "state": "CA", 
+            "name": "Los Angeles-Long Beach-Santa Ana"
+        }
+    }, 
+    {
+        "pk": 58, 
+        "model": "core.city", 
+        "fields": {
+            "state": "CA", 
+            "name": "San Diego-Carlsbad-San Marcos"
+        }
+    }, 
+    {
+        "pk": 59, 
+        "model": "core.city", 
+        "fields": {
+            "state": "ND", 
+            "name": "Bismarck"
+        }
+    }, 
+    {
+        "pk": 60, 
+        "model": "core.city", 
+        "fields": {
+            "state": "MO-KS", 
+            "name": "Kansas City"
+        }
+    }, 
+    {
+        "pk": 61, 
+        "model": "core.city", 
+        "fields": {
+            "state": "MI", 
+            "name": "Detroit-Warren-Livonia"
+        }
+    }, 
+    {
+        "pk": 62, 
+        "model": "core.city", 
+        "fields": {
+            "state": "NM", 
+            "name": "Santa Fe"
+        }
+    }, 
+    {
+        "pk": 63, 
+        "model": "core.city", 
+        "fields": {
+            "state": "OH", 
+            "name": "Akron"
+        }
+    }, 
+    {
+        "pk": 64, 
+        "model": "core.city", 
+        "fields": {
+            "state": "WI", 
+            "name": "Milwaukee-Waukesha-West Allis"
+        }
+    }, 
+    {
+        "pk": 65, 
+        "model": "core.city", 
+        "fields": {
+            "state": "MO", 
+            "name": "Columbia"
+        }
+    }, 
+    {
+        "pk": 66, 
+        "model": "core.city", 
+        "fields": {
+            "state": "GA", 
+            "name": "Atlanta-Sandy Springs-Marietta"
+        }
+    }, 
+    {
+        "pk": 67, 
+        "model": "core.city", 
+        "fields": {
+            "state": "WI", 
+            "name": "Eau Claire"
+        }
+    }, 
+    {
+        "pk": 68, 
+        "model": "core.city", 
+        "fields": {
+            "state": "TX", 
+            "name": "Dallas-Fort Worth-Arlington"
+        }
+    }, 
+    {
+        "pk": 69, 
+        "model": "core.city", 
+        "fields": {
+            "state": "WI", 
+            "name": "Oshkosh-Neenah"
+        }
+    }, 
+    {
+        "pk": 70, 
+        "model": "core.city", 
+        "fields": {
+            "state": "TX", 
+            "name": "Killeen-Temple-Fort Hood"
+        }
+    }, 
+    {
+        "pk": 71, 
+        "model": "core.city", 
+        "fields": {
+            "state": "ME", 
+            "name": "Portland-South Portland-Biddeford"
+        }
+    }, 
+    {
+        "pk": 72, 
+        "model": "core.city", 
+        "fields": {
+            "state": "CA", 
+            "name": "Sacramento--Arden-Arcade--Roseville"
+        }
+    }, 
+    {
+        "pk": 73, 
+        "model": "core.city", 
+        "fields": {
+            "state": "FL", 
+            "name": "Gainesville"
+        }
+    }, 
+    {
+        "pk": 74, 
+        "model": "core.city", 
+        "fields": {
+            "state": "CT", 
+            "name": "Bridgeport-Stamford-Norwalk"
+        }
+    }, 
+    {
+        "pk": 75, 
+        "model": "core.city", 
+        "fields": {
+            "state": "AZ", 
+            "name": "Tucson"
+        }
+    }, 
+    {
+        "pk": 76, 
+        "model": "core.city", 
+        "fields": {
+            "state": "CA", 
+            "name": "Santa Cruz-Watsonville"
+        }
+    }, 
+    {
+        "pk": 77, 
+        "model": "core.city", 
+        "fields": {
+            "state": "NY", 
+            "name": "Poughkeepsie-Newburgh-Middletown"
+        }
+    }, 
+    {
+        "pk": 78, 
+        "model": "core.city", 
+        "fields": {
+            "state": "WY", 
+            "name": "Cheyenne"
+        }
+    }, 
+    {
+        "pk": 79, 
+        "model": "core.city", 
+        "fields": {
+            "state": "TX", 
+            "name": "San Antonio"
+        }
+    }, 
+    {
+        "pk": 80, 
+        "model": "core.city", 
+        "fields": {
+            "state": "HI", 
+            "name": "Honolulu"
+        }
+    }, 
+    {
+        "pk": 81, 
+        "model": "core.city", 
+        "fields": {
+            "state": "SC", 
+            "name": "Florence"
+        }
+    }, 
+    {
+        "pk": 82, 
+        "model": "core.city", 
+        "fields": {
+            "state": "TX", 
+            "name": "Lubbock"
+        }
+    }, 
+    {
+        "pk": 83, 
+        "model": "core.city", 
+        "fields": {
+            "state": "CA", 
+            "name": "Santa Rosa-Petaluma"
+        }
+    }, 
+    {
+        "pk": 84, 
+        "model": "core.city", 
+        "fields": {
+            "state": "MO-IL", 
+            "name": "St. Louis"
+        }
+    }, 
+    {
+        "pk": 85, 
+        "model": "core.city", 
+        "fields": {
+            "state": "CT", 
+            "name": "New Haven"
+        }
+    }, 
+    {
+        "pk": 86, 
+        "model": "core.city", 
+        "fields": {
+            "state": "NH-ME", 
+            "name": "Rochester-Dover"
+        }
+    }, 
+    {
+        "pk": 87, 
+        "model": "core.city", 
+        "fields": {
+            "state": "FL", 
+            "name": "Tallahassee"
+        }
+    }, 
+    {
+        "pk": 88, 
+        "model": "core.city", 
+        "fields": {
+            "state": "IN", 
+            "name": "Lafayette"
+        }
+    }, 
+    {
+        "pk": 89, 
+        "model": "core.city", 
+        "fields": {
+            "state": "NM", 
+            "name": "Las Cruces"
+        }
+    }, 
+    {
+        "pk": 90, 
+        "model": "core.city", 
+        "fields": {
+            "state": "OH", 
+            "name": "Dayton"
+        }
+    }, 
+    {
+        "pk": 91, 
+        "model": "core.city", 
+        "fields": {
+            "state": "TX", 
+            "name": "College Station-Bryan"
+        }
+    }, 
+    {
+        "pk": 92, 
+        "model": "core.city", 
+        "fields": {
+            "state": "MO", 
+            "name": "Jefferson City"
+        }
+    }, 
+    {
+        "pk": 93, 
+        "model": "core.city", 
+        "fields": {
+            "state": "CA", 
+            "name": "Oxnard-Thousand Oaks-Ventura"
+        }
+    }, 
+    {
+        "pk": 94, 
+        "model": "core.city", 
+        "fields": {
+            "state": "WI-MN", 
+            "name": "La Crosse"
+        }
+    }, 
+    {
+        "pk": 95, 
+        "model": "core.city", 
+        "fields": {
+            "state": "OH-KY-IN", 
+            "name": "Cincinnati-Middletown"
+        }
+    }, 
+    {
+        "pk": 96, 
+        "model": "core.city", 
+        "fields": {
+            "state": "VA", 
+            "name": "Richmond"
+        }
+    }, 
+    {
+        "pk": 97, 
+        "model": "core.city", 
+        "fields": {
+            "state": "OH", 
+            "name": "Cleveland-Elyria-Mentor"
+        }
+    }, 
+    {
+        "pk": 98, 
+        "model": "core.city", 
+        "fields": {
+            "state": "SD", 
+            "name": "Sioux Falls"
+        }
+    }, 
+    {
+        "pk": 99, 
+        "model": "core.city", 
+        "fields": {
+            "state": "OR", 
+            "name": "Salem"
+        }
+    }, 
+    {
+        "pk": 100, 
+        "model": "core.city", 
+        "fields": {
+            "state": "CT", 
+            "name": "Danbury"
+        }
+    }, 
+    {
+        "pk": 101, 
+        "model": "core.city", 
+        "fields": {
+            "state": "MA-CT", 
+            "name": "Worcester"
+        }
+    }, 
+    {
+        "pk": 102, 
+        "model": "core.city", 
+        "fields": {
+            "state": "TX", 
+            "name": "Midland"
+        }
+    }, 
+    {
+        "pk": 103, 
+        "model": "core.city", 
+        "fields": {
+            "state": "AR-MO", 
+            "name": "Fayetteville-Springdale-Rogers"
+        }
+    }, 
+    {
+        "pk": 104, 
+        "model": "core.city", 
+        "fields": {
+            "state": "NY", 
+            "name": "Buffalo-Niagara Falls"
+        }
+    }, 
+    {
+        "pk": 105, 
+        "model": "core.city", 
+        "fields": {
+            "state": "NY", 
+            "name": "Utica-Rome"
+        }
+    }, 
+    {
+        "pk": 106, 
+        "model": "core.city", 
+        "fields": {
+            "state": "FL", 
+            "name": "Miami-Fort Lauderdale-Miami Beach"
+        }
+    }, 
+    {
+        "pk": 107, 
+        "model": "core.city", 
+        "fields": {
+            "state": "MN-WI", 
+            "name": "Duluth"
+        }
+    }, 
+    {
+        "pk": 108, 
+        "model": "core.city", 
+        "fields": {
+            "state": "MI", 
+            "name": "Grand Rapids-Wyoming"
+        }
+    }, 
+    {
+        "pk": 109, 
+        "model": "core.city", 
+        "fields": {
+            "state": "MD", 
+            "name": "Salisbury"
+        }
+    }, 
+    {
+        "pk": 110, 
+        "model": "core.city", 
+        "fields": {
+            "state": "OR", 
+            "name": "Eugene-Springfield"
+        }
+    }, 
+    {
+        "pk": 111, 
+        "model": "core.city", 
+        "fields": {
+            "state": "NY", 
+            "name": "Elmira"
+        }
+    }, 
+    {
+        "pk": 112, 
+        "model": "core.city", 
+        "fields": {
+            "state": "NH", 
+            "name": "Manchester"
+        }
+    }, 
+    {
+        "pk": 113, 
+        "model": "core.city", 
+        "fields": {
+            "state": "MI", 
+            "name": "Flint"
+        }
+    }, 
+    {
+        "pk": 114, 
+        "model": "core.city", 
+        "fields": {
+            "state": "MA-CT", 
+            "name": "Springfield"
+        }
+    }, 
+    {
+        "pk": 115, 
+        "model": "core.city", 
+        "fields": {
+            "state": "CA", 
+            "name": "San Luis Obispo-Paso Robles"
+        }
+    }, 
+    {
+        "pk": 116, 
+        "model": "core.city", 
+        "fields": {
+            "state": "MI", 
+            "name": "Bay City"
+        }
+    }, 
+    {
+        "pk": 117, 
+        "model": "core.city", 
+        "fields": {
+            "state": "AL", 
+            "name": "Birmingham-Hoover"
+        }
+    }, 
+    {
+        "pk": 118, 
+        "model": "core.city", 
+        "fields": {
+            "state": "KS", 
+            "name": "Wichita"
+        }
+    }, 
+    {
+        "pk": 119, 
+        "model": "core.city", 
+        "fields": {
+            "state": "IA-IL", 
+            "name": "Davenport-Moline-Rock Island"
+        }
+    }, 
+    {
+        "pk": 120, 
+        "model": "core.city", 
+        "fields": {
+            "state": "RI-MA", 
+            "name": "Providence-Fall River-Warwick"
+        }
+    }, 
+    {
+        "pk": 121, 
+        "model": "core.city", 
+        "fields": {
+            "state": "CA", 
+            "name": "Napa"
+        }
+    }, 
+    {
+        "pk": 122, 
+        "model": "core.city", 
+        "fields": {
+            "state": "AR", 
+            "name": "Little Rock-North Little Rock"
+        }
+    }, 
+    {
+        "pk": 123, 
+        "model": "core.city", 
+        "fields": {
+            "state": "ID", 
+            "name": "Boise City-Nampa"
+        }
+    }, 
+    {
+        "pk": 124, 
+        "model": "core.city", 
+        "fields": {
+            "state": "ME", 
+            "name": "Bangor"
+        }
+    }, 
+    {
+        "pk": 125, 
+        "model": "core.city", 
+        "fields": {
+            "state": "NM", 
+            "name": "Albuquerque"
+        }
+    }, 
+    {
+        "pk": 126, 
+        "model": "core.city", 
+        "fields": {
+            "state": "MI", 
+            "name": "Saginaw-Saginaw Township North"
+        }
+    }, 
+    {
+        "pk": 127, 
+        "model": "core.city", 
+        "fields": {
+            "state": "GA", 
+            "name": "Athens-Clarke County"
+        }
+    }, 
+    {
+        "pk": 128, 
+        "model": "core.city", 
+        "fields": {
+            "state": "AZ", 
+            "name": "Phoenix-Mesa-Scottsdale"
+        }
+    }, 
+    {
+        "pk": 129, 
+        "model": "core.city", 
+        "fields": {
+            "state": "OK", 
+            "name": "Tulsa"
+        }
+    }, 
+    {
+        "pk": 130, 
+        "model": "core.city", 
+        "fields": {
+            "state": "GA", 
+            "name": "Warner Robins"
+        }
+    }, 
+    {
+        "pk": 131, 
+        "model": "core.city", 
+        "fields": {
+            "state": "CA", 
+            "name": "Vallejo-Fairfield"
+        }
+    }, 
+    {
+        "pk": 132, 
+        "model": "core.city", 
+        "fields": {
+            "state": "NC", 
+            "name": "Winston-Salem"
+        }
+    }, 
+    {
+        "pk": 133, 
+        "model": "core.city", 
+        "fields": {
+            "state": "WA", 
+            "name": "Spokane"
+        }
+    }, 
+    {
+        "pk": 134, 
+        "model": "core.city", 
+        "fields": {
+            "state": "PA", 
+            "name": "Erie"
+        }
+    }, 
+    {
+        "pk": 135, 
+        "model": "core.city", 
+        "fields": {
+            "state": "OK", 
+            "name": "Oklahoma City"
+        }
+    }, 
+    {
+        "pk": 136, 
+        "model": "core.city", 
+        "fields": {
+            "state": "WI", 
+            "name": "Appleton"
+        }
+    }, 
+    {
+        "pk": 137, 
+        "model": "core.city", 
+        "fields": {
+            "state": "MI", 
+            "name": "Kalamazoo-Portage"
+        }
+    }, 
+    {
+        "pk": 138, 
+        "model": "core.city", 
+        "fields": {
+            "state": "NE-IA", 
+            "name": "Omaha-Council Bluffs"
+        }
+    }, 
+    {
+        "pk": 139, 
+        "model": "core.city", 
+        "fields": {
+            "state": "NE", 
+            "name": "Lincoln"
+        }
+    }, 
+    {
+        "pk": 140, 
+        "model": "core.city", 
+        "fields": {
+            "state": "NJ", 
+            "name": "Trenton-Ewing"
+        }
+    }, 
+    {
+        "pk": 141, 
+        "model": "core.city", 
+        "fields": {
+            "state": "WV", 
+            "name": "Charleston"
+        }
+    }, 
+    {
+        "pk": 142, 
+        "model": "core.city", 
+        "fields": {
+            "state": "FL", 
+            "name": "Tampa-St. Petersburg-Clearwater"
+        }
+    }, 
+    {
+        "pk": 143, 
+        "model": "core.city", 
+        "fields": {
+            "state": "NH-ME", 
+            "name": "Portsmouth"
+        }
+    }, 
+    {
+        "pk": 144, 
+        "model": "core.city", 
+        "fields": {
+            "state": "NY", 
+            "name": "Ithaca"
+        }
+    }, 
+    {
+        "pk": 145, 
+        "model": "core.city", 
+        "fields": {
+            "state": "MI", 
+            "name": "Jackson"
+        }
+    }, 
+    {
+        "pk": 146, 
+        "model": "core.city", 
+        "fields": {
+            "state": "SC", 
+            "name": "Columbia"
+        }
+    }, 
+    {
+        "pk": 147, 
+        "model": "core.city", 
+        "fields": {
+            "state": "AK", 
+            "name": "Fairbanks"
+        }
+    }, 
+    {
+        "pk": 148, 
+        "model": "core.city", 
+        "fields": {
+            "state": "UT-ID", 
+            "name": "Logan"
+        }
+    }, 
+    {
+        "pk": 149, 
+        "model": "core.city", 
+        "fields": {
+            "state": "IL", 
+            "name": "Peoria"
+        }
+    }, 
+    {
+        "pk": 150, 
+        "model": "core.city", 
+        "fields": {
+            "state": "WI", 
+            "name": "Wausau"
+        }
+    }, 
+    {
+        "pk": 151, 
+        "model": "core.city", 
+        "fields": {
+            "state": "TN", 
+            "name": "Knoxville"
+        }
+    }, 
+    {
+        "pk": 152, 
+        "model": "core.city", 
+        "fields": {
+            "state": "MS", 
+            "name": "Jackson"
+        }
+    }, 
+    {
+        "pk": 153, 
+        "model": "core.city", 
+        "fields": {
+            "state": "OH", 
+            "name": "Columbus"
+        }
+    }, 
+    {
+        "pk": 154, 
+        "model": "core.city", 
+        "fields": {
+            "state": "PA-NJ", 
+            "name": "Allentown-Bethlehem-Easton"
+        }
+    }, 
+    {
+        "pk": 155, 
+        "model": "core.city", 
+        "fields": {
+            "state": "PA", 
+            "name": "Altoona"
+        }
+    }, 
+    {
+        "pk": 156, 
+        "model": "core.city", 
+        "fields": {
+            "state": "TN", 
+            "name": "Johnson City"
+        }
+    }, 
+    {
+        "pk": 157, 
+        "model": "core.city", 
+        "fields": {
+            "state": "AZ", 
+            "name": "Flagstaff"
+        }
+    }, 
+    {
+        "pk": 158, 
+        "model": "core.city", 
+        "fields": {
+            "state": "FL", 
+            "name": "Sebastian-Vero Beach"
+        }
+    }, 
+    {
+        "pk": 159, 
+        "model": "core.city", 
+        "fields": {
+            "state": "CT-RI", 
+            "name": "Norwich-New London"
+        }
+    }, 
+    {
+        "pk": 160, 
+        "model": "core.city", 
+        "fields": {
+            "state": "IN", 
+            "name": "Muncie"
+        }
+    }, 
+    {
+        "pk": 161, 
+        "model": "core.city", 
+        "fields": {
+            "state": "TN", 
+            "name": "Nashville-Davidson--Murfreesboro"
+        }
+    }, 
+    {
+        "pk": 162, 
+        "model": "core.city", 
+        "fields": {
+            "state": "FL", 
+            "name": "Deltona-Daytona Beach-Ormond Beach"
+        }
+    }, 
+    {
+        "pk": 163, 
+        "model": "core.city", 
+        "fields": {
+            "state": "FL", 
+            "name": "Orlando-Kissimmee"
+        }
+    }, 
+    {
+        "pk": 164, 
+        "model": "core.city", 
+        "fields": {
+            "state": "TN", 
+            "name": "Jackson"
+        }
+    }, 
+    {
+        "pk": 165, 
+        "model": "core.city", 
+        "fields": {
+            "state": "UT", 
+            "name": "Provo-Orem"
+        }
+    }, 
+    {
+        "pk": 166, 
+        "model": "core.city", 
+        "fields": {
+            "state": "IL", 
+            "name": "Kankakee-Bradley"
+        }
+    }, 
+    {
+        "pk": 167, 
+        "model": "core.city", 
+        "fields": {
+            "state": "VA", 
+            "name": "Roanoke"
+        }
+    }, 
+    {
+        "pk": 168, 
+        "model": "core.city", 
+        "fields": {
+            "state": "IN", 
+            "name": "Columbus"
+        }
+    }, 
+    {
+        "pk": 169, 
+        "model": "core.city", 
+        "fields": {
+            "state": "WY", 
+            "name": "Casper"
+        }
+    }, 
+    {
+        "pk": 170, 
+        "model": "core.city", 
+        "fields": {
+            "state": "ND-MN", 
+            "name": "Fargo"
+        }
+    }, 
+    {
+        "pk": 171, 
+        "model": "core.city", 
+        "fields": {
+            "state": "IN", 
+            "name": "Indianapolis-Carmel"
+        }
+    }, 
+    {
+        "pk": 172, 
+        "model": "core.city", 
+        "fields": {
+            "state": "MT", 
+            "name": "Billings"
+        }
+    }, 
+    {
+        "pk": 173, 
+        "model": "core.city", 
+        "fields": {
+            "state": "TN-GA", 
+            "name": "Chattanooga"
+        }
+    }, 
+    {
+        "pk": 174, 
+        "model": "core.city", 
+        "fields": {
+            "state": "ME", 
+            "name": "Lewiston-Auburn"
+        }
+    }, 
+    {
+        "pk": 175, 
+        "model": "core.city", 
+        "fields": {
+            "state": "KY", 
+            "name": "Lexington-Fayette"
+        }
+    }, 
+    {
+        "pk": 176, 
+        "model": "core.city", 
+        "fields": {
+            "state": "CO", 
+            "name": "Grand Junction"
+        }
+    }, 
+    {
+        "pk": 177, 
+        "model": "core.city", 
+        "fields": {
+            "state": "MT", 
+            "name": "Missoula"
+        }
+    }, 
+    {
+        "pk": 178, 
+        "model": "core.city", 
+        "fields": {
+            "state": "AL", 
+            "name": "Auburn-Opelika"
+        }
+    }, 
+    {
+        "pk": 179, 
+        "model": "core.city", 
+        "fields": {
+            "state": "KY-IN", 
+            "name": "Louisville-Jefferson County"
+        }
+    }, 
+    {
+        "pk": 180, 
+        "model": "core.city", 
+        "fields": {
+            "state": "FL", 
+            "name": "Jacksonville"
+        }
+    }, 
+    {
+        "pk": 181, 
+        "model": "core.city", 
+        "fields": {
+            "state": "NY", 
+            "name": "Kingston"
+        }
+    }, 
+    {
+        "pk": 182, 
+        "model": "core.city", 
+        "fields": {
+            "state": "VA-NC", 
+            "name": "Virginia Beach-Norfolk-Newport News"
+        }
+    }, 
+    {
+        "pk": 183, 
+        "model": "core.city", 
+        "fields": {
+            "state": "CA", 
+            "name": "Chico"
+        }
+    }, 
+    {
+        "pk": 184, 
+        "model": "core.city", 
+        "fields": {
+            "state": "MD-WV", 
+            "name": "Cumberland"
+        }
+    }, 
+    {
+        "pk": 185, 
+        "model": "core.city", 
+        "fields": {
+            "state": "TX", 
+            "name": "Abilene"
+        }
+    }, 
+    {
+        "pk": 186, 
+        "model": "core.city", 
+        "fields": {
+            "state": "LA", 
+            "name": "Alexandria"
+        }
+    }, 
+    {
+        "pk": 187, 
+        "model": "core.city", 
+        "fields": {
+            "state": "CA", 
+            "name": "Santa Barbara-Santa Maria"
+        }
+    }, 
+    {
+        "pk": 188, 
+        "model": "core.city", 
+        "fields": {
+            "state": "CA", 
+            "name": "Yuba City"
+        }
+    }, 
+    {
+        "pk": 189, 
+        "model": "core.city", 
+        "fields": {
+            "state": "PA", 
+            "name": "Harrisburg-Carlisle"
+        }
+    }, 
+    {
+        "pk": 190, 
+        "model": "core.city", 
+        "fields": {
+            "state": "MA", 
+            "name": "Leominster-Fitchburg-Gardner"
+        }
+    }, 
+    {
+        "pk": 191, 
+        "model": "core.city", 
+        "fields": {
+            "state": "CT", 
+            "name": "Waterbury"
+        }
+    }, 
+    {
+        "pk": 192, 
+        "model": "core.city", 
+        "fields": {
+            "state": "OH", 
+            "name": "Toledo"
+        }
+    }, 
+    {
+        "pk": 193, 
+        "model": "core.city", 
+        "fields": {
+            "state": "FL", 
+            "name": "Fort Walton Beach-Crestview-Destin"
+        }
+    }, 
+    {
+        "pk": 194, 
+        "model": "core.city", 
+        "fields": {
+            "state": "OK", 
+            "name": "Lawton"
+        }
+    }, 
+    {
+        "pk": 195, 
+        "model": "core.city", 
+        "fields": {
+            "state": "ND-MN", 
+            "name": "Grand Forks"
+        }
+    }, 
+    {
+        "pk": 196, 
+        "model": "core.city", 
+        "fields": {
+            "state": "IN-MI", 
+            "name": "South Bend-Mishawaka"
+        }
+    }, 
+    {
+        "pk": 197, 
+        "model": "core.city", 
+        "fields": {
+            "state": "TX", 
+            "name": "El Paso"
+        }
+    }, 
+    {
+        "pk": 198, 
+        "model": "core.city", 
+        "fields": {
+            "state": "GA", 
+            "name": "Rome"
+        }
+    }, 
+    {
+        "pk": 199, 
+        "model": "core.city", 
+        "fields": {
+            "state": "WA", 
+            "name": "Bellingham"
+        }
+    }, 
+    {
+        "pk": 200, 
+        "model": "core.city", 
+        "fields": {
+            "state": "WV-KY-OH", 
+            "name": "Huntington-Ashland"
+        }
+    }, 
+    {
+        "pk": 201, 
+        "model": "core.city", 
+        "fields": {
+            "state": "NC", 
+            "name": "Greensboro-High Point"
+        }
+    }, 
+    {
+        "pk": 202, 
+        "model": "core.city", 
+        "fields": {
+            "state": "GA", 
+            "name": "Hinesville-Fort Stewart"
+        }
+    }, 
+    {
+        "pk": 203, 
+        "model": "core.city", 
+        "fields": {
+            "state": "MN", 
+            "name": "St. Cloud"
+        }
+    }, 
+    {
+        "pk": 204, 
+        "model": "core.city", 
+        "fields": {
+            "state": "WA", 
+            "name": "Wenatchee"
+        }
+    }, 
+    {
+        "pk": 205, 
+        "model": "core.city", 
+        "fields": {
+            "state": "VA", 
+            "name": "Lynchburg"
+        }
+    }, 
+    {
+        "pk": 206, 
+        "model": "core.city", 
+        "fields": {
+            "state": "OR", 
+            "name": "Bend"
+        }
+    }, 
+    {
+        "pk": 207, 
+        "model": "core.city", 
+        "fields": {
+            "state": "CA", 
+            "name": "Redding"
+        }
+    }, 
+    {
+        "pk": 208, 
+        "model": "core.city", 
+        "fields": {
+            "state": "LA", 
+            "name": "New Orleans-Metairie-Kenner"
+        }
+    }, 
+    {
+        "pk": 209, 
+        "model": "core.city", 
+        "fields": {
+            "state": "WI", 
+            "name": "Fond du Lac"
+        }
+    }, 
+    {
+        "pk": 210, 
+        "model": "core.city", 
+        "fields": {
+            "state": "MT", 
+            "name": "Great Falls"
+        }
+    }, 
+    {
+        "pk": 211, 
+        "model": "core.city", 
+        "fields": {
+            "state": "WI", 
+            "name": "Sheboygan"
+        }
+    }, 
+    {
+        "pk": 212, 
+        "model": "core.city", 
+        "fields": {
+            "state": "MA", 
+            "name": "New Bedford"
+        }
+    }, 
+    {
+        "pk": 213, 
+        "model": "core.city", 
+        "fields": {
+            "state": "IN", 
+            "name": "Fort Wayne"
+        }
+    }, 
+    {
+        "pk": 214, 
+        "model": "core.city", 
+        "fields": {
+            "state": "OR", 
+            "name": "Medford"
+        }
+    }, 
+    {
+        "pk": 215, 
+        "model": "core.city", 
+        "fields": {
+            "state": "TX", 
+            "name": "Victoria"
+        }
+    }, 
+    {
+        "pk": 216, 
+        "model": "core.city", 
+        "fields": {
+            "state": "AL", 
+            "name": "Florence-Muscle Shoals"
+        }
+    }, 
+    {
+        "pk": 217, 
+        "model": "core.city", 
+        "fields": {
+            "state": "MI", 
+            "name": "Niles-Benton Harbor"
+        }
+    }, 
+    {
+        "pk": 218, 
+        "model": "core.city", 
+        "fields": {
+            "state": "MA", 
+            "name": "Barnstable Town"
+        }
+    }, 
+    {
+        "pk": 219, 
+        "model": "core.city", 
+        "fields": {
+            "state": "SC", 
+            "name": "Greenville"
+        }
+    }, 
+    {
+        "pk": 220, 
+        "model": "core.city", 
+        "fields": {
+            "state": "SC", 
+            "name": "Charleston-North Charleston"
+        }
+    }, 
+    {
+        "pk": 221, 
+        "model": "core.city", 
+        "fields": {
+            "state": "TX", 
+            "name": "Odessa"
+        }
+    }, 
+    {
+        "pk": 222, 
+        "model": "core.city", 
+        "fields": {
+            "state": "TX", 
+            "name": "Amarillo"
+        }
+    }, 
+    {
+        "pk": 223, 
+        "model": "core.city", 
+        "fields": {
+            "state": "NC", 
+            "name": "Fayetteville"
+        }
+    }, 
+    {
+        "pk": 224, 
+        "model": "core.city", 
+        "fields": {
+            "state": "WA", 
+            "name": "Mount Vernon-Anacortes"
+        }
+    }, 
+    {
+        "pk": 225, 
+        "model": "core.city", 
+        "fields": {
+            "state": "GA-AL", 
+            "name": "Columbus"
+        }
+    }, 
+    {
+        "pk": 226, 
+        "model": "core.city", 
+        "fields": {
+            "state": "GA-SC", 
+            "name": "Augusta-Richmond County"
+        }
+    }, 
+    {
+        "pk": 227, 
+        "model": "core.city", 
+        "fields": {
+            "state": "LA", 
+            "name": "Baton Rouge"
+        }
+    }, 
+    {
+        "pk": 228, 
+        "model": "core.city", 
+        "fields": {
+            "state": "FL", 
+            "name": "Pensacola-Ferry Pass-Brent"
+        }
+    }, 
+    {
+        "pk": 229, 
+        "model": "core.city", 
+        "fields": {
+            "state": "TX", 
+            "name": "Beaumont-Port Arthur"
+        }
+    }, 
+    {
+        "pk": 230, 
+        "model": "core.city", 
+        "fields": {
+            "state": "PA", 
+            "name": "Reading"
+        }
+    }, 
+    {
+        "pk": 231, 
+        "model": "core.city", 
+        "fields": {
+            "state": "CO", 
+            "name": "Greeley"
+        }
+    }, 
+    {
+        "pk": 232, 
+        "model": "core.city", 
+        "fields": {
+            "state": "IL", 
+            "name": "Danville"
+        }
+    }, 
+    {
+        "pk": 233, 
+        "model": "core.city", 
+        "fields": {
+            "state": "PA", 
+            "name": "York-Hanover"
+        }
+    }, 
+    {
+        "pk": 234, 
+        "model": "core.city", 
+        "fields": {
+            "state": "ID", 
+            "name": "Idaho Falls"
+        }
+    }, 
+    {
+        "pk": 235, 
+        "model": "core.city", 
+        "fields": {
+            "state": "CA", 
+            "name": "Merced"
+        }
+    }, 
+    {
+        "pk": 236, 
+        "model": "core.city", 
+        "fields": {
+            "state": "IN", 
+            "name": "Kokomo"
+        }
+    }, 
+    {
+        "pk": 237, 
+        "model": "core.city", 
+        "fields": {
+            "state": "FL", 
+            "name": "Lakeland"
+        }
+    }, 
+    {
+        "pk": 238, 
+        "model": "core.city", 
+        "fields": {
+            "state": "SD", 
+            "name": "Rapid City"
+        }
+    }, 
+    {
+        "pk": 239, 
+        "model": "core.city", 
+        "fields": {
+            "state": "MS", 
+            "name": "Pascagoula"
+        }
+    }, 
+    {
+        "pk": 240, 
+        "model": "core.city", 
+        "fields": {
+            "state": "PA", 
+            "name": "Lebanon"
+        }
+    }, 
+    {
+        "pk": 241, 
+        "model": "core.city", 
+        "fields": {
+            "state": "PA", 
+            "name": "Williamsport"
+        }
+    }, 
+    {
+        "pk": 242, 
+        "model": "core.city", 
+        "fields": {
+            "state": "MI", 
+            "name": "Holland-Grand Haven"
+        }
+    }, 
+    {
+        "pk": 243, 
+        "model": "core.city", 
+        "fields": {
+            "state": "AL", 
+            "name": "Montgomery"
+        }
+    }, 
+    {
+        "pk": 244, 
+        "model": "core.city", 
+        "fields": {
+            "state": "IA-NE-SD", 
+            "name": "Sioux City"
+        }
+    }, 
+    {
+        "pk": 245, 
+        "model": "core.city", 
+        "fields": {
+            "state": "CA", 
+            "name": "Fresno"
+        }
+    }, 
+    {
+        "pk": 246, 
+        "model": "core.city", 
+        "fields": {
+            "state": "KS", 
+            "name": "Lawrence"
+        }
+    }, 
+    {
+        "pk": 247, 
+        "model": "core.city", 
+        "fields": {
+            "state": "NC", 
+            "name": "Wilmington"
+        }
+    }, 
+    {
+        "pk": 248, 
+        "model": "core.city", 
+        "fields": {
+            "state": "LA", 
+            "name": "Lafayette"
+        }
+    }, 
+    {
+        "pk": 249, 
+        "model": "core.city", 
+        "fields": {
+            "state": "FL", 
+            "name": "Cape Coral-Fort Myers"
+        }
+    }, 
+    {
+        "pk": 250, 
+        "model": "core.city", 
+        "fields": {
+            "state": "TX", 
+            "name": "Laredo"
+        }
+    }, 
+    {
+        "pk": 251, 
+        "model": "core.city", 
+        "fields": {
+            "state": "TX", 
+            "name": "Corpus Christi"
+        }
+    }, 
+    {
+        "pk": 252, 
+        "model": "core.city", 
+        "fields": {
+            "state": "AL", 
+            "name": "Mobile"
+        }
+    }, 
+    {
+        "pk": 253, 
+        "model": "core.city", 
+        "fields": {
+            "state": "IA", 
+            "name": "Dubuque"
+        }
+    }, 
+    {
+        "pk": 254, 
+        "model": "core.city", 
+        "fields": {
+            "state": "OH", 
+            "name": "Canton-Massillon"
+        }
+    }, 
+    {
+        "pk": 255, 
+        "model": "core.city", 
+        "fields": {
+            "state": "IA", 
+            "name": "Waterloo-Cedar Falls"
+        }
+    }, 
+    {
+        "pk": 256, 
+        "model": "core.city", 
+        "fields": {
+            "state": "UT", 
+            "name": "Ogden-Clearfield"
+        }
+    }, 
+    {
+        "pk": 257, 
+        "model": "core.city", 
+        "fields": {
+            "state": "NC", 
+            "name": "Asheville"
+        }
+    }, 
+    {
+        "pk": 258, 
+        "model": "core.city", 
+        "fields": {
+            "state": "CA", 
+            "name": "Stockton"
+        }
+    }, 
+    {
+        "pk": 259, 
+        "model": "core.city", 
+        "fields": {
+            "state": "NJ", 
+            "name": "Atlantic City"
+        }
+    }, 
+    {
+        "pk": 260, 
+        "model": "core.city", 
+        "fields": {
+            "state": "TX", 
+            "name": "Waco"
+        }
+    }, 
+    {
+        "pk": 261, 
+        "model": "core.city", 
+        "fields": {
+            "state": "TX", 
+            "name": "Tyler"
+        }
+    }, 
+    {
+        "pk": 262, 
+        "model": "core.city", 
+        "fields": {
+            "state": "CA", 
+            "name": "Hanford-Corcoran"
+        }
+    }, 
+    {
+        "pk": 263, 
+        "model": "core.city", 
+        "fields": {
+            "state": "NC", 
+            "name": "Greenville"
+        }
+    }, 
+    {
+        "pk": 264, 
+        "model": "core.city", 
+        "fields": {
+            "state": "VA", 
+            "name": "Harrisonburg"
+        }
+    }, 
+    {
+        "pk": 265, 
+        "model": "core.city", 
+        "fields": {
+            "state": "WA", 
+            "name": "Yakima"
+        }
+    }, 
+    {
+        "pk": 266, 
+        "model": "core.city", 
+        "fields": {
+            "state": "NV", 
+            "name": "Reno-Sparks"
+        }
+    }, 
+    {
+        "pk": 267, 
+        "model": "core.city", 
+        "fields": {
+            "state": "PA", 
+            "name": "Scranton--Wilkes-Barre"
+        }
+    }, 
+    {
+        "pk": 268, 
+        "model": "core.city", 
+        "fields": {
+            "state": "SC", 
+            "name": "Spartanburg"
+        }
+    }, 
+    {
+        "pk": 269, 
+        "model": "core.city", 
+        "fields": {
+            "state": "CA", 
+            "name": "Riverside-San Bernardino-Ontario"
+        }
+    }, 
+    {
+        "pk": 270, 
+        "model": "core.city", 
+        "fields": {
+            "state": "MS", 
+            "name": "Gulfport-Biloxi"
+        }
+    }, 
+    {
+        "pk": 271, 
+        "model": "core.city", 
+        "fields": {
+            "state": "GA", 
+            "name": "Savannah"
+        }
+    }, 
+    {
+        "pk": 272, 
+        "model": "core.city", 
+        "fields": {
+            "state": "PA", 
+            "name": "Lancaster"
+        }
+    }, 
+    {
+        "pk": 273, 
+        "model": "core.city", 
+        "fields": {
+            "state": "GA", 
+            "name": "Macon"
+        }
+    }, 
+    {
+        "pk": 274, 
+        "model": "core.city", 
+        "fields": {
+            "state": "WI", 
+            "name": "Janesville"
+        }
+    }, 
+    {
+        "pk": 275, 
+        "model": "core.city", 
+        "fields": {
+            "state": "TX", 
+            "name": "McAllen-Edinburg-Mission"
+        }
+    }, 
+    {
+        "pk": 276, 
+        "model": "core.city", 
+        "fields": {
+            "state": "GA", 
+            "name": "Albany"
+        }
+    }, 
+    {
+        "pk": 277, 
+        "model": "core.city", 
+        "fields": {
+            "state": "TX", 
+            "name": "Brownsville-Harlingen"
+        }
+    }, 
+    {
+        "pk": 278, 
+        "model": "core.city", 
+        "fields": {
+            "state": "IL", 
+            "name": "Rockford"
+        }
+    }, 
+    {
+        "pk": 279, 
+        "model": "core.city", 
+        "fields": {
+            "state": "MI", 
+            "name": "Battle Creek"
+        }
+    }, 
+    {
+        "pk": 280, 
+        "model": "core.city", 
+        "fields": {
+            "state": "LA", 
+            "name": "Shreveport-Bossier City"
+        }
+    }, 
+    {
+        "pk": 281, 
+        "model": "core.city", 
+        "fields": {
+            "state": "FL", 
+            "name": "Sarasota-Bradenton-Venice"
+        }
+    }, 
+    {
+        "pk": 282, 
+        "model": "core.city", 
+        "fields": {
+            "state": "MO-KS", 
+            "name": "St. Joseph"
+        }
+    }, 
+    {
+        "pk": 283, 
+        "model": "core.city", 
+        "fields": {
+            "state": "WI", 
+            "name": "Green Bay"
+        }
+    }, 
+    {
+        "pk": 284, 
+        "model": "core.city", 
+        "fields": {
+            "state": "KY", 
+            "name": "Elizabethtown"
+        }
+    }, 
+    {
+        "pk": 285, 
+        "model": "core.city", 
+        "fields": {
+            "state": "TN-MS-AR", 
+            "name": "Memphis"
+        }
+    }, 
+    {
+        "pk": 286, 
+        "model": "core.city", 
+        "fields": {
+            "state": "ID", 
+            "name": "Coeur d'Alene"
+        }
+    }, 
+    {
+        "pk": 287, 
+        "model": "core.city", 
+        "fields": {
+            "state": "MI", 
+            "name": "Muskegon-Norton Shores"
+        }
+    }, 
+    {
+        "pk": 288, 
+        "model": "core.city", 
+        "fields": {
+            "state": "LA", 
+            "name": "Monroe"
+        }
+    }, 
+    {
+        "pk": 289, 
+        "model": "core.city", 
+        "fields": {
+            "state": "OH", 
+            "name": "Sandusky"
+        }
+    }, 
+    {
+        "pk": 290, 
+        "model": "core.city", 
+        "fields": {
+            "state": "CA", 
+            "name": "Modesto"
+        }
+    }, 
+    {
+        "pk": 291, 
+        "model": "core.city", 
+        "fields": {
+            "state": "DE", 
+            "name": "Dover"
+        }
+    }, 
+    {
+        "pk": 292, 
+        "model": "core.city", 
+        "fields": {
+            "state": "NC", 
+            "name": "Jacksonville"
+        }
+    }, 
+    {
+        "pk": 293, 
+        "model": "core.city", 
+        "fields": {
+            "state": "OH", 
+            "name": "Mansfield"
+        }
+    }, 
+    {
+        "pk": 294, 
+        "model": "core.city", 
+        "fields": {
+            "state": "MO", 
+            "name": "Springfield"
+        }
+    }, 
+    {
+        "pk": 295, 
+        "model": "core.city", 
+        "fields": {
+            "state": "IN-KY", 
+            "name": "Evansville"
+        }
+    }, 
+    {
+        "pk": 296, 
+        "model": "core.city", 
+        "fields": {
+            "state": "WV-OH", 
+            "name": "Wheeling"
+        }
+    }, 
+    {
+        "pk": 297, 
+        "model": "core.city", 
+        "fields": {
+            "state": "SC", 
+            "name": "Sumter"
+        }
+    }, 
+    {
+        "pk": 298, 
+        "model": "core.city", 
+        "fields": {
+            "state": "CO", 
+            "name": "Pueblo"
+        }
+    }, 
+    {
+        "pk": 299, 
+        "model": "core.city", 
+        "fields": {
+            "state": "LA", 
+            "name": "Lake Charles"
+        }
+    }, 
+    {
+        "pk": 300, 
+        "model": "core.city", 
+        "fields": {
+            "state": "FL", 
+            "name": "Panama City-Lynn Haven"
+        }
+    }, 
+    {
+        "pk": 301, 
+        "model": "core.city", 
+        "fields": {
+            "state": "AR-OK", 
+            "name": "Fort Smith"
+        }
+    }, 
+    {
+        "pk": 302, 
+        "model": "core.city", 
+        "fields": {
+            "state": "FL", 
+            "name": "Port St. Lucie-Fort Pierce"
+        }
+    }, 
+    {
+        "pk": 303, 
+        "model": "core.city", 
+        "fields": {
+            "state": "IN", 
+            "name": "Anderson"
+        }
+    }, 
+    {
+        "pk": 304, 
+        "model": "core.city", 
+        "fields": {
+            "state": "NV", 
+            "name": "Carson City"
+        }
+    }, 
+    {
+        "pk": 305, 
+        "model": "core.city", 
+        "fields": {
+            "state": "OH", 
+            "name": "Lima"
+        }
+    }, 
+    {
+        "pk": 306, 
+        "model": "core.city", 
+        "fields": {
+            "state": "FL", 
+            "name": "Ocala"
+        }
+    }, 
+    {
+        "pk": 307, 
+        "model": "core.city", 
+        "fields": {
+            "state": "VA-WV", 
+            "name": "Winchester"
+        }
+    }, 
+    {
+        "pk": 308, 
+        "model": "core.city", 
+        "fields": {
+            "state": "IL", 
+            "name": "Champaign-Urbana"
+        }
+    }, 
+    {
+        "pk": 309, 
+        "model": "core.city", 
+        "fields": {
+            "state": "TX", 
+            "name": "Wichita Falls"
+        }
+    }, 
+    {
+        "pk": 310, 
+        "model": "core.city", 
+        "fields": {
+            "state": "NV", 
+            "name": "Las Vegas-Paradise"
+        }
+    }, 
+    {
+        "pk": 311, 
+        "model": "core.city", 
+        "fields": {
+            "state": "WI", 
+            "name": "Racine"
+        }
+    }, 
+    {
+        "pk": 312, 
+        "model": "core.city", 
+        "fields": {
+            "state": "MS", 
+            "name": "Hattiesburg"
+        }
+    }, 
+    {
+        "pk": 313, 
+        "model": "core.city", 
+        "fields": {
+            "state": "CA", 
+            "name": "Visalia-Porterville"
+        }
+    }, 
+    {
+        "pk": 314, 
+        "model": "core.city", 
+        "fields": {
+            "state": "VA", 
+            "name": "Blacksburg-Christiansburg-Radford"
+        }
+    }, 
+    {
+        "pk": 315, 
+        "model": "core.city", 
+        "fields": {
+            "state": "CA", 
+            "name": "El Centro"
+        }
+    }, 
+    {
+        "pk": 316, 
+        "model": "core.city", 
+        "fields": {
+            "state": "KY", 
+            "name": "Bowling Green"
+        }
+    }, 
+    {
+        "pk": 317, 
+        "model": "core.city", 
+        "fields": {
+            "state": "KY", 
+            "name": "Owensboro"
+        }
+    }, 
+    {
+        "pk": 318, 
+        "model": "core.city", 
+        "fields": {
+            "state": "NJ", 
+            "name": "Vineland-Millville-Bridgeton"
+        }
+    }, 
+    {
+        "pk": 319, 
+        "model": "core.city", 
+        "fields": {
+            "state": "TN-KY", 
+            "name": "Clarksville"
+        }
+    }, 
+    {
+        "pk": 320, 
+        "model": "core.city", 
+        "fields": {
+            "state": "MD-WV", 
+            "name": "Hagerstown-Martinsburg"
+        }
+    }, 
+    {
+        "pk": 321, 
+        "model": "core.city", 
+        "fields": {
+            "state": "IN", 
+            "name": "Terre Haute"
+        }
+    }, 
+    {
+        "pk": 322, 
+        "model": "core.city", 
+        "fields": {
+            "state": "AR", 
+            "name": "Pine Bluff"
+        }
+    }, 
+    {
+        "pk": 323, 
+        "model": "core.city", 
+        "fields": {
+            "state": "TN-VA", 
+            "name": "Kingsport-Bristol-Bristol"
+        }
+    }, 
+    {
+        "pk": 324, 
+        "model": "core.city", 
+        "fields": {
+            "state": "AL", 
+            "name": "Tuscaloosa"
+        }
+    }, 
+    {
+        "pk": 325, 
+        "model": "core.city", 
+        "fields": {
+            "state": "MI", 
+            "name": "Monroe"
+        }
+    }, 
+    {
+        "pk": 326, 
+        "model": "core.city", 
+        "fields": {
+            "state": "CA", 
+            "name": "Bakersfield"
+        }
+    }, 
+    {
+        "pk": 327, 
+        "model": "core.city", 
+        "fields": {
+            "state": "VA", 
+            "name": "Danville"
+        }
+    }, 
+    {
+        "pk": 328, 
+        "model": "core.city", 
+        "fields": {
+            "state": "NY", 
+            "name": "Glens Falls"
+        }
+    }, 
+    {
+        "pk": 329, 
+        "model": "core.city", 
+        "fields": {
+            "state": "GA", 
+            "name": "Brunswick"
+        }
+    }, 
+    {
+        "pk": 330, 
+        "model": "core.city", 
+        "fields": {
+            "state": "IN", 
+            "name": "Elkhart-Goshen"
+        }
+    }, 
+    {
+        "pk": 331, 
+        "model": "core.city", 
+        "fields": {
+            "state": "MO", 
+            "name": "Joplin"
+        }
+    }, 
+    {
+        "pk": 332, 
+        "model": "core.city", 
+        "fields": {
+            "state": "WA", 
+            "name": "Longview"
+        }
+    }, 
+    {
+        "pk": 333, 
+        "model": "core.city", 
+        "fields": {
+            "state": "OH", 
+            "name": "Springfield"
+        }
+    }, 
+    {
+        "pk": 334, 
+        "model": "core.city", 
+        "fields": {
+            "state": "FL", 
+            "name": "Punta Gorda"
+        }
+    }, 
+    {
+        "pk": 335, 
+        "model": "core.city", 
+        "fields": {
+            "state": "AZ", 
+            "name": "Yuma"
+        }
+    }, 
+    {
+        "pk": 336, 
+        "model": "core.city", 
+        "fields": {
+            "state": "OH-PA", 
+            "name": "Youngstown-Warren-Boardman"
+        }
+    }, 
+    {
+        "pk": 337, 
+        "model": "core.city", 
+        "fields": {
+            "state": "AR", 
+            "name": "Jonesboro"
+        }
+    }, 
+    {
+        "pk": 338, 
+        "model": "core.city", 
+        "fields": {
+            "state": "AZ", 
+            "name": "Prescott"
+        }
+    }, 
+    {
+        "pk": 339, 
+        "model": "core.city", 
+        "fields": {
+            "state": "WV-OH", 
+            "name": "Parkersburg-Marietta-Vienna"
+        }
+    }, 
+    {
+        "pk": 340, 
+        "model": "core.city", 
+        "fields": {
+            "state": "ID-WA", 
+            "name": "Lewiston"
+        }
+    }, 
+    {
+        "pk": 341, 
+        "model": "core.city", 
+        "fields": {
+            "state": "LA", 
+            "name": "Houma-Bayou Cane-Thibodaux"
+        }
+    }, 
+    {
+        "pk": 342, 
+        "model": "core.city", 
+        "fields": {
+            "state": "OR", 
+            "name": "Corvallis"
+        }
+    }, 
+    {
+        "pk": 343, 
+        "model": "core.city", 
+        "fields": {
+            "state": "AL", 
+            "name": "Anniston-Oxford"
+        }
+    }, 
+    {
+        "pk": 344, 
+        "model": "core.city", 
+        "fields": {
+            "state": "AL", 
+            "name": "Gadsden"
+        }
+    }, 
+    {
+        "pk": 345, 
+        "model": "core.city", 
+        "fields": {
+            "state": "NM", 
+            "name": "Farmington"
+        }
+    }, 
+    {
+        "pk": 346, 
+        "model": "core.city", 
+        "fields": {
+            "state": "TX-AR", 
+            "name": "Texarkana-Texarkana"
+        }
+    }, 
+    {
+        "pk": 347, 
+        "model": "core.city", 
+        "fields": {
+            "state": "TX", 
+            "name": "Longview"
+        }
+    }, 
+    {
+        "pk": 348, 
+        "model": "core.city", 
+        "fields": {
+            "state": "SC", 
+            "name": "Myrtle Beach-Conway-North Myrtle Beach"
+        }
+    }, 
+    {
+        "pk": 349, 
+        "model": "core.city", 
+        "fields": {
+            "state": "NC", 
+            "name": "Goldsboro"
+        }
+    }, 
+    {
+        "pk": 350, 
+        "model": "core.city", 
+        "fields": {
+            "state": "AL", 
+            "name": "Decatur"
+        }
+    }, 
+    {
+        "pk": 351, 
+        "model": "core.city", 
+        "fields": {
+            "state": "GA", 
+            "name": "Gainesville"
+        }
+    }, 
+    {
+        "pk": 352, 
+        "model": "core.city", 
+        "fields": {
+            "state": "FL", 
+            "name": "Naples-Marco Island"
+        }
+    }, 
+    {
+        "pk": 353, 
+        "model": "core.city", 
+        "fields": {
+            "state": "NC", 
+            "name": "Burlington"
+        }
+    }, 
+    {
+        "pk": 354, 
+        "model": "core.city", 
+        "fields": {
+            "state": "CA", 
+            "name": "Madera"
+        }
+    }, 
+    {
+        "pk": 355, 
+        "model": "core.city", 
+        "fields": {
+            "state": "AR", 
+            "name": "Hot Springs"
+        }
+    }, 
+    {
+        "pk": 356, 
+        "model": "core.city", 
+        "fields": {
+            "state": "NC", 
+            "name": "Hickory-Lenoir-Morganton"
+        }
+    }, 
+    {
+        "pk": 357, 
+        "model": "core.city", 
+        "fields": {
+            "state": "UT", 
+            "name": "St. George"
+        }
+    }, 
+    {
+        "pk": 358, 
+        "model": "core.city", 
+        "fields": {
+            "state": "WV-OH", 
+            "name": "Weirton-Steubenville"
+        }
+    }, 
+    {
+        "pk": 359, 
+        "model": "core.city", 
+        "fields": {
+            "state": "SC", 
+            "name": "Anderson"
+        }
+    }, 
+    {
+        "pk": 360, 
+        "model": "core.city", 
+        "fields": {
+            "state": "TN", 
+            "name": "Cleveland"
+        }
+    }, 
+    {
+        "pk": 361, 
+        "model": "core.city", 
+        "fields": {
+            "state": "CA", 
+            "name": "Salinas"
+        }
+    }, 
+    {
+        "pk": 362, 
+        "model": "core.city", 
+        "fields": {
+            "state": "GA", 
+            "name": "Dalton"
+        }
+    }, 
+    {
+        "pk": 363, 
+        "model": "core.city", 
+        "fields": {
+            "state": "GA", 
+            "name": "Valdosta"
+        }
+    }, 
+    {
+        "pk": 364, 
+        "model": "core.city", 
+        "fields": {
+            "state": "IN", 
+            "name": "Michigan City-La Porte"
+        }
+    }, 
+    {
+        "pk": 365, 
+        "model": "core.city", 
+        "fields": {
+            "state": "TN", 
+            "name": "Morristown"
+        }
+    }, 
+    {
+        "pk": 366, 
+        "model": "core.city", 
+        "fields": {
+            "state": "NC", 
+            "name": "Rocky Mount"
+        }
+    }, 
+    {
+        "pk": 367, 
+        "model": "core.city", 
+        "fields": {
+            "state": "NJ", 
+            "name": "Ocean City"
+        }
     }
 ]

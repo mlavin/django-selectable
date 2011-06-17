@@ -1,8 +1,9 @@
 from django import forms
+from django.contrib.localflavor.us.forms import USStateField, USStateSelect
 
 import selectable.forms as selectable
 
-from example.core.lookups import FruitLookup
+from example.core.lookups import FruitLookup, CityLookup
 
 
 class FruitForm(forms.Form):
@@ -58,4 +59,13 @@ class FruitForm(forms.Form):
         label='Select a fruit (AutoComboboxSelectMultipleField)',
         required=False,
     )
+
+
+class ChainedForm(forms.Form):
+    city = selectable.AutoComboboxSelectField(
+        lookup_class=CityLookup,
+        label='City',
+        required=False,
+    )
+    state = USStateField(widget=USStateSelect, required=False)
 

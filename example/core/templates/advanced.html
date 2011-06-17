@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block extra-css %}
+<style type="text/css">
+    .ui-autocomplete-input {
+        width: 300px;
+    }
+    .ui-autocomplete {
+        max-height: 216px;
+        overflow-y: auto;
+    }
+</style>
+{% endblock %}
+
+{% block extra-js %}
+<script type="text/javascript">
+    $(document).ready(function() {
+        function newParameters(query) {
+            query.state = $('#id_state').val();
+        }
+        $('#id_city_0').djselectable('option', 'prepareQuery', newParameters);
+    });
+</script>
+{% endblock %}
