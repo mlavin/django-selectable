@@ -135,7 +135,7 @@ And that's it! We now have a working chained selection example. The full source
 is included in the example project.
 
 
-Sumbit On Selection Example
+Submit On Selection Example
 --------------------------------------
 
 You might want to help your users by submitting the form once they have selected a valid
