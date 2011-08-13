@@ -54,5 +54,5 @@ Contributing
 --------------------------------------
 
 If you think you've found a bug or are interested in contributing to this project
-check out our `contributing guide <http://readthedocs.org/docs/django-selectable/en/latest/contribute.html>`.
+check out our `contributing guide <http://readthedocs.org/docs/django-selectable/en/latest/contribute.html>`_.
 
