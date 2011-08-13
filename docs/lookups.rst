@@ -17,17 +17,17 @@ Lookups should be defined in a `lookups.py` in your application's module. Once d
 you must register in with django-selectable. All lookups must extend from 
 `selectable.base.LookupBase` which defines the API for every lookup.
 
-.. code-block:: python
+    .. code-block:: python
 
-    from selectable.base import LookupBase
-    from selectable.registry import registry
+        from selectable.base import LookupBase
+        from selectable.registry import registry
 
-    class MyLookup(LookupBase):
-        def get_query(self, request, term):
-            data = ['Foo', 'Bar']
-            return filter(lambda x: x.startswith(term), data)
+        class MyLookup(LookupBase):
+            def get_query(self, request, term):
+                data = ['Foo', 'Bar']
+                return filter(lambda x: x.startswith(term), data)
 
-    registry.register(MyLookup)
+        registry.register(MyLookup)
 
 
 Lookup API

@@ -17,9 +17,9 @@ the query string to retrive more values.
 
 You may disable this global maximum by setting
 
-.. code-block:: python
+    .. code-block:: python
 
-    SELECTABLE_MAX_LIMIT = None
+        SELECTABLE_MAX_LIMIT = None
 
 Default: 25
 

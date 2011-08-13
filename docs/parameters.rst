@@ -37,18 +37,18 @@ Adding Parameters on the Server Side
 Each of the widgets define `update_query_parameters` which takes a dictionary. The
 most common way to use this would be in the form `__init__`.
 
-.. code-block:: python
+    .. code-block:: python
 
-    class FruitForm(forms.Form):
-        autocomplete = forms.CharField(
-            label='Type the name of a fruit (AutoCompleteWidget)',
-            widget=selectable.AutoCompleteWidget(FruitLookup),
-            required=False,
-        )
+        class FruitForm(forms.Form):
+            autocomplete = forms.CharField(
+                label='Type the name of a fruit (AutoCompleteWidget)',
+                widget=selectable.AutoCompleteWidget(FruitLookup),
+                required=False,
+            )
 
-        def __init__(self, *args, **kwargs):
-            super(FruitForm, self).__init__(*args, **kwargs)
-            self.fields['autocomplete'].widget.update_query_parameters({'foo': 'bar'})
+            def __init__(self, *args, **kwargs):
+                super(FruitForm, self).__init__(*args, **kwargs)
+                self.fields['autocomplete'].widget.update_query_parameters({'foo': 'bar'})
 
 
 .. _client-side-parameters:
@@ -61,17 +61,17 @@ by the user such as a filtering cities by a previously selected state. In this
 case you will need to bind a `prepareQuery` to the field. This function should accept the query dictionary. 
 You are free to make adjustments to  the query dictionary as needed.
 
-.. code-block:: html
+    .. code-block:: html
 
-    <script type="text/javascript">
-        function newParameters(query) {
-            query.foo = 'bar';
-        }
+        <script type="text/javascript">
+            function newParameters(query) {
+                query.foo = 'bar';
+            }
 
-        $(document).ready(function() {
-            $('#id_autocomplete').djselectable('option', 'prepareQuery', newParameters);
-        });
-    </script>
+            $(document).ready(function() {
+                $('#id_autocomplete').djselectable('option', 'prepareQuery', newParameters);
+            });
+        </script>
 
 
 .. _client-side-changes:
@@ -94,6 +94,8 @@ expose the events defined by the plugin.
 For the most part these event names should be self-explanatory. If you need additional
 detail you should refer to the `jQuery UI docs on these events <http://jqueryui.com/demos/autocomplete/#events>`_.
 
+
+.. _chain-select-example:
 
 Chained Selection Example
 --------------------------------------
@@ -131,4 +133,23 @@ Then in our lookup we will grab the state value and filter our results on it:
 
 And that's it! We now have a working chained selection example. The full source
 is included in the example project.
+
+
+Sumbit On Selection Example
+--------------------------------------
+
+You might want to help your users by submitting the form once they have selected a valid
+item. To do this you simply need to listen for the `autocompleteselect` event. This
+event is fired by the text input which has an index of 0. If you field is named `my_field`
+then input to watch would be `my_field_0` such as:
+
+    .. code-block:: html
+
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $(':input[name=my_field_0]').bind('autocompleteselect', function(event, ui) {
+                    $(this).parents("form").submit();
+                });
+            });
+        </script>
 

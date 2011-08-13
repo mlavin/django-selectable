@@ -13,6 +13,7 @@ _________________
 - Compatibility and examples for :ref:`Admin inlines <admin-inline-example>`
 - JS updated for jQuery 1.6 compatibility
 - :ref:`JS hooks <client-side-parameters>` for updating query parameters
+- :ref:`Chained selection example <chain-select-example>`
 
 
 v0.1.2
