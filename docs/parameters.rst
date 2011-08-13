@@ -94,3 +94,41 @@ expose the events defined by the plugin.
 For the most part these event names should be self-explanatory. If you need additional
 detail you should refer to the `jQuery UI docs on these events <http://jqueryui.com/demos/autocomplete/#events>`_.
 
+
+Chained Selection Example
+--------------------------------------
+
+It's a fairly common pattern to have two or more inputs depend one another such City/State/Zip.
+In fact there are other Django apps dedicated to this purpose such as 
+`django-smart-selects <https://github.com/digi604/django-smart-selects>`_ or
+`django-ajax-filtered-fields <http://code.google.com/p/django-ajax-filtered-fields/>`_.
+It's possible to handle this kind of selection with django-selectable if you are willing
+to write a little javascript.
+
+Suppose we have city model
+
+    .. literalinclude:: ../example/core/models.py
+        :pyobject: City
+
+and a simple form
+
+    .. literalinclude:: ../example/core/forms.py
+        :pyobject: ChainedForm
+
+We want our users to select a city and if they choose a state then we will only
+show them cities in that state. To do this we will pass back chosen state as 
+addition parameter with the following javascript:
+
+    .. literalinclude:: ../example/core/templates/advanced.html
+        :start-after: {% block extra-js %}
+        :end-before: {% endblock %}
+
+
+Then in our lookup we will grab the state value and filter our results on it:
+
+    .. literalinclude:: ../example/core/lookups.py
+        :pyobject: CityLookup
+
+And that's it! We now have a working chained selection example. The full source
+is included in the example project.
+
