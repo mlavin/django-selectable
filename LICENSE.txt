@@ -1,4 +1,4 @@
-Copyright (c) 2010-2011, Mark Lavin
+Copyright (c) 2010-2012, Mark Lavin
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification,
