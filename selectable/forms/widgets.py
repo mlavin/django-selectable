@@ -17,17 +17,17 @@ __all__ = (
 
 
 MEDIA_URL = settings.MEDIA_URL
-STATIC_URL = getattr(settings, 'STATIC_URL', '')
-MEDIA_PREFIX = STATIC_URL or MEDIA_URL
+STATIC_URL = getattr(settings, 'STATIC_URL', u'')
+MEDIA_PREFIX = u'%sselectable/' % STATIC_URL or MEDIA_URL
 
 
 class SelectableMediaMixin(object):
 
     class Media(object):
         css = {
-            'all': ('%scss/dj.selectable.css' % MEDIA_PREFIX, )
+            'all': (u'%scss/dj.selectable.css' % MEDIA_PREFIX, )
         }
-        js = ('%sjs/jquery.dj.selectable.js' % MEDIA_PREFIX, )
+        js = (u'%sjs/jquery.dj.selectable.js' % MEDIA_PREFIX, )
 
 
 class AutoCompleteWidget(forms.TextInput, SelectableMediaMixin):
