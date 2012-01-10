@@ -1,18 +1,8 @@
 from django.utils.encoding import force_unicode
 
 from selectable.base import LookupBase
-
-
-class LookupAlreadyRegistered(Exception):
-    pass
-
-
-class LookupNotRegistered(Exception):
-    pass
-
-
-class LookupInvalid(Exception):
-    pass
+from selectable.exceptions import (LookupAlreadyRegistered, LookupNotRegistered,
+                                    LookupInvalid)
 
 
 class LookupRegistry(object):
