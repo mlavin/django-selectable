@@ -33,7 +33,8 @@
                 $('<div>')
                 .addClass('selectable-deck-remove')
                 .append(
-                    $('<button>')
+                    $('<a>')
+                    .attr('href', '#')
                     .button({
                         icons: {
                             primary: self.options.removeIcon
