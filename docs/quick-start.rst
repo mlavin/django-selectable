@@ -15,14 +15,21 @@ and `using forms <http://docs.djangoproject.com/en/1.3/topics/forms/>`_.
 Including jQuery & jQuery UI
 --------------------------------------
 
+The widgets in django-selectable define the media they need as described in the
+Django documentation on `Form Media <https://docs.djangoproject.com/en/1.3/topics/forms/media/>`_.
+That means to include the javascript and css you need to make the widgets work you
+can include ``{{ form.media.css }}`` and ``{{ form.media.js }}`` in your template. This is
+assuming your form is called `form` in the template context. For more information
+please check out the `Django documentation <https://docs.djangoproject.com/en/1.3/topics/forms/media/>`_.
+
 The jQuery and jQuery UI libraries are not included in the distribution but must be included
 in your templates. See the example project for an example using these libraries from the
 `Google CDN <http://code.google.com/apis/libraries/devguide.html#jquery>`_. Django-Selectable
 should work with `jQuery <http://jquery.com/>`_ >= 1.4.3 and `jQuery UI <http://jqueryui.com/>`_ >= 1.8
 
     .. literalinclude:: ../example/core/templates/base.html
-        :start-after: {{ form.media.css }}
-        :end-before: {{ form.media.js }}
+        :start-after: {% block extra-css %}{% endblock %}
+        :end-before: {% block extra-js %}
 
 
 You must also include a `jQuery UI theme <http://jqueryui.com/themeroller/>`_ stylesheet. In the
@@ -30,7 +37,7 @@ example project we've included the "lightness" theme via the Google CDN.
 
     .. literalinclude:: ../example/core/templates/base.html
         :start-after: </title>
-        :end-before: {{ form.media.css }}
+        :end-before: {% block extra-css %}
 
 
 Defining a Lookup
