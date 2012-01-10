@@ -20,6 +20,10 @@ Field tied to :ref:`AutoCompleteSelectWidget` to bind the selection to the form 
 create new items, if allowed. The `allow_new` keyword argument (default: `False`)
 which determines if the field allows new items. This field cleans to a single item.
 
+    .. literalinclude:: ../example/core/forms.py
+        :start-after: # AutoCompleteSelectField (no new items)
+        :end-before: # AutoCompleteSelectField (allows new items)
+
 
 .. _AutoComboboxSelectField:
 
@@ -29,6 +33,10 @@ AutoComboboxSelectField
 Field tied to :ref:`AutoComboboxSelectWidget` to bind the selection to the form and 
 create new items, if allowed. The `allow_new` keyword argument (default: `False`)
 which determines if the field allows new items. This field cleans to a single item.
+
+    .. literalinclude:: ../example/core/forms.py
+        :start-after: # AutoComboboxSelectField (no new items)
+        :end-before: # AutoComboboxSelectField (allows new items)
 
 
 .. _AutoCompleteSelectMultipleField:
@@ -40,6 +48,10 @@ Field tied to :ref:`AutoCompleteSelectMultipleWidget` to bind the selection to t
 This field cleans to a list of items. :ref:`AutoCompleteSelectMultipleField` does not
 allow for the creation of new items.
 
+    .. literalinclude:: ../example/core/forms.py
+        :start-after: # AutoCompleteSelectMultipleField
+        :end-before: # AutoComboboxSelectMultipleField
+
 
 .. _AutoComboboxSelectMultipleField:
 
@@ -49,3 +61,7 @@ AutoComboboxSelectMultipleField
 Field tied to :ref:`AutoComboboxSelectMultipleWidget` to bind the selection to the form.
 This field cleans to a list of items. :ref:`AutoComboboxSelectMultipleField` does not 
 allow for the creation of new items.
+
+    .. literalinclude:: ../example/core/forms.py
+        :start-after: # AutoComboboxSelectMultipleField
+        :end-before: class ChainedForm

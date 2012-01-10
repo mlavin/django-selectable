@@ -29,33 +29,39 @@ class FruitForm(forms.Form):
         widget=selectable.AutoComboboxWidget(FruitLookup, allow_new=True),
         required=False,
     )
+    # AutoCompleteSelectField (no new items)
     autocompleteselect = selectable.AutoCompleteSelectField(
         lookup_class=FruitLookup,
         label='Select a fruit (AutoCompleteField)',
         required=False,
     )
+    # AutoCompleteSelectField (allows new items)
     newautocompleteselect = selectable.AutoCompleteSelectField(
         lookup_class=FruitLookup,
         allow_new=True,
         label='Select a fruit (AutoCompleteField which allows new items)',
         required=False,
     )
+    # AutoComboboxSelectField (no new items)
     comboboxselect = selectable.AutoComboboxSelectField(
         lookup_class=FruitLookup,
         label='Select a fruit (AutoComboboxSelectField)',
         required=False,
     )
+    # AutoComboboxSelectField (allows new items)
     newcomboboxselect = selectable.AutoComboboxSelectField(
         lookup_class=FruitLookup,
         allow_new=True,
         label='Select a fruit (AutoComboboxSelectField which allows new items)',
         required=False,
     )
+    # AutoCompleteSelectMultipleField
     multiautocompleteselect = selectable.AutoCompleteSelectMultipleField(
         lookup_class=FruitLookup,
         label='Select a fruit (AutoCompleteSelectMultipleField)',
         required=False,
     )
+    # AutoComboboxSelectMultipleField
     multicomboboxselect = selectable.AutoComboboxSelectMultipleField(
         lookup_class=FruitLookup,
         label='Select a fruit (AutoComboboxSelectMultipleField)',
