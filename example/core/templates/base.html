@@ -13,6 +13,7 @@
 {% block extra-js %}{% endblock %}
 </head>
     <body>
+        {% block content %}
         <form action="" method="post" >
             {% csrf_token %}
             {% if form.is_valid %}
@@ -24,5 +25,6 @@
             {% endif %}
             <button>Submit</button>
         </form>
+        {% endblock %}
     </body>
 </html>

@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block extra-css %}
+{{ formset.media.css }}
+{% endblock %}
+
+{% block extra-js %}
+<script type="text/javascript" src="http://django-dynamic-formset.googlecode.com/svn/trunk/src/jquery.formset.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#id_farm_table tbody tr').formset({
+            prefix: '{{ formset.prefix }}',
+       		added: function(row) {
+       			bindSelectables($(row));
+       		}	               		
+        });
+    });
+</script>
+{{ formset.media.js }}
+{% endblock %}
+
+
+{% block content %}
+    <form action="" method="post" >
+        {% csrf_token %}
+        <table id="id_farm_table" border="0" cellpadding="0" cellspacing="5">
+            <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Owner</th>
+                    <th scope="col">Fruit</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>{{ formset.management_form }}</tr>
+                {% for form in formset.forms %}
+                <tr id="{{ form.prefix }}-row">
+                    <td>{{ form.name }}</td>
+                    <td>{{ form.owner }}</td>
+                    <td>{{ form.fruit }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <button>Submit</button>
+    </form>
+{% endblock %}

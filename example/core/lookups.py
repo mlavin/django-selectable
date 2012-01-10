@@ -10,7 +10,6 @@ class FruitLookup(ModelLookup):
     model = Fruit
     search_field = 'name__icontains'
 
-
 registry.register(FruitLookup)
 
 

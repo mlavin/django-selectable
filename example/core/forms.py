@@ -1,9 +1,11 @@
 from django import forms
+from django.forms.models import modelformset_factory
 from django.contrib.localflavor.us.forms import USStateField, USStateSelect
 
 import selectable.forms as selectable
 
 from example.core.lookups import FruitLookup, CityLookup
+from example.core.models import Farm
 
 
 class FruitForm(forms.Form):
@@ -68,4 +70,16 @@ class ChainedForm(forms.Form):
         required=False,
     )
     state = USStateField(widget=USStateSelect, required=False)
+
+
+class FarmForm(forms.ModelForm):
+
+    class Meta(object):
+        model = Farm
+        widgets = {
+            'fruit': selectable.AutoCompleteSelectMultipleWidget(lookup_class=FruitLookup),
+        }
+
+
+FarmFormset = modelformset_factory(Farm, FarmForm)
 

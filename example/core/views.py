@@ -1,7 +1,7 @@
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 
-from example.core.forms import FruitForm, ChainedForm
+from example.core.forms import FruitForm, ChainedForm, FarmFormset
 
 
 def index(request):
@@ -28,3 +28,16 @@ def advanced(request):
             form = ChainedForm()
 
     return render_to_response('advanced.html', {'form': form}, context_instance=RequestContext(request))
+
+
+def formset(request):
+
+    if request.method == 'POST':
+        formset = FarmFormset(request.POST)
+    else:
+        if request.GET:
+            formset = FarmFormset(initial=request.GET)
+        else:
+            formset = FarmFormset()
+
+    return render_to_response('formset.html', {'formset': formset}, context_instance=RequestContext(request))
