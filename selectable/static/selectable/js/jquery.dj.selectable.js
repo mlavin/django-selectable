@@ -120,9 +120,13 @@
                 }
             }).addClass("ui-widget ui-widget-content ui-corner-all");
             $(input).data("autocomplete")._renderItem = function(ul, item) {
+                var re = new RegExp("(?![^&;]+;)(?!<[^<>]*)(" +
+                $.ui.autocomplete.escapeRegex(this.term) +
+                ")(?![^<>]*>)(?![^&;]+;)", "gi");
+                var label = item.label.replace(re, "<span class='highlight'>$1</span>");
                 var li =  $("<li></li>")
 			        .data("item.autocomplete", item)
-			        .append($("<a></a>").text(item.label))
+			        .append($("<a></a>").html(label))
 			        .appendTo(ul);
                 if (item.page) {
                     li.addClass('selectable-paginator');
