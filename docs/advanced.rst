@@ -83,27 +83,6 @@ You are free to make adjustments to  the query dictionary as needed.
         </script>
 
 
-.. _client-side-changes:
-
-Detecting Client Side Changes
---------------------------------------
-
-Since django-selectable is built on top of the jQuery UI 
-`Autocomplete plug-in <http://jqueryui.com/demos/autocomplete/>`_, the widgets
-expose the events defined by the plugin.
-
-    - autocompletecreate
-    - autocompletesearch
-    - autocompleteopen
-    - autocompletefocus
-    - autocompleteselect
-    - autocompleteclose
-    - autocompletechange
-
-For the most part these event names should be self-explanatory. If you need additional
-detail you should refer to the `jQuery UI docs on these events <http://jqueryui.com/demos/autocomplete/#events>`_.
-
-
 .. _chain-select-example:
 
 Chained Selection Example
@@ -142,6 +121,27 @@ Then in our lookup we will grab the state value and filter our results on it:
 
 And that's it! We now have a working chained selection example. The full source
 is included in the example project.
+
+.. _client-side-changes:
+
+Detecting Client Side Changes
+____________________________________________
+
+Our previous example made us of detecting changes to the selection on the client
+side to pass new parameters to the lookup. Since django-selectable is built on top of the jQuery UI 
+`Autocomplete plug-in <http://jqueryui.com/demos/autocomplete/>`_, the widgets
+expose the events defined by the plugin.
+
+    - autocompletecreate
+    - autocompletesearch
+    - autocompleteopen
+    - autocompletefocus
+    - autocompleteselect
+    - autocompleteclose
+    - autocompletechange
+
+For the most part these event names should be self-explanatory. If you need additional
+detail you should refer to the `jQuery UI docs on these events <http://jqueryui.com/demos/autocomplete/#events>`_.
 
 
 Submit On Selection Example
