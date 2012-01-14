@@ -41,7 +41,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'Django-Selectable'
-copyright = u'2011, Mark Lavin'
+copyright = u'2011-2012, Mark Lavin'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
