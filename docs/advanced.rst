@@ -1,5 +1,14 @@
+Advanced Usage
+==========================
+
+We've gone through the most command and simple use cases for django-selectable. Now
+we'll take a lot at some of the more advanced features of this project. This assumes
+that you are comfortable reading and writing a little bit of Javascript making
+use of jQuery.
+
+
 Additional Parameters
-=========================
+--------------------------------------
 
 The basic lookup is based on handling a search based on a single term string.
 If additional filtering is needed it can be inside the lookup `get_query` but
@@ -11,7 +20,7 @@ cases.
 
 
 How Parameters are Passed
---------------------------------------
+_______________________________________
 
 As with the search term the additional parameters you define will be passed in
 `request.GET`. Since `get_query` gets the current request so you will have access to
@@ -20,7 +29,7 @@ treated like all user input. It should be properly validated and sanitized.
 
 
 Limiting the Result Set
---------------------------------------
+_______________________________________
 
 The number of results are globally limited/paginated by the :ref:`SELECTABLE_MAX_LIMIT`
 but you can also lower this limit on the field or widget level. Each field and widget
@@ -32,7 +41,7 @@ for you if you use either this parameter or the global setting.
 .. _server-side-parameters:
 
 Adding Parameters on the Server Side
---------------------------------------
+_______________________________________
 
 Each of the widgets define `update_query_parameters` which takes a dictionary. The
 most common way to use this would be in the form `__init__`.
@@ -54,7 +63,7 @@ most common way to use this would be in the form `__init__`.
 .. _client-side-parameters:
 
 Adding Parameters on the Client Side
---------------------------------------
+_______________________________________
 
 There are times where you want to filter the result set based other selections
 by the user such as a filtering cities by a previously selected state. In this
