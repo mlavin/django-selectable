@@ -85,7 +85,7 @@ You are free to make adjustments to  the query dictionary as needed.
 
 .. _chain-select-example:
 
-Chained Selection Example
+Chained Selection
 --------------------------------------
 
 It's a fairly common pattern to have two or more inputs depend one another such City/State/Zip.
@@ -144,7 +144,7 @@ For the most part these event names should be self-explanatory. If you need addi
 detail you should refer to the `jQuery UI docs on these events <http://jqueryui.com/demos/autocomplete/#events>`_.
 
 
-Submit On Selection Example
+Submit On Selection
 --------------------------------------
 
 You might want to help your users by submitting the form once they have selected a valid
@@ -162,3 +162,29 @@ then input to watch would be `my_field_0` such as:
             });
         </script>
 
+
+Dynamically Added Forms
+--------------------------------------
+
+django-selectable can work with dynamically added forms such as inlines in the admin.
+To make django-selectable work in the admin there is nothing more to do than include
+the necessary static media as described in the 
+:ref:`Admin Integration <admin-jquery-include>` section.
+
+If you are making use of the popular `django-dynamic-formset <http://code.google.com/p/django-dynamic-formset/>`_
+then you can make django-selectable work by passing ``bindSelectables`` to the 
+`added <http://code.google.com/p/django-dynamic-formset/source/browse/trunk/docs/usage.txt#259>`_ option:
+
+    .. code-block:: html
+
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $('#my-formset').formset({
+               		added: bindSelectables	
+                });
+            });
+        </script>
+
+Currently you must include the django-selectable javascript below this formset initialization
+code for this to work. See django-selectable `issue #31 <https://bitbucket.org/mlavin/django-selectable/issue/31/>`_
+for some additional detail on this problem.

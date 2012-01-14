@@ -11,6 +11,7 @@ and `ModelForms <http://docs.djangoproject.com/en/1.3/topics/forms/modelforms/>`
 on `overriding the default widgets <http://docs.djangoproject.com/en/1.3/topics/forms/modelforms/#overriding-the-default-field-types-or-widgets>`_. As you will see integrating Django-Selectables in the admin
 is the same as working with regular forms.
 
+.. _admin-jquery-include:
 
 Including jQuery & jQuery UI
 --------------------------------------
