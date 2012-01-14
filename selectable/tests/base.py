@@ -10,6 +10,7 @@ from selectable.tests import Thing
 
 __all__ = (
     'ModelLookupTestCase',
+    'MultiFieldLookupTestCase',
 )
 
 
@@ -36,7 +37,8 @@ class BaseSelectableTestCase(TestCase):
     def create_thing(self, data=None):
         data = data or {}
         defaults = {
-            'name': self.get_random_string()
+            'name': self.get_random_string(),
+            'description': self.get_random_string(),
         }
         defaults.update(data)
         return Thing.objects.create(**defaults)
@@ -44,7 +46,7 @@ class BaseSelectableTestCase(TestCase):
 
 class SimpleModelLookup(ModelLookup):
     model = Thing
-    search_field = 'name__icontains'    
+    search_field = 'name__icontains'
 
 
 class ModelLookupTestCase(BaseSelectableTestCase):
@@ -92,3 +94,28 @@ class ModelLookupTestCase(BaseSelectableTestCase):
         item = lookup.get_item(thing.pk)
         self.assertEqual(thing, item)
 
+
+class MultiFieldLookup(ModelLookup):
+    model = Thing
+    search_fields = ('name__icontains', 'description__icontains', )
+
+
+class MultiFieldLookupTestCase(ModelLookupTestCase):
+    lookup_cls = MultiFieldLookup
+
+    def test_get_name(self):
+        name = self.__class__.lookup_cls.name()
+        self.assertEqual(name, 'tests-multifieldlookup')
+
+    def test_get_url(self):
+        url = self.__class__.lookup_cls.url()
+        test_url = reverse('selectable-lookup', args=['tests-multifieldlookup'])
+        self.assertEqual(url, test_url)
+
+    def test_description_search(self):
+        lookup = self.get_lookup_instance()
+        thing = self.create_thing(data={'description': 'Thing'})
+        other_thing = self.create_thing(data={'description': 'Other Thing'})
+        qs = lookup.get_query(request=None, term='other')
+        self.assertTrue(thing.pk not in qs.values_list('id', flat=True))
+        self.assertTrue(other_thing.pk in qs.values_list('id', flat=True))

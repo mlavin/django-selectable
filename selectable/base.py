@@ -101,12 +101,15 @@ class ModelLookup(LookupBase):
     search_field = ''
     search_fields = ()
 
+    def __init__(self):
+        super(ModelLookup, self).__init__()
+        if self.search_field and not self.search_fields:
+            self.search_fields = (self.search_field, )
+
     def get_query(self, request, term):
         qs = self.get_queryset()
         if term:
             search_filters = []
-            if self.search_field and not self.search_fields:
-                self.search_fields = (self.search_field, )
             if self.search_fields:
                 for field in self.search_fields:
                     search_filters.append(Q(**{field: term}))
@@ -133,8 +136,8 @@ class ModelLookup(LookupBase):
 
     def create_item(self, value):
         data = {}
-        if self.search_field:
-            field_name = re.sub(r'__\w+$', '',  self.search_field)
+        if self.search_fields:
+            field_name = re.sub(r'__\w+$', '',  self.search_fields[0])
             if field_name:
                 data = {field_name: value}
         return self.model(**data)
