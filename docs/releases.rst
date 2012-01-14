@@ -7,6 +7,9 @@ v0.3.0 (Released TBD)
 Features
 _________________
 
+- Support for :ref:`highlighting term matches <javascript-highlightMatch>`
+- Support for HTML in :ref:`result labels <lookup-get-item-label>`
+- Support for :ref:`client side formatting <advanaced-label-formats>`
 - Additional documentation
 - Expanded examples in example project
 

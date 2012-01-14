@@ -40,7 +40,7 @@ for you if you use either this parameter or the global setting.
 
 .. _server-side-parameters:
 
-Adding Parameters on the Server Sid
+Adding Parameters on the Server Side
 _______________________________________
 
 Each of the widgets define `update_query_parameters` which takes a dictionary. The
@@ -200,7 +200,7 @@ The lookup label is the text which is shown in the list before it is selected.
 You can use the :ref:`get_item_label <lookup-get-item-label>` method in your lookup
 to do this on the server side. This works for most applications. However if you don't
 want to write your HTML in Python or need to adapt the format on the client side you
-can use the ``formatLabel`` option.
+can use the :ref:`formatLabel <javascript-formatLabel>` option.
 
 ``formatLabel`` takes two paramaters the current label and the current selected item.
 The item is a dictionary object matching what is returned by the lookup's
