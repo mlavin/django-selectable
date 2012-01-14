@@ -1,6 +1,6 @@
 from django.utils.encoding import force_unicode
 
-from selectable.base import LookupBase
+from selectable.base import LookupBase, ModelLookup
 from selectable.exceptions import (LookupAlreadyRegistered, LookupNotRegistered,
                                     LookupInvalid)
 
@@ -13,6 +13,12 @@ class LookupRegistry(object):
     def validate(self, lookup):
         if not issubclass(lookup, LookupBase):
             raise LookupInvalid(u'Registered lookups must inherit from the LookupBase class')
+        if issubclass(lookup, ModelLookup) and getattr(lookup, 'search_field'):
+            import warnings
+            warnings.warn(
+                u"ModelLookup.search_field is deprecated; Use ModelLookup.search_fields instead", 
+                PendingDeprecationWarning
+            )
 
     def register(self, lookup):
 
