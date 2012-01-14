@@ -26,8 +26,30 @@
         "fields": {
             "name": "Orange"
         }
-    },
-{
+    }, 
+    {
+        "pk": 1, 
+        "model": "core.farm", 
+        "fields": {
+            "owner": 1, 
+            "fruit": [
+                1
+            ], 
+            "name": "My Farm"
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "core.farm", 
+        "fields": {
+            "owner": 1, 
+            "fruit": [
+                1
+            ], 
+            "name": "Test"
+        }
+    }, 
+    {
         "pk": 1, 
         "model": "core.city", 
         "fields": {
@@ -65,14 +87,6 @@
         "fields": {
             "state": "WA", 
             "name": "Seattle-Tacoma-Bellevue"
-        }
-    }, 
-    {
-        "pk": 6, 
-        "model": "core.city", 
-        "fields": {
-            "state": "DC-VA-MD-WV", 
-            "name": "Washington-Arlington-Alexandria"
         }
     }, 
     {
@@ -148,14 +162,6 @@
         }
     }, 
     {
-        "pk": 16, 
-        "model": "core.city", 
-        "fields": {
-            "state": "MA-NH", 
-            "name": "Boston-Cambridge-Quincy"
-        }
-    }, 
-    {
         "pk": 17, 
         "model": "core.city", 
         "fields": {
@@ -177,14 +183,6 @@
         "fields": {
             "state": "WA", 
             "name": "Kennewick-Richland-Pasco"
-        }
-    }, 
-    {
-        "pk": 20, 
-        "model": "core.city", 
-        "fields": {
-            "state": "MN-WI", 
-            "name": "Minneapolis-St. Paul-Bloomington"
         }
     }, 
     {
@@ -244,27 +242,11 @@
         }
     }, 
     {
-        "pk": 28, 
-        "model": "core.city", 
-        "fields": {
-            "state": "IL-IN-WI", 
-            "name": "Chicago-Naperville-Joliet"
-        }
-    }, 
-    {
         "pk": 29, 
         "model": "core.city", 
         "fields": {
             "state": "CA", 
             "name": "San Jose-Sunnyvale-Santa Clara"
-        }
-    }, 
-    {
-        "pk": 30, 
-        "model": "core.city", 
-        "fields": {
-            "state": "OR-WA", 
-            "name": "Portland-Vancouver-Beaverton"
         }
     }, 
     {
@@ -289,14 +271,6 @@
         "fields": {
             "state": "IA", 
             "name": "Ames"
-        }
-    }, 
-    {
-        "pk": 34, 
-        "model": "core.city", 
-        "fields": {
-            "state": "NY-NJ-PA", 
-            "name": "New York-Northern New Jersey-Long Island"
         }
     }, 
     {
@@ -329,22 +303,6 @@
         "fields": {
             "state": "TX", 
             "name": "Houston-Sugar Land-Baytown"
-        }
-    }, 
-    {
-        "pk": 39, 
-        "model": "core.city", 
-        "fields": {
-            "state": "PA-NJ-DE-MD", 
-            "name": "Philadelphia-Camden-Wilmington"
-        }
-    }, 
-    {
-        "pk": 40, 
-        "model": "core.city", 
-        "fields": {
-            "state": "NC-SC", 
-            "name": "Charlotte-Gastonia-Concord"
         }
     }, 
     {
@@ -497,14 +455,6 @@
         "fields": {
             "state": "ND", 
             "name": "Bismarck"
-        }
-    }, 
-    {
-        "pk": 60, 
-        "model": "core.city", 
-        "fields": {
-            "state": "MO-KS", 
-            "name": "Kansas City"
         }
     }, 
     {
@@ -692,27 +642,11 @@
         }
     }, 
     {
-        "pk": 84, 
-        "model": "core.city", 
-        "fields": {
-            "state": "MO-IL", 
-            "name": "St. Louis"
-        }
-    }, 
-    {
         "pk": 85, 
         "model": "core.city", 
         "fields": {
             "state": "CT", 
             "name": "New Haven"
-        }
-    }, 
-    {
-        "pk": 86, 
-        "model": "core.city", 
-        "fields": {
-            "state": "NH-ME", 
-            "name": "Rochester-Dover"
         }
     }, 
     {
@@ -772,22 +706,6 @@
         }
     }, 
     {
-        "pk": 94, 
-        "model": "core.city", 
-        "fields": {
-            "state": "WI-MN", 
-            "name": "La Crosse"
-        }
-    }, 
-    {
-        "pk": 95, 
-        "model": "core.city", 
-        "fields": {
-            "state": "OH-KY-IN", 
-            "name": "Cincinnati-Middletown"
-        }
-    }, 
-    {
         "pk": 96, 
         "model": "core.city", 
         "fields": {
@@ -828,27 +746,11 @@
         }
     }, 
     {
-        "pk": 101, 
-        "model": "core.city", 
-        "fields": {
-            "state": "MA-CT", 
-            "name": "Worcester"
-        }
-    }, 
-    {
         "pk": 102, 
         "model": "core.city", 
         "fields": {
             "state": "TX", 
             "name": "Midland"
-        }
-    }, 
-    {
-        "pk": 103, 
-        "model": "core.city", 
-        "fields": {
-            "state": "AR-MO", 
-            "name": "Fayetteville-Springdale-Rogers"
         }
     }, 
     {
@@ -873,14 +775,6 @@
         "fields": {
             "state": "FL", 
             "name": "Miami-Fort Lauderdale-Miami Beach"
-        }
-    }, 
-    {
-        "pk": 107, 
-        "model": "core.city", 
-        "fields": {
-            "state": "MN-WI", 
-            "name": "Duluth"
         }
     }, 
     {
@@ -932,14 +826,6 @@
         }
     }, 
     {
-        "pk": 114, 
-        "model": "core.city", 
-        "fields": {
-            "state": "MA-CT", 
-            "name": "Springfield"
-        }
-    }, 
-    {
         "pk": 115, 
         "model": "core.city", 
         "fields": {
@@ -969,22 +855,6 @@
         "fields": {
             "state": "KS", 
             "name": "Wichita"
-        }
-    }, 
-    {
-        "pk": 119, 
-        "model": "core.city", 
-        "fields": {
-            "state": "IA-IL", 
-            "name": "Davenport-Moline-Rock Island"
-        }
-    }, 
-    {
-        "pk": 120, 
-        "model": "core.city", 
-        "fields": {
-            "state": "RI-MA", 
-            "name": "Providence-Fall River-Warwick"
         }
     }, 
     {
@@ -1124,14 +994,6 @@
         }
     }, 
     {
-        "pk": 138, 
-        "model": "core.city", 
-        "fields": {
-            "state": "NE-IA", 
-            "name": "Omaha-Council Bluffs"
-        }
-    }, 
-    {
         "pk": 139, 
         "model": "core.city", 
         "fields": {
@@ -1164,14 +1026,6 @@
         }
     }, 
     {
-        "pk": 143, 
-        "model": "core.city", 
-        "fields": {
-            "state": "NH-ME", 
-            "name": "Portsmouth"
-        }
-    }, 
-    {
         "pk": 144, 
         "model": "core.city", 
         "fields": {
@@ -1201,14 +1055,6 @@
         "fields": {
             "state": "AK", 
             "name": "Fairbanks"
-        }
-    }, 
-    {
-        "pk": 148, 
-        "model": "core.city", 
-        "fields": {
-            "state": "UT-ID", 
-            "name": "Logan"
         }
     }, 
     {
@@ -1252,14 +1098,6 @@
         }
     }, 
     {
-        "pk": 154, 
-        "model": "core.city", 
-        "fields": {
-            "state": "PA-NJ", 
-            "name": "Allentown-Bethlehem-Easton"
-        }
-    }, 
-    {
         "pk": 155, 
         "model": "core.city", 
         "fields": {
@@ -1289,14 +1127,6 @@
         "fields": {
             "state": "FL", 
             "name": "Sebastian-Vero Beach"
-        }
-    }, 
-    {
-        "pk": 159, 
-        "model": "core.city", 
-        "fields": {
-            "state": "CT-RI", 
-            "name": "Norwich-New London"
         }
     }, 
     {
@@ -1380,14 +1210,6 @@
         }
     }, 
     {
-        "pk": 170, 
-        "model": "core.city", 
-        "fields": {
-            "state": "ND-MN", 
-            "name": "Fargo"
-        }
-    }, 
-    {
         "pk": 171, 
         "model": "core.city", 
         "fields": {
@@ -1401,14 +1223,6 @@
         "fields": {
             "state": "MT", 
             "name": "Billings"
-        }
-    }, 
-    {
-        "pk": 173, 
-        "model": "core.city", 
-        "fields": {
-            "state": "TN-GA", 
-            "name": "Chattanooga"
         }
     }, 
     {
@@ -1452,14 +1266,6 @@
         }
     }, 
     {
-        "pk": 179, 
-        "model": "core.city", 
-        "fields": {
-            "state": "KY-IN", 
-            "name": "Louisville-Jefferson County"
-        }
-    }, 
-    {
         "pk": 180, 
         "model": "core.city", 
         "fields": {
@@ -1476,27 +1282,11 @@
         }
     }, 
     {
-        "pk": 182, 
-        "model": "core.city", 
-        "fields": {
-            "state": "VA-NC", 
-            "name": "Virginia Beach-Norfolk-Newport News"
-        }
-    }, 
-    {
         "pk": 183, 
         "model": "core.city", 
         "fields": {
             "state": "CA", 
             "name": "Chico"
-        }
-    }, 
-    {
-        "pk": 184, 
-        "model": "core.city", 
-        "fields": {
-            "state": "MD-WV", 
-            "name": "Cumberland"
         }
     }, 
     {
@@ -1580,22 +1370,6 @@
         }
     }, 
     {
-        "pk": 195, 
-        "model": "core.city", 
-        "fields": {
-            "state": "ND-MN", 
-            "name": "Grand Forks"
-        }
-    }, 
-    {
-        "pk": 196, 
-        "model": "core.city", 
-        "fields": {
-            "state": "IN-MI", 
-            "name": "South Bend-Mishawaka"
-        }
-    }, 
-    {
         "pk": 197, 
         "model": "core.city", 
         "fields": {
@@ -1617,14 +1391,6 @@
         "fields": {
             "state": "WA", 
             "name": "Bellingham"
-        }
-    }, 
-    {
-        "pk": 200, 
-        "model": "core.city", 
-        "fields": {
-            "state": "WV-KY-OH", 
-            "name": "Huntington-Ashland"
         }
     }, 
     {
@@ -1820,22 +1586,6 @@
         }
     }, 
     {
-        "pk": 225, 
-        "model": "core.city", 
-        "fields": {
-            "state": "GA-AL", 
-            "name": "Columbus"
-        }
-    }, 
-    {
-        "pk": 226, 
-        "model": "core.city", 
-        "fields": {
-            "state": "GA-SC", 
-            "name": "Augusta-Richmond County"
-        }
-    }, 
-    {
         "pk": 227, 
         "model": "core.city", 
         "fields": {
@@ -1969,14 +1719,6 @@
         "fields": {
             "state": "AL", 
             "name": "Montgomery"
-        }
-    }, 
-    {
-        "pk": 244, 
-        "model": "core.city", 
-        "fields": {
-            "state": "IA-NE-SD", 
-            "name": "Sioux City"
         }
     }, 
     {
@@ -2276,14 +2018,6 @@
         }
     }, 
     {
-        "pk": 282, 
-        "model": "core.city", 
-        "fields": {
-            "state": "MO-KS", 
-            "name": "St. Joseph"
-        }
-    }, 
-    {
         "pk": 283, 
         "model": "core.city", 
         "fields": {
@@ -2297,14 +2031,6 @@
         "fields": {
             "state": "KY", 
             "name": "Elizabethtown"
-        }
-    }, 
-    {
-        "pk": 285, 
-        "model": "core.city", 
-        "fields": {
-            "state": "TN-MS-AR", 
-            "name": "Memphis"
         }
     }, 
     {
@@ -2380,22 +2106,6 @@
         }
     }, 
     {
-        "pk": 295, 
-        "model": "core.city", 
-        "fields": {
-            "state": "IN-KY", 
-            "name": "Evansville"
-        }
-    }, 
-    {
-        "pk": 296, 
-        "model": "core.city", 
-        "fields": {
-            "state": "WV-OH", 
-            "name": "Wheeling"
-        }
-    }, 
-    {
         "pk": 297, 
         "model": "core.city", 
         "fields": {
@@ -2425,14 +2135,6 @@
         "fields": {
             "state": "FL", 
             "name": "Panama City-Lynn Haven"
-        }
-    }, 
-    {
-        "pk": 301, 
-        "model": "core.city", 
-        "fields": {
-            "state": "AR-OK", 
-            "name": "Fort Smith"
         }
     }, 
     {
@@ -2473,14 +2175,6 @@
         "fields": {
             "state": "FL", 
             "name": "Ocala"
-        }
-    }, 
-    {
-        "pk": 307, 
-        "model": "core.city", 
-        "fields": {
-            "state": "VA-WV", 
-            "name": "Winchester"
         }
     }, 
     {
@@ -2572,22 +2266,6 @@
         }
     }, 
     {
-        "pk": 319, 
-        "model": "core.city", 
-        "fields": {
-            "state": "TN-KY", 
-            "name": "Clarksville"
-        }
-    }, 
-    {
-        "pk": 320, 
-        "model": "core.city", 
-        "fields": {
-            "state": "MD-WV", 
-            "name": "Hagerstown-Martinsburg"
-        }
-    }, 
-    {
         "pk": 321, 
         "model": "core.city", 
         "fields": {
@@ -2601,14 +2279,6 @@
         "fields": {
             "state": "AR", 
             "name": "Pine Bluff"
-        }
-    }, 
-    {
-        "pk": 323, 
-        "model": "core.city", 
-        "fields": {
-            "state": "TN-VA", 
-            "name": "Kingsport-Bristol-Bristol"
         }
     }, 
     {
@@ -2708,14 +2378,6 @@
         }
     }, 
     {
-        "pk": 336, 
-        "model": "core.city", 
-        "fields": {
-            "state": "OH-PA", 
-            "name": "Youngstown-Warren-Boardman"
-        }
-    }, 
-    {
         "pk": 337, 
         "model": "core.city", 
         "fields": {
@@ -2729,22 +2391,6 @@
         "fields": {
             "state": "AZ", 
             "name": "Prescott"
-        }
-    }, 
-    {
-        "pk": 339, 
-        "model": "core.city", 
-        "fields": {
-            "state": "WV-OH", 
-            "name": "Parkersburg-Marietta-Vienna"
-        }
-    }, 
-    {
-        "pk": 340, 
-        "model": "core.city", 
-        "fields": {
-            "state": "ID-WA", 
-            "name": "Lewiston"
         }
     }, 
     {
@@ -2785,14 +2431,6 @@
         "fields": {
             "state": "NM", 
             "name": "Farmington"
-        }
-    }, 
-    {
-        "pk": 346, 
-        "model": "core.city", 
-        "fields": {
-            "state": "TX-AR", 
-            "name": "Texarkana-Texarkana"
         }
     }, 
     {
@@ -2881,14 +2519,6 @@
         "fields": {
             "state": "UT", 
             "name": "St. George"
-        }
-    }, 
-    {
-        "pk": 358, 
-        "model": "core.city", 
-        "fields": {
-            "state": "WV-OH", 
-            "name": "Weirton-Steubenville"
         }
     }, 
     {
