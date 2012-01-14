@@ -40,7 +40,7 @@ for you if you use either this parameter or the global setting.
 
 .. _server-side-parameters:
 
-Adding Parameters on the Server Side
+Adding Parameters on the Server Sid
 _______________________________________
 
 Each of the widgets define `update_query_parameters` which takes a dictionary. The
@@ -110,6 +110,7 @@ show them cities in that state. To do this we will pass back chosen state as
 addition parameter with the following javascript:
 
     .. literalinclude:: ../example/core/templates/advanced.html
+        :language: html
         :start-after: {% block extra-js %}
         :end-before: {% endblock %}
 
@@ -188,3 +189,41 @@ then you can make django-selectable work by passing ``bindSelectables`` to the
 Currently you must include the django-selectable javascript below this formset initialization
 code for this to work. See django-selectable `issue #31 <https://bitbucket.org/mlavin/django-selectable/issue/31/>`_
 for some additional detail on this problem.
+
+
+.. _advanaced-label-formats:
+
+Label Formats on the Client Side
+--------------------------------------
+
+The lookup label is the text which is shown in the list before it is selected.
+You can use the :ref:`get_item_label <lookup-get-item-label>` method in your lookup
+to do this on the server side. This works for most applications. However if you don't
+want to write your HTML in Python or need to adapt the format on the client side you
+can use the ``formatLabel`` option.
+
+``formatLabel`` takes two paramaters the current label and the current selected item.
+The item is a dictionary object matching what is returned by the lookup's
+:ref:`format_item <lookup-format-item>`. ``formatLabel`` should return the string
+which should be used for the label.
+
+Going back to the ``CityLookup`` we can adjust the label to wrap the city and state
+portions with their own classes for additional styling:
+
+    .. literalinclude:: ../example/core/lookups.py
+        :pyobject: CityLookup
+
+    .. code-block:: html
+
+        <script type="text/javascript">
+            $(document).ready(function() {
+                function formatLabel(label, item) {
+                    var data = label.split(',');
+                    return '<span class="city">' + data[0] + '</span>, <span class="state">' + data[1] + '</span>';
+                }
+                $('#id_city_0').djselectable('option', 'formatLabel', formatLabel);
+            });
+        </script>
+
+This is a rather simple example but you could also pass additional information in ``format_item``
+such as a flag of whether the city is the capital and render the state captials differently.

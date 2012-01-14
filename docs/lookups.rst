@@ -42,6 +42,8 @@ Lookup API
     :param term: The search term from the widget input.
     :return: An iterable set of data of items matching the search term.
 
+.. _lookup-get-item-label:
+
 .. py:method:: LookupBase.get_item_label(item)
 
     This is first of three formatting methods. The label is shown in the
@@ -49,6 +51,12 @@ Lookup API
 
     :param item: An item from the search results.
     :return: A string representation of the item to be shown in the search results.
+
+    .. versionadded:: 0.3
+
+    The label can include HTML. For changing the label format on the client side
+    see :ref:`Advanaced Label Formats <advanaced-label-formats>`.
+    
 
 .. py:method:: LookupBase.get_item_id(item)
 
@@ -83,6 +91,8 @@ Lookup API
 
     :param value: The user given value.
     :return: The new item created from the item.
+
+.. _lookup-format-item:
 
 .. py:method:: LookupBase.format_item(item)
 
