@@ -11,6 +11,7 @@ from selectable.tests import Thing
 __all__ = (
     'ModelLookupTestCase',
     'MultiFieldLookupTestCase',
+    'LegacyModelLookupTestCase',
 )
 
 
@@ -46,7 +47,7 @@ class BaseSelectableTestCase(TestCase):
 
 class SimpleModelLookup(ModelLookup):
     model = Thing
-    search_field = 'name__icontains'
+    search_fields = ('name__icontains', )
 
 
 class ModelLookupTestCase(BaseSelectableTestCase):
@@ -119,3 +120,21 @@ class MultiFieldLookupTestCase(ModelLookupTestCase):
         qs = lookup.get_query(request=None, term='other')
         self.assertTrue(thing.pk not in qs.values_list('id', flat=True))
         self.assertTrue(other_thing.pk in qs.values_list('id', flat=True))
+
+
+class LegacyModelLookup(ModelLookup):
+    model = Thing
+    search_field = 'name__icontains'
+
+
+class LegacyModelLookupTestCase(ModelLookupTestCase):
+    lookup_cls = LegacyModelLookup
+
+    def test_get_name(self):
+        name = self.__class__.lookup_cls.name()
+        self.assertEqual(name, 'tests-legacymodellookup')
+
+    def test_get_url(self):
+        url = self.__class__.lookup_cls.url()
+        test_url = reverse('selectable-lookup', args=['tests-legacymodellookup'])
+        self.assertEqual(url, test_url)
