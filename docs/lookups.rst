@@ -106,7 +106,7 @@ Lookup API
 
 .. py:method:: LookupBase.paginate_results(request, results, limit)
 
-    If :ref:`SELECTABLE_MAX_LIMIT` is defined or `limit` is passed in request.GET
+    If :ref:`SELECTABLE_MAX_LIMIT` is defined or ``limit` is passed in request.GET
     then `paginate_results` will return the current page using Django's
     built in pagination. See the Django docs on `pagination <https://docs.djangoproject.com/en/1.3/topics/pagination/>`_
     for more info.
@@ -125,14 +125,21 @@ Lookups Based on Models
 
 Perhaps the most common use case is to define a lookup based on a given Django model.
 For this you can extend `selectable.base.ModelLookup`. To extend `ModelLookup` you
-should set two class attributes: `model` and `search_field`.
+should set two class attributes: `model` and `search_fields`.
 
     .. literalinclude:: ../example/core/lookups.py
         :pyobject: FruitLookup
 
-The syntax for `search_field` is the same as the Django 
+The syntax for `search_fields` is the same as the Django 
 `field lookup syntax <http://docs.djangoproject.com/en/1.3/ref/models/querysets/#field-lookups>`_. 
-You may optionally define a third class attribute `filters` which is a dictionary of
+Each of these lookups are combined as OR so any one of them matching will return a
+result. You may optionally define a third class attribute `filters` which is a dictionary of
 filters to be applied to the model queryset. The keys should be a string defining a field lookup
-and the value should be the value for the field lookup.
+and the value should be the value for the field lookup. Filters on the other hand are
+combined with AND.
 
+.. versionadded:: 0.3
+
+Prior to version 0.3 the model based lookups used a single string `search_field`. This
+will continue to work in v0.3 but will raise a DeprecationWarning. This support will
+be removed in v0.4.
