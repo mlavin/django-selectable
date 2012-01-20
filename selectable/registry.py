@@ -16,8 +16,8 @@ class LookupRegistry(object):
         if issubclass(lookup, ModelLookup) and getattr(lookup, 'search_field'):
             import warnings
             warnings.warn(
-                u"ModelLookup.search_field is deprecated; Use ModelLookup.search_fields instead", 
-                PendingDeprecationWarning
+                u"ModelLookup.search_field is deprecated; Use ModelLookup.search_fields instead.", 
+                DeprecationWarning
             )
 
     def register(self, lookup):
