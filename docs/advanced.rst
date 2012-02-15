@@ -11,7 +11,7 @@ Additional Parameters
 --------------------------------------
 
 The basic lookup is based on handling a search based on a single term string.
-If additional filtering is needed it can be inside the lookup `get_query` but
+If additional filtering is needed it can be inside the lookup ``get_query`` but
 you would need to define this when the lookup is defined. While this fits a fair
 number of use cases there are times when you need to define additional query
 parameters that won't be know until the either the form is bound or until selections
@@ -23,7 +23,7 @@ How Parameters are Passed
 _______________________________________
 
 As with the search term the additional parameters you define will be passed in
-`request.GET`. Since `get_query` gets the current request so you will have access to
+``request.GET``. Since ``get_query`` gets the current request so you will have access to
 them. Since they can be manipulated on the client side, these parameters should be
 treated like all user input. It should be properly validated and sanitized.
 
@@ -33,8 +33,8 @@ _______________________________________
 
 The number of results are globally limited/paginated by the :ref:`SELECTABLE_MAX_LIMIT`
 but you can also lower this limit on the field or widget level. Each field and widget
-takes a `limit` argument in the `__init__` that will be passed back to the lookup
-through the `limit` query parameter. The result set will be automatically paginated
+takes a ``limit`` argument in the ``__init__`` that will be passed back to the lookup
+through the ``limit`` query parameter. The result set will be automatically paginated
 for you if you use either this parameter or the global setting.
 
 
@@ -43,8 +43,8 @@ for you if you use either this parameter or the global setting.
 Adding Parameters on the Server Side
 _______________________________________
 
-Each of the widgets define `update_query_parameters` which takes a dictionary. The
-most common way to use this would be in the form `__init__`.
+Each of the widgets define ``update_query_parameters`` which takes a dictionary. The
+most common way to use this would be in the form ``__init__``.
 
     .. code-block:: python
 
@@ -67,7 +67,7 @@ _______________________________________
 
 There are times where you want to filter the result set based other selections
 by the user such as a filtering cities by a previously selected state. In this
-case you will need to bind a `prepareQuery` to the field. This function should accept the query dictionary. 
+case you will need to bind a ``prepareQuery`` to the field. This function should accept the query dictionary. 
 You are free to make adjustments to  the query dictionary as needed.
 
     .. code-block:: html
@@ -149,9 +149,9 @@ Submit On Selection
 --------------------------------------
 
 You might want to help your users by submitting the form once they have selected a valid
-item. To do this you simply need to listen for the `autocompleteselect` event. This
-event is fired by the text input which has an index of 0. If you field is named `my_field`
-then input to watch would be `my_field_0` such as:
+item. To do this you simply need to listen for the ``autocompleteselect`` event. This
+event is fired by the text input which has an index of 0. If you field is named ``my_field``
+then input to watch would be ``my_field_0`` such as:
 
     .. code-block:: html
 

@@ -11,7 +11,7 @@ AutoCompleteWidget
 --------------------------------------
 
 Basic widget for auto-completing text. The widget returns the item value as defined
-by the lookup `get_item_value`. If the `allow_new` keyword argument is passed as
+by the lookup ``get_item_value``. If the ``allow_new`` keyword argument is passed as
 true it will allow the user to type any text they wish.
 
 
@@ -47,9 +47,9 @@ AutoCompleteSelectMultipleWidget
 --------------------------------------
 
 Builds a list of selected items from auto-completion. This widget will return a list
-of item ids as defined by the lookup `get_item_id`. Using this widget with the
+of item ids as defined by the lookup ``get_item_id``. Using this widget with the
 :ref:`AutoCompleteSelectMultipleField` will clean the items to the item objects. This does
-not allow for creating new items. There is another optional keyword argument `postion`
+not allow for creating new items. There is another optional keyword argument ``postion``
 which can take four possible values: `bottom`, `bottom-inline`, `top` or `top-inline`.
 This determine the position of the deck list of currently selected items as well as
 whether this list is stacked or inline. The default is `bottom`.
