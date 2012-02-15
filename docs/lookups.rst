@@ -15,7 +15,7 @@ Defining a Lookup
 django-selectable uses a registration pattern similar to the Django admin.
 Lookups should be defined in a `lookups.py` in your application's module. Once defined
 you must register in with django-selectable. All lookups must extend from 
-`selectable.base.LookupBase` which defines the API for every lookup.
+``selectable.base.LookupBase`` which defines the API for every lookup.
 
     .. code-block:: python
 
@@ -47,7 +47,7 @@ Lookup API
 .. py:method:: LookupBase.get_item_label(item)
 
     This is first of three formatting methods. The label is shown in the
-    drop down menu of search results. This defaults to `item.__unicode__`.
+    drop down menu of search results. This defaults to ``item.__unicode__``.
 
     :param item: An item from the search results.
     :return: A string representation of the item to be shown in the search results.
@@ -61,7 +61,7 @@ Lookup API
 .. py:method:: LookupBase.get_item_id(item)
 
     This is second of three formatting methods. The id is the value that will eventually
-    be returned by the field/widget. This defaults to `item.__unicode__`.
+    be returned by the field/widget. This defaults to ``item.__unicode__``.
 
     :param item: An item from the search results.
     :return: A string representation of the item to be returned by the field/widget.
@@ -69,14 +69,14 @@ Lookup API
 .. py:method:: LookupBase.get_item_value(item)
 
     This is last of three formatting methods. The value is shown in the
-    input once the item has been selected. This defaults to `item.__unicode__`.
+    input once the item has been selected. This defaults to ``item.__unicode__``.
 
     :param item: An item from the search results.
     :return: A string representation of the item to be shown in the input.
 
 .. py:method:: LookupBase.get_item(value)
 
-    `get_item` is the reverse of `get_item_id`. This should take the value
+    ``get_item`` is the reverse of ``get_item_id``. This should take the value
     from the form initial values and return the current item. This defaults
     to simply return the value.
 
@@ -87,7 +87,7 @@ Lookup API
 
     If you plan to use a lookup with a field or widget which allows the user
     to input new values then you must define what it means to create a new item
-    for your lookup. By default this raises a `NotImplemented` error.
+    for your lookup. By default this raises a ``NotImplemented`` error.
 
     :param value: The user given value.
     :return: The new item created from the item.
@@ -96,9 +96,9 @@ Lookup API
 
 .. py:method:: LookupBase.format_item(item)
 
-    By default `format_item` creates a dictionary with the three keys used by
+    By default ``format_item`` creates a dictionary with the three keys used by
     the UI plugin: id, value, label. These are generated from the calls to
-    `get_item_id`, `get_item_value`, and `get_item_label`. If you want to
+    ``get_item_id``, ``get_item_value``, and ``get_item_label``. If you want to
     add additional keys you should add them here.
 
     :param item: An item from the search results.
@@ -106,8 +106,8 @@ Lookup API
 
 .. py:method:: LookupBase.paginate_results(request, results, limit)
 
-    If :ref:`SELECTABLE_MAX_LIMIT` is defined or ``limit` is passed in request.GET
-    then `paginate_results` will return the current page using Django's
+    If :ref:`SELECTABLE_MAX_LIMIT` is defined or ``limit`` is passed in request.GET
+    then ``paginate_results`` will return the current page using Django's
     built in pagination. See the Django docs on `pagination <https://docs.djangoproject.com/en/1.3/topics/pagination/>`_
     for more info.
 
@@ -124,22 +124,57 @@ Lookups Based on Models
 --------------------------------------
 
 Perhaps the most common use case is to define a lookup based on a given Django model.
-For this you can extend `selectable.base.ModelLookup`. To extend `ModelLookup` you
-should set two class attributes: `model` and `search_fields`.
+For this you can extend ``selectable.base.ModelLookup``. To extend ``ModelLookup`` you
+should set two class attributes: ``model`` and ``search_fields``.
 
     .. literalinclude:: ../example/core/lookups.py
         :pyobject: FruitLookup
 
-The syntax for `search_fields` is the same as the Django 
+The syntax for ``search_fields`` is the same as the Django 
 `field lookup syntax <http://docs.djangoproject.com/en/1.3/ref/models/querysets/#field-lookups>`_. 
 Each of these lookups are combined as OR so any one of them matching will return a
-result. You may optionally define a third class attribute `filters` which is a dictionary of
+result. You may optionally define a third class attribute ``filters`` which is a dictionary of
 filters to be applied to the model queryset. The keys should be a string defining a field lookup
 and the value should be the value for the field lookup. Filters on the other hand are
 combined with AND.
 
 .. versionadded:: 0.3
 
-Prior to version 0.3 the model based lookups used a single string `search_field`. This
+Prior to version 0.3 the model based lookups used a single string ``search_field``. This
 will continue to work in v0.3 but will raise a DeprecationWarning. This support will
 be removed in v0.4.
+
+
+User Lookup Example
+--------------------------------------
+
+Below is a larger model lookup example using multiple search fields, filters 
+and display options for the `auth.User <https://docs.djangoproject.com/en/1.3/topics/auth/#users>`_ 
+model.
+
+    .. code-block:: python
+
+        from django.contrib.auth.models import User
+        from selectable.base import ModelLookup
+        from selectable.registry import registry
+
+
+        class UserLookup(ModelLookup):
+            model = User
+            search_fields = (
+                'username__icontains',
+                'first_name__icontains',
+                'last_name__icontains',
+            )
+            filters = {'is_active': True, }
+
+            def get_item_value(self, item):
+                # Display for currently selected item
+                return item.username
+
+            def get_item_label(self, item):
+                # Display for choice listings
+                return u"%s (%s)" % (item.username, item.get_full_name())
+
+        registry.register(UserLookup)
+
