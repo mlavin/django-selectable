@@ -54,7 +54,7 @@ In a `lookups.py` we will define our lookup:
     .. literalinclude:: ../example/core/lookups.py
         :pyobject: FruitLookup
 
-This lookups extends `selectable.base.ModelLookup` and defines two things: one is
+This lookups extends ``selectable.base.ModelLookup`` and defines two things: one is
 the model on which we will be searching and the other is the field which we are searching.
 This syntax should look familiar as it is the same as the `field lookup syntax <http://docs.djangoproject.com/en/1.3/ref/models/querysets/#field-lookups>`_
 for making queries in Django.
@@ -75,9 +75,9 @@ Now that we have a working lookup we will define a form which uses it:
         :pyobject: FruitForm
         :end-before: newautocomplete
 
-This replaces the default widget for the `CharField` with the `AutoCompleteWidget`.
+This replaces the default widget for the ``CharField`` with the ``AutoCompleteWidget``.
 This will allow the user to fill this field with values taken from the names of
-existing `Fruit` models.
+existing ``Fruit`` models.
 
 And that's pretty much it. Keep on reading if you want to learn about the other
 types of fields and widgets that are available as well as defining more complicated
