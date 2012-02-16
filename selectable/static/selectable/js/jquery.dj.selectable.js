@@ -5,7 +5,9 @@
         options: {
             removeIcon: "ui-icon-close",
             comboboxIcon: "ui-icon-triangle-1-s",
-            prepareQuery: null
+            prepareQuery: null,
+            highlightMatch: true,
+            formatLabel: null
         },
         
         _initDeck: function(hiddenInputs) {
@@ -33,7 +35,8 @@
                 $('<div>')
                 .addClass('selectable-deck-remove')
                 .append(
-                    $('<button>')
+                    $('<a>')
+                    .attr('href', '#')
                     .button({
                         icons: {
                             primary: self.options.removeIcon
@@ -119,9 +122,19 @@
                 }
             }).addClass("ui-widget ui-widget-content ui-corner-all");
             $(input).data("autocomplete")._renderItem = function(ul, item) {
+                var label = item.label;
+                if (self.options.formatLabel) {
+                    label = self.options.formatLabel(label, item);
+                }
+                if (self.options.highlightMatch) {
+                    var re = new RegExp("(?![^&;]+;)(?!<[^<>]*)(" +
+                    $.ui.autocomplete.escapeRegex(this.term) +
+                    ")(?![^<>]*>)(?![^&;]+;)", "gi");
+                    label = label.replace(re, "<span class='highlight'>$1</span>");
+                }
                 var li =  $("<li></li>")
 			        .data("item.autocomplete", item)
-			        .append($("<a></a>").text(item.label))
+			        .append($("<a></a>").append(label))
 			        .appendTo(ul);
                 if (item.page) {
                     li.addClass('selectable-paginator');

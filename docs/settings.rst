@@ -21,5 +21,84 @@ You may disable this global maximum by setting
 
         SELECTABLE_MAX_LIMIT = None
 
-Default: 25
+Default: ``25``
+
+
+.. _javascript-options:
+
+Javascript Plugin Options
+--------------------------------------
+
+Below the options for configuring the Javascript behavior of the django-selectable
+widgets.
+
+
+.. _javascript-removeIcon:
+
+removeIcon
+______________________________________
+
+.. versionadded:: 0.2
+
+This is the class name used for the remove buttons for the multiple select widgets.
+The set of icon classes built into the jQuery UI framework can be found here:
+http://jqueryui.com/themeroller/
+
+Default: ``ui-icon-close``
+
+
+.. _javascript-comboboxIcon:
+
+comboboxIcon
+______________________________________
+
+.. versionadded:: 0.2
+
+This is the class name used for the combobox dropdown icon. The set of icon classes built 
+into the jQuery UI framework can be found here: http://jqueryui.com/themeroller/
+
+Default: ``ui-icon-triangle-1-s``
+
+
+.. _javascript-prepareQuery:
+
+prepareQuery
+______________________________________
+
+.. versionadded:: 0.2
+
+``prepareQuery`` is a function that is run prior to sending the search request to
+the server. It is an oppotunity to add additional parameters to the search query.
+It takes one argument which is the current search parameters as a dictionary. For
+more information on its usage see :ref:`Adding Parameters on the Client Side <client-side-parameters>`.
+
+Default: ``null``
+
+
+.. _javascript-highlightMatch:
+
+highlightMatch
+______________________________________
+
+.. versionadded:: 0.3
+
+If true the portions of the label which match the current search term will be wrapped
+in a span with the class ``highlight``.
+
+Default: ``true``
+
+
+.. _javascript-formatLabel:
+
+formatLabel
+______________________________________
+
+.. versionadded:: 0.3
+
+``formatLabel`` is a function that is run prior to rendering the search results in
+the dropdown menu. It takes two arguments: the current item label and the item data
+dictionary. It should return the label which should be used. For more information
+on its usage see :ref:`Label Formats on the Client Side <advanaced-label-formats>`.
+
+Default: ``null``
 

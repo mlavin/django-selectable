@@ -23,3 +23,6 @@ ul.selectable-deck-top-inline li.selectable-deck-item .selectable-deck-remove {
     display: inline;
     float: none;
 }
+ul.ui-autocomplete li.ui-menu-item span.highlight {
+    font-weight: bold;
+}

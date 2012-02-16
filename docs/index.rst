@@ -8,7 +8,7 @@ Contents:
     overview
     quick-start
     lookups
-    parameters
+    advanced
     admin    
     fields
     widgets

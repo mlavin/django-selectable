@@ -1,9 +1,11 @@
 from django import forms
+from django.forms.models import modelformset_factory
 from django.contrib.localflavor.us.forms import USStateField, USStateSelect
 
 import selectable.forms as selectable
 
 from example.core.lookups import FruitLookup, CityLookup
+from example.core.models import Farm
 
 
 class FruitForm(forms.Form):
@@ -27,33 +29,39 @@ class FruitForm(forms.Form):
         widget=selectable.AutoComboboxWidget(FruitLookup, allow_new=True),
         required=False,
     )
+    # AutoCompleteSelectField (no new items)
     autocompleteselect = selectable.AutoCompleteSelectField(
         lookup_class=FruitLookup,
         label='Select a fruit (AutoCompleteField)',
         required=False,
     )
+    # AutoCompleteSelectField (allows new items)
     newautocompleteselect = selectable.AutoCompleteSelectField(
         lookup_class=FruitLookup,
         allow_new=True,
         label='Select a fruit (AutoCompleteField which allows new items)',
         required=False,
     )
+    # AutoComboboxSelectField (no new items)
     comboboxselect = selectable.AutoComboboxSelectField(
         lookup_class=FruitLookup,
         label='Select a fruit (AutoComboboxSelectField)',
         required=False,
     )
+    # AutoComboboxSelectField (allows new items)
     newcomboboxselect = selectable.AutoComboboxSelectField(
         lookup_class=FruitLookup,
         allow_new=True,
         label='Select a fruit (AutoComboboxSelectField which allows new items)',
         required=False,
     )
+    # AutoCompleteSelectMultipleField
     multiautocompleteselect = selectable.AutoCompleteSelectMultipleField(
         lookup_class=FruitLookup,
         label='Select a fruit (AutoCompleteSelectMultipleField)',
         required=False,
     )
+    # AutoComboboxSelectMultipleField
     multicomboboxselect = selectable.AutoComboboxSelectMultipleField(
         lookup_class=FruitLookup,
         label='Select a fruit (AutoComboboxSelectMultipleField)',
@@ -68,4 +76,16 @@ class ChainedForm(forms.Form):
         required=False,
     )
     state = USStateField(widget=USStateSelect, required=False)
+
+
+class FarmForm(forms.ModelForm):
+
+    class Meta(object):
+        model = Farm
+        widgets = {
+            'fruit': selectable.AutoCompleteSelectMultipleWidget(lookup_class=FruitLookup),
+        }
+
+
+FarmFormset = modelformset_factory(Farm, FarmForm)
 

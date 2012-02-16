@@ -11,6 +11,7 @@ and `ModelForms <http://docs.djangoproject.com/en/1.3/topics/forms/modelforms/>`
 on `overriding the default widgets <http://docs.djangoproject.com/en/1.3/topics/forms/modelforms/#overriding-the-default-field-types-or-widgets>`_. As you will see integrating Django-Selectables in the admin
 is the same as working with regular forms.
 
+.. _admin-jquery-include:
 
 Including jQuery & jQuery UI
 --------------------------------------
@@ -36,8 +37,8 @@ See the example project for the full template example.
 Basic Example
 --------------------------------------
 
-In our sample project we have a `Farm` model with a foreign key to `auth.User` and 
-a many to many relation to our `Fruit` model.
+In our sample project we have a ``Farm`` model with a foreign key to ``auth.User`` and 
+a many to many relation to our ``Fruit`` model.
 
     .. literalinclude:: ../example/core/models.py
        :pyobject: Farm
@@ -52,9 +53,9 @@ In `admin.py` we will define the form and associate it with the `FarmAdmin`.
 
 You'll note this form also for new users to be created and associated with the
 farm if no user is found matching the given name. To make use of this feature we
-need to add `owner` to the exclude so that it will pass model validation. Unfortunately
+need to add ``owner`` to the exclude so that it will pass model validation. Unfortunately
 that means we must set the owner manual in the save and in the initial data because
-the `ModelForm` will no longer do this for you. Since `fruit` does not allow new
+the ``ModelForm`` will no longer do this for you. Since ``fruit`` does not allow new
 items you'll see these steps are not necessary.
 
 
@@ -63,10 +64,10 @@ items you'll see these steps are not necessary.
 Inline Example
 --------------------------------------
 
-With our `Farm` model we can also associate the `UserAdmin` with a `Farm`
+With our ``Farm`` model we can also associate the ``UserAdmin`` with a ``Farm``
 by making use of the `InlineModelAdmin 
 <http://docs.djangoproject.com/en/1.3/ref/contrib/admin/#inlinemodeladmin-objects>`_.
-We can even make use of the same `FarmAdminForm`.
+We can even make use of the same ``FarmAdminForm``.
 
     .. literalinclude:: ../example/core/admin.py
         :pyobject: FarmInline

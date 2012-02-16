@@ -8,15 +8,14 @@ from example.core.models import Fruit, City
 
 class FruitLookup(ModelLookup):
     model = Fruit
-    search_field = 'name__icontains'
-
+    search_fields = ('name__icontains', )
 
 registry.register(FruitLookup)
 
 
 class OwnerLookup(ModelLookup):
     model = User
-    search_field = 'username__icontains'
+    search_fields = ('username__icontains', )
 
 
 registry.register(OwnerLookup)
@@ -24,7 +23,7 @@ registry.register(OwnerLookup)
 
 class CityLookup(ModelLookup):
     model = City
-    search_field = 'name__icontains'
+    search_fields = ('name__icontains', )
 
     def get_query(self, request, term):
         results = super(CityLookup, self).get_query(request, term)

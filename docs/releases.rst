@@ -1,7 +1,34 @@
 Release Notes
 ==================
 
-v0.2.0
+v0.3.0 (Released TBD)
+--------------------------------------
+
+Features
+_________________
+
+- Multiple search fields for :ref:`model based lookups <ModelLookup>`
+- Support for :ref:`highlighting term matches <javascript-highlightMatch>`
+- Support for HTML in :ref:`result labels <lookup-get-item-label>`
+- Support for :ref:`client side formatting <advanaced-label-formats>`
+- Additional documentation
+- Expanded examples in example project
+
+
+Bug Fixes
+_________________
+
+- Fixed issue with Enter key removing items from select multiple widgets `#24 <https://bitbucket.org/mlavin/django-selectable/issue/24/pressing-enter-when-autocomplete-input-box>`_
+
+
+Backwards Incompatible Changes
+________________________________
+
+- The fix for #24 changed the remove items from a button to an anchor tag. If you were previously using the button tag for additional styling then you will need to adjust your styles.
+- The static resources were moved into a `selectable` sub-directory. This makes the media more in line with the template directory conventions. If you are using the widgets in the admin there is nothing to change. If you are using ``{{ form.media }}`` then there is also nothing to change. However if you were including static media manually then you will need to adjust them to include the selectable prefix.
+
+
+v0.2.0 (Released 2011-08-13)
 --------------------------------------
 
 Features
@@ -16,7 +43,7 @@ _________________
 - :ref:`Chained selection example <chain-select-example>`
 
 
-v0.1.2
+v0.1.2 (Released 2011-05-25)
 --------------------------------------
 
 Bug Fixes
@@ -25,7 +52,7 @@ _________________
 - Fixed issue `#17 <https://bitbucket.org/mlavin/django-selectable/issue/17/update-not-working>`_
 
 
-v0.1.1
+v0.1.1 (Release 2011-03-21)
 --------------------------------------
 
 Bug Fixes
@@ -43,7 +70,7 @@ _________________
 - Refactored JS for easier configuration
 
 
-v0.1
+v0.1 (Released 2011-03-13)
 --------------------------------------
 
 Initial public release

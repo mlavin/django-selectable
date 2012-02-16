@@ -1,9 +1,11 @@
+import operator
 import re
 
 from django.conf import settings
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
 from django.core.urlresolvers import reverse
 from django.core.serializers.json import DjangoJSONEncoder
+from django.db.models import Q
 from django.http import HttpResponse
 from django.utils import simplejson as json
 from django.utils.encoding import smart_unicode
@@ -97,11 +99,21 @@ class ModelLookup(LookupBase):
     model = None
     filters = {}
     search_field = ''
+    search_fields = ()
+
+    def __init__(self):
+        super(ModelLookup, self).__init__()
+        if self.search_field and not self.search_fields:
+            self.search_fields = (self.search_field, )
 
     def get_query(self, request, term):
         qs = self.get_queryset()
-        if term and self.search_field:
-            qs = qs.filter(**{self.search_field: term})
+        if term:
+            search_filters = []
+            if self.search_fields:
+                for field in self.search_fields:
+                    search_filters.append(Q(**{field: term}))
+            qs = qs.filter(reduce(operator.or_, search_filters))
         return qs
 
     def get_queryset(self):
@@ -124,8 +136,8 @@ class ModelLookup(LookupBase):
 
     def create_item(self, value):
         data = {}
-        if self.search_field:
-            field_name = re.sub(r'__\w+$', '',  self.search_field)
+        if self.search_fields:
+            field_name = re.sub(r'__\w+$', '',  self.search_fields[0])
             if field_name:
                 data = {field_name: value}
         return self.model(**data)
