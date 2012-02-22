@@ -13,7 +13,7 @@ class LookupRegistry(object):
     def validate(self, lookup):
         if not issubclass(lookup, LookupBase):
             raise LookupInvalid(u'Registered lookups must inherit from the LookupBase class')
-        if issubclass(lookup, ModelLookup) and getattr(lookup, 'search_field'):
+        if issubclass(lookup, ModelLookup) and getattr(lookup, 'search_field', None):
             import warnings
             warnings.warn(
                 u"ModelLookup.search_field is deprecated; Use ModelLookup.search_fields instead.", 

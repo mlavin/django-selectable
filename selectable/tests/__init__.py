@@ -22,7 +22,7 @@ class OtherThing(models.Model):
 
 class ThingLookup(ModelLookup):
     model = Thing
-    search_field = 'name__icontains'
+    search_fields = ('name__icontains', )
 
 
 registry.register(ThingLookup)

@@ -11,6 +11,12 @@ _________________
 - Easier passing of query parameters. See the :ref:`Additional Parameters <additional-parameters>` section
 
 
+Backwards Incompatible Changes
+________________________________
+
+- Support for ``ModelLookup.search_field`` string has been removed. You should use the ``ModelLookup.search_fields`` tuple instead.
+
+
 v0.3.0 (Released 2012-02-15)
 --------------------------------------
 
