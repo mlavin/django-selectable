@@ -4,6 +4,13 @@ Widgets
 Below are the custom widgets defined by Django-Selectable. All widgets take the 
 lookup class as the first required argument.
 
+.. versionadded:: 0.4
+
+These widgets all support a ``query_params`` keyword argument which is used to pass
+additional query parameters to the lookup search. See the section on 
+:ref:`Adding Parameters on the Server Side <server-side-parameters>` for more
+information.
+
 
 .. _AutoCompleteWidget:
 

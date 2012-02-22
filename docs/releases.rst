@@ -8,6 +8,7 @@ Features
 _________________
 
 - Better compatibility with :ref:`AutoCompleteSelectWidget`/:ref:`AutoComboboxSelectWidget` and Django's ModelChoiceField
+- Easier passing of query parameters. See the :ref:`Additional Parameters <additional-parameters>` section
 
 
 v0.3.0 (Released 2012-02-15)
