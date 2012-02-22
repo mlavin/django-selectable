@@ -5,12 +5,15 @@ Larger functional tests for fields and widgets.
 from django import forms
 
 from selectable.forms import AutoCompleteSelectField
+from selectable.forms import AutoCompleteSelectWidget, AutoComboboxSelectWidget
 from selectable.tests import OtherThing, ThingLookup
 from selectable.tests.base import BaseSelectableTestCase
 
 
 __all__ = (
     'FuncAutoCompleteSelectTestCase',
+    'FuncSelectModelChoiceTestCase',
+    'FuncComboboxModelChoiceTestCase',
 )
 
 
@@ -89,3 +92,61 @@ class FuncAutoCompleteSelectTestCase(BaseSelectableTestCase):
         # Selected pk should be populated
         thing_1 = 'name="thing_1" value="%s"' % self.test_thing.pk
         self.assertTrue(thing_1 in rendered_form, u"Didn't render selected pk.")
+
+
+class SelectWidgetForm(forms.ModelForm):
+
+    class Meta(object):
+        model = OtherThing
+        widgets = {
+            'thing': AutoCompleteSelectWidget(lookup_class=ThingLookup)
+        }
+
+
+class FuncSelectModelChoiceTestCase(BaseSelectableTestCase):
+    """
+    Functional tests for AutoCompleteSelectWidget compatibility
+    with a ModelChoiceField.
+    """
+
+    def setUp(self):
+        self.test_thing = self.create_thing()
+
+    def test_valid_form(self):
+        "Valid form using an AutoCompleteSelectField."
+        data = {
+            'name': self.get_random_string(),
+            'thing_0': self.test_thing.name, # Text input
+            'thing_1': self.test_thing.pk, # Hidden input
+        }
+        form = SelectWidgetForm(data=data)
+        self.assertTrue(form.is_valid(), str(form.errors))
+
+
+class ComboboxSelectWidgetForm(forms.ModelForm):
+
+    class Meta(object):
+        model = OtherThing
+        widgets = {
+            'thing': AutoComboboxSelectWidget(lookup_class=ThingLookup)
+        }
+
+
+class FuncComboboxModelChoiceTestCase(BaseSelectableTestCase):
+    """
+    Functional tests for AutoComboboxSelectWidget compatibility
+    with a ModelChoiceField.
+    """
+
+    def setUp(self):
+        self.test_thing = self.create_thing()
+
+    def test_valid_form(self):
+        "Valid form using an AutoCompleteSelectField."
+        data = {
+            'name': self.get_random_string(),
+            'thing_0': self.test_thing.name, # Text input
+            'thing_1': self.test_thing.pk, # Hidden input
+        }
+        form = ComboboxSelectWidgetForm(data=data)
+        self.assertTrue(form.is_valid(), str(form.errors))
