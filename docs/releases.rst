@@ -1,7 +1,16 @@
 Release Notes
 ==================
 
-v0.3.0 (Released Released 2012-02-15)
+v0.4.0 (Released TBD)
+--------------------------------------
+
+Features
+_________________
+
+- Better compatibility with :ref:`AutoCompleteSelectWidget`/:ref:`AutoComboboxSelectWidget` and Django's ModelChoiceField
+
+
+v0.3.0 (Released 2012-02-15)
 --------------------------------------
 
 Features

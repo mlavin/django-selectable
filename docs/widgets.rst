@@ -32,6 +32,24 @@ Widget for selecting a value/id based on input text. Optionally allows selecting
 This widget should be used in conjunction with the :ref:`AutoCompleteSelectField` as it will
 return both the text entered by the user and the id (if an item was selected/matched).
 
+.. versionadded:: 0.4
+
+Prior to 0.4 :ref:`AutoCompleteSelectWidget` could not work directly with Django's
+`ModelChoiceField <https://docs.djangoproject.com/en/1.3/ref/forms/fields/#modelchoicefield>`_.
+Starting with 0.4 you can simply replace the widget without replacing the entire field.
+
+    .. code-block:: python
+
+        class FarmAdminForm(forms.ModelForm):
+
+            class Meta(object):
+                model = Farm
+                widgets = {
+                    'owner': selectable.AutoCompleteSelectWidget(lookup_class=FruitLookup),
+                }
+
+The one catch is that you must use ``allow_new=False`` which is the default.
+
 
 .. _AutoComboboxSelectWidget:
 
@@ -39,6 +57,24 @@ AutoComboboxSelectWidget
 --------------------------------------
 
 Similar to :ref:`AutoCompleteSelectWidget` but has a button to reveal all options.
+
+.. versionadded:: 0.4
+
+Prior to 0.4 :ref:`AutoComboboxSelectWidget` could not work directly with Django's
+`ModelChoiceField <https://docs.djangoproject.com/en/1.3/ref/forms/fields/#modelchoicefield>`_.
+Starting with 0.4 you can simply replace the widget without replacing the entire field.
+
+    .. code-block:: python
+
+        class FarmAdminForm(forms.ModelForm):
+
+            class Meta(object):
+                model = Farm
+                widgets = {
+                    'owner': selectable.AutoComboboxSelectWidget(lookup_class=FruitLookup),
+                }
+
+The one catch is that you must use ``allow_new=False`` which is the default.
 
 
 .. _AutoCompleteSelectMultipleWidget:
