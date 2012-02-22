@@ -86,6 +86,12 @@ class AutoCompleteSelectWidget(SelectableMultiWidget, SelectableMediaMixin):
             return [item_value, value]
         return [None, None]
 
+    def value_from_datadict(self, data, files, name):
+        value = super(AutoCompleteSelectWidget, self).value_from_datadict(data, files, name)
+        if not self.allow_new:
+            return value[1]
+        return value
+
 
 class AutoComboboxWidget(AutoCompleteWidget, SelectableMediaMixin):
 
@@ -119,6 +125,12 @@ class AutoComboboxSelectWidget(SelectableMultiWidget, SelectableMediaMixin):
             item_value = lookup.get_item_value(item)
             return [item_value, value]
         return [None, None]
+
+    def value_from_datadict(self, data, files, name):
+        value = super(AutoComboboxSelectWidget, self).value_from_datadict(data, files, name)
+        if not self.allow_new:
+            return value[1]
+        return value
 
 
 class LookupMultipleHiddenInput(forms.MultipleHiddenInput):

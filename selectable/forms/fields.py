@@ -32,12 +32,12 @@ class AutoCompleteSelectField(forms.Field):
     def to_python(self, value):
         if value in EMPTY_VALUES:
             return None
+        lookup =self.lookup_class()
         if isinstance(value, list):
             # Input comes from an AutoComplete widget. It's two
             # components: text and id
             if len(value) != 2:
                 raise ValidationError(self.error_messages['invalid_choice'])
-            lookup =self.lookup_class()
             if value[1] in EMPTY_VALUES:
                 if not self.allow_new:
                     if value[0]:
@@ -49,6 +49,10 @@ class AutoCompleteSelectField(forms.Field):
                 value = lookup.get_item(value[1])
                 if value is None:
                     raise ValidationError(self.error_messages['invalid_choice'])
+        else:
+            value = lookup.get_item(value)
+            if value is None:
+                raise ValidationError(self.error_messages['invalid_choice'])
         return value
 
 
