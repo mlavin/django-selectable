@@ -7,8 +7,6 @@ Settings
 SELECTABLE_MAX_LIMIT
 --------------------------------------
 
-.. versionadded:: 0.2
-
 This setting is used to limit the number of results returned by the auto-complete fields.
 Each field/widget can individually lower this maximum. The result sets will be
 paginated allowing the client to ask for more results. The limit is passed as a
@@ -38,7 +36,6 @@ widgets.
 removeIcon
 ______________________________________
 
-.. versionadded:: 0.2
 
 This is the class name used for the remove buttons for the multiple select widgets.
 The set of icon classes built into the jQuery UI framework can be found here:
@@ -52,7 +49,6 @@ Default: ``ui-icon-close``
 comboboxIcon
 ______________________________________
 
-.. versionadded:: 0.2
 
 This is the class name used for the combobox dropdown icon. The set of icon classes built 
 into the jQuery UI framework can be found here: http://jqueryui.com/themeroller/
@@ -65,7 +61,6 @@ Default: ``ui-icon-triangle-1-s``
 prepareQuery
 ______________________________________
 
-.. versionadded:: 0.2
 
 ``prepareQuery`` is a function that is run prior to sending the search request to
 the server. It is an oppotunity to add additional parameters to the search query.
