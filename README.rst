@@ -52,6 +52,11 @@ Documentation for django-selectable is available on
 - `v0.1.2 <http://readthedocs.org/docs/django-selectable/en/version-0.1.2/>`_
 
 
+Additional Help/Support
+-----------------------------------
+
+You can find additional help or support on the mailing list: http://groups.google.com/group/django-selectable
+
 
 Contributing
 --------------------------------------
