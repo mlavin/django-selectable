@@ -1,7 +1,16 @@
 Release Notes
 ==================
 
-v0.3.0 (Released TBD)
+v0.3.1 (Released 2012-02-23)
+--------------------------------------
+
+Bug Fixes
+_________________
+
+- Fixed issue with media urls when not using staticfiles.
+
+
+v0.3.0 (Released 2012-02-15)
 --------------------------------------
 
 Features
