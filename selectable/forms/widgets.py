@@ -18,7 +18,7 @@ __all__ = (
 
 MEDIA_URL = settings.MEDIA_URL
 STATIC_URL = getattr(settings, 'STATIC_URL', u'')
-MEDIA_PREFIX = u'%sselectable/' % STATIC_URL or MEDIA_URL
+MEDIA_PREFIX = u'%sselectable/' % (STATIC_URL or MEDIA_URL)
 
 
 class SelectableMediaMixin(object):
