@@ -98,13 +98,7 @@ class LookupBase(object):
 class ModelLookup(LookupBase):
     model = None
     filters = {}
-    search_field = ''
     search_fields = ()
-
-    def __init__(self):
-        super(ModelLookup, self).__init__()
-        if self.search_field and not self.search_fields:
-            self.search_fields = (self.search_field, )
 
     def get_query(self, request, term):
         qs = self.get_queryset()

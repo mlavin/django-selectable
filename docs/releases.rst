@@ -1,6 +1,25 @@
 Release Notes
 ==================
 
+v0.4.0 (Released TBD)
+--------------------------------------
+
+Features
+_________________
+
+- Better compatibility with :ref:`AutoCompleteSelectWidget`/:ref:`AutoComboboxSelectWidget` and Django's ModelChoiceField
+- Better compatibility with the Django admin :ref:`add another popup <admin-basic-example>`
+- Easier passing of query parameters. See the :ref:`Additional Parameters <additional-parameters>` section
+- Additional documentation
+- QUnit tests for JS functionality
+
+
+Backwards Incompatible Changes
+________________________________
+
+- Support for ``ModelLookup.search_field`` string has been removed. You should use the ``ModelLookup.search_fields`` tuple instead.
+
+
 v0.3.1 (Released 2012-02-23)
 --------------------------------------
 

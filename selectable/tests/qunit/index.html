@@ -1,0 +1,199 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>Django Selectable Qunit Test Suite</title>
+    <link rel="stylesheet" href="qunit.css" type="text/css" media="screen" />
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.13/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="qunit.js"></script>
+    <script>
+        // Disable auto-binding of djselectable widgets to avoid test race conditions
+        var djselectableAutoLoad = false;
+    </script>
+    <script type="text/javascript" src="../../static/selectable/js/jquery.dj.selectable.js"></script>
+    <script>
+    $(document).ready(function(){
+        module("Text Autocomplete");
+        test("bind input", function() {
+            bindSelectables('#text');            
+            var input = $('#id_autocomplete');
+            ok(input.data('djselectable'), "input should be bound with djselecable widget");
+        });
+        test("item selection", function() {
+            bindSelectables('#text-initial');
+            var input = $('#id_autocomplete-initial');
+            ok(input.val(), 'Initial', "initial text value should not be lost");
+            var item = {id: "1", value: 'foo'};
+            input.djselectable('select', item);
+            ok(input.val(), item.value, "input should get item value");
+        });
+
+        module("Text Combobox");
+        test("bind input", function() {
+            bindSelectables('#combobox');
+            var input = $('#id_combobox');
+            ok(input.data('djselectable'), "input should be bound with djselecable widget");
+            var button = $('button', '#combobox');
+            equal(button.attr('title'), 'Show All Items', "combobox button should be created");
+        });
+        test("item selection", function() {
+            bindSelectables('#combobox-initial');
+            var input = $('#id_autocomplete-initial');
+            ok(input.val(), 'Initial', "initial text value should not be lost");
+            var item = {id: "1", value: 'foo'};
+            input.djselectable('select', item);
+            ok(input.val(), item.value, "input should get item value");
+        });
+
+        module("Select Autocomplete");
+        test("bind input", function() {
+            bindSelectables('#auto-select');
+            var input = $('#id_autoselect_0');
+            var hidden = $('#id_autoselect_1');
+            ok(input.data('djselectable'), "input should be bound with djselecable widget");
+            ok(!hidden.data('djselectable'), "hidden should not be bound with djselecable widget");
+        });
+        test("item selection", function() {
+            bindSelectables('#auto-select-initial');
+            var input = $('#id_autoselect-initial_0');
+            var hidden = $('#id_autoselect-initial_1');
+            equal(input.val(), 'Initial', 'initial text value should not be lost');
+            equal(hidden.val(), "0", 'initial hidden value should not be lost');
+            var item = {id: "1", value: 'foo'};
+            input.djselectable('select', item);
+            equal(input.val(), item.value, 'text input should get item value');
+            equal(hidden.val(), item.id, 'hidden input should get item id');
+        });
+
+        module("Select Combobox");
+        test("bind input", function() {
+            bindSelectables('#combo-select');
+            var input = $('#id_comboselect_0');
+            var hidden = $('#id_comboselect_1');
+            ok(input.data('djselectable'), "input should be bound with djselecable widget");
+            ok(!hidden.data('djselectable'), "hidden should not be bound with djselecable widget");
+            var button = $('button', '#combo-select');
+            equal(button.attr('title'), 'Show All Items', "combobox button should be created");
+        });
+        test("item selection", function() {
+            bindSelectables('#combo-select-initial');
+            var input = $('#id_comboselect-initial_0');
+            var hidden = $('#id_comboselect-initial_1');
+            equal(input.val(), 'Initial', 'initial text value should not be lost');
+            equal(hidden.val(), "0", 'initial hidden value should not be lost');
+            var item = {id: "1", value: 'foo'};
+            input.djselectable('select', item);
+            equal(input.val(), item.value, 'text input should get item value')
+            equal(hidden.val(), item.id, 'hidden input should get item id');
+        });
+
+        module("Select Multiple");
+        test("bind input", function() {
+            bindSelectables('#multi-select');
+            var input = $('#id_multiselect_0');
+            var deck = $('#multi-select ul');
+            ok(input.data('djselectable'), "input should be bound with djselecable widget");
+            ok(deck.hasClass('selectable-deck'), 'deck should have selectable-deck class');
+            equal($('li', deck).length, 0, 'no initial deck items');
+        }); 
+        test("item selection", function() {
+            bindSelectables('#multi-select-initial');
+            var input = $('#id_multiselect-initial_0');
+            var hidden = $(':input[type=hidden][name=multiselect-initial_1]');
+            var deck = $('#multi-select-initial ul');
+            equal($('li', deck).length, 1, 'one initial deck item');
+            equal(hidden.length, 1, 'one initial hidden input');
+            var item = {id: "1", value: 'foo'};
+            input.djselectable('select', item);
+            equal(input.val(), '', 'text input should be empty');
+            hidden = $(':input[type=hidden][name=multiselect-initial_1]');
+            equal(hidden.length, 2, 'new hidden input');
+            equal($('li', deck).length, 2, 'new deck item');
+            hidden = hidden.eq(0);
+            equal(hidden.val(), item.id, 'hidden input should get item id');
+            equal(hidden.attr('title'), item.value, 'hidden input title should be item value');
+        });
+
+        module("Combobox Multiple");
+        test("bind input", function() {
+            bindSelectables('#multi-combo');
+            var input = $('#id_multicombo_0');
+            var deck = $('#multi-combo ul');
+            ok(input.data('djselectable'), "input should be bound with djselecable widget");
+            ok(deck.hasClass('selectable-deck'), 'deck should have selectable-deck class');
+            equal($('li', deck).length, 0, 'no initial deck items');
+            var button = $('button', '#multi-combo');
+            equal(button.attr('title'), 'Show All Items', "combobox button should be created");
+        }); 
+        test("item selection", function() {
+            bindSelectables('#multi-combo-initial');
+            var input = $('#id_multicombo-initial_0');
+            var hidden = $(':input[type=hidden][name=multicombo-initial_1]');
+            var deck = $('#multi-combo-initial ul');
+            equal($('li', deck).length, 1, 'one initial deck item');
+            equal(hidden.length, 1, 'one initial hidden input');
+            var item = {id: "1", value: 'foo'};
+            input.djselectable('select', item);
+            equal(input.val(), '', 'text input should be empty');
+            hidden = $(':input[type=hidden][name=multicombo-initial_1]');
+            equal(hidden.length, 2, 'new hidden input');
+            equal($('li', deck).length, 2, 'new deck item');
+            hidden = hidden.eq(0);
+            equal(hidden.val(), item.id, 'hidden input should get item id');
+            equal(hidden.attr('title'), item.value, 'hidden input title should be item value');
+        });
+    });
+    </script>
+</head>
+<body>
+    <h1 id="qunit-header">Django Selectable Test Suite</h1>
+    <h2 id="qunit-banner"></h2>
+    <div id="qunit-testrunner-toolbar"></div>
+    <h2 id="qunit-userAgent"></h2>
+    <ol id="qunit-tests"></ol>
+    <div id="qunit-fixture">
+        <div id="text">
+            <input name="autocomplete" data-selectable-type="text" data-selectable-allow-new="false" data-selectable-url="/_/core-fruitlookup/" type="text" id="id_autocomplete" />
+        </div>
+        <div id="text-initial">
+            <input name="autocomplete-initial" data-selectable-type="text" data-selectable-allow-new="false" data-selectable-url="/_/core-fruitlookup/" type="text" id="id_autocomplete-initial" value="Initial" />
+        </div>
+        <div id="combobox">
+            <input name="combobox" data-selectable-type="combobox" data-selectable-allow-new="false" data-selectable-url="/_/core-fruitlookup/" type="text" id="id_combobox" />
+        </div>
+        <div id="combobox-initial">
+            <input name="combobox-initial" data-selectable-type="combobox" data-selectable-allow-new="false" data-selectable-url="/_/core-fruitlookup/" type="text" id="id_combobox-initial" value="Initial" />
+        </div>
+        <div id="auto-select">
+            <input name="autoselect_0" data-selectable-type="text" data-selectable-allow-new="false" data-selectable-url="/_/core-fruitlookup/" type="text" id="id_autoselect_0" />
+            <input name="autoselect_1" data-selectable-type="hidden" type="hidden" id="id_autoselect_1" />
+        </div>
+        <div id="auto-select-initial">
+            <input name="autoselect-initial_0" data-selectable-type="text" data-selectable-allow-new="false" data-selectable-url="/_/core-fruitlookup/" type="text" id="id_autoselect-initial_0" value="Initial" />
+            <input name="autoselect-initial_1" data-selectable-type="hidden" type="hidden" id="id_autoselect-initial_1" value="0" />
+        </div>
+        <div id="combo-select">
+            <input name="comboselect_0" data-selectable-type="combobox" data-selectable-allow-new="false" data-selectable-url="/_/core-fruitlookup/" type="text" id="id_comboselect_0" />
+            <input name="comboselect_1" data-selectable-type="hidden" type="hidden" id="id_comboselect_1" />
+        </div>
+        <div id="combo-select-initial">
+            <input name="comboselect-initial_0" data-selectable-type="combobox" data-selectable-allow-new="false" data-selectable-url="/_/core-fruitlookup/" type="text" id="id_comboselect-initial_0" value="Initial" />
+            <input name="comboselect-initial_1" data-selectable-type="hidden" type="hidden" id="id_comboselect-initial_1" value="0" />
+        </div>
+        <div id="multi-select">
+            <input data-selectable-multiple="true" name="multiselect_0" data-selectable-type="text" data-selectable-position="bottom" data-selectable-allow-new="false" data-selectable-url="/_/core-fruitlookup/" type="text" id="id_multiselect_0" />
+        </div>
+        <div id="multi-select-initial">
+            <input data-selectable-multiple="true" name="multiselect-initial_0" data-selectable-type="text" data-selectable-position="bottom" data-selectable-allow-new="false" data-selectable-url="/_/core-fruitlookup/" type="text" id="id_multiselect-initial_0" />
+            <input name="multiselect-initial_1" title="Initial" value="0" data-selectable-type="hidden-multiple" type="hidden" id="id_multiselect-initial_1_0">
+        </div>
+        <div id="multi-combo">
+            <input data-selectable-multiple="true" name="multicombo_0" data-selectable-type="combobox" data-selectable-position="bottom" data-selectable-allow-new="false" data-selectable-url="/_/core-fruitlookup/" type="text" id="id_multicombo_0" />
+        </div>
+        <div id="multi-combo-initial">
+            <input data-selectable-multiple="true" name="multicombo-initial_0" data-selectable-type="combobox" data-selectable-position="bottom" data-selectable-allow-new="false" data-selectable-url="/_/core-fruitlookup/" type="text" id="id_multicombo-initial_0" />
+            <input name="multicombo-initial_1" title="Initial" value="0" data-selectable-type="hidden-multiple" type="hidden" id="id_multicombo-initial_1_0">
+        </div>
+    </div>
+</body>
+</html>

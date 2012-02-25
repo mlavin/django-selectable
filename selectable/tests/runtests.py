@@ -21,6 +21,7 @@ if not settings.configured:
             'django.contrib.messages',
             'selectable',
         ),
+        SITE_ID=1,
         ROOT_URLCONF='selectable.tests.urls',
     )
 

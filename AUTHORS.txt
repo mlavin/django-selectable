@@ -5,6 +5,7 @@ Mark Lavin
 The following people who have contributed to django-selectable:
 
 Colin Copeland
+Dan Poirier
 Karen Tracey
 
 Thanks for all of your work!

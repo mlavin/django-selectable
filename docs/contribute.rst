@@ -41,8 +41,8 @@ project. To run the tests you need Django installed and run::
 
     python selectable/tests/runtests.py
 
-Tests for the client side code is planned. If javascript testing is something you
-are familiar with then it would be a great help to this project.
+Client side tests are written using `QUnit <http://docs.jquery.com/QUnit>`_. They
+can be found in `selectable/tests/qunit/`.
 
 
 Building the Documentation
