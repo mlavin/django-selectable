@@ -24,6 +24,7 @@
         },
         
         _initDeck: function() {
+            /* Create list display for currently selected items for multi-select */
             var self = this;
             var data = $(this.element).data();
             var style = data.selectablePosition || data['selectable-position'] || 'bottom';
@@ -39,6 +40,7 @@
         },
 
         _addDeckItem: function(input) {
+            /* Add new deck list item from a given hidden input */
             var self = this;
             $('<li>')
             .text($(input).attr('title'))
@@ -66,6 +68,8 @@
         },
 
         select: function(item) {
+            /* Trigger selection of a given item.
+            Item should contain two properties: id and value */
             var self = this,
             input = this.element;
             $(input).removeClass('ui-state-error');
@@ -94,6 +98,7 @@
         },
 
         _create: function() {
+            /* Initialize a new selectable widget */
             var self = this,
             input = this.element,
             data = $(input).data();
@@ -110,6 +115,9 @@
             }
 
             function dataSource(request, response) {
+                /* Custom data source to uses the lookup url with pagination
+                Adds hook for adjusting query parameters.
+                Includes timestamp to prevent browser caching the lookup. */
                 var url = data.selectableUrl || data['selectable-url'];
                 var now = new Date().getTime();
                 var query = {term: request.term, timestamp: now};
@@ -122,7 +130,7 @@
                 }
 				$.getJSON(url, query, response);
             }
-
+            // Create base auto-complete lookup
             $(input).autocomplete({
                 source: dataSource,
                 change: function(event, ui) {
@@ -140,16 +148,20 @@
                 select: function(event, ui) {
                     $(input).removeClass('ui-state-error');
                     if (ui.item && ui.item.page) {
+                        // Set current page value
                         $(input).data("page", ui.tem.page);
                         $('.selectable-paginator', self.menu).remove();
+                        // Search for next page of results
                         $(input).autocomplete("search");
                         return false;
                     }
                     self.select(ui.item);
                 }
             }).addClass("ui-widget ui-widget-content ui-corner-all");
-
+            // Override the default auto-complete render.
             $(input).data("autocomplete")._renderItem = function(ul, item) {
+                /* Adds hook for additional formatting, allows HTML in the label,
+                highlights term matches and handles pagination. */
                 var label = item.label;
                 if (self.options.formatLabel) {
                     label = self.options.formatLabel(label, item);
@@ -169,8 +181,9 @@
                 }
                 return li;
             };
-
+            // Override the default auto-complete suggest.
             $(input).data("autocomplete")._suggest = function(items) {
+                /* Needed for handling pagination links */
                 var page = $(input).data('page');
                 var ul = this.menu.element;
                 if (!page) {
@@ -189,7 +202,7 @@
                     this.menu.next(new $.Event("mouseover"));
                 }
             };
-
+            // Additional work for combobox widgets
             var selectableType = data.selectableType || data['selectable-type'];
             if (selectableType === 'combobox') {
                 // Change auto-complete options
@@ -199,7 +212,7 @@
                 })
                 .removeClass("ui-corner-all")
                 .addClass("ui-corner-left ui-combo-input");
-
+                // Add show all items button
                 $("<button>&nbsp;</button>").attr("tabIndex", -1).attr("title", "Show All Items")
                 .insertAfter($(input))
                 .button({
@@ -216,7 +229,6 @@
                         $(input).autocomplete("close");
                         return false;
                     }
-
                     // pass empty string as value to search for, displaying all results
                     $(input).autocomplete("search", "");
                     $(input).focus();
@@ -228,6 +240,10 @@
 })(jQuery);
 
 function bindSelectables(context) {
+    /* Bind all selectable widgets in a given context.
+    Automatically called on document.ready.
+    Additional calls can be made for dynamically added widgets.
+    */
     $(":input[data-selectable-type=text]", context).djselectable();
     $(":input[data-selectable-type=combobox]", context).djselectable();
     $(":input[data-selectable-type=hidden]", context).each(function(i, elem) {
@@ -257,6 +273,7 @@ if (typeof(django) !== "undefined" && typeof(django.jQuery) !== "undefined") {
             };
             var added = null;
             if (options.added) {
+                // Wrap previous added function and include call to bindSelectables
                 var oldadded = options.added;
                 added = function(row) { oldadded(row); addedevent(row); };
             }
@@ -301,5 +318,6 @@ if (typeof(dismissAddAnotherPopup) !== "undefined" && typeof(windowname_to_id) !
 }
 
 $(document).ready(function() {
+    // Bind existing widgets on document ready
     bindSelectables('body');
 });
