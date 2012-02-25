@@ -65,6 +65,18 @@ Below this definition we will register our lookup class.
 
         registry.register(FruitLookup)
 
+.. note::
+
+    You should only register your lookup once. Attempting to register the same lookup class
+    more than once will lead to ``LookupAlreadyRegistered`` errors. A common problem related to the
+    ``LookupAlreadyRegistered`` error is related to inconsistant import paths in your project.
+    Prior to Django 1.4 the default ``manage.py`` allows for importing both with and without
+    the project name (i.e. ``from myproject.myapp import lookups`` or ``from myapp import lookups``).
+    This leads to the ``lookup.py`` file being imported twice and the registration code
+    executing twice. Thankfully this is no longer the default in Django 1.4. Keeping
+    your import consistant to include the project name (when your app is included inside the
+    project directory) will avoid these errors.
+
 
 Defining Forms
 --------------------------------
