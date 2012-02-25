@@ -10,7 +10,7 @@
             formatLabel: null
         },
         
-        _initDeck: function(hiddenInputs) {
+        _initDeck: function() {
             var self = this;
             var data = $(this.element).data();
             var style = data.selectablePosition || data['selectable-position'] || 'bottom';
@@ -20,7 +20,7 @@
             } else {
                 $(this.element).before(this.deck);
             }
-            $(hiddenInputs).each(function(i, input) {
+            $(self.hiddenMultipleSelector).each(function(i, input) {
                 self._addDeckItem(input);
             });
         },
@@ -52,19 +52,48 @@
             );
         },
 
-        _create: function() {
+        select: function(item) {
             var self = this,
             input = this.element;
-            var data = $(input).data();
-            var allowNew = data.selectableAllowNew || data['selectable-allow-new'];
-            var allowMultiple = data.selectableMultiple || data['selectable-multiple'];
-            var textName = $(input).attr('name');
-            var hiddenName = textName.replace('_0', '_1');
-            var hiddenSelector = 'input[type=hidden][data-selectable-type=hidden-multiple][name=' + hiddenName + ']';
-            if (allowMultiple) {
-                allowNew = false;
+            $(input).removeClass('ui-state-error');
+            if (item) {
+                if (self.allowMultiple) {
+                    $(input).val("");
+                    $(input).data("autocomplete").term = "";
+                    if ($(self.hiddenMultipleSelector + '[value=' + item.id + ']').length === 0) {
+                        var newInput = $('<input />', {
+                            'type': 'hidden',
+                            'name': self.hiddenName,
+                            'value': item.id,
+                            'title': item.value,
+                            'data-selectable-type': 'hidden-multiple'
+                        });
+                        $(input).after(newInput);
+                        self._addDeckItem(newInput);
+                        return false;
+                    }
+                } else {
+                    $(input).val(item.value);
+                    var ui = {item: item};
+                    $(input).trigger('autocompleteselect', [ui ]);
+                }
+            }
+        },
+
+        _create: function() {
+            var self = this,
+            input = this.element,
+            data = $(input).data();
+            self.allowNew = data.selectableAllowNew || data['selectable-allow-new'];
+            self.allowMultiple = data.selectableMultiple || data['selectable-multiple'];
+            self.textName = $(input).attr('name');
+            self.hiddenName = self.textName.replace('_0', '_1');
+            self.hiddenSelector = ':input[data-selectable-type=hidden][name=' + self.hiddenName + ']';
+            self.hiddenMultipleSelector = ':input[data-selectable-type=hidden-multiple][name=' + self.hiddenName + ']';
+            if (self.allowMultiple) {
+                self.allowNew = false;
                 $(input).val("");
-                this._initDeck(hiddenSelector);
+                this._initDeck();
             }
 
             function dataSource(request, response) {
@@ -86,41 +115,27 @@
                 change: function(event, ui) {
                     $(input).removeClass('ui-state-error');
                     if ($(input).val() && !ui.item) {
-                        if (!allowNew) {
+                        if (!self.allowNew) {
                             $(input).addClass('ui-state-error');
                         } 
                     } 
-                    if (allowMultiple && !$(input).hasClass('ui-state-error')) {
+                    if (self.allowMultiple && !$(input).hasClass('ui-state-error')) {
                         $(input).val("");
-	                    $(input).data("autocomplete").term = "";
+                        $(input).data("autocomplete").term = "";
                     }
                 },
                 select: function(event, ui) {
                     $(input).removeClass('ui-state-error');
                     if (ui.item && ui.item.page) {
-                        $(input).data("page", ui.item.page);
+                        $(input).data("page", ui.tem.page);
                         $('.selectable-paginator', self.menu).remove();
                         $(input).autocomplete("search");
                         return false;
                     }
-                    if (ui.item && allowMultiple) {
-                        $(input).val("");
-		                $(input).data("autocomplete").term = "";
-                        if ($(hiddenSelector + '[value=' + ui.item.id + ']').length === 0) {
-                            var newInput = $('<input />', {
-                                'type': 'hidden',
-                                'name': hiddenName,
-                                'value': ui.item.id,
-                                'title': ui.item.value,
-                                'data-selectable-type': 'hidden-multiple'
-                            });
-                            $(input).after(newInput);
-                            self._addDeckItem(newInput);
-                            return false;
-                        }
-                    }
+                    self.select(ui.item);
                 }
             }).addClass("ui-widget ui-widget-content ui-corner-all");
+
             $(input).data("autocomplete")._renderItem = function(ul, item) {
                 var label = item.label;
                 if (self.options.formatLabel) {
@@ -133,14 +148,15 @@
                     label = label.replace(re, "<span class='highlight'>$1</span>");
                 }
                 var li =  $("<li></li>")
-			        .data("item.autocomplete", item)
-			        .append($("<a></a>").append(label))
-			        .appendTo(ul);
+                    .data("item.autocomplete", item)
+                    .append($("<a></a>").append(label))
+                    .appendTo(ul);
                 if (item.page) {
                     li.addClass('selectable-paginator');
                 }
-	            return li;
+                return li;
             };
+
             $(input).data("autocomplete")._suggest = function(items) {
                 var page = $(input).data('page');
                 var ul = this.menu.element;
@@ -148,18 +164,19 @@
                     ul.empty();
                 }
                 $(input).data('page', null);
-			    ul.zIndex(this.element.zIndex() + 1);
-		        this._renderMenu(ul, items);
-	            this.menu.deactivate();
+                ul.zIndex(this.element.zIndex() + 1);
+                this._renderMenu(ul, items);
+                this.menu.deactivate();
                 this.menu.refresh();
-		        // size and position menu
-		        ul.show();
-		        this._resizeMenu();
-		        ul.position($.extend({of: this.element}, this.options.position));
-		        if (this.options.autoFocus) {
-			        this.menu.next(new $.Event("mouseover"));
-		        }
-	        };
+                // size and position menu
+                ul.show();
+                this._resizeMenu();
+                ul.position($.extend({of: this.element}, this.options.position));
+                if (this.options.autoFocus) {
+                    this.menu.next(new $.Event("mouseover"));
+                }
+            };
+
             var selectableType = data.selectableType || data['selectable-type'];
             if (selectableType === 'combobox') {
                 // Change auto-complete options
@@ -179,7 +196,7 @@
                     text: false
                 })
                 .removeClass("ui-corner-all")
-		        .addClass("ui-corner-right ui-button-icon ui-combo-button")
+                .addClass("ui-corner-right ui-button-icon ui-combo-button")
                 .click(function() {
                     // close if already visible
                     if ($(input).autocomplete("widget").is(":visible")) {
@@ -216,10 +233,11 @@ function bindSelectables(context) {
     });
 }
 
-if (typeof(django) != "undefined" && typeof(django.jQuery) != "undefined") {
+/* Monkey-patch Django's dynamic formset, if defined */
+if (typeof(django) !== "undefined" && typeof(django.jQuery) !== "undefined") {
     if (django.jQuery.fn.formset) {
         var oldformset = django.jQuery.fn.formset;
-	    django.jQuery.fn.formset = function(opts) {
+        django.jQuery.fn.formset = function(opts) {
             var options = $.extend({}, opts);
             var addedevent = function(row) {
                 bindSelectables($(row));
@@ -233,6 +251,40 @@ if (typeof(django) != "undefined" && typeof(django.jQuery) != "undefined") {
             return oldformset.call(this, options);
         };
     }
+}
+
+/* Monkey-patch Django's dismissAddAnotherPopup(), if defined */
+if (typeof(dismissAddAnotherPopup) !== "undefined" && typeof(windowname_to_id) !== "undefined" && typeof(html_unescape) !== "undefined") {
+    var django_dismissAddAnotherPopup = dismissAddAnotherPopup;
+    dismissAddAnotherPopup = function(win, newId, newRepr) {
+        /* See if the popup came from a selectable field.
+           If not, pass control to Django's code.
+           If so, handle it. */
+        var fieldName = windowname_to_id(win.name); /* e.g. "id_fieldname" */
+        var field = $('#' + fieldName);
+        var multiField = $('#' + fieldName + '_0');
+        /* Check for bound selectable */
+        var singleWidget = field.data('djselectable');
+        var multiWidget = multiField.data('djselectable');
+        if (singleWidget || multiWidget) {
+            // newId and newRepr are expected to have previously been escaped by
+            // django.utils.html.escape.
+            var item =  {
+                id: html_unescape(newId),
+                value: html_unescape(newRepr)
+            };
+            if (singleWidget) {
+                field.djselectable('select', item);
+            }
+            if (multiWidget) {
+                multiField.djselectable('select', item);
+            }
+            win.close();
+        } else {
+            /* Not ours, pass on to original function. */
+            return django_dismissAddAnotherPopup(win, newId, newRepr);
+        }
+    };
 }
 
 $(document).ready(function() {
