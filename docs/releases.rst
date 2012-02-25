@@ -8,7 +8,7 @@ Features
 _________________
 
 - Better compatibility with :ref:`AutoCompleteSelectWidget`/:ref:`AutoComboboxSelectWidget` and Django's ModelChoiceField
-- Better compatibility with the Django admin related objects popup
+- Better compatibility with the Django admin :ref:`add another popup <admin-basic-example>`
 - Easier passing of query parameters. See the :ref:`Additional Parameters <additional-parameters>` section
 - Additional documentation
 - QUnit tests for JS functionality

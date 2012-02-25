@@ -8,8 +8,8 @@ Django-Selectables will work in the admin. To get started on integrated the
 fields and widgets in the admin make sure you are familiar with the Django
 documentation on the `ModelAdmin.form <http://docs.djangoproject.com/en/1.3/ref/contrib/admin/#django.contrib.admin.ModelAdmin.form>`_ 
 and `ModelForms <http://docs.djangoproject.com/en/1.3/topics/forms/modelforms/>`_ particularly
-on `overriding the default widgets <http://docs.djangoproject.com/en/1.3/topics/forms/modelforms/#overriding-the-default-field-types-or-widgets>`_. As you will see integrating Django-Selectables in the admin
-is the same as working with regular forms.
+on `overriding the default widgets <http://docs.djangoproject.com/en/1.3/topics/forms/modelforms/#overriding-the-default-field-types-or-widgets>`_. 
+As you will see integrating django-selectable in the adminis the same as working with regular forms.
 
 .. _admin-jquery-include:
 
@@ -57,6 +57,14 @@ need to add ``owner`` to the exclude so that it will pass model validation. Unfo
 that means we must set the owner manual in the save and in the initial data because
 the ``ModelForm`` will no longer do this for you. Since ``fruit`` does not allow new
 items you'll see these steps are not necessary.
+
+.. versionadded:: 0.4
+
+The django-selectable widgets are compatitible with the add anther popup in the
+admin. It's that little green plus sign that appears next to ``ForeignKey`` or
+``ManyToManyField`` items. This makes django-selectable a user friendly replacement
+for the `ModelAdmin.raw_id_fields <https://docs.djangoproject.com/en/1.3/ref/contrib/admin/#django.contrib.admin.ModelAdmin.raw_id_fields>`_ 
+when the default select box grows too long.
 
 
 .. _admin-inline-example:
