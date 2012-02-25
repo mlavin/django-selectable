@@ -1,3 +1,12 @@
+/* 
+ * django-selectable UI widget CSS
+ * Source: https://bitbucket.org/mlavin/django-selectable
+ * Docs: http://django-selectable.readthedocs.org/
+ *
+ * Copyright 2010-2012, Mark Lavin
+ * BSD License
+ *
+*/
 ul.selectable-deck, ul.ui-autocomplete {
     list-style: none outside none;
 }

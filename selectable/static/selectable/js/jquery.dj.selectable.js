@@ -1,3 +1,16 @@
+/* 
+ * django-selectable UI widget
+ * Source: https://bitbucket.org/mlavin/django-selectable
+ * Docs: http://django-selectable.readthedocs.org/
+ *
+ * Depends:
+ *   - jQuery 1.4.3+
+ *   - jQuery UI 1.8 widget factory
+ *
+ * Copyright 2010-2012, Mark Lavin
+ * BSD License
+ *
+*/
 (function($) {
 
 	$.widget("ui.djselectable", {
