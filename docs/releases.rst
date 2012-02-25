@@ -11,6 +11,7 @@ _________________
 - Better compatibility with the Django admin related objects popup
 - Easier passing of query parameters. See the :ref:`Additional Parameters <additional-parameters>` section
 - Additional documentation
+- QUnit tests for JS functionality
 
 
 Backwards Incompatible Changes
