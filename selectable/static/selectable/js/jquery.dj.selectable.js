@@ -319,5 +319,7 @@ if (typeof(dismissAddAnotherPopup) !== "undefined" && typeof(windowname_to_id) !
 
 $(document).ready(function() {
     // Bind existing widgets on document ready
-    bindSelectables('body');
+    if (typeof(djselectableAutoLoad) === "undefined" || djselectableAutoLoad) {
+        bindSelectables('body');
+    }
 });
