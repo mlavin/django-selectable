@@ -47,6 +47,7 @@ Documentation for django-selectable is available on
 `Read The Docs <http://readthedocs.org/>`_:
 
 - `Dev <http://readthedocs.org/docs/django-selectable/en/latest/>`_
+- `v0.4.0 <http://readthedocs.org/docs/django-selectable/en/version-0.4.0/>`_
 - `v0.3.1 <http://readthedocs.org/docs/django-selectable/en/version-0.3.1/>`_
 - `v0.2.0 <http://readthedocs.org/docs/django-selectable/en/version-0.2.0/>`_
 - `v0.1.2 <http://readthedocs.org/docs/django-selectable/en/version-0.1.2/>`_
