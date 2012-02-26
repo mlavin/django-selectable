@@ -1,7 +1,7 @@
 Release Notes
 ==================
 
-v0.4.0 (Released TBD)
+v0.4.0 (Released 2012-02-25)
 --------------------------------------
 
 Features
