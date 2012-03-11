@@ -1,4 +1,4 @@
-/* 
+/*
  * django-selectable UI widget
  * Source: https://bitbucket.org/mlavin/django-selectable
  * Docs: http://django-selectable.readthedocs.org/
@@ -22,7 +22,7 @@
             highlightMatch: true,
             formatLabel: null
         },
-        
+
         _initDeck: function() {
             /* Create list display for currently selected items for multi-select */
             var self = this;
@@ -138,8 +138,8 @@
                     if ($(input).val() && !ui.item) {
                         if (!self.allowNew) {
                             $(input).addClass('ui-state-error');
-                        } 
-                    } 
+                        }
+                    }
                     if (self.allowMultiple && !$(input).hasClass('ui-state-error')) {
                         $(input).val("");
                         $(input).data("autocomplete").term = "";
