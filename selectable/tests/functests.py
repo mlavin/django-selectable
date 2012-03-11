@@ -4,9 +4,9 @@ Larger functional tests for fields and widgets.
 
 from django import forms
 
-from selectable.forms import AutoCompleteSelectField
+from selectable.forms import AutoCompleteSelectField, AutoCompleteSelectMultipleField
 from selectable.forms import AutoCompleteSelectWidget, AutoComboboxSelectWidget
-from selectable.tests import OtherThing, ThingLookup
+from selectable.tests import ManyThing, OtherThing, ThingLookup
 from selectable.tests.base import BaseSelectableTestCase
 
 
@@ -14,6 +14,7 @@ __all__ = (
     'FuncAutoCompleteSelectTestCase',
     'FuncSelectModelChoiceTestCase',
     'FuncComboboxModelChoiceTestCase',
+    'FuncManytoManyMultipleSelectTestCase',
 )
 
 
@@ -150,3 +151,70 @@ class FuncComboboxModelChoiceTestCase(BaseSelectableTestCase):
         }
         form = ComboboxSelectWidgetForm(data=data)
         self.assertTrue(form.is_valid(), str(form.errors))
+
+
+class ManyThingForm(forms.ModelForm):
+
+    things = AutoCompleteSelectMultipleField(lookup_class=ThingLookup)
+
+    class Meta(object):
+        model = ManyThing
+
+
+class FuncManytoManyMultipleSelectTestCase(BaseSelectableTestCase):
+    """
+    Functional tests for AutoCompleteSelectMultipleField compatibility
+    with a ManyToManyField.
+    """
+
+    def setUp(self):
+        self.test_thing = self.create_thing()
+
+    def test_valid_form(self):
+        "Valid form using an AutoCompleteSelectMultipleField."
+        data = {
+            'name': self.get_random_string(),
+            'things_0': u'', # Text input
+            'things_1': [self.test_thing.pk, ], # Hidden inputs
+        }
+        form = ManyThingForm(data=data)
+        self.assertTrue(form.is_valid(), str(form.errors))
+
+    def test_valid_save(self):
+        "Saving data from a valid form."
+        data = {
+            'name': self.get_random_string(),
+            'things_0': u'', # Text input
+            'things_1': [self.test_thing.pk, ], # Hidden inputs
+        }
+        form = ManyThingForm(data=data)
+        manything = form.save()
+        self.assertEqual(manything.name, data['name'])
+        things = manything.things.all()
+        self.assertEqual(things.count(), 1)
+        self.assertTrue(self.test_thing in things)
+
+    def test_not_required(self):
+        "Valid form where many to many is not required."
+        data = {
+            'name': self.get_random_string(),
+            'things_0': u'', # Text input
+            'things_1': [], # Hidden inputs
+        }
+        form = ManyThingForm(data=data)
+        form.fields['things'].required = False
+        self.assertTrue(form.is_valid(), str(form.errors))
+
+    def test_not_required_save(self):
+        "Saving data when many to many is not required."
+        data = {
+            'name': self.get_random_string(),
+            'things_0': u'', # Text input
+            'things_1': [], # Hidden inputs
+        }
+        form = ManyThingForm(data=data)
+        form.fields['things'].required = False
+        manything = form.save()
+        self.assertEqual(manything.name, data['name'])
+        things = manything.things.all()
+        self.assertEqual(things.count(), 0)

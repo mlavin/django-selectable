@@ -75,7 +75,7 @@ class AutoCompleteSelectMultipleField(forms.Field):
 
     def to_python(self, value):
         if value in EMPTY_VALUES:
-            return None
+            return []
         lookup = self.lookup_class()
         items = []
         for v in value:

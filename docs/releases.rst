@@ -1,6 +1,16 @@
 Release Notes
 ==================
 
+v0.4.1 (Released 2012-03-11)
+--------------------------------------
+
+Bug Fixes
+_________________
+
+- Cleaned up whitespace in css/js. Thanks Dan Poirier for the report and fix.
+- Fixed issue with saving M2M field data with AutoCompleteSelectMultipleField. Thanks Raoul Thill for the report.
+
+
 v0.4.0 (Released 2012-02-25)
 --------------------------------------
 
