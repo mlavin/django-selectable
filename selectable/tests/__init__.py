@@ -20,6 +20,14 @@ class OtherThing(models.Model):
         return self.name
 
 
+class ManyThing(models.Model):
+    name = models.CharField(max_length=100)
+    things = models.ManyToManyField(Thing)
+
+    def __unicode__(self):
+        return self.name
+
+
 class ThingLookup(ModelLookup):
     model = Thing
     search_fields = ('name__icontains', )
