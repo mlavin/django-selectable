@@ -1,2 +1,4 @@
 body {padding-top: 60px;}
-    
+input.ui-autocomplete-input {height: 26px; margin: 0;}
+button.ui-combo-button .ui-button-text {line-height: 1;}
+input {-webkit-border-radius: 0; -moz-border-radius: 0; border-radius: 0;}
