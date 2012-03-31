@@ -12,3 +12,4 @@ docs/_static/*
 dist/*
 *.egg-info/*
 .coverage
+.tox/*
