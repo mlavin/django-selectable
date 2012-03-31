@@ -44,6 +44,20 @@ project. To run the tests you need Django installed and run::
 Client side tests are written using `QUnit <http://docs.jquery.com/QUnit>`_. They
 can be found in `selectable/tests/qunit/`.
 
+`tox <http://tox.readthedocs.org/en/latest/index.html>`_ is used to test django-selectable
+against multiple versions of Django/Python. With tox installed you can run::
+
+    tox
+
+to run all the version combinations. You can also run tox against a subset of supported
+environments::
+    
+    tox -e py26-1.2.X,py26-1.3.X,py26
+
+This example will run the test against the latest 1.4.X, 1.3.X and 1.2.X releases
+using Python 2.6. For more information on running/installing tox please see the
+tox documentation: http://tox.readthedocs.org/en/latest/index.html
+
 
 Building the Documentation
 --------------------------------------
