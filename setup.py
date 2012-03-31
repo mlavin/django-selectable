@@ -20,7 +20,7 @@ setup(
     packages=find_packages(exclude=['example']),
     include_package_data=True,
     url='http://bitbucket.org/mlavin/django-selectable',
-    license='LICENSE.txt',
+    license='BSD',
     description=u' '.join(__import__('selectable').__doc__.splitlines()).strip(),
     classifiers=[
         'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
