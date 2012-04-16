@@ -70,6 +70,10 @@ STATICFILES_DIRS = (
     os.path.join(PROJECT_PATH, 'static'),
 )
 
+# Optional variables for JQuery Libraries. If not specified, defaults in templateg jquery_libraries will be used instead
+JQUERY_URL = '//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js'
+#JQUERY_UI_URL = '//ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js'
+
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = 'g2yn(u+9ue099hs@ap%n_j6nyxc5t*z8lq_avw_8ic_wnsytri'
 
