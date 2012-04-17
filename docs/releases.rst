@@ -1,6 +1,15 @@
 Release Notes
 ==================
 
+v0.5.0 (Released TBD)
+--------------------------------------
+
+Features
+_________________
+
+- Template tag to add necessary jQuery and jQuery UI libraries. Thanks to Rick Testore.
+
+
 v0.4.1 (Released 2012-03-11)
 --------------------------------------
 
