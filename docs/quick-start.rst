@@ -25,7 +25,7 @@ please check out the `Django documentation <https://docs.djangoproject.com/en/1.
 The jQuery and jQuery UI libraries are not included in the distribution but must be included
 in your templates. See the example project for an example using these libraries from the
 `Google CDN <http://code.google.com/apis/libraries/devguide.html#jquery>`_. Django-Selectable
-should work with `jQuery <http://jquery.com/>`_ >= 1.4.3 and `jQuery UI <http://jqueryui.com/>`_ >= 1.8
+should work with `jQuery <http://jquery.com/>`_ >= 1.4.4 and `jQuery UI <http://jqueryui.com/>`_ >= 1.8
 
     .. literalinclude:: ../example/core/templates/base.html
         :start-after: {% block extra-css %}{% endblock %}

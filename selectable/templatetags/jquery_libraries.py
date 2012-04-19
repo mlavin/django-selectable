@@ -12,7 +12,7 @@ def include_jquery_libs():
     try:
         jquery_url = settings.JQUERY_URL
     except:
-        jquery_url = '//ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js'
+        jquery_url = '//ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js'
 
     try:
         jquery_ui_url = settings.JQUERY_UI_URL
