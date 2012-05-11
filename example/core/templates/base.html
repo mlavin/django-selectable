@@ -1,3 +1,4 @@
+{% load selectable_tags %}
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -44,9 +45,8 @@
         </form>
     {% endblock %}
     </div>
-    {% load jquery_libraries %}
     {% include_jquery_libs %}
-    <!-- <script src="{{ STATIC_URL }}js/bootstrap.min.js"></script> -->
+    <script src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
     {{ form.media.js }}
     {% block extra-js %}{% endblock %}
 </body>

@@ -1,8 +1,8 @@
 {% extends "admin/base.html" %}
 {% block title %}{{ title }} | Django-Selectable Example Site{% endblock title %}
 {% block extrahead %}
+    {% load selectable_tags %}
 <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.13/themes/ui-lightness/jquery-ui.css" type="text/css" />
-    {% load jquery_libraries %}
     {% include_jquery_libs %}
 {% endblock %}
 {% block branding %}
