@@ -66,6 +66,8 @@ Or only change the theme.
         {% load selectable_tags %}
         {% include_ui_theme 'ui-lightness' %}
 
+See the the jQuery UI documentation for a full list of available stable themes: http://jqueryui.com/download#stable-themes
+
 .. note::
 
     These template tags were added in v0.5.0. Prior to that these js/css resources
