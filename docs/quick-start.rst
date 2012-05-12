@@ -27,26 +27,49 @@ in your templates. However there is a template tag to easily add these libraries
 the  from the `Google CDN <http://code.google.com/apis/libraries/devguide.html#jquery>`_. 
 
     .. code-block:: html
+
         {% load selectable_tags %}
         {% include_jquery_libs %}
 
-By default these will use jQuery v1.7.2 and jQuery UI 1.8.18. You can customize the versions
+By default these will use jQuery v1.7.2 and jQuery UI v1.8.18. You can customize the versions
 used by pass them to the tag. The first version is the jQuery version and the second is the
 jQuery UI version.
 
     .. code-block:: html
+
         {% load selectable_tags %}
         {% include_jquery_libs '1.4.4' '1.8.13' %}
 
 Django-Selectable should work with `jQuery <http://jquery.com/>`_ >= 1.4.4 and 
 `jQuery UI <http://jqueryui.com/>`_ >= 1.8.13.
 
-You must also include a `jQuery UI theme <http://jqueryui.com/themeroller/>`_ stylesheet. In the
-example project we've included the "lightness" theme via the Google CDN.
+You must also include a `jQuery UI theme <http://jqueryui.com/themeroller/>`_ stylesheet. There
+is also a template tag to easily add this style sheet from the Google CDN.
 
-    .. literalinclude:: ../example/core/templates/base.html
-        :start-after: </title>
-        :end-before: {% block extra-css %}
+    .. code-block:: html
+
+        {% load selectable_tags %}
+        {% include_ui_theme %}
+
+By default this will use the `base <http://jqueryui.com/themeroller/>`_ theme for jQuery UI v1.8.18.
+You can configure the theme and version by passing them in the tag.
+
+    .. code-block:: html
+
+        {% load selectable_tags %}
+        {% include_ui_theme 'ui-lightness' '1.8.13' %}
+
+Or only change the theme.
+
+    .. code-block:: html
+
+        {% load selectable_tags %}
+        {% include_ui_theme 'ui-lightness' %}
+
+.. note::
+
+    These template tags were added in v0.5.0. Prior to that these js/css resources
+    need to be added manually.
 
 
 Defining a Lookup

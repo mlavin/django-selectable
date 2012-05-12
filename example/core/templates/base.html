@@ -6,7 +6,7 @@
     <title>{% block title %}Django-Selectable Example{% endblock %}</title>
     <link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap-responsive.min.css" >
-    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/themes/ui-lightness/jquery-ui.css">
+    {% include_ui_theme %}
     <link rel="stylesheet" href="{{ STATIC_URL }}css/style.css">
     {{ form.media.css }}
     {% block extra-css %}{% endblock %}
