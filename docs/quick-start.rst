@@ -23,14 +23,23 @@ assuming your form is called `form` in the template context. For more informatio
 please check out the `Django documentation <https://docs.djangoproject.com/en/1.3/topics/forms/media/>`_.
 
 The jQuery and jQuery UI libraries are not included in the distribution but must be included
-in your templates. See the example project for an example using these libraries from the
-`Google CDN <http://code.google.com/apis/libraries/devguide.html#jquery>`_. Django-Selectable
-should work with `jQuery <http://jquery.com/>`_ >= 1.4.4 and `jQuery UI <http://jqueryui.com/>`_ >= 1.8
+in your templates. However there is a template tag to easily add these libraries from
+the  from the `Google CDN <http://code.google.com/apis/libraries/devguide.html#jquery>`_. 
 
-    .. literalinclude:: ../example/core/templates/base.html
-        :start-after: {% block extra-css %}{% endblock %}
-        :end-before: {% block extra-js %}
+    .. code-block:: html
+        {% load selectable_tags %}
+        {% include_jquery_libs %}
 
+By default these will use jQuery v1.7.2 and jQuery UI 1.8.18. You can customize the versions
+used by pass them to the tag. The first version is the jQuery version and the second is the
+jQuery UI version.
+
+    .. code-block:: html
+        {% load selectable_tags %}
+        {% include_jquery_libs '1.4.4' '1.8.13' %}
+
+Django-Selectable should work with `jQuery <http://jquery.com/>`_ >= 1.4.4 and 
+`jQuery UI <http://jqueryui.com/>`_ >= 1.8.13.
 
 You must also include a `jQuery UI theme <http://jqueryui.com/themeroller/>`_ stylesheet. In the
 example project we've included the "lightness" theme via the Google CDN.
