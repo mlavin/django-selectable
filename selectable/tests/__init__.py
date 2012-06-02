@@ -41,5 +41,6 @@ from selectable.tests.decorators import *
 from selectable.tests.fields import *
 from selectable.tests.functests import *
 from selectable.tests.forms import *
+from selectable.tests.templatetags import *
 from selectable.tests.views import *
 from selectable.tests.widgets import *
