@@ -8,6 +8,7 @@ Features
 _________________
 
 - Template tag to add necessary jQuery and jQuery UI libraries. Thanks to Rick Testore.
+- :ref:`Lookup decorators <LookupDecorators>` for requiring user authentication or staff access to use the lookup .
 
 Backwards Incompatible Changes
 ________________________________
