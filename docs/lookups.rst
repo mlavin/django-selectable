@@ -169,3 +169,76 @@ model.
 
         registry.register(UserLookup)
 
+
+.. versionadded:: 0.5
+
+.. _LookupDecorators
+
+Lookup Decorators
+--------------------------------------
+
+Registering lookups with django-selectable creates a small API for searching the
+lookup data. While the amount of visible data is small there are times when you want
+to restrict the set of requests which can view the data. For this purpose there are
+lookup decorators. To use them you simply decorate your lookup class.
+
+    .. code-block:: python
+
+        from django.contrib.auth.models import User
+        from selectable.base import ModelLookup
+        from selectable.decorators import login_required
+        from selectable.registry import registry
+
+
+        @login_required
+        class UserLookup(ModelLookup):
+            model = User
+            search_fields = ('username__icontains', )
+            filters = {'is_active': True, }
+
+        registry.register(UserLookup)
+
+.. note::
+
+    The class decorator syntax was introduced in Python 2.6. If you are using
+    django-selectable with Python 2.5 you can still make use of these decorators
+    by applying the without the decorator syntax.
+
+    .. code-block:: python
+
+        class UserLookup(ModelLookup):
+            model = User
+            search_fields = ('username__icontains', )
+            filters = {'is_active': True, }
+
+        UserLookup = login_required(UserLookup)
+
+        registry.register(UserLookup)
+
+Below are the descriptions of the available lookup decorators.
+
+
+ajax_required
+______________________________________
+
+The django-selectable javascript will always request the lookup data via 
+XMLHttpRequest (AJAX) request. This decorator enforces that the lookup can only
+be accessed in this way. If the request is not an AJAX request then it will return
+a 400 Bad Request response.
+
+
+login_required
+______________________________________
+
+This decorator requires the user to be authenticated via ``request.user.is_authenticated``.
+If the user is not authenticated this will return a 401 Unauthorized response.
+``request.user`` is set by the ``django.contrib.auth.middleware.AuthenticationMiddleware``
+which is required for this decorator to work. This middleware is enabled by default.
+
+staff_member_required
+______________________________________
+
+This decorator builds from ``login_required`` and in addition requires that
+``request.user.is_staff`` is ``True``. If the user is not authenticatated this will
+continue to return at 401 response. If the user is authenticated but not a staff member
+then this will return a 403 Forbidden response.
