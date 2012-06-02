@@ -75,7 +75,6 @@ Default: ``null``
 highlightMatch
 ______________________________________
 
-.. versionadded:: 0.3
 
 If true the portions of the label which match the current search term will be wrapped
 in a span with the class ``highlight``.
@@ -88,7 +87,6 @@ Default: ``true``
 formatLabel
 ______________________________________
 
-.. versionadded:: 0.3
 
 ``formatLabel`` is a function that is run prior to rendering the search results in
 the dropdown menu. It takes two arguments: the current item label and the item data

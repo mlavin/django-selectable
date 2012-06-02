@@ -51,11 +51,8 @@ Lookup API
 
     :param item: An item from the search results.
     :return: A string representation of the item to be shown in the search results.
-
-    .. versionadded:: 0.3
-
-    The label can include HTML. For changing the label format on the client side
-    see :ref:`Advanaced Label Formats <advanaced-label-formats>`.
+        The label can include HTML. For changing the label format on the client side
+        see :ref:`Advanaced Label Formats <advanaced-label-formats>`.
     
 
 .. py:method:: LookupBase.get_item_id(item)
@@ -137,12 +134,6 @@ result. You may optionally define a third class attribute ``filters`` which is a
 filters to be applied to the model queryset. The keys should be a string defining a field lookup
 and the value should be the value for the field lookup. Filters on the other hand are
 combined with AND.
-
-.. versionadded:: 0.3
-
-Prior to version 0.3 the model based lookups used a single string ``search_field``. This
-will continue to work in v0.3 but will raise a DeprecationWarning. This support will
-be removed in v0.4.
 
 
 User Lookup Example
