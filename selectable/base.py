@@ -1,3 +1,4 @@
+import functools
 import operator
 import re
 
@@ -17,9 +18,9 @@ from selectable.forms import BaseLookupForm
 __all__ = (
     'LookupBase',
     'ModelLookup',
-    'AjaxRequiredMixin',
-    'LoginRequiredMixin',
-    'StaffRequiredMixin',
+    'ajax_required',
+    'login_required',
+    'staff_member_required',
 )
 
 
@@ -144,33 +145,52 @@ class ModelLookup(LookupBase):
         return self.model(**data)
 
 
-class AjaxRequiredMixin(object):
-    "Lookup extension to require AJAX calls to the lookup view."
+def ajax_required(lookup_cls):
+    "Lookup decorator to require AJAX calls to the lookup view."
 
-    def results(self, request):
+    func = lookup_cls.results
+
+    @functools.wraps(func)
+    def wrapper(self, request):
+        "Wrapped results function."
         if not request.is_ajax():
-            return http.HttpResponseBadRequest()   
-        return super(AjaxRequiredMixin, self).results(request)
+            return http.HttpResponseBadRequest()
+        return func(self, request)
+
+    lookup_cls.results = wrapper
+    return lookup_cls
 
 
-class LoginRequiredMixin(object):
-    "Lookup extension to require the user to be authenticated."
+def login_required(lookup_cls):
+    "Lookup decorator to require the user to be authenticated."
 
-    def results(self, request):
+    func = lookup_cls.results
+
+    @functools.wraps(func)
+    def wrapper(self, request):
+        "Wrapped results function."
         user = getattr(request, 'user', None)
         if user is None or not user.is_authenticated():
-            return http.HttpResponse(status=401) # Unauthorized   
-        return super(LoginRequiredMixin, self).results(request)
+            return http.HttpResponse(status=401) # Unauthorized
+        return func(self, request)
+
+    lookup_cls.results = wrapper
+    return lookup_cls
 
 
-class StaffRequiredMixin(object):
-    "Lookup extension to require the user is a staff member."
+def staff_member_required(lookup_cls):
+    "Lookup decorator to require the user is a staff member."
+    func = lookup_cls.results
 
-    def results(self, request):
+    @functools.wraps(func)
+    def wrapper(self, request):
+        "Wrapped results function."
         user = getattr(request, 'user', None)
         if user is None or not user.is_authenticated():
             return http.HttpResponse(status=401) # Unauthorized
         elif not user.is_staff:
             return http.HttpResponseForbidden()
-        return super(StaffRequiredMixin, self).results(request)
+        return func(self, request)
 
+    lookup_cls.results = wrapper
+    return lookup_cls

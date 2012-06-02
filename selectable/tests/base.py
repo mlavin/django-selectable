@@ -6,8 +6,8 @@ from django.core.urlresolvers import reverse
 from django.test import TestCase
 
 from mock import Mock
-from selectable.base import ModelLookup, AjaxRequiredMixin
-from selectable.base import LoginRequiredMixin, StaffRequiredMixin
+from selectable.base import ModelLookup
+from selectable.base import ajax_required, login_required, staff_member_required
 from selectable.tests import Thing
 
 __all__ = (
@@ -126,22 +126,10 @@ class MultiFieldLookupTestCase(ModelLookupTestCase):
         self.assertTrue(other_thing.pk in qs.values_list('id', flat=True))
 
 
-class LookupMixinTest(object):
-    "Helper for constructing lookups using a particular mixin."
+class AjaxRequiredLookupTestCase(BaseSelectableTestCase):
 
-    lookup_mixin = object
-
-    def create_lookup_class(self):
-        return type('TestLookup', (self.lookup_mixin, self.lookup_cls), {})
-
-
-class AjaxRequiredLookupTestCase(BaseSelectableTestCase, LookupMixinTest):
-    
-    lookup_cls = SimpleModelLookup
-    lookup_mixin = AjaxRequiredMixin
-    
     def setUp(self):
-        self.lookup = self.create_lookup_class()()
+        self.lookup = ajax_required(SimpleModelLookup)()
 
     def test_ajax_call(self):
         "Ajax call should yield a successful response."
@@ -158,13 +146,10 @@ class AjaxRequiredLookupTestCase(BaseSelectableTestCase, LookupMixinTest):
         self.assertEqual(response.status_code, 400)
 
 
-class LoginRequiredLookupTestCase(BaseSelectableTestCase, LookupMixinTest):
-    
-    lookup_cls = SimpleModelLookup
-    lookup_mixin = LoginRequiredMixin
+class LoginRequiredLookupTestCase(BaseSelectableTestCase):
 
     def setUp(self):
-        self.lookup = self.create_lookup_class()()
+        self.lookup = login_required(SimpleModelLookup)()
     
     def test_authenicated_call(self):
         "Authenicated call should yield a successful response."
@@ -185,13 +170,10 @@ class LoginRequiredLookupTestCase(BaseSelectableTestCase, LookupMixinTest):
         self.assertEqual(response.status_code, 401)
 
 
-class StaffRequiredLookupTestCase(BaseSelectableTestCase, LookupMixinTest):
-
-    lookup_cls = SimpleModelLookup
-    lookup_mixin = StaffRequiredMixin
+class StaffRequiredLookupTestCase(BaseSelectableTestCase):
 
     def setUp(self):
-        self.lookup = self.create_lookup_class()()
+        self.lookup = staff_member_required(SimpleModelLookup)()
 
     def test_staff_member_call(self):
         "Staff member call should yield a successful response."
