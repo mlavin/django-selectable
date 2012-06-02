@@ -35,5 +35,6 @@ setup(
         'Operating System :: OS Independent',
     ],
     long_description=read_file('README.rst'),
+    test_suite="runtests.runtests",
     zip_safe=False, # because we're including media that Django needs
 )
