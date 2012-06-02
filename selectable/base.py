@@ -19,6 +19,7 @@ __all__ = (
     'ModelLookup',
     'AjaxRequiredMixin',
     'LoginRequiredMixin',
+    'StaffRequiredMixin',
 )
 
 
@@ -160,3 +161,16 @@ class LoginRequiredMixin(object):
         if user is None or not user.is_authenticated():
             return http.HttpResponse(status=401) # Unauthorized   
         return super(LoginRequiredMixin, self).results(request)
+
+
+class StaffRequiredMixin(object):
+    "Lookup extension to require the user is a staff member."
+
+    def results(self, request):
+        user = getattr(request, 'user', None)
+        if user is None or not user.is_authenticated():
+            return http.HttpResponse(status=401) # Unauthorized
+        elif not user.is_staff:
+            return http.HttpResponseForbidden()
+        return super(StaffRequiredMixin, self).results(request)
+
