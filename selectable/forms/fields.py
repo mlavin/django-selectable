@@ -1,3 +1,5 @@
+import warnings
+
 from django import forms
 from django.core.exceptions import ValidationError
 from django.core.validators import EMPTY_VALUES
@@ -25,7 +27,9 @@ class AutoCompleteSelectField(forms.Field):
         self.lookup_class = lookup_class
         self.allow_new = kwargs.pop('allow_new', False)
         self.limit = kwargs.pop('limit', None)
-        kwargs['widget'] = self.widget(lookup_class, allow_new=self.allow_new, limit=self.limit)
+        widget = kwargs.pop('widget', self.widget) or self.widget
+        if isinstance(widget, type):
+            kwargs['widget'] = widget(lookup_class, allow_new=self.allow_new, limit=self.limit)
         super(AutoCompleteSelectField, self).__init__(*args, **kwargs)
 
 
@@ -59,6 +63,14 @@ class AutoCompleteSelectField(forms.Field):
 class AutoComboboxSelectField(AutoCompleteSelectField):
     widget = AutoComboboxSelectWidget
 
+    def __init__(self, *args, **kwargs):
+        super(AutoComboboxSelectField, self).__init__(*args, **kwargs)
+        warnings.warn(
+            u"AutoComboboxSelectField is deprecated; " +
+            "Use AutoCompleteSelectField with a AutoComboboxSelectWidget instead.", 
+            DeprecationWarning,  stacklevel=2
+        )
+
 
 class AutoCompleteSelectMultipleField(forms.Field):
     widget = AutoCompleteSelectMultipleWidget
@@ -70,7 +82,9 @@ class AutoCompleteSelectMultipleField(forms.Field):
     def __init__(self, lookup_class, *args, **kwargs):
         self.lookup_class = lookup_class
         self.limit = kwargs.pop('limit', None)
-        kwargs['widget'] = self.widget(lookup_class, limit=self.limit)
+        widget = kwargs.pop('widget', self.widget) or self.widget
+        if isinstance(widget, type):
+            kwargs['widget'] = widget(lookup_class, limit=self.limit)
         super(AutoCompleteSelectMultipleField, self).__init__(*args, **kwargs)
 
     def to_python(self, value):
@@ -90,3 +104,11 @@ class AutoCompleteSelectMultipleField(forms.Field):
 class AutoComboboxSelectMultipleField(AutoCompleteSelectMultipleField):
     widget = AutoComboboxSelectMultipleWidget
 
+    def __init__(self, *args, **kwargs):
+        super(AutoComboboxSelectMultipleField, self).__init__(*args, **kwargs)
+        warnings.warn(
+            u"AutoComboboxSelectMultipleField is deprecated; " +
+            "Use AutoCompleteSelectMultipleField with a " +
+            "AutoComboboxSelectMultipleWidget instead.", 
+            DeprecationWarning,  stacklevel=2
+        )

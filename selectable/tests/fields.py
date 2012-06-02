@@ -1,6 +1,6 @@
 from django import forms
 
-from selectable.forms import fields
+from selectable.forms import fields, widgets
 from selectable.tests import ThingLookup
 from selectable.tests.base import BaseSelectableTestCase
 
@@ -17,12 +17,12 @@ class BaseFieldTestCase(BaseSelectableTestCase):
     field_cls = None
     lookup_cls = None
 
-    def get_field_instance(self, allow_new=False, limit=None):
-        return self.__class__.field_cls(self.__class__.lookup_cls, allow_new=allow_new, limit=limit)
+    def get_field_instance(self, allow_new=False, limit=None, widget=None):
+        return self.field_cls(self.lookup_cls, allow_new=allow_new, limit=limit, widget=widget)
 
     def test_init(self):
         field = self.get_field_instance()
-        self.assertEqual(field.lookup_class, self.__class__.lookup_cls)
+        self.assertEqual(field.lookup_class, self.lookup_cls)
 
     def test_init_with_limit(self):
         field = self.get_field_instance(limit=10)
@@ -54,6 +54,15 @@ class AutoCompleteSelectFieldTestCase(BaseFieldTestCase):
         value = field.clean([value, ''])
         self.assertTrue(isinstance(value, ThingLookup.model))
 
+    def test_default_widget(self):
+        field = self.get_field_instance()
+        self.assertTrue(isinstance(field.widget, widgets.AutoCompleteSelectWidget))
+
+    def test_alternate_widget(self):
+        widget_cls = widgets.AutoComboboxWidget
+        field = self.get_field_instance(widget=widget_cls)
+        self.assertTrue(isinstance(field.widget, widget_cls))
+
 
 class AutoComboboxSelectFieldTestCase(BaseFieldTestCase):
     field_cls = fields.AutoComboboxSelectField
@@ -81,8 +90,8 @@ class AutoCompleteSelectMultipleFieldTestCase(BaseFieldTestCase):
     field_cls = fields.AutoCompleteSelectMultipleField
     lookup_cls = ThingLookup
 
-    def get_field_instance(self, limit=None):
-        return self.__class__.field_cls(self.__class__.lookup_cls, limit=limit)
+    def get_field_instance(self, limit=None, widget=None):
+        return self.field_cls(self.lookup_cls, limit=limit, widget=widget)
 
     def test_clean(self):
         thing = self.create_thing()
@@ -97,6 +106,15 @@ class AutoCompleteSelectMultipleFieldTestCase(BaseFieldTestCase):
         ids = [thing.id, other_thing.id]
         value = field.clean(ids)
         self.assertEqual([thing, other_thing], value)
+
+    def test_default_widget(self):
+        field = self.get_field_instance()
+        self.assertTrue(isinstance(field.widget, widgets.AutoCompleteSelectMultipleWidget))
+
+    def test_alternate_widget(self):
+        widget_cls = widgets.AutoComboboxSelectMultipleWidget
+        field = self.get_field_instance(widget=widget_cls)
+        self.assertTrue(isinstance(field.widget, widget_cls))
 
 
 class AutoComboboxSelectMultipleFieldTestCase(BaseFieldTestCase):

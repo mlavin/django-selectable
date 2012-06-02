@@ -14,7 +14,7 @@ Installation Requirements
 -----------------------------------
 
 - `Django <http://www.djangoproject.com/>`_ >= 1.2
-- `jQuery <http://jquery.com/>`_ >= 1.4.3
+- `jQuery <http://jquery.com/>`_ >= 1.4.4
 - `jQuery UI <http://jqueryui.com/>`_ >= 1.8
 
 Optional (but recommended)

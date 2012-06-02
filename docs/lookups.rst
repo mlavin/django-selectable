@@ -51,11 +51,8 @@ Lookup API
 
     :param item: An item from the search results.
     :return: A string representation of the item to be shown in the search results.
-
-    .. versionadded:: 0.3
-
-    The label can include HTML. For changing the label format on the client side
-    see :ref:`Advanaced Label Formats <advanaced-label-formats>`.
+        The label can include HTML. For changing the label format on the client side
+        see :ref:`Advanaced Label Formats <advanaced-label-formats>`.
     
 
 .. py:method:: LookupBase.get_item_id(item)
@@ -138,12 +135,6 @@ filters to be applied to the model queryset. The keys should be a string definin
 and the value should be the value for the field lookup. Filters on the other hand are
 combined with AND.
 
-.. versionadded:: 0.3
-
-Prior to version 0.3 the model based lookups used a single string ``search_field``. This
-will continue to work in v0.3 but will raise a DeprecationWarning. This support will
-be removed in v0.4.
-
 
 User Lookup Example
 --------------------------------------
@@ -178,3 +169,76 @@ model.
 
         registry.register(UserLookup)
 
+
+.. _lookup-decorators:
+
+Lookup Decorators
+--------------------------------------
+
+.. versionadded:: 0.5
+
+Registering lookups with django-selectable creates a small API for searching the
+lookup data. While the amount of visible data is small there are times when you want
+to restrict the set of requests which can view the data. For this purpose there are
+lookup decorators. To use them you simply decorate your lookup class.
+
+    .. code-block:: python
+
+        from django.contrib.auth.models import User
+        from selectable.base import ModelLookup
+        from selectable.decorators import login_required
+        from selectable.registry import registry
+
+
+        @login_required
+        class UserLookup(ModelLookup):
+            model = User
+            search_fields = ('username__icontains', )
+            filters = {'is_active': True, }
+
+        registry.register(UserLookup)
+
+.. note::
+
+    The class decorator syntax was introduced in Python 2.6. If you are using
+    django-selectable with Python 2.5 you can still make use of these decorators
+    by applying the without the decorator syntax.
+
+    .. code-block:: python
+
+        class UserLookup(ModelLookup):
+            model = User
+            search_fields = ('username__icontains', )
+            filters = {'is_active': True, }
+
+        UserLookup = login_required(UserLookup)
+
+        registry.register(UserLookup)
+
+Below are the descriptions of the available lookup decorators.
+
+
+ajax_required
+______________________________________
+
+The django-selectable javascript will always request the lookup data via 
+XMLHttpRequest (AJAX) request. This decorator enforces that the lookup can only
+be accessed in this way. If the request is not an AJAX request then it will return
+a 400 Bad Request response.
+
+
+login_required
+______________________________________
+
+This decorator requires the user to be authenticated via ``request.user.is_authenticated``.
+If the user is not authenticated this will return a 401 Unauthorized response.
+``request.user`` is set by the ``django.contrib.auth.middleware.AuthenticationMiddleware``
+which is required for this decorator to work. This middleware is enabled by default.
+
+staff_member_required
+______________________________________
+
+This decorator builds from ``login_required`` and in addition requires that
+``request.user.is_staff`` is ``True``. If the user is not authenticatated this will
+continue to return at 401 response. If the user is authenticated but not a staff member
+then this will return a 403 Forbidden response.

@@ -27,10 +27,15 @@ setup(
         'Intended Audience :: Developers',
         'License :: OSI Approved :: BSD License',
         'Programming Language :: Python',
+        'Programming Language :: Python :: 2.5',        
+        'Programming Language :: Python :: 2.6',
+        'Programming Language :: Python :: 2.7',
         'Topic :: Software Development :: Libraries :: Python Modules',
         'Development Status :: 4 - Beta',
         'Operating System :: OS Independent',
     ],
     long_description=read_file('README.rst'),
+    test_suite="runtests.runtests",
+    tests_require=['mock', ],
     zip_safe=False, # because we're including media that Django needs
 )

@@ -4,7 +4,7 @@
  * Docs: http://django-selectable.readthedocs.org/
  *
  * Depends:
- *   - jQuery 1.4.3+
+ *   - jQuery 1.4.4+
  *   - jQuery UI 1.8 widget factory
  *
  * Copyright 2010-2012, Mark Lavin
