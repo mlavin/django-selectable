@@ -38,6 +38,12 @@ which determines if the field allows new items. This field cleans to a single it
         :start-after: # AutoComboboxSelectField (no new items)
         :end-before: # AutoComboboxSelectField (allows new items)
 
+.. versionadded:: 0.5
+
+This field is deprecated in v0.5 and will be removed in v0.6. You should instead
+use the above :ref:`AutoCompleteSelectField` and pass the :ref:`AutoComboboxSelectWidget`
+in the ``widget`` argument.
+
 
 .. _AutoCompleteSelectMultipleField:
 
@@ -65,3 +71,9 @@ allow for the creation of new items.
     .. literalinclude:: ../example/core/forms.py
         :start-after: # AutoComboboxSelectMultipleField
         :end-before: class ChainedForm
+
+.. versionadded:: 0.5
+
+This field is deprecated in v0.5 and will be removed in v0.6. You should instead
+use the above :ref:`AutoCompleteSelectMultipleField` and pass the 
+:ref:`AutoComboboxSelectMultipleWidget` in the ``widget`` argument.
