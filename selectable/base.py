@@ -18,6 +18,7 @@ __all__ = (
     'LookupBase',
     'ModelLookup',
     'AjaxRequiredMixin',
+    'LoginRequiredMixin',
 )
 
 
@@ -149,3 +150,13 @@ class AjaxRequiredMixin(object):
         if not request.is_ajax():
             return http.HttpResponseBadRequest()   
         return super(AjaxRequiredMixin, self).results(request)
+
+
+class LoginRequiredMixin(object):
+    "Lookup extension to require the user to be authenticated."
+
+    def results(self, request):
+        user = getattr(request, 'user', None)
+        if user is None or not user.is_authenticated():
+            return http.HttpResponse(status=401) # Unauthorized   
+        return super(LoginRequiredMixin, self).results(request)

@@ -6,13 +6,14 @@ from django.core.urlresolvers import reverse
 from django.test import TestCase
 
 from mock import Mock
-from selectable.base import ModelLookup, AjaxRequiredMixin
+from selectable.base import ModelLookup, AjaxRequiredMixin, LoginRequiredMixin
 from selectable.tests import Thing
 
 __all__ = (
     'ModelLookupTestCase',
     'MultiFieldLookupTestCase',
     'AjaxRequiredLookupTestCase',
+    'LoginRequiredLookupTestCase',
 )
 
 
@@ -151,5 +152,32 @@ class AjaxRequiredLookupTestCase(BaseSelectableTestCase, LookupMixinTest):
         "Non-Ajax call should yield a bad request response"
         request = Mock()
         request.is_ajax = lambda: False
+        response = self.lookup.results(request)
+        self.assertTrue(response.status_code, 400)
+
+
+class LoginRequiredLookupTestCase(BaseSelectableTestCase, LookupMixinTest):
+    
+    lookup_cls = SimpleModelLookup
+    lookup_mixin = LoginRequiredMixin
+
+    def setUp(self):
+        self.lookup = self.create_lookup_class()()
+    
+    def test_authenicated_call(self):
+        "Authenicated call should yield a successful response"
+        request = Mock()
+        user = Mock()
+        user.is_authenticated = lambda: True
+        request.user = user
+        response = self.lookup.results(request)
+        self.assertTrue(response.status_code, 200)
+
+    def test_non_authenicated_call(self):
+        "Non-Authenicated call should yield an unauthorized response"
+        request = Mock()
+        user = Mock()
+        user.is_authenticated = lambda: False
+        request.user = user
         response = self.lookup.results(request)
         self.assertTrue(response.status_code, 400)
