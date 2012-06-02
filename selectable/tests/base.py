@@ -5,12 +5,14 @@ from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.test import TestCase
 
-from selectable.base import ModelLookup
+from mock import Mock
+from selectable.base import ModelLookup, AjaxRequiredMixin
 from selectable.tests import Thing
 
 __all__ = (
     'ModelLookupTestCase',
     'MultiFieldLookupTestCase',
+    'AjaxRequiredLookupTestCase',
 )
 
 
@@ -119,3 +121,35 @@ class MultiFieldLookupTestCase(ModelLookupTestCase):
         qs = lookup.get_query(request=None, term='other')
         self.assertTrue(thing.pk not in qs.values_list('id', flat=True))
         self.assertTrue(other_thing.pk in qs.values_list('id', flat=True))
+
+
+class LookupMixinTest(object):
+    "Helper for constructing lookups using a particular mixin."
+
+    lookup_mixin = object
+
+    def create_lookup_class(self):
+        return type('TestLookup', (self.lookup_mixin, self.lookup_cls), {})
+
+
+class AjaxRequiredLookupTestCase(BaseSelectableTestCase, LookupMixinTest):
+    
+    lookup_cls = SimpleModelLookup
+    lookup_mixin = AjaxRequiredMixin
+
+    def setUp(self):
+        self.lookup = self.create_lookup_class()()
+    
+    def test_ajax_call(self):
+        "Ajax call should yield a successful response"
+        request = Mock()
+        request.is_ajax = lambda: True
+        response = self.lookup.results(request)
+        self.assertTrue(response.status_code, 200)
+
+    def test_non_ajax_call(self):
+        "Non-Ajax call should yield a bad request response"
+        request = Mock()
+        request.is_ajax = lambda: False
+        response = self.lookup.results(request)
+        self.assertTrue(response.status_code, 400)

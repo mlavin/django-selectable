@@ -1,12 +1,12 @@
 import operator
 import re
 
+from django import http
 from django.conf import settings
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
 from django.core.urlresolvers import reverse
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db.models import Q
-from django.http import HttpResponse
 from django.utils import simplejson as json
 from django.utils.encoding import smart_unicode
 from django.utils.translation import ugettext as _
@@ -17,10 +17,13 @@ from selectable.forms import BaseLookupForm
 __all__ = (
     'LookupBase',
     'ModelLookup',
+    'AjaxRequiredMixin',
 )
 
 
 class LookupBase(object):
+    "Base class for all django-selectable lookups."
+
     form = BaseLookupForm
 
     def _name(cls):
@@ -92,10 +95,12 @@ class LookupBase(object):
                     'page': page_data.next_page_number()
                 })        
         content = json.dumps(data, cls=DjangoJSONEncoder, ensure_ascii=False)
-        return HttpResponse(content, content_type='application/json')    
+        return http.HttpResponse(content, content_type='application/json')    
 
 
 class ModelLookup(LookupBase):
+    "Lookup class for easily defining lookups based on Django models."
+
     model = None
     filters = {}
     search_fields = ()
@@ -135,3 +140,12 @@ class ModelLookup(LookupBase):
             if field_name:
                 data = {field_name: value}
         return self.model(**data)
+
+
+class AjaxRequiredMixin(object):
+    "Lookup extension to require AJAX calls to the lookup view."
+
+    def results(self, request):
+        if not request.is_ajax():
+            return http.HttpResponseBadRequest()   
+        return super(AjaxRequiredMixin, self).results(request)
