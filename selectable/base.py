@@ -1,12 +1,13 @@
-import functools
+"Base classes for lookup creation."
+
 import operator
 import re
 
-from django import http
 from django.conf import settings
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
 from django.core.urlresolvers import reverse
 from django.core.serializers.json import DjangoJSONEncoder
+from django.http import HttpResponse
 from django.db.models import Q
 from django.utils import simplejson as json
 from django.utils.encoding import smart_unicode
@@ -18,9 +19,6 @@ from selectable.forms import BaseLookupForm
 __all__ = (
     'LookupBase',
     'ModelLookup',
-    'ajax_required',
-    'login_required',
-    'staff_member_required',
 )
 
 
@@ -98,7 +96,7 @@ class LookupBase(object):
                     'page': page_data.next_page_number()
                 })        
         content = json.dumps(data, cls=DjangoJSONEncoder, ensure_ascii=False)
-        return http.HttpResponse(content, content_type='application/json')    
+        return HttpResponse(content, content_type='application/json')    
 
 
 class ModelLookup(LookupBase):
@@ -143,54 +141,3 @@ class ModelLookup(LookupBase):
             if field_name:
                 data = {field_name: value}
         return self.model(**data)
-
-
-def ajax_required(lookup_cls):
-    "Lookup decorator to require AJAX calls to the lookup view."
-
-    func = lookup_cls.results
-
-    @functools.wraps(func)
-    def wrapper(self, request):
-        "Wrapped results function."
-        if not request.is_ajax():
-            return http.HttpResponseBadRequest()
-        return func(self, request)
-
-    lookup_cls.results = wrapper
-    return lookup_cls
-
-
-def login_required(lookup_cls):
-    "Lookup decorator to require the user to be authenticated."
-
-    func = lookup_cls.results
-
-    @functools.wraps(func)
-    def wrapper(self, request):
-        "Wrapped results function."
-        user = getattr(request, 'user', None)
-        if user is None or not user.is_authenticated():
-            return http.HttpResponse(status=401) # Unauthorized
-        return func(self, request)
-
-    lookup_cls.results = wrapper
-    return lookup_cls
-
-
-def staff_member_required(lookup_cls):
-    "Lookup decorator to require the user is a staff member."
-    func = lookup_cls.results
-
-    @functools.wraps(func)
-    def wrapper(self, request):
-        "Wrapped results function."
-        user = getattr(request, 'user', None)
-        if user is None or not user.is_authenticated():
-            return http.HttpResponse(status=401) # Unauthorized
-        elif not user.is_staff:
-            return http.HttpResponseForbidden()
-        return func(self, request)
-
-    lookup_cls.results = wrapper
-    return lookup_cls
