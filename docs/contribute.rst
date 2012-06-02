@@ -39,7 +39,7 @@ Running the Test Suite
 There are a number of tests in place to test the server side code for this
 project. To run the tests you need Django installed and run::
 
-    python selectable/tests/runtests.py
+    python runtests.py
 
 Client side tests are written using `QUnit <http://docs.jquery.com/QUnit>`_. They
 can be found in `selectable/tests/qunit/`.
