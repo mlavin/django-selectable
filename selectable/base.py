@@ -135,4 +135,3 @@ class ModelLookup(LookupBase):
             if field_name:
                 data = {field_name: value}
         return self.model(**data)
-
