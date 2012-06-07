@@ -67,9 +67,12 @@
             );
         },
 
-        select: function(item) {
+        select: function(item, event) {
             /* Trigger selection of a given item.
-            Item should contain two properties: id and value */
+            Item should contain two properties: id and value 
+            Event is the original select event if there is one.
+            Event should not be passed if trigger manually.
+            */
             var self = this,
             input = this.element;
             $(input).removeClass('ui-state-error');
@@ -92,7 +95,9 @@
                 } else {
                     $(input).val(item.value);
                     var ui = {item: item};
-                    $(input).trigger('autocompleteselect', [ui ]);
+                    if (typeof(event) == 'undefined' || event.type != "autocompleteselect") {
+                        $(input).trigger('autocompleteselect', [ui ]);
+                    }
                 }
             }
         },
@@ -155,7 +160,7 @@
                         $(input).autocomplete("search");
                         return false;
                     }
-                    self.select(ui.item);
+                    self.select(ui.item, event);
                 }
             }).addClass("ui-widget ui-widget-content ui-corner-all");
             // Override the default auto-complete render.
