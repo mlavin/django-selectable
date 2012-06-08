@@ -1,6 +1,16 @@
 Release Notes
 ==================
 
+v0.4.2 (Released 2012-06-08)
+--------------------------------------
+
+Bug Fixes
+_________________
+
+- Backported fix for double ``autocompleteselect`` event firing.
+- Backported fix for broken pagination in search results.
+
+
 v0.4.1 (Released 2012-03-11)
 --------------------------------------
 
