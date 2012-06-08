@@ -1,6 +1,16 @@
 Release Notes
 ==================
 
+v0.5.1 (Released 2012-06-08)
+--------------------------------------
+
+Bug Fixes
+_________________
+
+- Fix for double ``autocompleteselect`` event firing.
+- Fix for broken pagination in search results. Thanks David Ray for report and fix.
+
+
 v0.4.2 (Released 2012-06-08)
 --------------------------------------
 
