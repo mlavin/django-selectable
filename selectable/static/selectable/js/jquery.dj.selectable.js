@@ -154,7 +154,7 @@
                     $(input).removeClass('ui-state-error');
                     if (ui.item && ui.item.page) {
                         // Set current page value
-                        $(input).data("page", ui.tem.page);
+                        $(input).data("page", ui.item.page);
                         $('.selectable-paginator', self.menu).remove();
                         // Search for next page of results
                         $(input).autocomplete("search");
