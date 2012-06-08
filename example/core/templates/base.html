@@ -1,19 +1,37 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+{% load selectable_tags %}
+<html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-<title>Django-Selectable Example</title>
-<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.13/themes/ui-lightness/jquery-ui.css" type="text/css" />
-{{ form.media.css }}
-{% block extra-css %}{% endblock %}
-<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
-<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.13/jquery-ui.min.js"></script>
-{{ form.media.js }}
-{% block extra-js %}{% endblock %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Django-Selectable Example{% endblock %}</title>
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap-responsive.min.css" >
+    {% include_ui_theme %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/style.css">
+    {{ form.media.css }}
+    {% block extra-css %}{% endblock %}
 </head>
-    <body>
-        {% block content %}
+<body>
+    <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
+                <a class="brand" href="#">Django-Selectable</a>
+                <div class="nav-collapse">
+                    <ul class="nav">
+                        <li class="active"><a href="/">Home</a></li>
+                    </ul>
+                </div><!--/.nav-collapse -->
+            </div>
+        </div>
+    </div>
+    <div class="container">
+    <h1>Example Project</h1>
+    {% block content %}
         <form action="" method="post" >
             {% csrf_token %}
             {% if form.is_valid %}
@@ -23,8 +41,12 @@
             {% else %}
                 {{ form.as_p }}
             {% endif %}
-            <button>Submit</button>
+            <button class="btn">Submit</button>
         </form>
-        {% endblock %}
-    </body>
+    {% endblock %}
+    </div>
+    {% include_jquery_libs %}
+    {{ form.media.js }}
+    {% block extra-js %}{% endblock %}
+</body>
 </html>

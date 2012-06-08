@@ -1,6 +1,16 @@
 Release Notes
 ==================
 
+v0.5.1 (Released 2012-06-08)
+--------------------------------------
+
+Bug Fixes
+_________________
+
+- Fix for double ``autocompleteselect`` event firing.
+- Fix for broken pagination in search results. Thanks David Ray for report and fix.
+
+
 v0.4.2 (Released 2012-06-08)
 --------------------------------------
 
@@ -9,6 +19,24 @@ _________________
 
 - Backported fix for double ``autocompleteselect`` event firing.
 - Backported fix for broken pagination in search results.
+
+
+v0.5.0 (Released 2012-06-02)
+--------------------------------------
+
+Features
+_________________
+
+- Template tag to add necessary jQuery and jQuery UI libraries. Thanks to Rick Testore for the initial implementation
+- :ref:`Lookup decorators <lookup-decorators>` for requiring user authentication or staff access to use the lookup
+- Additional documentation
+- Minor updates to the example project
+
+Backwards Incompatible Changes
+________________________________
+
+- Previously the minimal version of jQuery was listed as 1.4.3 when it fact there was a bug a that made django-selectable require 1.4.4. Not a new incompatibility but the docs have now been updated and 1.4.3 compatibility will not be added. Thanks to Rick Testore for the report and the fix
+- Started deprecation path for :ref:`AutoComboboxSelectField` and :ref:`AutoComboboxSelectMultipleField`
 
 
 v0.4.1 (Released 2012-03-11)

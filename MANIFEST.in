@@ -1,3 +1,4 @@
 include README.rst
 include LICENSE.txt
 recursive-include selectable/static *
+recursive-include selectable/templates *

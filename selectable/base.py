@@ -1,3 +1,5 @@
+"Base classes for lookup creation."
+
 import operator
 import re
 
@@ -5,8 +7,8 @@ from django.conf import settings
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
 from django.core.urlresolvers import reverse
 from django.core.serializers.json import DjangoJSONEncoder
-from django.db.models import Q
 from django.http import HttpResponse
+from django.db.models import Q
 from django.utils import simplejson as json
 from django.utils.encoding import smart_unicode
 from django.utils.translation import ugettext as _
@@ -21,6 +23,8 @@ __all__ = (
 
 
 class LookupBase(object):
+    "Base class for all django-selectable lookups."
+
     form = BaseLookupForm
 
     def _name(cls):
@@ -96,6 +100,8 @@ class LookupBase(object):
 
 
 class ModelLookup(LookupBase):
+    "Lookup class for easily defining lookups based on Django models."
+
     model = None
     filters = {}
     search_fields = ()
@@ -135,4 +141,3 @@ class ModelLookup(LookupBase):
             if field_name:
                 data = {field_name: value}
         return self.model(**data)
-

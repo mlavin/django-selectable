@@ -4,8 +4,8 @@ django-selectable is a collection of tools and widgets for using/creating auto-c
 
 __version_info__ = {
     'major': 0,
-    'minor': 4,
-    'micro': 2,
+    'minor': 5,
+    'micro': 1,
     'releaselevel': 'final',
 }
 

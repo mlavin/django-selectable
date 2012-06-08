@@ -62,6 +62,18 @@ STATIC_URL = '/static/'
 # Examples: "http://foo.com/media/", "/media/".
 ADMIN_MEDIA_PREFIX = '/static/admin/'
 
+# Additional locations of static files
+STATICFILES_DIRS = (
+    # Put strings here, like "/home/html/static" or "C:/www/django/static".
+    # Always use forward slashes, even on Windows.
+    # Don't forget to use absolute paths, not relative paths.
+    os.path.join(PROJECT_PATH, 'static'),
+)
+
+# Optional variables for JQuery Libraries. If not specified, defaults in templateg jquery_libraries will be used instead
+JQUERY_URL = '//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js'
+#JQUERY_UI_URL = '//ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js'
+
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = 'g2yn(u+9ue099hs@ap%n_j6nyxc5t*z8lq_avw_8ic_wnsytri'
 
@@ -72,15 +84,6 @@ TEMPLATE_LOADERS = (
 #     'django.template.loaders.eggs.Loader',
 )
 
-TEMPLATE_CONTEXT_PROCESSORS = (
-    "django.contrib.auth.context_processors.auth",
-    "django.core.context_processors.debug",
-    "django.core.context_processors.i18n",
-    "django.core.context_processors.media",
-    "django.core.context_processors.request",
-    "django.contrib.messages.context_processors.messages",
-    "staticfiles.context_processors.static",
-)
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
@@ -105,9 +108,32 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.messages',
+    'django.contrib.staticfiles',
     'django.contrib.admin',
-
-    'staticfiles',
     'selectable',
     'example.core',
 )
+
+
+# A sample logging configuration. The only tangible logging
+# performed by this configuration is to send an email to
+# the site admins on every HTTP 500 error.
+# See http://docs.djangoproject.com/en/dev/topics/logging for
+# more details on how to customize your logging configuration.
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'mail_admins': {
+            'level': 'ERROR',
+            'class': 'django.utils.log.AdminEmailHandler'
+        }
+    },
+    'loggers': {
+        'django.request': {
+            'handlers': ['mail_admins'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+    }
+}
