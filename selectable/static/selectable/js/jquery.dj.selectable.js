@@ -4,7 +4,7 @@
  * Docs: http://django-selectable.readthedocs.org/
  *
  * Depends:
- *   - jQuery 1.4.3+
+ *   - jQuery 1.4.4+
  *   - jQuery UI 1.8 widget factory
  *
  * Copyright 2010-2012, Mark Lavin
@@ -67,9 +67,12 @@
             );
         },
 
-        select: function(item) {
+        select: function(item, event) {
             /* Trigger selection of a given item.
-            Item should contain two properties: id and value */
+            Item should contain two properties: id and value 
+            Event is the original select event if there is one.
+            Event should not be passed if trigger manually.
+            */
             var self = this,
             input = this.element;
             $(input).removeClass('ui-state-error');
@@ -92,7 +95,9 @@
                 } else {
                     $(input).val(item.value);
                     var ui = {item: item};
-                    $(input).trigger('autocompleteselect', [ui ]);
+                    if (typeof(event) == 'undefined' || event.type != "autocompleteselect") {
+                        $(input).trigger('autocompleteselect', [ui ]);
+                    }
                 }
             }
         },
@@ -149,13 +154,13 @@
                     $(input).removeClass('ui-state-error');
                     if (ui.item && ui.item.page) {
                         // Set current page value
-                        $(input).data("page", ui.tem.page);
+                        $(input).data("page", ui.item.page);
                         $('.selectable-paginator', self.menu).remove();
                         // Search for next page of results
                         $(input).autocomplete("search");
                         return false;
                     }
-                    self.select(ui.item);
+                    self.select(ui.item, event);
                 }
             }).addClass("ui-widget ui-widget-content ui-corner-all");
             // Override the default auto-complete render.
