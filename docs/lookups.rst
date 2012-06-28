@@ -52,7 +52,7 @@ Lookup API
     :param item: An item from the search results.
     :return: A string representation of the item to be shown in the search results.
         The label can include HTML. For changing the label format on the client side
-        see :ref:`Advanaced Label Formats <advanaced-label-formats>`.
+        see :ref:`Advanced Label Formats <advanced-label-formats>`.
     
 
 .. py:method:: LookupBase.get_item_id(item)

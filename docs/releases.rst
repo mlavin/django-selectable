@@ -95,7 +95,7 @@ _________________
 - Multiple search fields for :ref:`model based lookups <ModelLookup>`
 - Support for :ref:`highlighting term matches <javascript-highlightMatch>`
 - Support for HTML in :ref:`result labels <lookup-get-item-label>`
-- Support for :ref:`client side formatting <advanaced-label-formats>`
+- Support for :ref:`client side formatting <advanced-label-formats>`
 - Additional documentation
 - Expanded examples in example project
 

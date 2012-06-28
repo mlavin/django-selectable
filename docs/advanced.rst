@@ -199,7 +199,7 @@ code for this to work. See django-selectable `issue #31 <https://bitbucket.org/m
 for some additional detail on this problem.
 
 
-.. _advanaced-label-formats:
+.. _advanced-label-formats:
 
 Label Formats on the Client Side
 --------------------------------------
