@@ -1,6 +1,15 @@
 Release Notes
 ==================
 
+v0.5.2 (Released 2012-06-27)
+--------------------------------------
+
+Bug Fixes
+_________________
+
+- Fixed XSS flaw with lookup ``get_item_*`` methods. Thanks slafs for the report.
+
+
 v0.5.1 (Released 2012-06-08)
 --------------------------------------
 
