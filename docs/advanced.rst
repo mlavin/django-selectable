@@ -158,7 +158,7 @@ Submit On Selection
 
 You might want to help your users by submitting the form once they have selected a valid
 item. To do this you simply need to listen for the ``autocompleteselect`` event. This
-event is fired by the text input which has an index of 0. If you field is named ``my_field``
+event is fired by the text input which has an index of 0. If your field is named ``my_field``
 then input to watch would be ``my_field_0`` such as:
 
     .. code-block:: html
