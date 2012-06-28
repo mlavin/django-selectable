@@ -63,6 +63,11 @@ class AutoCompleteSelectFieldTestCase(BaseFieldTestCase):
         field = self.get_field_instance(widget=widget_cls)
         self.assertTrue(isinstance(field.widget, widget_cls))
 
+    def test_alternate_widget_instance(self):
+        widget = widgets.AutoComboboxWidget(self.lookup_cls)
+        field = self.get_field_instance(widget=widget)
+        self.assertTrue(isinstance(field.widget, widgets.AutoComboboxWidget))
+
 
 class AutoComboboxSelectFieldTestCase(BaseFieldTestCase):
     field_cls = fields.AutoComboboxSelectField
@@ -115,6 +120,11 @@ class AutoCompleteSelectMultipleFieldTestCase(BaseFieldTestCase):
         widget_cls = widgets.AutoComboboxSelectMultipleWidget
         field = self.get_field_instance(widget=widget_cls)
         self.assertTrue(isinstance(field.widget, widget_cls))
+
+    def test_alternate_widget_instance(self):
+        widget = widgets.AutoComboboxSelectMultipleWidget(self.lookup_cls)
+        field = self.get_field_instance(widget=widget)
+        self.assertTrue(isinstance(field.widget, widgets.AutoComboboxSelectMultipleWidget))
 
 
 class AutoComboboxSelectMultipleFieldTestCase(BaseFieldTestCase):

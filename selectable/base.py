@@ -11,6 +11,7 @@ from django.http import HttpResponse
 from django.db.models import Q
 from django.utils import simplejson as json
 from django.utils.encoding import smart_unicode
+from django.utils.html import conditional_escape
 from django.utils.translation import ugettext as _
 
 from selectable.forms import BaseLookupForm
@@ -58,9 +59,9 @@ class LookupBase(object):
 
     def format_item(self, item):
          return {
-            'id': self.get_item_id(item),
-            'value': self.get_item_value(item),
-            'label': self.get_item_label(item)
+            'id': conditional_escape(self.get_item_id(item)),
+            'value': conditional_escape(self.get_item_value(item)),
+            'label': conditional_escape(self.get_item_label(item))
         }
 
     def paginate_results(self, request, results, limit):

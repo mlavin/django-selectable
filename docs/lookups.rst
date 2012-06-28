@@ -52,7 +52,7 @@ Lookup API
     :param item: An item from the search results.
     :return: A string representation of the item to be shown in the search results.
         The label can include HTML. For changing the label format on the client side
-        see :ref:`Advanaced Label Formats <advanaced-label-formats>`.
+        see :ref:`Advanced Label Formats <advanced-label-formats>`.
     
 
 .. py:method:: LookupBase.get_item_id(item)
@@ -95,8 +95,14 @@ Lookup API
 
     By default ``format_item`` creates a dictionary with the three keys used by
     the UI plugin: id, value, label. These are generated from the calls to
-    ``get_item_id``, ``get_item_value``, and ``get_item_label``. If you want to
+    ``get_item_id``, ``get_item_value`` and ``get_item_label``. If you want to
     add additional keys you should add them here.
+
+    The results of ``get_item_id``, ``get_item_value`` and ``get_item_label`` are
+    conditionally escaped to prevent Cross Site Scripting (XSS) similar to the templating
+    language. If you know that the content is safe and you want to use these methods
+    to include HTML should mark the content as safe with ``django.utils.safestring.mark_safe``
+    inside the ``get_item_*`` methods.
 
     :param item: An item from the search results.
     :return: A dictionary of information for this item to be sent back to the client.

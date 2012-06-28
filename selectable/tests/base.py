@@ -4,6 +4,8 @@ import string
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.test import TestCase
+from django.utils.html import escape
+from django.utils.safestring import SafeData, mark_safe
 
 from selectable.base import ModelLookup
 from selectable.tests import Thing
@@ -11,6 +13,7 @@ from selectable.tests import Thing
 __all__ = (
     'ModelLookupTestCase',
     'MultiFieldLookupTestCase',
+    'LookupEscapingTestCase',
 )
 
 
@@ -94,6 +97,15 @@ class ModelLookupTestCase(BaseSelectableTestCase):
         item = lookup.get_item(thing.pk)
         self.assertEqual(thing, item)
 
+    def test_format_item_escaping(self):
+        "Id, value and label should be escaped."
+        lookup = self.get_lookup_instance()
+        thing = self.create_thing(data={'name': 'Thing'})
+        item_info = lookup.format_item(thing)
+        self.assertTrue(isinstance(item_info['id'], SafeData))
+        self.assertTrue(isinstance(item_info['value'], SafeData))
+        self.assertTrue(isinstance(item_info['label'], SafeData))
+
 
 class MultiFieldLookup(ModelLookup):
     model = Thing
@@ -119,3 +131,41 @@ class MultiFieldLookupTestCase(ModelLookupTestCase):
         qs = lookup.get_query(request=None, term='other')
         self.assertTrue(thing.pk not in qs.values_list('id', flat=True))
         self.assertTrue(other_thing.pk in qs.values_list('id', flat=True))
+
+
+class HTMLLookup(ModelLookup):
+    model = Thing
+    search_fields = ('name__icontains', )
+
+    def get_item_value(self, item):
+        "Not marked as safe."
+        return item.name
+
+    def get_item_label(self, item):
+        "Mark label as safe."
+        return mark_safe(item.name)
+
+
+class LookupEscapingTestCase(BaseSelectableTestCase):
+    lookup_cls = HTMLLookup
+
+    def get_lookup_instance(self):
+        return self.__class__.lookup_cls()
+
+    def test_escape_html(self):
+        "HTML should be escaped by default."
+        lookup = self.get_lookup_instance()
+        bad_name = "<script>alert('hacked');</script>"
+        escaped_name = escape(bad_name)
+        thing = self.create_thing(data={'name': bad_name})
+        item_info = lookup.format_item(thing)
+        self.assertEqual(item_info['value'], escaped_name)
+
+    def test_conditional_escape(self):
+        "Methods should be able to mark values as safe."
+        lookup = self.get_lookup_instance()
+        bad_name = "<script>alert('hacked');</script>"
+        escaped_name = escape(bad_name)
+        thing = self.create_thing(data={'name': bad_name})
+        item_info = lookup.format_item(thing)
+        self.assertEqual(item_info['label'], bad_name)

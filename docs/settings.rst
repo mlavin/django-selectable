@@ -91,7 +91,7 @@ ______________________________________
 ``formatLabel`` is a function that is run prior to rendering the search results in
 the dropdown menu. It takes two arguments: the current item label and the item data
 dictionary. It should return the label which should be used. For more information
-on its usage see :ref:`Label Formats on the Client Side <advanaced-label-formats>`.
+on its usage see :ref:`Label Formats on the Client Side <advanced-label-formats>`.
 
 Default: ``null``
 

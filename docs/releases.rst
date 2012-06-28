@@ -1,6 +1,16 @@
 Release Notes
 ==================
 
+v0.5.2 (Released 2012-06-27)
+--------------------------------------
+
+Bug Fixes
+_________________
+
+- Fixed XSS flaw with lookup ``get_item_*`` methods. Thanks slafs for the report.
+- Fixed bug when passing widget instance rather than widget class to ``AutoCompleteSelectField`` or ``AutoCompleteSelectMultipleField``.
+
+
 v0.5.1 (Released 2012-06-08)
 --------------------------------------
 
@@ -86,7 +96,7 @@ _________________
 - Multiple search fields for :ref:`model based lookups <ModelLookup>`
 - Support for :ref:`highlighting term matches <javascript-highlightMatch>`
 - Support for HTML in :ref:`result labels <lookup-get-item-label>`
-- Support for :ref:`client side formatting <advanaced-label-formats>`
+- Support for :ref:`client side formatting <advanced-label-formats>`
 - Additional documentation
 - Expanded examples in example project
 
