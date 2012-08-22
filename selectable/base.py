@@ -3,7 +3,7 @@
 import operator
 import re
 
-from django.conf import settings
+#from django.conf import settings
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
 from django.core.urlresolvers import reverse
 from django.core.serializers.json import DjangoJSONEncoder
@@ -12,9 +12,10 @@ from django.db.models import Q
 from django.utils import simplejson as json
 from django.utils.encoding import smart_unicode
 from django.utils.html import conditional_escape
-from django.utils.translation import ugettext as _
+#from django.utils.translation import ugettext as _
 
 from selectable.forms import BaseLookupForm
+from selectable.forms.base import DEFAULT_LIMIT as MAX_LIMIT
 
 
 __all__ = (
@@ -27,11 +28,12 @@ class LookupBase(object):
     "Base class for all django-selectable lookups."
 
     form = BaseLookupForm
+    max_limit = MAX_LIMIT
 
     def _name(cls):
         app_name = cls.__module__.split('.')[-2].lower()
         class_name = cls.__name__.lower()
-        name = u'%s-%s' % (app_name, class_name)       
+        name = u'%s-%s' % (app_name, class_name)
         return name
     name = classmethod(_name)
 
@@ -58,7 +60,7 @@ class LookupBase(object):
         raise NotImplemented()
 
     def format_item(self, item):
-         return {
+        return {
             'id': conditional_escape(self.get_item_id(item)),
             'value': conditional_escape(self.get_item_value(item)),
             'label': conditional_escape(self.get_item_label(item))
@@ -77,27 +79,74 @@ class LookupBase(object):
         return results
 
     def results(self, request):
-        data = []
+        results = {}
         form = self.form(request.GET)
         if form.is_valid():
-            term = form.cleaned_data.get('term', '')
-            limit = form.cleaned_data.get('limit', None)
+
+            options = self._get_options(form)
+            term, limit = options['term'], options['limit']
             raw_data = self.get_query(request, term)
-            page_data = None      
-            if limit:
-                page_data = self.paginate_results(request, raw_data, limit)
-                raw_data = page_data.object_list
-            for item in raw_data:
+            page_data = self.paginate_results(request, raw_data, limit)
+            results = self.format_results(page_data, options)
+
+        content = self.get_content(results)
+        return self.get_response(content, 'application/json')
+
+    def _get_options(self, valid_form):
+        '''
+        Returns a dictionary of options from a valid lookup form instance.
+        `term` and `limit` are required
+        '''
+        term = valid_form.cleaned_data.get('term', '')
+        limit = valid_form.cleaned_data.get('limit', self.max_limit)
+
+        # check if provided limit isn't bigger than max_limit
+        if limit and self.max_limit and limit > self.max_limit:
+            limit = self.max_limit
+
+        return {'term' : term, 'limit' : limit}
+
+    def format_results(self, page_data, options):
+        '''
+        Returns a python structure that later gets serialized.
+        page_data
+            list of objects that where queried
+        options
+            a dictionary of the given options
+        '''
+        results = {}
+        meta = options.copy()
+
+        if page_data and hasattr(page_data, 'has_next') and page_data.has_next():
+            meta.update( {
+                'next_page': page_data.next_page_number(),
+            })
+        if page_data and hasattr(page_data, 'has_previous') and page_data.has_previous():
+            meta.update( {
+                'prev_page': page_data.previous_page_number(),
+            })
+
+        data = []
+        if page_data and hasattr(page_data, 'object_list'):
+            for item in page_data.object_list:
                 data.append(self.format_item(item))
-            if page_data and hasattr(page_data, 'has_next') and page_data.has_next():
-                data.append({
-                    'id': '',
-                    'value': '',
-                    'label': _('Show more results'),
-                    'page': page_data.next_page_number()
-                })        
-        content = json.dumps(data, cls=DjangoJSONEncoder, ensure_ascii=False)
-        return HttpResponse(content, content_type='application/json')    
+
+        results['data'] = data
+        results['meta'] = meta
+
+        return results
+
+    def get_content(self, results):
+        '''
+        Returns serialized results for sending via http.
+        '''
+        return json.dumps(results, cls=DjangoJSONEncoder, ensure_ascii=False)
+
+    def get_response(self, content, content_type='application/json'):
+        '''
+        Returns a HttpResponse with the given content and content_type.
+        '''
+        return HttpResponse(content, content_type=content_type)
 
 
 class ModelLookup(LookupBase):
