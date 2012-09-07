@@ -1,7 +1,7 @@
 from django import forms
 from django.core.exceptions import ValidationError
 from django.core.validators import EMPTY_VALUES
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext_lazy as _
 
 from selectable.forms.widgets import AutoCompleteSelectWidget
 from selectable.forms.widgets import AutoCompleteSelectMultipleWidget
