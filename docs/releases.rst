@@ -4,6 +4,11 @@ Release Notes
 v0.6.0 (Released TBD)
 --------------------------------------
 
+Features
+_________________
+
+- Initial translations (pt_BR). Thanks to Felipe Prenholato for the patch.
+
 
 Backwards Incompatible Changes
 ________________________________
