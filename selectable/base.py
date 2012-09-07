@@ -31,7 +31,7 @@ class LookupBase(object):
     def _name(cls):
         app_name = cls.__module__.split('.')[-2].lower()
         class_name = cls.__name__.lower()
-        name = u'%s-%s' % (app_name, class_name)       
+        name = u'%s-%s' % (app_name, class_name)
         return name
     name = classmethod(_name)
 
@@ -58,7 +58,7 @@ class LookupBase(object):
         raise NotImplemented()
 
     def format_item(self, item):
-         return {
+        return {
             'id': self.get_item_id(item),
             'value': self.get_item_value(item),
             'label': conditional_escape(self.get_item_label(item))
