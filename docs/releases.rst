@@ -4,6 +4,10 @@ Release Notes
 v0.6.0 (Released TBD)
 --------------------------------------
 
+This release continues to clean up the API and JS. Python 2.5 support has been
+dropped to work towards Python 3 support. This also drops Django 1.2 support which
+is no longer receiving security fixes.
+
 Features
 _________________
 
@@ -15,6 +19,8 @@ ________________________________
 
 - ``get_item_value`` and ``get_item_id`` are no longer marked as safe by default.
 - Removed AutoComboboxSelectField and AutoComboboxSelectMultipleField. These were deprecated in 0.5.
+- Dropping Python 2.5 support
+- Dropping Django 1.2 support
 
 
 v0.5.2 (Released 2012-06-27)
