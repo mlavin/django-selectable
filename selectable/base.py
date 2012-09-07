@@ -59,8 +59,8 @@ class LookupBase(object):
 
     def format_item(self, item):
          return {
-            'id': conditional_escape(self.get_item_id(item)),
-            'value': conditional_escape(self.get_item_value(item)),
+            'id': self.get_item_id(item),
+            'value': self.get_item_value(item),
             'label': conditional_escape(self.get_item_label(item))
         }
 

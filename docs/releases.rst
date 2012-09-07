@@ -1,6 +1,17 @@
 Release Notes
 ==================
 
+v0.6.0 (Released TBD)
+--------------------------------------
+
+
+Backwards Incompatible Changes
+________________________________
+
+- ``get_item_value`` and ``get_item_id`` are no longer marked as safe by default.
+- Removed AutoComboboxSelectField and AutoComboboxSelectMultipleField. These were deprecated in 0.5.
+
+
 v0.5.2 (Released 2012-06-27)
 --------------------------------------
 
