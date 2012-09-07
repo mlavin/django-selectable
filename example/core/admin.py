@@ -10,7 +10,7 @@ from core.lookups import FruitLookup, OwnerLookup
 
 
 class FarmAdminForm(forms.ModelForm):
-    owner = selectable.AutoComboboxSelectField(lookup_class=OwnerLookup, allow_new=True)
+    owner = selectable.AutoCompleteSelectField(lookup_class=OwnerLookup, allow_new=True)
 
     class Meta(object):
         model = Farm
