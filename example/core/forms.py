@@ -4,8 +4,8 @@ from django.contrib.localflavor.us.forms import USStateField, USStateSelect
 
 import selectable.forms as selectable
 
-from example.core.lookups import FruitLookup, CityLookup
-from example.core.models import Farm
+from core.lookups import FruitLookup, CityLookup
+from core.models import Farm
 
 
 class FruitForm(forms.Form):
