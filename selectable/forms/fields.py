@@ -1,18 +1,14 @@
-import warnings
-
 from django import forms
 from django.core.exceptions import ValidationError
 from django.core.validators import EMPTY_VALUES
 from django.utils.translation import ugettext as _
 
-from selectable.forms.widgets import AutoCompleteSelectWidget, AutoComboboxSelectWidget
-from selectable.forms.widgets import AutoCompleteSelectMultipleWidget, AutoComboboxSelectMultipleWidget
+from selectable.forms.widgets import AutoCompleteSelectWidget
+from selectable.forms.widgets import AutoCompleteSelectMultipleWidget
 
 __all__ = (
     'AutoCompleteSelectField',
-    'AutoComboboxSelectField',
     'AutoCompleteSelectMultipleField',
-    'AutoComboboxSelectMultipleField',
 )
 
 
@@ -60,18 +56,6 @@ class AutoCompleteSelectField(forms.Field):
         return value
 
 
-class AutoComboboxSelectField(AutoCompleteSelectField):
-    widget = AutoComboboxSelectWidget
-
-    def __init__(self, *args, **kwargs):
-        super(AutoComboboxSelectField, self).__init__(*args, **kwargs)
-        warnings.warn(
-            u"AutoComboboxSelectField is deprecated; " +
-            "Use AutoCompleteSelectField with a AutoComboboxSelectWidget instead.", 
-            DeprecationWarning,  stacklevel=2
-        )
-
-
 class AutoCompleteSelectMultipleField(forms.Field):
     widget = AutoCompleteSelectMultipleWidget
 
@@ -99,16 +83,3 @@ class AutoCompleteSelectMultipleField(forms.Field):
                     raise ValidationError(self.error_messages['invalid_choice'])
                 items.append(item)
         return items
-
-
-class AutoComboboxSelectMultipleField(AutoCompleteSelectMultipleField):
-    widget = AutoComboboxSelectMultipleWidget
-
-    def __init__(self, *args, **kwargs):
-        super(AutoComboboxSelectMultipleField, self).__init__(*args, **kwargs)
-        warnings.warn(
-            u"AutoComboboxSelectMultipleField is deprecated; " +
-            "Use AutoCompleteSelectMultipleField with a " +
-            "AutoComboboxSelectMultipleWidget instead.", 
-            DeprecationWarning,  stacklevel=2
-        )
