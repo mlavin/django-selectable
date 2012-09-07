@@ -4,8 +4,8 @@ from django.contrib.localflavor.us.forms import USStateField, USStateSelect
 
 import selectable.forms as selectable
 
-from example.core.lookups import FruitLookup, CityLookup
-from example.core.models import Farm
+from core.lookups import FruitLookup, CityLookup
+from core.models import Farm
 
 
 class FruitForm(forms.Form):
@@ -42,18 +42,20 @@ class FruitForm(forms.Form):
         label='Select a fruit (AutoCompleteField which allows new items)',
         required=False,
     )
-    # AutoComboboxSelectField (no new items)
-    comboboxselect = selectable.AutoComboboxSelectField(
+    # AutoCompleteSelectField (no new items)
+    comboboxselect = selectable.AutoCompleteSelectField(
         lookup_class=FruitLookup,
-        label='Select a fruit (AutoComboboxSelectField)',
+        label='Select a fruit (AutoCompleteSelectField with combobox)',
         required=False,
+        widget=selectable.AutoComboboxSelectWidget
     )
-    # AutoComboboxSelectField (allows new items)
-    newcomboboxselect = selectable.AutoComboboxSelectField(
+    # AutoComboboxSelect (allows new items)
+    newcomboboxselect = selectable.AutoCompleteSelectField(
         lookup_class=FruitLookup,
         allow_new=True,
-        label='Select a fruit (AutoComboboxSelectField which allows new items)',
+        label='Select a fruit (AutoCompleteSelectField with combobox which allows new items)',
         required=False,
+        widget=selectable.AutoComboboxSelectWidget
     )
     # AutoCompleteSelectMultipleField
     multiautocompleteselect = selectable.AutoCompleteSelectMultipleField(
@@ -62,18 +64,20 @@ class FruitForm(forms.Form):
         required=False,
     )
     # AutoComboboxSelectMultipleField
-    multicomboboxselect = selectable.AutoComboboxSelectMultipleField(
+    multicomboboxselect = selectable.AutoCompleteSelectMultipleField(
         lookup_class=FruitLookup,
-        label='Select a fruit (AutoComboboxSelectMultipleField)',
+        label='Select a fruit (AutoCompleteSelectMultipleField with combobox)',
         required=False,
+        widget=selectable.AutoComboboxSelectMultipleWidget
     )
 
 
 class ChainedForm(forms.Form):
-    city = selectable.AutoComboboxSelectField(
+    city = selectable.AutoCompleteSelectField(
         lookup_class=CityLookup,
         label='City',
         required=False,
+        widget=selectable.AutoComboboxSelectWidget
     )
     state = USStateField(widget=USStateSelect, required=False)
 

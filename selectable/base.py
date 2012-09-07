@@ -3,7 +3,6 @@
 import operator
 import re
 
-#from django.conf import settings
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
 from django.core.urlresolvers import reverse
 from django.core.serializers.json import DjangoJSONEncoder
@@ -61,8 +60,8 @@ class LookupBase(object):
 
     def format_item(self, item):
         return {
-            'id': conditional_escape(self.get_item_id(item)),
-            'value': conditional_escape(self.get_item_value(item)),
+            'id': self.get_item_id(item),
+            'value': self.get_item_value(item),
             'label': conditional_escape(self.get_item_label(item))
         }
 

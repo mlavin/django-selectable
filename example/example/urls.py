@@ -1,5 +1,4 @@
-from django.conf.urls.defaults import patterns, include, url
-
+from django.conf.urls import patterns, include, url
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
@@ -11,6 +10,6 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     (r'^admin/', include(admin.site.urls)),
-    (r'^selectable/', include('selectable.urls')),    
-    (r'^', include('example.core.urls')),    
+    (r'^selectable/', include('selectable.urls')),
+    (r'^', include('core.urls')),
 )

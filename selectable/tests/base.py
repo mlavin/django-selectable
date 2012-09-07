@@ -102,8 +102,8 @@ class ModelLookupTestCase(BaseSelectableTestCase):
         lookup = self.get_lookup_instance()
         thing = self.create_thing(data={'name': 'Thing'})
         item_info = lookup.format_item(thing)
-        self.assertTrue(isinstance(item_info['id'], SafeData))
-        self.assertTrue(isinstance(item_info['value'], SafeData))
+        self.assertFalse(isinstance(item_info['id'], SafeData))
+        self.assertFalse(isinstance(item_info['value'], SafeData))
         self.assertTrue(isinstance(item_info['label'], SafeData))
 
 
@@ -137,9 +137,10 @@ class HTMLLookup(ModelLookup):
     model = Thing
     search_fields = ('name__icontains', )
 
-    def get_item_value(self, item):
-        "Not marked as safe."
-        return item.name
+
+class SafeHTMLLookup(ModelLookup):
+    model = Thing
+    search_fields = ('name__icontains', )
 
     def get_item_label(self, item):
         "Mark label as safe."
@@ -147,23 +148,19 @@ class HTMLLookup(ModelLookup):
 
 
 class LookupEscapingTestCase(BaseSelectableTestCase):
-    lookup_cls = HTMLLookup
-
-    def get_lookup_instance(self):
-        return self.__class__.lookup_cls()
 
     def test_escape_html(self):
         "HTML should be escaped by default."
-        lookup = self.get_lookup_instance()
+        lookup = HTMLLookup()
         bad_name = "<script>alert('hacked');</script>"
         escaped_name = escape(bad_name)
         thing = self.create_thing(data={'name': bad_name})
         item_info = lookup.format_item(thing)
-        self.assertEqual(item_info['value'], escaped_name)
+        self.assertEqual(item_info['label'], escaped_name)
 
     def test_conditional_escape(self):
         "Methods should be able to mark values as safe."
-        lookup = self.get_lookup_instance()
+        lookup = SafeHTMLLookup()
         bad_name = "<script>alert('hacked');</script>"
         escaped_name = escape(bad_name)
         thing = self.create_thing(data={'name': bad_name})

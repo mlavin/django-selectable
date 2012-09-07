@@ -33,6 +33,15 @@ Issues are also used to track new features. If you have a feature you would like
 you can submit a proposal ticket. You can also see features which are planned here.
 
 
+Submit a Translation
+--------------------------------------
+
+We are working towards translating django-selectable into different languages. There
+are not many strings to be translated so it is a reasonably easy task and a great way
+to be involved with the project. Infomation on how to make the necessary .po files
+can be found in `the Django documentation <https://docs.djangoproject.com/en/1.4/topics/i18n/translation/#message-files>`_.
+
+
 Running the Test Suite
 --------------------------------------
 

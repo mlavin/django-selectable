@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from selectable.base import ModelLookup
 from selectable.registry import registry
 
-from example.core.models import Fruit, City
+from core.models import Fruit, City
 
 
 class FruitLookup(ModelLookup):

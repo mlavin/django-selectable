@@ -98,11 +98,16 @@ Lookup API
     ``get_item_id``, ``get_item_value`` and ``get_item_label``. If you want to
     add additional keys you should add them here.
 
-    The results of ``get_item_id``, ``get_item_value`` and ``get_item_label`` are
-    conditionally escaped to prevent Cross Site Scripting (XSS) similar to the templating
-    language. If you know that the content is safe and you want to use these methods
+    The results of ``get_item_label`` is conditionally escaped to prevent
+    Cross Site Scripting (XSS) similar to the templating language. 
+    If you know that the content is safe and you want to use these methods
     to include HTML should mark the content as safe with ``django.utils.safestring.mark_safe``
-    inside the ``get_item_*`` methods.
+    inside the ``get_item_label`` method.
+
+    ``get_item_id`` and ``get_item_value`` are not escapted by default. These are
+    not a XSS vector with the built-in JS. If you are doing additional formating using
+    these values you should be conscience of this fake and be sure to escape these
+    values.
 
     :param item: An item from the search results.
     :return: A dictionary of information for this item to be sent back to the client.
