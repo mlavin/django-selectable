@@ -11,10 +11,9 @@ from django.db.models import Q
 from django.utils import simplejson as json
 from django.utils.encoding import smart_unicode
 from django.utils.html import conditional_escape
-#from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext as _
 
 from selectable.forms import BaseLookupForm
-from selectable.forms.base import DEFAULT_LIMIT as MAX_LIMIT
 
 
 __all__ = (
@@ -27,7 +26,6 @@ class LookupBase(object):
     "Base class for all django-selectable lookups."
 
     form = BaseLookupForm
-    max_limit = MAX_LIMIT
 
     def _name(cls):
         app_name = cls.__module__.split('.')[-2].lower()
@@ -81,8 +79,7 @@ class LookupBase(object):
         results = {}
         form = self.form(request.GET)
         if form.is_valid():
-
-            options = self._get_options(form)
+            options = form.cleaned_data
             term, limit = options['term'], options['limit']
             raw_data = self.get_query(request, term)
             page_data = self.paginate_results(request, raw_data, limit)
@@ -90,20 +87,6 @@ class LookupBase(object):
 
         content = self.get_content(results)
         return self.get_response(content, 'application/json')
-
-    def _get_options(self, valid_form):
-        '''
-        Returns a dictionary of options from a valid lookup form instance.
-        `term` and `limit` are required
-        '''
-        term = valid_form.cleaned_data.get('term', '')
-        limit = valid_form.cleaned_data.get('limit', self.max_limit)
-
-        # check if provided limit isn't bigger than max_limit
-        if limit and self.max_limit and limit > self.max_limit:
-            limit = self.max_limit
-
-        return {'term' : term, 'limit' : limit}
 
     def format_results(self, page_data, options):
         '''
@@ -115,6 +98,7 @@ class LookupBase(object):
         '''
         results = {}
         meta = options.copy()
+        meta['more'] = _('Show more results')
 
         if page_data and hasattr(page_data, 'has_next') and page_data.has_next():
             meta.update( {
