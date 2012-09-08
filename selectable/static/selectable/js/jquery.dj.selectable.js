@@ -133,7 +133,11 @@
                 if (page) {
                     query.page = page;
                 }
-				$.getJSON(url, query, response);
+                function unwrapResponse(data) {
+                    var results = data.data;
+                    return response(results);
+                }   
+				$.getJSON(url, query, unwrapResponse);
             }
             // Create base auto-complete lookup
             $(input).autocomplete({
