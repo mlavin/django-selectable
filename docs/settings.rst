@@ -13,12 +13,6 @@ paginated allowing the client to ask for more results. The limit is passed as a
 query parameter and validated against this value to ensure the client cannot manipulate
 the query string to retrive more values.
 
-You may disable this global maximum by setting
-
-    .. code-block:: python
-
-        SELECTABLE_MAX_LIMIT = None
-
 Default: ``25``
 
 
@@ -35,6 +29,9 @@ jQuery UI autocomplete. If you are using the lookup responses for a different
 autocomplete plugin then you may need to esacpe more keys by default.
 
 Default: ``('label', )``
+
+.. note::
+    You probably don't want to include ``id`` in this setting.
 
 
 .. _javascript-options:
