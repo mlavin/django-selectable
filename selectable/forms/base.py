@@ -4,8 +4,6 @@ from django.conf import settings
 
 __all__ = ('BaseLookupForm', )
 
-DEFAULT_LIMIT = getattr(settings, 'SELECTABLE_MAX_LIMIT', 25)
-
 
 class BaseLookupForm(forms.Form):
     term = forms.CharField(required=False)
@@ -14,6 +12,7 @@ class BaseLookupForm(forms.Form):
     def clean_limit(self):
         "Ensure given limit is less than default if defined"
         limit = self.cleaned_data.get('limit', None)
-        if DEFAULT_LIMIT and (not limit or limit > DEFAULT_LIMIT):
-            limit = DEFAULT_LIMIT
+        if (settings.SELECTABLE_MAX_LIMIT is not None and 
+            (not limit or limit > settings.SELECTABLE_MAX_LIMIT)):
+            limit = settings.SELECTABLE_MAX_LIMIT
         return limit
