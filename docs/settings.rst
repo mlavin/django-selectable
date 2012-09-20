@@ -22,6 +22,21 @@ You may disable this global maximum by setting
 Default: ``25``
 
 
+.. versionadded:: 0.6
+
+.. _SELECTABLE_ESCAPED_KEYS:
+
+SELECTABLE_ESCAPED_KEYS
+--------------------------------------
+
+The ``LookupBase.format_item`` will conditionally escape result keys based on this
+setting. The label is escaped by default to prevent a XSS flaw when using the
+jQuery UI autocomplete. If you are using the lookup responses for a different
+autocomplete plugin then you may need to esacpe more keys by default.
+
+Default: ``('label', )``
+
+
 .. _javascript-options:
 
 Javascript Plugin Options
