@@ -14,7 +14,7 @@ Defining a Lookup
 
 django-selectable uses a registration pattern similar to the Django admin.
 Lookups should be defined in a `lookups.py` in your application's module. Once defined
-you must register in with django-selectable. All lookups must extend from 
+you must register in with django-selectable. All lookups must extend from
 ``selectable.base.LookupBase`` which defines the API for every lookup.
 
     .. code-block:: python
@@ -53,7 +53,7 @@ Lookup API
     :return: A string representation of the item to be shown in the search results.
         The label can include HTML. For changing the label format on the client side
         see :ref:`Advanced Label Formats <advanced-label-formats>`.
-    
+
 
 .. py:method:: LookupBase.get_item_id(item)
 
@@ -99,7 +99,7 @@ Lookup API
     add additional keys you should add them here.
 
     The results of ``get_item_label`` is conditionally escaped to prevent
-    Cross Site Scripting (XSS) similar to the templating language. 
+    Cross Site Scripting (XSS) similar to the templating language.
     If you know that the content is safe and you want to use these methods
     to include HTML should mark the content as safe with ``django.utils.safestring.mark_safe``
     inside the ``get_item_label`` method.
@@ -111,6 +111,8 @@ Lookup API
 
     :param item: An item from the search results.
     :return: A dictionary of information for this item to be sent back to the client.
+
+.. _lookup-paginate-results:
 
 .. py:method:: LookupBase.paginate_results(request, results, limit)
 
@@ -125,6 +127,38 @@ Lookup API
     :return: The current `Page object <https://docs.djangoproject.com/en/1.3/topics/pagination/#page-objects>`_
         of results.
 
+There are also some additional methods that you could want to use/override.
+
+.. _lookup-format-results:
+
+.. py:method:: LookupBase.format_results(self, page_data, options)
+
+    Returns a python structure that later gets serialized.
+
+    :param page_data: Page object e.g. the one returned by :ref:`paginate_results<lookup-paginate-results>`
+    :param options: a cleaned_data of a lookup form class
+    :return: A dictionary with two keys ``meta`` and ``data``.
+        The value of ``data`` is an iterable extracted from page_data.
+        The value of ``meta`` is a dictionary. This is a copy of options with one additional element
+        ``more`` which is a translatable "Show more" string
+        (useful for indicating more results on the javascript side).
+
+.. _lookup-get-content:
+
+.. py:method:: LookupBase.get_content(self, results)
+
+    Returns serialized results for sending via http.
+
+    :param results: a python structure to be serialized e.g. the one returned by :ref:`format_results<lookup-format-results>`
+    :returns: JSON string.
+
+.. py:method:: LookupBase.get_response(self, content, content_type='application/json')
+
+    Returns a HttpResponse with a given content and content_type.
+
+    :param content: a string which gets returned in response e.g. the one returned by :ref:`get_content<lookup-get-content>`
+    :param content_type: content type of a response (duh!)
+    :return: HttpResponse object
 
 .. _ModelLookup:
 
@@ -138,8 +172,8 @@ should set two class attributes: ``model`` and ``search_fields``.
     .. literalinclude:: ../example/core/lookups.py
         :pyobject: FruitLookup
 
-The syntax for ``search_fields`` is the same as the Django 
-`field lookup syntax <http://docs.djangoproject.com/en/1.3/ref/models/querysets/#field-lookups>`_. 
+The syntax for ``search_fields`` is the same as the Django
+`field lookup syntax <http://docs.djangoproject.com/en/1.3/ref/models/querysets/#field-lookups>`_.
 Each of these lookups are combined as OR so any one of them matching will return a
 result. You may optionally define a third class attribute ``filters`` which is a dictionary of
 filters to be applied to the model queryset. The keys should be a string defining a field lookup
@@ -150,8 +184,8 @@ combined with AND.
 User Lookup Example
 --------------------------------------
 
-Below is a larger model lookup example using multiple search fields, filters 
-and display options for the `auth.User <https://docs.djangoproject.com/en/1.3/topics/auth/#users>`_ 
+Below is a larger model lookup example using multiple search fields, filters
+and display options for the `auth.User <https://docs.djangoproject.com/en/1.3/topics/auth/#users>`_
 model.
 
     .. code-block:: python
@@ -232,7 +266,7 @@ Below are the descriptions of the available lookup decorators.
 ajax_required
 ______________________________________
 
-The django-selectable javascript will always request the lookup data via 
+The django-selectable javascript will always request the lookup data via
 XMLHttpRequest (AJAX) request. This decorator enforces that the lookup can only
 be accessed in this way. If the request is not an AJAX request then it will return
 a 400 Bad Request response.
