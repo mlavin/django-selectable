@@ -67,6 +67,7 @@ class LookupBase(object):
         raise NotImplemented()
 
     def format_item(self, item):
+        "Construct result dictionary for the match item."
         result = {
             'id': self.get_item_id(item),
             'value': self.get_item_value(item),
