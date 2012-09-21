@@ -22,6 +22,7 @@ ________________________________
 - Dropping official Python 2.5 support.
 - Dropping official Django 1.2 support.
 - ``paginate_results`` signature changed as part of the lookup refactor.
+- ``SELECTABLE_MAX_LIMIT`` can no longer be ``None``.
 
 
 v0.5.2 (Released 2012-06-27)
