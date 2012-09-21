@@ -23,10 +23,19 @@ __all__ = (
 )
 
 
+class JsonResponse(HttpResponse):
+    "HttpResponse subclass for returning JSON data."
+
+    def __init__(self, *args, **kwargs):
+        kwargs['content_type'] = 'application/json'
+        super(JsonResponse, self).__init__(*args, **kwargs)
+
+
 class LookupBase(object):
     "Base class for all django-selectable lookups."
 
     form = BaseLookupForm
+    response = JsonResponse
 
     def _name(cls):
         app_name = cls.__module__.split('.')[-2].lower()
@@ -68,12 +77,11 @@ class LookupBase(object):
                 result[key] = conditional_escape(result[key])
         return result
 
-    def paginate_results(self, request, results, limit):
-        paginator = Paginator(results, limit)
-        try:
-            page = int(request.GET.get('page', '1'))
-        except ValueError:
-            page = 1
+    def paginate_results(self, results, options):
+        "Return a django.core.paginator.Page of results."
+        limit = options['limit']
+        paginator = Paginator(results, limit)        
+        page = options.get('page', 1)
         try:
             results = paginator.page(page)
         except (EmptyPage, InvalidPage):
@@ -81,60 +89,41 @@ class LookupBase(object):
         return results
 
     def results(self, request):
+        "Match results to given term and return the serialized HttpResponse."
         results = {}
         form = self.form(request.GET)
         if form.is_valid():
             options = form.cleaned_data
-            term, limit = options['term'], options['limit']
+            term = options['term']
             raw_data = self.get_query(request, term)
-            page_data = self.paginate_results(request, raw_data, limit)
-            results = self.format_results(page_data, options)
+            results = self.format_results(raw_data, options)
+        content = self.serialize_results(results)
+        return self.response(content)
 
-        content = self.get_content(results)
-        return self.get_response(content, 'application/json')
-
-    def format_results(self, page_data, options):
+    def format_results(self, raw_data, options):
         '''
         Returns a python structure that later gets serialized.
-        page_data
-            list of objects that where queried
+        raw_data
+            full list of objects matching the search term
         options
             a dictionary of the given options
         '''
+        limit = options['limit']
+        page_data = self.paginate_results(raw_data, options)
         results = {}
         meta = options.copy()
         meta['more'] = _('Show more results')
-
-        if page_data and hasattr(page_data, 'has_next') and page_data.has_next():
-            meta.update( {
-                'next_page': page_data.next_page_number(),
-            })
-        if page_data and hasattr(page_data, 'has_previous') and page_data.has_previous():
-            meta.update( {
-                'prev_page': page_data.previous_page_number(),
-            })
-
-        data = []
-        if page_data and hasattr(page_data, 'object_list'):
-            for item in page_data.object_list:
-                data.append(self.format_item(item))
-
-        results['data'] = data
+        if page_data and page_data.has_next():
+            meta['next_page'] = page_data.next_page_number()
+        if page_data and page_data.has_previous():
+            meta['prev_page'] = page_data.next_page_number()
+        results['data'] = map(self.format_item, page_data.object_list)
         results['meta'] = meta
-
         return results
 
-    def get_content(self, results):
-        '''
-        Returns serialized results for sending via http.
-        '''
+    def serialize_results(self, results):
+        "Returns serialized results for sending via http."
         return json.dumps(results, cls=DjangoJSONEncoder, ensure_ascii=False)
-
-    def get_response(self, content, content_type='application/json'):
-        '''
-        Returns a HttpResponse with the given content and content_type.
-        '''
-        return HttpResponse(content, content_type=content_type)
 
 
 class ModelLookup(LookupBase):
