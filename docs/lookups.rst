@@ -112,53 +112,51 @@ Lookup API
     :param item: An item from the search results.
     :return: A dictionary of information for this item to be sent back to the client.
 
-.. _lookup-paginate-results:
-
-.. py:method:: LookupBase.paginate_results(request, results, limit)
-
-    If :ref:`SELECTABLE_MAX_LIMIT` is defined or ``limit`` is passed in request.GET
-    then ``paginate_results`` will return the current page using Django's
-    built in pagination. See the Django docs on `pagination <https://docs.djangoproject.com/en/1.3/topics/pagination/>`_
-    for more info.
-
-    :param request: The current request object.
-    :param results: The set of all matched results.
-    :param limit: The number of results per page.
-    :return: The current `Page object <https://docs.djangoproject.com/en/1.3/topics/pagination/#page-objects>`_
-        of results.
-
-There are also some additional methods that you could want to use/override.
+There are also some additional methods that you could want to use/override. These
+are for more advanced use cases such as using the lookups with JS libraries other
+than jQuery UI. Most users will not need to override these methods.
 
 .. _lookup-format-results:
 
-.. py:method:: LookupBase.format_results(self, page_data, options)
+.. py:method:: LookupBase.format_results(self, raw_data, options)
 
-    Returns a python structure that later gets serialized.
+    Returns a python structure that later gets serialized. This makes a call to
+    :ref:`paginate_results<lookup-paginate-results>` prior to calling
+    :ref:`format_item<lookup-format-item>` on each item in the current page.
 
-    :param page_data: Page object e.g. the one returned by :ref:`paginate_results<lookup-paginate-results>`
-    :param options: a cleaned_data of a lookup form class
+    :param raw_data: The set of all matched results.
+    :param options: Dictionary of ``cleaned_data`` from the lookup form class.
     :return: A dictionary with two keys ``meta`` and ``data``.
         The value of ``data`` is an iterable extracted from page_data.
         The value of ``meta`` is a dictionary. This is a copy of options with one additional element
         ``more`` which is a translatable "Show more" string
         (useful for indicating more results on the javascript side).
 
-.. _lookup-get-content:
+.. _lookup-paginate-results:
 
-.. py:method:: LookupBase.get_content(self, results)
+.. py:method:: LookupBase.paginate_results(results, options)
 
-    Returns serialized results for sending via http.
+    If :ref:`SELECTABLE_MAX_LIMIT` is defined or ``limit`` is passed in request.GET
+    then ``paginate_results`` will return the current page using Django's
+    built in pagination. See the Django docs on
+    `pagination <https://docs.djangoproject.com/en/1.3/topics/pagination/>`_
+    for more info.
+
+    :param results: The set of all matched results.
+    :param options: Dictionary of ``cleaned_data`` from the lookup form class.
+    :return: The current `Page object <https://docs.djangoproject.com/en/1.3/topics/pagination/#page-objects>`_
+        of results.
+
+.. _lookup-serialize-results:
+
+.. py:method:: LookupBase.serialize_results(self, results)
+
+    Returns serialized results for sending via http. You may choose to override
+    this if you are making use of 
 
     :param results: a python structure to be serialized e.g. the one returned by :ref:`format_results<lookup-format-results>`
     :returns: JSON string.
 
-.. py:method:: LookupBase.get_response(self, content, content_type='application/json')
-
-    Returns a HttpResponse with a given content and content_type.
-
-    :param content: a string which gets returned in response e.g. the one returned by :ref:`get_content<lookup-get-content>`
-    :param content_type: content type of a response (duh!)
-    :return: HttpResponse object
 
 .. _ModelLookup:
 

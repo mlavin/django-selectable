@@ -19,8 +19,9 @@ ________________________________
 
 - ``get_item_value`` and ``get_item_id`` are no longer marked as safe by default.
 - Removed AutoComboboxSelectField and AutoComboboxSelectMultipleField. These were deprecated in 0.5.
-- Dropping Python 2.5 support
-- Dropping Django 1.2 support
+- Dropping official Python 2.5 support.
+- Dropping official Django 1.2 support.
+- ``paginate_results`` signature changed as part of the lookup refactor.
 
 
 v0.5.2 (Released 2012-06-27)
