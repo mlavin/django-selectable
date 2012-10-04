@@ -13,6 +13,10 @@ _________________
 
 - Initial translations (pt_BR). Thanks to Felipe Prenholato for the patch.
 
+Bug Fixes
+_________________
+
+- Cleaned up JS scoping problems when multiple jQuery versions are used on the page. Thanks Antti Kaihola for the report.
 
 Backwards Incompatible Changes
 ________________________________

@@ -242,89 +242,91 @@
             }
         }
 	});
-})(jQuery);
 
-function bindSelectables(context) {
-    /* Bind all selectable widgets in a given context.
-    Automatically called on document.ready.
-    Additional calls can be made for dynamically added widgets.
-    */
-    $(":input[data-selectable-type=text]", context).djselectable();
-    $(":input[data-selectable-type=combobox]", context).djselectable();
-    $(":input[data-selectable-type=hidden]", context).each(function(i, elem) {
-        var hiddenName = $(elem).attr('name');
-        var textName = hiddenName.replace('_1', '_0');
-        $(":input[name=" + textName + "][data-selectable-url]").bind(
-            "autocompletechange autocompleteselect",
-            function(event, ui) {
-                if (ui.item && ui.item.id) {
-                    $(elem).val(ui.item.id);
-                } else {
-                    $(elem).val("");
+    window.bindSelectables = function(context) {
+        /* Bind all selectable widgets in a given context.
+        Automatically called on document.ready.
+        Additional calls can be made for dynamically added widgets.
+        */
+        $(":input[data-selectable-type=text]", context).djselectable();
+        $(":input[data-selectable-type=combobox]", context).djselectable();
+        $(":input[data-selectable-type=hidden]", context).each(function(i, elem) {
+            var hiddenName = $(elem).attr('name');
+            var textName = hiddenName.replace('_1', '_0');
+            $(":input[name=" + textName + "][data-selectable-url]").bind(
+                "autocompletechange autocompleteselect",
+                function(event, ui) {
+                    if (ui.item && ui.item.id) {
+                        $(elem).val(ui.item.id);
+                    } else {
+                        $(elem).val("");
+                    }
                 }
-            }
-        );
-    });
-}
+            );
+        });
+    };
 
-/* Monkey-patch Django's dynamic formset, if defined */
-if (typeof(django) !== "undefined" && typeof(django.jQuery) !== "undefined") {
-    if (django.jQuery.fn.formset) {
-        var oldformset = django.jQuery.fn.formset;
-        django.jQuery.fn.formset = function(opts) {
-            var options = $.extend({}, opts);
-            var addedevent = function(row) {
-                bindSelectables($(row));
+    /* Monkey-patch Django's dynamic formset, if defined */
+    if (typeof(django) !== "undefined" && typeof(django.jQuery) !== "undefined") {
+        if (django.jQuery.fn.formset) {
+            var oldformset = django.jQuery.fn.formset;
+            django.jQuery.fn.formset = function(opts) {
+                var options = $.extend({}, opts);
+                var addedevent = function(row) {
+                    bindSelectables($(row));
+                };
+                var added = null;
+                if (options.added) {
+                    // Wrap previous added function and include call to bindSelectables
+                    var oldadded = options.added;
+                    added = function(row) { oldadded(row); addedevent(row); };
+                }
+                options.added = added || addedevent;
+                return oldformset.call(this, options);
             };
-            var added = null;
-            if (options.added) {
-                // Wrap previous added function and include call to bindSelectables
-                var oldadded = options.added;
-                added = function(row) { oldadded(row); addedevent(row); };
+        }
+    }
+
+    /* Monkey-patch Django's dismissAddAnotherPopup(), if defined */
+    if (typeof(dismissAddAnotherPopup) !== "undefined" &&
+        typeof(windowname_to_id) !== "undefined" &&
+        typeof(html_unescape) !== "undefined") {
+        var django_dismissAddAnotherPopup = dismissAddAnotherPopup;
+        dismissAddAnotherPopup = function(win, newId, newRepr) {
+            /* See if the popup came from a selectable field.
+               If not, pass control to Django's code.
+               If so, handle it. */
+            var fieldName = windowname_to_id(win.name); /* e.g. "id_fieldname" */
+            var field = $('#' + fieldName);
+            var multiField = $('#' + fieldName + '_0');
+            /* Check for bound selectable */
+            var singleWidget = field.data('djselectable');
+            var multiWidget = multiField.data('djselectable');
+            if (singleWidget || multiWidget) {
+                // newId and newRepr are expected to have previously been escaped by
+                // django.utils.html.escape.
+                var item =  {
+                    id: html_unescape(newId),
+                    value: html_unescape(newRepr)
+                };
+                if (singleWidget) {
+                    field.djselectable('select', item);
+                }
+                if (multiWidget) {
+                    multiField.djselectable('select', item);
+                }
+                win.close();
+            } else {
+                /* Not ours, pass on to original function. */
+                return django_dismissAddAnotherPopup(win, newId, newRepr);
             }
-            options.added = added || addedevent;
-            return oldformset.call(this, options);
         };
     }
-}
 
-/* Monkey-patch Django's dismissAddAnotherPopup(), if defined */
-if (typeof(dismissAddAnotherPopup) !== "undefined" && typeof(windowname_to_id) !== "undefined" && typeof(html_unescape) !== "undefined") {
-    var django_dismissAddAnotherPopup = dismissAddAnotherPopup;
-    dismissAddAnotherPopup = function(win, newId, newRepr) {
-        /* See if the popup came from a selectable field.
-           If not, pass control to Django's code.
-           If so, handle it. */
-        var fieldName = windowname_to_id(win.name); /* e.g. "id_fieldname" */
-        var field = $('#' + fieldName);
-        var multiField = $('#' + fieldName + '_0');
-        /* Check for bound selectable */
-        var singleWidget = field.data('djselectable');
-        var multiWidget = multiField.data('djselectable');
-        if (singleWidget || multiWidget) {
-            // newId and newRepr are expected to have previously been escaped by
-            // django.utils.html.escape.
-            var item =  {
-                id: html_unescape(newId),
-                value: html_unescape(newRepr)
-            };
-            if (singleWidget) {
-                field.djselectable('select', item);
-            }
-            if (multiWidget) {
-                multiField.djselectable('select', item);
-            }
-            win.close();
-        } else {
-            /* Not ours, pass on to original function. */
-            return django_dismissAddAnotherPopup(win, newId, newRepr);
+    $(document).ready(function() {
+        // Bind existing widgets on document ready
+        if (typeof(djselectableAutoLoad) === "undefined" || djselectableAutoLoad) {
+            bindSelectables('body');
         }
-    };
-}
-
-$(document).ready(function() {
-    // Bind existing widgets on document ready
-    if (typeof(djselectableAutoLoad) === "undefined" || djselectableAutoLoad) {
-        bindSelectables('body');
-    }
-});
+    });
+})(jQuery);
