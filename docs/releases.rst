@@ -12,6 +12,7 @@ Features
 _________________
 
 - Initial translations (pt_BR). Thanks to Felipe Prenholato for the patch.
+- Upgraded default jQuery UI version included by the template tags from 1.8.18 to 1.8.23
 
 Bug Fixes
 _________________

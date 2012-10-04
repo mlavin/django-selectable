@@ -31,7 +31,7 @@ the  from the `Google CDN <http://code.google.com/apis/libraries/devguide.html#j
         {% load selectable_tags %}
         {% include_jquery_libs %}
 
-By default these will use jQuery v1.7.2 and jQuery UI v1.8.18. You can customize the versions
+By default these will use jQuery v1.7.2 and jQuery UI v1.8.23. You can customize the versions
 used by pass them to the tag. The first version is the jQuery version and the second is the
 jQuery UI version.
 
@@ -51,7 +51,7 @@ is also a template tag to easily add this style sheet from the Google CDN.
         {% load selectable_tags %}
         {% include_ui_theme %}
 
-By default this will use the `base <http://jqueryui.com/themeroller/>`_ theme for jQuery UI v1.8.18.
+By default this will use the `base <http://jqueryui.com/themeroller/>`_ theme for jQuery UI v1.8.23.
 You can configure the theme and version by passing them in the tag.
 
     .. code-block:: html
