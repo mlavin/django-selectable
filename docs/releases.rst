@@ -17,6 +17,7 @@ Bug Fixes
 _________________
 
 - Cleaned up JS scoping problems when multiple jQuery versions are used on the page. Thanks Antti Kaihola for the report.
+- Fixed minor JS bug where text input was not cleared when selected via the combobox in the multiselect. Thanks Antti Kaihola for the report and Lukas Pirl for a hotfix.
 
 Backwards Incompatible Changes
 ________________________________

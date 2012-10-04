@@ -71,7 +71,7 @@
             /* Trigger selection of a given item.
             Item should contain two properties: id and value 
             Event is the original select event if there is one.
-            Event should not be passed if trigger manually.
+            Event should not be passed if triggered manually.
             */
             var self = this,
             input = this.element;
@@ -90,8 +90,8 @@
                         });
                         $(input).after(newInput);
                         self._addDeckItem(newInput);
-                        return false;
                     }
+                    return false;
                 } else {
                     $(input).val(item.value);
                     var ui = {item: item};
@@ -160,7 +160,7 @@
                         $(input).autocomplete("search");
                         return false;
                     }
-                    self.select(ui.item, event);
+                    return self.select(ui.item, event);
                 }
             }).addClass("ui-widget ui-widget-content ui-corner-all");
             // Override the default auto-complete render.
