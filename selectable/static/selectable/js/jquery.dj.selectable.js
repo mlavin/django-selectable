@@ -58,10 +58,10 @@
                         },
                         text: false
                     })
-                    .click(function() {
+                    .click(function(e) {
+                        e.preventDefault();
                         $(input).remove();
                         $(this).closest('li').remove();
-                        return false;
                     })
                 )
             );
