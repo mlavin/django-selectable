@@ -13,6 +13,7 @@ _________________
 
 - Initial translations (pt_BR). Thanks to Felipe Prenholato for the patch.
 - Upgraded default jQuery UI version included by the template tags from 1.8.18 to 1.8.23
+- Added ``djselectableadd`` and ``djselectableremove`` events fired when items are added or removed from a mutliple select
 
 Bug Fixes
 _________________

@@ -152,6 +152,31 @@ expose the events defined by the plugin.
 For the most part these event names should be self-explanatory. If you need additional
 detail you should refer to the `jQuery UI docs on these events <http://jqueryui.com/demos/autocomplete/#events>`_.
 
+The multiple select widgets include additional events which indicate when a new item is added
+or removed from the current list. These events are ``djselectableadd`` and ``djselectableremove``.
+These events pass a dictionary of data with the following keys
+
+    - element: The original text input
+    - input: The hidden input to be added for the new item
+    - wrapper: The ``<li>`` element to be added to the deck
+    - deck: The outer ``<ul>`` deck element
+
+You can use these events to prevent items from being added or removed from the deck by
+returning ``false`` in the handling function. A simple example is given below:
+
+    .. code-block:: html
+
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $(':input[name=my_field_0]').bind('djselectableadd', function(event, item) {
+                    // Don't allow foo to be added
+                    if ($(item.input).val() === 'foo') {
+                        return false;
+                    }
+                });
+            });
+        </script>
+
 
 Submit On Selection
 --------------------------------------
