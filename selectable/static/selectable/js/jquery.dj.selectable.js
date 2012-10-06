@@ -42,12 +42,14 @@
         _addDeckItem: function(input) {
             /* Add new deck list item from a given hidden input */
             var self = this;
-            $('<li>')
+            var li = $('<li>')
             .text($(input).attr('title'))
-            .addClass('selectable-deck-item')
-            .appendTo(this.deck)
-            .append(
-                $('<div>')
+            .addClass('selectable-deck-item');
+            var item = {element: self.element, input: input, wrapper: li, deck: self.deck};
+            if (self._trigger("add", null, item) === false) {
+                input.remove();
+            } else {
+                var button = $('<div>')
                 .addClass('selectable-deck-remove')
                 .append(
                     $('<a>')
@@ -60,11 +62,14 @@
                     })
                     .click(function(e) {
                         e.preventDefault();
-                        $(input).remove();
-                        $(this).closest('li').remove();
+                        if (self._trigger("remove", e, item) !== false) {
+                            $(input).remove();
+                            li.remove();
+                        }
                     })
-                )
-            );
+                );
+                li.append(button).appendTo(this.deck);
+            }
         },
 
         select: function(item, event) {
