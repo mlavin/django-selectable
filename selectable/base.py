@@ -80,7 +80,7 @@ class LookupBase(object):
 
     def paginate_results(self, results, options):
         "Return a django.core.paginator.Page of results."
-        limit = options['limit']
+        limit = options.get('limit', settings.SELECTABLE_MAX_LIMIT)
         paginator = Paginator(results, limit)        
         page = options.get('page', 1)
         try:
@@ -95,7 +95,7 @@ class LookupBase(object):
         form = self.form(request.GET)
         if form.is_valid():
             options = form.cleaned_data
-            term = options['term']
+            term = options.get('term', '')
             raw_data = self.get_query(request, term)
             results = self.format_results(raw_data, options)
         content = self.serialize_results(results)
