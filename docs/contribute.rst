@@ -38,9 +38,8 @@ Submit a Translation
 
 We are working towards translating django-selectable into different languages. There
 are not many strings to be translated so it is a reasonably easy task and a great way
-to be involved with the project. Infomation on how to make the necessary .po files
-can be found in `the Django documentation <https://docs.djangoproject.com/en/1.4/topics/i18n/translation/#message-files>`_.
-
+to be involved with the project. The translations are managed through
+`Transifex <https://www.transifex.com/projects/p/django-selectable/>`_.
 
 Running the Test Suite
 --------------------------------------

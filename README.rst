@@ -70,3 +70,6 @@ Contributing
 If you think you've found a bug or are interested in contributing to this project
 check out our `contributing guide <http://readthedocs.org/docs/django-selectable/en/latest/contribute.html>`_.
 
+If you are interested in translating django-selectable into your native language
+you can join the `Transifex project <https://www.transifex.com/projects/p/django-selectable/>`_.
+
