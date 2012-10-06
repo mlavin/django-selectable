@@ -109,7 +109,6 @@ class LookupBase(object):
         options
             a dictionary of the given options
         '''
-        limit = options['limit']
         page_data = self.paginate_results(raw_data, options)
         results = {}
         meta = options.copy()
