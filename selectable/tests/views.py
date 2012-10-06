@@ -21,7 +21,7 @@ def test_500(request):
 
 
 class SelectableViewTest(PatchSettingsMixin, BaseSelectableTestCase):
-    
+
     def setUp(self):
         super(SelectableViewTest, self).setUp()
         self.url = ThingLookup.url()
@@ -36,7 +36,7 @@ class SelectableViewTest(PatchSettingsMixin, BaseSelectableTestCase):
     def test_response_keys(self):
         response = self.client.get(self.url)
         data = json.loads(response.content)
-        for result in data:
+        for result in data.get('data'):
             self.assertTrue('id' in result)
             self.assertTrue('value' in result)
             self.assertTrue('label' in result)
@@ -51,7 +51,8 @@ class SelectableViewTest(PatchSettingsMixin, BaseSelectableTestCase):
         data = {'term': self.thing.name}
         response = self.client.get(self.url, data)
         data = json.loads(response.content)
-        self.assertEqual(len(data), 1)
+        self.assertEqual(len(data), 2)
+        self.assertEqual(len(data.get('data')), 1)
 
     def test_unknown_lookup(self):
         unknown_url = reverse('selectable-lookup', args=["XXXXXXX"])
@@ -63,9 +64,9 @@ class SelectableViewTest(PatchSettingsMixin, BaseSelectableTestCase):
             self.create_thing(data={'name': 'Thing%s' % i})
         response = self.client.get(self.url)
         data = json.loads(response.content)
-        self.assertEqual(len(data), settings.SELECTABLE_MAX_LIMIT + 1)
-        last_item = data[-1]
-        self.assertTrue('page' in last_item)
+        self.assertEqual(len(data.get('data')), settings.SELECTABLE_MAX_LIMIT)
+        meta = data.get('meta')
+        self.assertTrue('next_page' in meta)
 
     def test_get_next_page(self):
         for i in range(settings.SELECTABLE_MAX_LIMIT * 2):
@@ -73,10 +74,10 @@ class SelectableViewTest(PatchSettingsMixin, BaseSelectableTestCase):
         data = {'term': 'Thing', 'page': 2}
         response = self.client.get(self.url, data)
         data = json.loads(response.content)
-        self.assertEqual(len(data), settings.SELECTABLE_MAX_LIMIT)
+        self.assertEqual(len(data.get('data')), settings.SELECTABLE_MAX_LIMIT)
         # No next page
-        last_item = data[-1]
-        self.assertFalse('page' in last_item)
+        meta = data.get('meta')
+        self.assertFalse('next_page' in meta)
 
     def test_request_more_than_max(self):
         for i in range(settings.SELECTABLE_MAX_LIMIT):
@@ -84,7 +85,7 @@ class SelectableViewTest(PatchSettingsMixin, BaseSelectableTestCase):
         data = {'term': '', 'limit': settings.SELECTABLE_MAX_LIMIT * 2}
         response = self.client.get(self.url)
         data = json.loads(response.content)
-        self.assertEqual(len(data), settings.SELECTABLE_MAX_LIMIT + 1)
+        self.assertEqual(len(data.get('data')), settings.SELECTABLE_MAX_LIMIT)
 
     def test_request_less_than_max(self):
         for i in range(settings.SELECTABLE_MAX_LIMIT):
@@ -93,5 +94,4 @@ class SelectableViewTest(PatchSettingsMixin, BaseSelectableTestCase):
         data = {'term': '', 'limit': new_limit}
         response = self.client.get(self.url, data)
         data = json.loads(response.content)
-        self.assertEqual(len(data), new_limit + 1)
-
+        self.assertEqual(len(data.get('data')), new_limit)

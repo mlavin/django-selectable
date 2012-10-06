@@ -133,7 +133,20 @@
                 if (page) {
                     query.page = page;
                 }
-				$.getJSON(url, query, response);
+                function unwrapResponse(data) {
+                    var results = data.data;
+                    var meta = data.meta;
+                    if (meta.next_page && meta.more) {
+                        results.push({
+                            id: '',
+                            value: '',
+                            label: meta.more,
+                            page: meta.next_page
+                        });
+                    }
+                    return response(results);
+                }   
+				$.getJSON(url, query, unwrapResponse);
             }
             // Create base auto-complete lookup
             $(input).autocomplete({
