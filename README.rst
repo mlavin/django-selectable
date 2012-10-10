@@ -23,11 +23,6 @@ Installation Requirements
     Begining with version django-selectable version 0.6, Django 1.2 is no longer supported.
     While it may continue to work, bugs related to Django 1.2 support will not be fixed.
 
-
-Optional (but recommended)
-
-- `django-staticfiles <https://github.com/jezdez/django-staticfiles>`_
-
 To install::
     
     pip install django-selectable
