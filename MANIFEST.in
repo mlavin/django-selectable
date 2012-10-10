@@ -1,4 +1,6 @@
+include AUTHORS.txt
 include README.rst
 include LICENSE.txt
+recursive-include selectable/locale *
 recursive-include selectable/static *
 recursive-include selectable/templates *
