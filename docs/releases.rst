@@ -4,9 +4,14 @@ Release Notes
 v0.6.0 (Released TBD)
 --------------------------------------
 
-This release continues to clean up the API and JS. Python 2.5 support has been
-dropped to work towards Python 3 support. This also drops Django 1.2 support which
-is no longer receiving security fixes.
+This release continues to clean up the API and JS. This was primarily motivated by
+Sławomir Ehlert (@slafs) who is working on an alternate implementation which
+uses Select2 rather than jQuery UI. This opens the door for additional apps
+which use the same lookup declaration API with a different JS library on the front
+end.
+
+Python 2.5 support has been dropped to work towards Python 3 support.
+This also drops Django 1.2 support which is no longer receiving security fixes.
 
 Features
 _________________
