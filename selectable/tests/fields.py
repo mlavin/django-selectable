@@ -7,9 +7,7 @@ from selectable.tests.base import BaseSelectableTestCase
 
 __all__ = (
     'AutoCompleteSelectFieldTestCase',
-    'AutoComboboxSelectFieldTestCase',
     'AutoCompleteSelectMultipleFieldTestCase',
-    'AutoComboboxSelectMultipleFieldTestCase',
 )
 
 
@@ -69,28 +67,6 @@ class AutoCompleteSelectFieldTestCase(BaseFieldTestCase):
         self.assertTrue(isinstance(field.widget, widgets.AutoComboboxWidget))
 
 
-class AutoComboboxSelectFieldTestCase(BaseFieldTestCase):
-    field_cls = fields.AutoComboboxSelectField
-    lookup_cls = ThingLookup
-
-    def test_clean(self):
-        thing = self.create_thing()
-        field = self.get_field_instance()
-        value = field.clean([thing.name, thing.id])
-        self.assertEqual(thing, value)
-
-    def test_new_not_allowed(self):
-        field = self.get_field_instance()
-        value = self.get_random_string()
-        self.assertRaises(forms.ValidationError, field.clean, [value, ''])
-
-    def test_new_allowed(self):
-        field = self.get_field_instance(allow_new=True)
-        value = self.get_random_string()
-        value = field.clean([value, ''])
-        self.assertTrue(isinstance(value, ThingLookup.model))
-
-
 class AutoCompleteSelectMultipleFieldTestCase(BaseFieldTestCase):
     field_cls = fields.AutoCompleteSelectMultipleField
     lookup_cls = ThingLookup
@@ -125,26 +101,3 @@ class AutoCompleteSelectMultipleFieldTestCase(BaseFieldTestCase):
         widget = widgets.AutoComboboxSelectMultipleWidget(self.lookup_cls)
         field = self.get_field_instance(widget=widget)
         self.assertTrue(isinstance(field.widget, widgets.AutoComboboxSelectMultipleWidget))
-
-
-class AutoComboboxSelectMultipleFieldTestCase(BaseFieldTestCase):
-    field_cls = fields.AutoComboboxSelectMultipleField
-    lookup_cls = ThingLookup
-
-    def get_field_instance(self, limit=None):
-        return self.__class__.field_cls(self.__class__.lookup_cls, limit=limit)
-
-    def test_clean(self):
-        thing = self.create_thing()
-        field = self.get_field_instance()
-        value = field.clean([thing.id])
-        self.assertEqual([thing], value)
-
-    def test_clean_multiple(self):
-        thing = self.create_thing()
-        other_thing = self.create_thing()
-        field = self.get_field_instance()
-        ids = [thing.id, other_thing.id]
-        value = field.clean(ids)
-        self.assertEqual([thing, other_thing], value)
-

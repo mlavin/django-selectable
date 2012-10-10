@@ -14,7 +14,7 @@ Defining a Lookup
 
 django-selectable uses a registration pattern similar to the Django admin.
 Lookups should be defined in a `lookups.py` in your application's module. Once defined
-you must register in with django-selectable. All lookups must extend from 
+you must register in with django-selectable. All lookups must extend from
 ``selectable.base.LookupBase`` which defines the API for every lookup.
 
     .. code-block:: python
@@ -53,7 +53,7 @@ Lookup API
     :return: A string representation of the item to be shown in the search results.
         The label can include HTML. For changing the label format on the client side
         see :ref:`Advanced Label Formats <advanced-label-formats>`.
-    
+
 
 .. py:method:: LookupBase.get_item_id(item)
 
@@ -98,27 +98,64 @@ Lookup API
     ``get_item_id``, ``get_item_value`` and ``get_item_label``. If you want to
     add additional keys you should add them here.
 
-    The results of ``get_item_id``, ``get_item_value`` and ``get_item_label`` are
-    conditionally escaped to prevent Cross Site Scripting (XSS) similar to the templating
-    language. If you know that the content is safe and you want to use these methods
+    The results of ``get_item_label`` is conditionally escaped to prevent
+    Cross Site Scripting (XSS) similar to the templating language.
+    If you know that the content is safe and you want to use these methods
     to include HTML should mark the content as safe with ``django.utils.safestring.mark_safe``
-    inside the ``get_item_*`` methods.
+    inside the ``get_item_label`` method.
+
+    ``get_item_id`` and ``get_item_value`` are not escapted by default. These are
+    not a XSS vector with the built-in JS. If you are doing additional formating using
+    these values you should be conscience of this fake and be sure to escape these
+    values.
 
     :param item: An item from the search results.
     :return: A dictionary of information for this item to be sent back to the client.
 
-.. py:method:: LookupBase.paginate_results(request, results, limit)
+There are also some additional methods that you could want to use/override. These
+are for more advanced use cases such as using the lookups with JS libraries other
+than jQuery UI. Most users will not need to override these methods.
+
+.. _lookup-format-results:
+
+.. py:method:: LookupBase.format_results(self, raw_data, options)
+
+    Returns a python structure that later gets serialized. This makes a call to
+    :ref:`paginate_results<lookup-paginate-results>` prior to calling
+    :ref:`format_item<lookup-format-item>` on each item in the current page.
+
+    :param raw_data: The set of all matched results.
+    :param options: Dictionary of ``cleaned_data`` from the lookup form class.
+    :return: A dictionary with two keys ``meta`` and ``data``.
+        The value of ``data`` is an iterable extracted from page_data.
+        The value of ``meta`` is a dictionary. This is a copy of options with one additional element
+        ``more`` which is a translatable "Show more" string
+        (useful for indicating more results on the javascript side).
+
+.. _lookup-paginate-results:
+
+.. py:method:: LookupBase.paginate_results(results, options)
 
     If :ref:`SELECTABLE_MAX_LIMIT` is defined or ``limit`` is passed in request.GET
     then ``paginate_results`` will return the current page using Django's
-    built in pagination. See the Django docs on `pagination <https://docs.djangoproject.com/en/1.3/topics/pagination/>`_
+    built in pagination. See the Django docs on
+    `pagination <https://docs.djangoproject.com/en/1.3/topics/pagination/>`_
     for more info.
 
-    :param request: The current request object.
     :param results: The set of all matched results.
-    :param limit: The number of results per page.
+    :param options: Dictionary of ``cleaned_data`` from the lookup form class.
     :return: The current `Page object <https://docs.djangoproject.com/en/1.3/topics/pagination/#page-objects>`_
         of results.
+
+.. _lookup-serialize-results:
+
+.. py:method:: LookupBase.serialize_results(self, results)
+
+    Returns serialized results for sending via http. You may choose to override
+    this if you are making use of 
+
+    :param results: a python structure to be serialized e.g. the one returned by :ref:`format_results<lookup-format-results>`
+    :returns: JSON string.
 
 
 .. _ModelLookup:
@@ -133,8 +170,8 @@ should set two class attributes: ``model`` and ``search_fields``.
     .. literalinclude:: ../example/core/lookups.py
         :pyobject: FruitLookup
 
-The syntax for ``search_fields`` is the same as the Django 
-`field lookup syntax <http://docs.djangoproject.com/en/1.3/ref/models/querysets/#field-lookups>`_. 
+The syntax for ``search_fields`` is the same as the Django
+`field lookup syntax <http://docs.djangoproject.com/en/1.3/ref/models/querysets/#field-lookups>`_.
 Each of these lookups are combined as OR so any one of them matching will return a
 result. You may optionally define a third class attribute ``filters`` which is a dictionary of
 filters to be applied to the model queryset. The keys should be a string defining a field lookup
@@ -145,8 +182,8 @@ combined with AND.
 User Lookup Example
 --------------------------------------
 
-Below is a larger model lookup example using multiple search fields, filters 
-and display options for the `auth.User <https://docs.djangoproject.com/en/1.3/topics/auth/#users>`_ 
+Below is a larger model lookup example using multiple search fields, filters
+and display options for the `auth.User <https://docs.djangoproject.com/en/1.3/topics/auth/#users>`_
 model.
 
     .. code-block:: python
@@ -227,7 +264,7 @@ Below are the descriptions of the available lookup decorators.
 ajax_required
 ______________________________________
 
-The django-selectable javascript will always request the lookup data via 
+The django-selectable javascript will always request the lookup data via
 XMLHttpRequest (AJAX) request. This decorator enforces that the lookup can only
 be accessed in this way. If the request is not an AJAX request then it will return
 a 400 Bad Request response.

@@ -1,7 +1,7 @@
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 
-from example.core.forms import FruitForm, ChainedForm, FarmFormset
+from core.forms import FruitForm, ChainedForm, FarmFormset
 
 
 def index(request):

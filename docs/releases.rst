@@ -1,6 +1,42 @@
 Release Notes
 ==================
 
+v0.6.0 (Released TBD)
+--------------------------------------
+
+This release continues to clean up the API and JS. This was primarily motivated by
+Sławomir Ehlert (@slafs) who is working on an alternate implementation which
+uses Select2 rather than jQuery UI. This opens the door for additional apps
+which use the same lookup declaration API with a different JS library on the front
+end.
+
+Python 2.5 support has been dropped to work towards Python 3 support.
+This also drops Django 1.2 support which is no longer receiving security fixes.
+
+Features
+_________________
+
+- Initial translations (pt_BR). Thanks to Felipe Prenholato for the patch.
+- Upgraded default jQuery UI version included by the template tags from 1.8.18 to 1.8.23
+- Added ``djselectableadd`` and ``djselectableremove`` events fired when items are added or removed from a mutliple select
+
+Bug Fixes
+_________________
+
+- Cleaned up JS scoping problems when multiple jQuery versions are used on the page. Thanks Antti Kaihola for the report.
+- Fixed minor JS bug where text input was not cleared when selected via the combobox in the multiselect. Thanks Antti Kaihola for the report and Lukas Pirl for a hotfix.
+
+Backwards Incompatible Changes
+________________________________
+
+- ``get_item_value`` and ``get_item_id`` are no longer marked as safe by default.
+- Removed AutoComboboxSelectField and AutoComboboxSelectMultipleField. These were deprecated in 0.5.
+- Dropping official Python 2.5 support.
+- Dropping official Django 1.2 support.
+- ``paginate_results`` signature changed as part of the lookup refactor.
+- ``SELECTABLE_MAX_LIMIT`` can no longer be ``None``.
+
+
 v0.5.2 (Released 2012-06-27)
 --------------------------------------
 

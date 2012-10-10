@@ -1,7 +1,7 @@
-from django.conf.urls.defaults import patterns, url
+from django.conf.urls import patterns, include, url
 
 
-urlpatterns = patterns('example.core.views',
+urlpatterns = patterns('core.views',
     url(r'^formset/', 'formset', name='example-formset'),    
     url(r'^advanced/', 'advanced', name='example-advanced'),
     url(r'^', 'index', name='example-index'),

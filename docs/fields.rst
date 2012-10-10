@@ -3,8 +3,8 @@ Fields
 
 Django-Selectable defines a number of fields for selecting either single or mutliple
 lookup items. Item in this context corresponds to the object return by the underlying
-lookup ``get_item``. The single select select fields (:ref:`AutoCompleteSelectField` and
-:ref:`AutoComboboxSelectField`) allow for the creation of new items. To use this feature the field's
+lookup ``get_item``. The single select select field :ref:`AutoCompleteSelectField`
+allows for the creation of new items. To use this feature the field's
 lookup class must define ``create_item``. In the case of lookups extending from
 :ref:`ModelLookup` newly created items have not yet been saved into the database and saving
 should be handled by the form. All fields take the lookup class as the first required
@@ -30,17 +30,9 @@ which determines if the field allows new items. This field cleans to a single it
 AutoComboboxSelectField
 --------------------------------------
 
-Field tied to :ref:`AutoComboboxSelectWidget` to bind the selection to the form and 
-create new items, if allowed. The ``allow_new`` keyword argument (default: ``False``)
-which determines if the field allows new items. This field cleans to a single item.
+.. deprecated:: 0.5
 
-    .. literalinclude:: ../example/core/forms.py
-        :start-after: # AutoComboboxSelectField (no new items)
-        :end-before: # AutoComboboxSelectField (allows new items)
-
-.. versionadded:: 0.5
-
-This field is deprecated in v0.5 and will be removed in v0.6. You should instead
+This field is deprecated in v0.5 and removed in v0.6. You should instead
 use the above :ref:`AutoCompleteSelectField` and pass the :ref:`AutoComboboxSelectWidget`
 in the ``widget`` argument.
 
@@ -64,16 +56,8 @@ allow for the creation of new items.
 AutoComboboxSelectMultipleField
 --------------------------------------
 
-Field tied to :ref:`AutoComboboxSelectMultipleWidget` to bind the selection to the form.
-This field cleans to a list of items. :ref:`AutoComboboxSelectMultipleField` does not 
-allow for the creation of new items.
+.. deprecated:: 0.5
 
-    .. literalinclude:: ../example/core/forms.py
-        :start-after: # AutoComboboxSelectMultipleField
-        :end-before: class ChainedForm
-
-.. versionadded:: 0.5
-
-This field is deprecated in v0.5 and will be removed in v0.6. You should instead
+This field is deprecated in v0.5 and removed in v0.6. You should instead
 use the above :ref:`AutoCompleteSelectMultipleField` and pass the 
 :ref:`AutoComboboxSelectMultipleWidget` in the ``widget`` argument.

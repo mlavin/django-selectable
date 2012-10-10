@@ -5,12 +5,12 @@ from django import forms
 
 import selectable.forms as selectable
 
-from example.core.models import Fruit, Farm
-from example.core.lookups import FruitLookup, OwnerLookup
+from core.models import Fruit, Farm
+from core.lookups import FruitLookup, OwnerLookup
 
 
 class FarmAdminForm(forms.ModelForm):
-    owner = selectable.AutoComboboxSelectField(lookup_class=OwnerLookup, allow_new=True)
+    owner = selectable.AutoCompleteSelectField(lookup_class=OwnerLookup, allow_new=True)
 
     class Meta(object):
         model = Farm

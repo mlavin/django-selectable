@@ -23,7 +23,7 @@ Django admin that means overriding
 You can include this media in the block name `extrahead` which is defined in
 `admin/base.html <https://code.djangoproject.com/browser/django/trunk/django/contrib/admin/templates/admin/base.html>`_.
 
-    .. literalinclude:: ../example/templates/admin/base_site.html
+    .. literalinclude:: ../example/example/templates/admin/base_site.html
         :start-after: {% endblock title %}
         :end-before: {% block branding %}
 

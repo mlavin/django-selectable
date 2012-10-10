@@ -13,20 +13,27 @@ Features
 Installation Requirements
 -----------------------------------
 
-- `Django <http://www.djangoproject.com/>`_ >= 1.2
+- Python 2.6 or Python 2.7
+- `Django <http://www.djangoproject.com/>`_ >= 1.3
 - `jQuery <http://jquery.com/>`_ >= 1.4.4
 - `jQuery UI <http://jqueryui.com/>`_ >= 1.8
 
-Optional (but recommended)
+.. note::
 
-- `django-staticfiles <https://github.com/jezdez/django-staticfiles>`_
+    Begining with version django-selectable version 0.6, Django 1.2 is no longer supported.
+    While it may continue to work, bugs related to Django 1.2 support will not be fixed.
 
 To install::
     
     pip install django-selectable
 
-If you are using `django-staticfiles` (or `django.contrib.staticfiles` in Django 1.3) then
-add `selectable` to your `INSTALLED_APPS` to include the related css/js.
+Next add `selectable` to your `INSTALLED_APPS` to include the related css/js::
+
+    INSTALLED_APPS = (
+        'contrib.staticfiles',
+        # Other apps here
+        'selectable',
+    )
 
 The jQuery and jQuery UI libraries are not included in the distribution but must be included
 in your templates. See the example project for an example using these libraries from the
@@ -34,24 +41,16 @@ Google CDN.
 
 Once installed you should add the urls to your root url patterns::
 
-        urlpatterns = patterns('',
-            # Other patterns go here
-            (r'^selectable/', include('selectable.urls')),
-        )
+    urlpatterns = patterns('',
+        # Other patterns go here
+        (r'^selectable/', include('selectable.urls')),
+    )
 
 
 Documentation
 -----------------------------------
 
-Documentation for django-selectable is available on 
-`Read The Docs <http://readthedocs.org/>`_:
-
-- `Dev <http://readthedocs.org/docs/django-selectable/en/latest/>`_
-- `v0.5.1 <http://readthedocs.org/docs/django-selectable/en/version-0.5.1/>`_
-- `v0.4.2 <http://readthedocs.org/docs/django-selectable/en/version-0.4.2/>`_
-- `v0.3.1 <http://readthedocs.org/docs/django-selectable/en/version-0.3.1/>`_
-- `v0.2.0 <http://readthedocs.org/docs/django-selectable/en/version-0.2.0/>`_
-- `v0.1.2 <http://readthedocs.org/docs/django-selectable/en/version-0.1.2/>`_
+Documentation for django-selectable is available on `Read The Docs <http://readthedocs.org/docs/django-selectable>`_.
 
 
 Additional Help/Support
@@ -65,4 +64,7 @@ Contributing
 
 If you think you've found a bug or are interested in contributing to this project
 check out our `contributing guide <http://readthedocs.org/docs/django-selectable/en/latest/contribute.html>`_.
+
+If you are interested in translating django-selectable into your native language
+you can join the `Transifex project <https://www.transifex.com/projects/p/django-selectable/>`_.
 

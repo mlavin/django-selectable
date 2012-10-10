@@ -5,8 +5,10 @@ Mark Lavin
 The following people who have contributed to django-selectable:
 
 Colin Copeland
-David Ray
+Sławomir Ehlert
 Dan Poirier
+Felipe Prenholato
+David Ray
 Rick Testore
 Karen Tracey
 

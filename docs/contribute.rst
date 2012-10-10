@@ -24,7 +24,7 @@ be helpful for other then please submit a pull request to have it merged in.
 Submit an Issue
 --------------------------------------
 
-The issues are also managed on `Bitbucket <https://bitbucket.org/mlavin/django-selectable/issues>`_.
+The issues are also managed on `Bitbucket issue page <https://bitbucket.org/mlavin/django-selectable/issues>`_.
 If you think you've found a bug it's helpful if you indicate the version of django-selectable
 you are using the ticket version flag. If you think your bug is javascript related it is
 also helpful to know the version of jQuery, jQuery UI, and the browser you are using.
@@ -32,6 +32,14 @@ also helpful to know the version of jQuery, jQuery UI, and the browser you are u
 Issues are also used to track new features. If you have a feature you would like to see
 you can submit a proposal ticket. You can also see features which are planned here.
 
+
+Submit a Translation
+--------------------------------------
+
+We are working towards translating django-selectable into different languages. There
+are not many strings to be translated so it is a reasonably easy task and a great way
+to be involved with the project. The translations are managed through
+`Transifex <https://www.transifex.com/projects/p/django-selectable/>`_.
 
 Running the Test Suite
 --------------------------------------
