@@ -1,3 +1,4 @@
+/*jshint trailing:true, indent:4*/
 /*
  * django-selectable UI widget
  * Source: https://bitbucket.org/mlavin/django-selectable
@@ -11,7 +12,7 @@
  * BSD License
  *
 */
-(function($) {
+(function ($) {
 
 	$.widget("ui.djselectable", {
 
@@ -23,7 +24,7 @@
             formatLabel: null
         },
 
-        _initDeck: function() {
+        _initDeck: function () {
             /* Create list display for currently selected items for multi-select */
             var self = this;
             var data = $(this.element).data();
@@ -34,12 +35,12 @@
             } else {
                 $(this.element).before(this.deck);
             }
-            $(self.hiddenMultipleSelector).each(function(i, input) {
+            $(self.hiddenMultipleSelector).each(function (i, input) {
                 self._addDeckItem(input);
             });
         },
 
-        _addDeckItem: function(input) {
+        _addDeckItem: function (input) {
             /* Add new deck list item from a given hidden input */
             var self = this;
             var li = $('<li>')
@@ -60,7 +61,7 @@
                         },
                         text: false
                     })
-                    .click(function(e) {
+                    .click(function (e) {
                         e.preventDefault();
                         if (self._trigger("remove", e, item) !== false) {
                             $(input).remove();
@@ -72,9 +73,9 @@
             }
         },
 
-        select: function(item, event) {
+        select: function (item, event) {
             /* Trigger selection of a given item.
-            Item should contain two properties: id and value 
+            Item should contain two properties: id and value
             Event is the original select event if there is one.
             Event should not be passed if triggered manually.
             */
@@ -100,14 +101,14 @@
                 } else {
                     $(input).val(item.value);
                     var ui = {item: item};
-                    if (typeof(event) == 'undefined' || event.type != "autocompleteselect") {
+                    if (typeof(event) === 'undefined' || event.type !== "autocompleteselect") {
                         $(input).trigger('autocompleteselect', [ui ]);
                     }
                 }
             }
         },
 
-        _create: function() {
+        _create: function () {
             /* Initialize a new selectable widget */
             var self = this,
             input = this.element,
@@ -150,13 +151,13 @@
                         });
                     }
                     return response(results);
-                }   
+                }
 				$.getJSON(url, query, unwrapResponse);
             }
             // Create base auto-complete lookup
             $(input).autocomplete({
                 source: dataSource,
-                change: function(event, ui) {
+                change: function (event, ui) {
                     $(input).removeClass('ui-state-error');
                     if ($(input).val() && !ui.item) {
                         if (!self.allowNew) {
@@ -168,7 +169,7 @@
                         $(input).data("autocomplete").term = "";
                     }
                 },
-                select: function(event, ui) {
+                select: function (event, ui) {
                     $(input).removeClass('ui-state-error');
                     if (ui.item && ui.item.page) {
                         // Set current page value
@@ -182,7 +183,7 @@
                 }
             }).addClass("ui-widget ui-widget-content ui-corner-all");
             // Override the default auto-complete render.
-            $(input).data("autocomplete")._renderItem = function(ul, item) {
+            $(input).data("autocomplete")._renderItem = function (ul, item) {
                 /* Adds hook for additional formatting, allows HTML in the label,
                 highlights term matches and handles pagination. */
                 var label = item.label;
@@ -205,7 +206,7 @@
                 return li;
             };
             // Override the default auto-complete suggest.
-            $(input).data("autocomplete")._suggest = function(items) {
+            $(input).data("autocomplete")._suggest = function (items) {
                 /* Needed for handling pagination links */
                 var page = $(input).data('page');
                 var ul = this.menu.element;
@@ -246,7 +247,7 @@
                 })
                 .removeClass("ui-corner-all")
                 .addClass("ui-corner-right ui-button-icon ui-combo-button")
-                .click(function() {
+                .click(function () {
                     // close if already visible
                     if ($(input).autocomplete("widget").is(":visible")) {
                         $(input).autocomplete("close");
@@ -261,19 +262,19 @@
         }
 	});
 
-    window.bindSelectables = function(context) {
+    window.bindSelectables = function (context) {
         /* Bind all selectable widgets in a given context.
         Automatically called on document.ready.
         Additional calls can be made for dynamically added widgets.
         */
         $(":input[data-selectable-type=text]", context).djselectable();
         $(":input[data-selectable-type=combobox]", context).djselectable();
-        $(":input[data-selectable-type=hidden]", context).each(function(i, elem) {
+        $(":input[data-selectable-type=hidden]", context).each(function (i, elem) {
             var hiddenName = $(elem).attr('name');
             var textName = hiddenName.replace('_1', '_0');
             $(":input[name=" + textName + "][data-selectable-url]").bind(
                 "autocompletechange autocompleteselect",
-                function(event, ui) {
+                function (event, ui) {
                     if (ui.item && ui.item.id) {
                         $(elem).val(ui.item.id);
                     } else {
@@ -288,16 +289,16 @@
     if (typeof(django) !== "undefined" && typeof(django.jQuery) !== "undefined") {
         if (django.jQuery.fn.formset) {
             var oldformset = django.jQuery.fn.formset;
-            django.jQuery.fn.formset = function(opts) {
+            django.jQuery.fn.formset = function (opts) {
                 var options = $.extend({}, opts);
-                var addedevent = function(row) {
+                var addedevent = function (row) {
                     bindSelectables($(row));
                 };
                 var added = null;
                 if (options.added) {
                     // Wrap previous added function and include call to bindSelectables
                     var oldadded = options.added;
-                    added = function(row) { oldadded(row); addedevent(row); };
+                    added = function (row) { oldadded(row); addedevent(row); };
                 }
                 options.added = added || addedevent;
                 return oldformset.call(this, options);
@@ -310,7 +311,7 @@
         typeof(windowname_to_id) !== "undefined" &&
         typeof(html_unescape) !== "undefined") {
         var django_dismissAddAnotherPopup = dismissAddAnotherPopup;
-        dismissAddAnotherPopup = function(win, newId, newRepr) {
+        dismissAddAnotherPopup = function (win, newId, newRepr) {
             /* See if the popup came from a selectable field.
                If not, pass control to Django's code.
                If so, handle it. */
@@ -341,7 +342,7 @@
         };
     }
 
-    $(document).ready(function() {
+    $(document).ready(function () {
         // Bind existing widgets on document ready
         if (typeof(djselectableAutoLoad) === "undefined" || djselectableAutoLoad) {
             bindSelectables('body');
