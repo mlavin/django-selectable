@@ -1,7 +1,7 @@
 Release Notes
 ==================
 
-v0.6.0 (Released TBD)
+v0.6.0 (Released 2012-10-09)
 --------------------------------------
 
 This release continues to clean up the API and JS. This was primarily motivated by
