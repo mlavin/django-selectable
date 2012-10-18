@@ -2,8 +2,13 @@ Release Notes
 ==================
 
 
-v0.6.1 (Released TBD)
+v0.6.1 (Released 2012-10-13)
 --------------------------------------
+
+Features
+_________________
+
+- Added Polish translation. Thanks to Sławomir Ehlert.
 
 Bug Fixes
 _________________
