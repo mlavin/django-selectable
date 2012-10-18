@@ -1,6 +1,21 @@
 Release Notes
 ==================
 
+
+v0.6.1 (Released 2012-10-13)
+--------------------------------------
+
+Features
+_________________
+
+- Added Polish translation. Thanks to Sławomir Ehlert.
+
+Bug Fixes
+_________________
+
+- Fixed incompatibility with jQuery UI 1.9.
+
+
 v0.6.0 (Released 2012-10-09)
 --------------------------------------
 
