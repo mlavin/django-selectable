@@ -1,6 +1,16 @@
 Release Notes
 ==================
 
+
+v0.6.1 (Released TBD)
+--------------------------------------
+
+Bug Fixes
+_________________
+
+- Fixed incompatibility with jQuery UI 1.9.
+
+
 v0.6.0 (Released 2012-10-09)
 --------------------------------------
 
