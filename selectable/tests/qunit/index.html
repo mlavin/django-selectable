@@ -4,7 +4,7 @@
     <title>Django Selectable Qunit Test Suite</title>
     <link rel="stylesheet" href="qunit.css" type="text/css" media="screen" />
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.24/jquery-ui.min.js"></script>
     <script type="text/javascript" src="qunit.js"></script>
     <script>
         // Disable auto-binding of djselectable widgets to avoid test race conditions
@@ -38,7 +38,7 @@
         });
         test("item selection", function() {
             bindSelectables('#combobox-initial');
-            var input = $('#id_autocomplete-initial');
+            var input = $('#id_combobox-initial');
             ok(input.val(), 'Initial', "initial text value should not be lost");
             var item = {id: "1", value: 'foo'};
             input.djselectable('select', item);
