@@ -190,7 +190,7 @@
                 if (self.options.formatLabel) {
                     label = self.options.formatLabel(label, item);
                 }
-                if (self.options.highlightMatch) {
+                if (self.options.highlightMatch && this.term) {
                     var re = new RegExp("(?![^&;]+;)(?!<[^<>]*)(" +
                     $.ui.autocomplete.escapeRegex(this.term) +
                     ")(?![^<>]*>)(?![^&;]+;)", "gi");
