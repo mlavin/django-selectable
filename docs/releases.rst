@@ -2,6 +2,15 @@ Release Notes
 ==================
 
 
+v0.6.2 (Released TBD)
+--------------------------------------
+
+Bug Fixes
+_________________
+
+- Fixed bug with special characters when highlighting matches. Thanks to Chad Files for the report.
+
+
 v0.6.1 (Released 2012-10-13)
 --------------------------------------
 
