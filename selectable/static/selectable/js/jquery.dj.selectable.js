@@ -86,7 +86,7 @@
                 if (self.allowMultiple) {
                     $(input).val("");
                     $(input).data("autocomplete").term = "";
-                    if ($(self.hiddenMultipleSelector + '[value=' + item.id + ']').length === 0) {
+                    if ($(self.hiddenMultipleSelector + '[value="' + item.id + '"]').length === 0) {
                         var newInput = $('<input />', {
                             'type': 'hidden',
                             'name': self.hiddenName,
