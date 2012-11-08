@@ -2,7 +2,7 @@ Release Notes
 ==================
 
 
-v0.6.2 (Released TBD)
+v0.6.2 (Released 2012-11-07)
 --------------------------------------
 
 Bug Fixes
