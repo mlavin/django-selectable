@@ -2,6 +2,16 @@ Release Notes
 ==================
 
 
+v0.6.2 (Released 2012-11-07)
+--------------------------------------
+
+Bug Fixes
+_________________
+
+- Fixed bug with special characters when highlighting matches. Thanks to Chad Files for the report.
+- Fixed javascript bug with spaces in ``item.id``. Thanks to @dc for the report and fix.
+
+
 v0.6.1 (Released 2012-10-13)
 --------------------------------------
 
