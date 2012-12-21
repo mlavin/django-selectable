@@ -116,7 +116,7 @@
             self.allowNew = data.selectableAllowNew || data['selectable-allow-new'];
             self.allowMultiple = data.selectableMultiple || data['selectable-multiple'];
             self.textName = $(input).attr('name');
-            self.hiddenName = self.textName.replace('_0', '_1');
+            self.hiddenName = self.textName.replace(new RegExp('_0$'), '_1');
             self.hiddenSelector = ':input[data-selectable-type=hidden][name=' + self.hiddenName + ']';
             self.hiddenMultipleSelector = ':input[data-selectable-type=hidden-multiple][name=' + self.hiddenName + ']';
             if (self.allowMultiple) {
@@ -133,7 +133,7 @@
                 var now = new Date().getTime();
                 var query = {term: request.term, timestamp: now};
                 if (self.options.prepareQuery) {
-                    self.options.prepareQuery(query);
+                    self.options.prepareQuery.assign(self, [query]);
                 }
                 var page = $(input).data("page");
                 if (page) {
@@ -188,7 +188,7 @@
                 highlights term matches and handles pagination. */
                 var label = item.label;
                 if (self.options.formatLabel) {
-                    label = self.options.formatLabel(label, item);
+                    label = self.options.formatLabel.assign(self, [label, item]);
                 }
                 if (self.options.highlightMatch && this.term) {
                     var re = new RegExp("(?![^&;]+;)(?!<[^<>]*)(" +
@@ -272,7 +272,7 @@
         $(":input[data-selectable-type=combobox]", context).djselectable();
         $(":input[data-selectable-type=hidden]", context).each(function (i, elem) {
             var hiddenName = $(elem).attr('name');
-            var textName = hiddenName.replace('_1', '_0');
+            var textName = hiddenName.replace(new RegExp('_1$') '_0');
             $(":input[name=" + textName + "][data-selectable-url]").bind(
                 "autocompletechange autocompleteselect",
                 function (event, ui) {
