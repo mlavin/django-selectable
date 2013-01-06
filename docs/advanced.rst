@@ -90,6 +90,12 @@ You are free to make adjustments to  the query dictionary as needed.
             });
         </script>
 
+.. note::
+
+    In v0.7 the scope of ``prepareQuery`` was updated so that ``this`` refers to the
+    current ``djselectable`` plugin instance. Previously ``this`` refered to the
+    plugin ``options`` instance.
+
 
 .. _chain-select-example:
 
@@ -239,6 +245,12 @@ can use the :ref:`formatLabel <javascript-formatLabel>` option.
 The item is a dictionary object matching what is returned by the lookup's
 :ref:`format_item <lookup-format-item>`. ``formatLabel`` should return the string
 which should be used for the label.
+
+.. note::
+
+    In v0.7 the scope of ``formatLabel`` was updated so that ``this`` refers to the
+    current ``djselectable`` plugin instance. Previously ``this`` refered to the
+    plugin ``options`` instance.
 
 Going back to the ``CityLookup`` we can adjust the label to wrap the city and state
 portions with their own classes for additional styling:
