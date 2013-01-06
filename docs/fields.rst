@@ -25,18 +25,6 @@ which determines if the field allows new items. This field cleans to a single it
         :end-before: # AutoCompleteSelectField (allows new items)
 
 
-.. _AutoComboboxSelectField:
-
-AutoComboboxSelectField
---------------------------------------
-
-.. deprecated:: 0.5
-
-This field is deprecated in v0.5 and removed in v0.6. You should instead
-use the above :ref:`AutoCompleteSelectField` and pass the :ref:`AutoComboboxSelectWidget`
-in the ``widget`` argument.
-
-
 .. _AutoCompleteSelectMultipleField:
 
 AutoCompleteSelectMultipleField
@@ -49,15 +37,3 @@ allow for the creation of new items.
     .. literalinclude:: ../example/core/forms.py
         :start-after: # AutoCompleteSelectMultipleField
         :end-before: # AutoComboboxSelectMultipleField
-
-
-.. _AutoComboboxSelectMultipleField:
-
-AutoComboboxSelectMultipleField
---------------------------------------
-
-.. deprecated:: 0.5
-
-This field is deprecated in v0.5 and removed in v0.6. You should instead
-use the above :ref:`AutoCompleteSelectMultipleField` and pass the 
-:ref:`AutoComboboxSelectMultipleWidget` in the ``widget`` argument.
