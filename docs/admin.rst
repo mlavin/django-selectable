@@ -58,8 +58,6 @@ that means we must set the owner manual in the save and in the initial data beca
 the ``ModelForm`` will no longer do this for you. Since ``fruit`` does not allow new
 items you'll see these steps are not necessary.
 
-.. versionadded:: 0.4
-
 The django-selectable widgets are compatitible with the add anther popup in the
 admin. It's that little green plus sign that appears next to ``ForeignKey`` or
 ``ManyToManyField`` items. This makes django-selectable a user friendly replacement

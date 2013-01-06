@@ -4,8 +4,6 @@ Widgets
 Below are the custom widgets defined by Django-Selectable. All widgets take the 
 lookup class as the first required argument.
 
-.. versionadded:: 0.4
-
 These widgets all support a ``query_params`` keyword argument which is used to pass
 additional query parameters to the lookup search. See the section on 
 :ref:`Adding Parameters on the Server Side <server-side-parameters>` for more
@@ -39,11 +37,9 @@ Widget for selecting a value/id based on input text. Optionally allows selecting
 This widget should be used in conjunction with the :ref:`AutoCompleteSelectField` as it will
 return both the text entered by the user and the id (if an item was selected/matched).
 
-.. versionadded:: 0.4
-
-Prior to 0.4 :ref:`AutoCompleteSelectWidget` could not work directly with Django's
+:ref:`AutoCompleteSelectWidget` works directly with Django's
 `ModelChoiceField <https://docs.djangoproject.com/en/1.3/ref/forms/fields/#modelchoicefield>`_.
-Starting with 0.4 you can simply replace the widget without replacing the entire field.
+You can simply replace the widget without replacing the entire field.
 
     .. code-block:: python
 
@@ -65,11 +61,9 @@ AutoComboboxSelectWidget
 
 Similar to :ref:`AutoCompleteSelectWidget` but has a button to reveal all options.
 
-.. versionadded:: 0.4
-
-Prior to 0.4 :ref:`AutoComboboxSelectWidget` could not work directly with Django's
+:ref:`AutoComboboxSelectWidget` works directly with Django's
 `ModelChoiceField <https://docs.djangoproject.com/en/1.3/ref/forms/fields/#modelchoicefield>`_.
-Starting with 0.4 you can simply replace the widget without replacing the entire field.
+You can simply replace the widget without replacing the entire field.
 
     .. code-block:: python
 

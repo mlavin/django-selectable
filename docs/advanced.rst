@@ -61,8 +61,6 @@ most common way to use this would be in the form ``__init__``.
                 super(FruitForm, self).__init__(*args, **kwargs)
                 self.fields['autocomplete'].widget.update_query_parameters({'foo': 'bar'})
 
-.. versionadded:: 0.4
-
 You can also pass the query parameters into the widget using the ``query_params``
 keyword argument. It depends on your use case as to whether the parameters are
 know when the form is defined or when an instance of the form is created.
