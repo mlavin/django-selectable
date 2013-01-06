@@ -4,6 +4,7 @@ Mark Lavin
 
 The following people who have contributed to django-selectable:
 
+Augusto Men
 @dc
 Colin Copeland
 Sławomir Ehlert

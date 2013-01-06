@@ -1,6 +1,18 @@
 Release Notes
 ==================
 
+v0.7.0 (Released TBD)
+--------------------------------------
+
+
+- Improved the scope of ``prepareQuery`` and ``formatLabel`` options. Not fully backwards compatible. Thanks to Augusto Men.
+
+
+Bug Fixes
+_________________
+
+- Fix bug with matching hidden input when the name contains '_1'. Thanks to Augusto Men for the report and fix.
+
 
 v0.6.2 (Released 2012-11-07)
 --------------------------------------
