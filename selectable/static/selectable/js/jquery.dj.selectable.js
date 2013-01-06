@@ -133,7 +133,7 @@
                 var now = new Date().getTime();
                 var query = {term: request.term, timestamp: now};
                 if (self.options.prepareQuery) {
-                    self.options.prepareQuery.assign(self, [query]);
+                    self.options.prepareQuery.apply(self, [query]);
                 }
                 var page = $(input).data("page");
                 if (page) {
@@ -188,7 +188,7 @@
                 highlights term matches and handles pagination. */
                 var label = item.label;
                 if (self.options.formatLabel) {
-                    label = self.options.formatLabel.assign(self, [label, item]);
+                    label = self.options.formatLabel.apply(self, [label, item]);
                 }
                 if (self.options.highlightMatch && this.term) {
                     var re = new RegExp("(?![^&;]+;)(?!<[^<>]*)(" +
