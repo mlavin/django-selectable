@@ -216,7 +216,7 @@
                 $(input).data('page', null);
                 ul.zIndex(this.element.zIndex() + 1);
                 this._renderMenu(ul, items);
-                // jQuery UI menu does not define deactivate 
+                // jQuery UI menu does not define deactivate
                 if (this.menu.deactivate) this.menu.deactivate();
                 this.menu.refresh();
                 // size and position menu
@@ -272,7 +272,7 @@
         $(":input[data-selectable-type=combobox]", context).djselectable();
         $(":input[data-selectable-type=hidden]", context).each(function (i, elem) {
             var hiddenName = $(elem).attr('name');
-            var textName = hiddenName.replace(new RegExp('_1$') '_0');
+            var textName = hiddenName.replace(new RegExp('_1$'), '_0');
             $(":input[name=" + textName + "][data-selectable-url]").bind(
                 "autocompletechange autocompleteselect",
                 function (event, ui) {
