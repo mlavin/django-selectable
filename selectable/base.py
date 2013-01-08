@@ -1,5 +1,6 @@
 "Base classes for lookup creation."
 
+import json
 import operator
 import re
 
@@ -9,7 +10,6 @@ from django.core.urlresolvers import reverse
 from django.core.serializers.json import DjangoJSONEncoder
 from django.http import HttpResponse
 from django.db.models import Q
-from django.utils import simplejson as json
 from django.utils.encoding import smart_unicode
 from django.utils.html import conditional_escape
 from django.utils.translation import ugettext as _
