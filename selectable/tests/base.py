@@ -1,5 +1,6 @@
 import random
 import string
+from xml.dom.minidom import parseString
 
 from django.conf import settings
 from django.core.urlresolvers import reverse
@@ -15,6 +16,23 @@ __all__ = (
     'MultiFieldLookupTestCase',
     'LookupEscapingTestCase',
 )
+
+
+def as_xml(html):
+    "Convert HTML portion to minidom node."
+    return parseString('<root>%s</root>' % html)
+
+
+def parsed_inputs(html):
+    "Returns a dictionary mapping name --> node of inputs found in the HTML."
+    node = as_xml(html)
+    inputs = {}
+    for field in node.getElementsByTagName('input'):
+        name = dict(field.attributes.items())['name']
+        current = inputs.get(name, [])
+        current.append(field)
+        inputs[name] = current
+    return inputs
 
 
 class PatchSettingsMixin(object):

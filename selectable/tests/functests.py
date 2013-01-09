@@ -7,7 +7,7 @@ from django import forms
 from selectable.forms import AutoCompleteSelectField, AutoCompleteSelectMultipleField
 from selectable.forms import AutoCompleteSelectWidget, AutoComboboxSelectWidget
 from selectable.tests import ManyThing, OtherThing, ThingLookup
-from selectable.tests.base import BaseSelectableTestCase
+from selectable.tests.base import BaseSelectableTestCase, parsed_inputs
 
 
 __all__ = (
@@ -75,24 +75,26 @@ class FuncAutoCompleteSelectTestCase(BaseSelectableTestCase):
         form = OtherThingForm(data=data)
         self.assertFalse(form.is_valid(), u'Form should not be valid')
         rendered_form = form.as_p()
+        inputs = parsed_inputs(rendered_form)
         # Selected text should be populated
-        thing_0 = 'name="thing_0" value="%s"' % self.test_thing.name
-        self.assertTrue(thing_0 in rendered_form, u"Didn't render selected text.")
+        thing_0 = inputs['thing_0'][0]
+        self.assertEqual(thing_0.attributes['value'].value, self.test_thing.name)
         # Selected pk should be populated
-        thing_1 = 'name="thing_1" value="%s"' % self.test_thing.pk
-        self.assertTrue(thing_1 in rendered_form, u"Didn't render selected pk.")
+        thing_1 = inputs['thing_1'][0]
+        self.assertEqual(int(thing_1.attributes['value'].value), self.test_thing.pk)
 
     def test_populate_from_model(self):
         "Populate from existing model."
         other_thing = OtherThing.objects.create(thing=self.test_thing, name='a')
         form = OtherThingForm(instance=other_thing)
         rendered_form = form.as_p()
+        inputs = parsed_inputs(rendered_form)
         # Selected text should be populated
-        thing_0 = 'name="thing_0" value="%s"' % self.test_thing.name
-        self.assertTrue(thing_0 in rendered_form, u"Didn't render selected text.")
+        thing_0 = inputs['thing_0'][0]
+        self.assertEqual(thing_0.attributes['value'].value, self.test_thing.name)
         # Selected pk should be populated
-        thing_1 = 'name="thing_1" value="%s"' % self.test_thing.pk
-        self.assertTrue(thing_1 in rendered_form, u"Didn't render selected pk.")
+        thing_1 = inputs['thing_1'][0]
+        self.assertEqual(int(thing_1.attributes['value'].value), self.test_thing.pk)
 
 
 class SelectWidgetForm(forms.ModelForm):
