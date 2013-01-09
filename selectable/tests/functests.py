@@ -78,12 +78,10 @@ class FuncAutoCompleteSelectTestCase(BaseSelectableTestCase):
         inputs = parsed_inputs(rendered_form)
         # Selected text should be populated
         thing_0 = inputs['thing_0'][0]
-        attributes = dict(thing_0.attributes.items())
         self.assertEqual(thing_0.attributes['value'].value, self.test_thing.name)
         # Selected pk should be populated
         thing_1 = inputs['thing_1'][0]
-        attributes = dict(thing_1.attributes.items())
-        self.assertEqual(thing_1.attributes['value'].value, str(self.test_thing.pk))
+        self.assertEqual(int(thing_1.attributes['value'].value), self.test_thing.pk)
 
     def test_populate_from_model(self):
         "Populate from existing model."
@@ -93,12 +91,10 @@ class FuncAutoCompleteSelectTestCase(BaseSelectableTestCase):
         inputs = parsed_inputs(rendered_form)
         # Selected text should be populated
         thing_0 = inputs['thing_0'][0]
-        attributes = dict(thing_0.attributes.items())
         self.assertEqual(thing_0.attributes['value'].value, self.test_thing.name)
         # Selected pk should be populated
         thing_1 = inputs['thing_1'][0]
-        attributes = dict(thing_1.attributes.items())
-        self.assertEqual(thing_1.attributes['value'].value, str(self.test_thing.pk))
+        self.assertEqual(int(thing_1.attributes['value'].value), self.test_thing.pk)
 
 
 class SelectWidgetForm(forms.ModelForm):
