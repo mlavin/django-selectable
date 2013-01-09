@@ -1,7 +1,8 @@
+import json
+
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseNotFound, HttpResponseServerError
-from django.utils import simplejson as json
 
 from selectable.tests import ThingLookup
 from selectable.tests.base import BaseSelectableTestCase, PatchSettingsMixin
