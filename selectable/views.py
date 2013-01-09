@@ -1,6 +1,4 @@
-from django.core.serializers import json
 from django.http import HttpResponse, Http404
-from django.utils import simplejson
 
 from selectable.registry import registry
 
