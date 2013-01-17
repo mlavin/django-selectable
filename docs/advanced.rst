@@ -140,8 +140,8 @@ is included in the example project.
 Detecting Client Side Changes
 ____________________________________________
 
-Our previous example made us of detecting changes to the selection on the client
-side to pass new parameters to the lookup. Since django-selectable is built on top of the jQuery UI 
+The previous example detected selection changes on the client side to allow passing 
+parameters to the lookup. Since django-selectable is built on top of the jQuery UI 
 `Autocomplete plug-in <http://jqueryui.com/demos/autocomplete/>`_, the widgets
 expose the events defined by the plugin.
 
