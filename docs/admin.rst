@@ -51,14 +51,14 @@ In `admin.py` we will define the form and associate it with the `FarmAdmin`.
     .. literalinclude:: ../example/core/admin.py
         :pyobject: FarmAdmin
 
-You'll note this form also for new users to be created and associated with the
-farm if no user is found matching the given name. To make use of this feature we
+You'll note this form also allows new users to be created and associated with the
+farm, if no user is found matching the given name. To make use of this feature we
 need to add ``owner`` to the exclude so that it will pass model validation. Unfortunately
 that means we must set the owner manual in the save and in the initial data because
 the ``ModelForm`` will no longer do this for you. Since ``fruit`` does not allow new
 items you'll see these steps are not necessary.
 
-The django-selectable widgets are compatitible with the add anther popup in the
+The django-selectable widgets are compatitible with the add another popup in the
 admin. It's that little green plus sign that appears next to ``ForeignKey`` or
 ``ManyToManyField`` items. This makes django-selectable a user friendly replacement
 for the `ModelAdmin.raw_id_fields <https://docs.djangoproject.com/en/1.3/ref/contrib/admin/#django.contrib.admin.ModelAdmin.raw_id_fields>`_ 
