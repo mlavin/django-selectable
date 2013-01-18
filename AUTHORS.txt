@@ -4,6 +4,7 @@ Mark Lavin
 
 The following people who have contributed to django-selectable:
 
+Michael Manfre
 Luke Plant
 Augusto Men
 @dc
