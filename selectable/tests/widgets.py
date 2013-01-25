@@ -29,6 +29,28 @@ class BaseWidgetTestCase(BaseSelectableTestCase):
         widget = self.get_widget_instance()
         self.assertEqual(widget.lookup_class, self.__class__.lookup_cls)
 
+    def test_dotted_path(self):
+        """
+        Ensure lookup_class can be imported from a dotted path.
+        """
+        dotted_path = '.'.join([self.__class__.lookup_cls.__module__, self.__class__.lookup_cls.__name__])
+        widget = self.__class__.widget_cls(dotted_path)
+        self.assertEqual(widget.lookup_class, self.__class__.lookup_cls)
+
+    def test_invalid_dotted_path(self):
+        """
+        An invalid lookup_class dotted path should raise an ImportError.
+        """
+        with self.assertRaises(ImportError):
+            self.__class__.widget_cls('this.is.an.invalid.path')
+
+    def test_dotted_path_wrong_type(self):
+        """
+        lookup_class must be a subclass of LookupBase.
+        """
+        dotted_path = 'selectable.forms.widgets.AutoCompleteWidget'
+        with self.assertRaises(TypeError):
+            self.__class__.widget_cls(dotted_path)
 
 class AutoCompleteWidgetTestCase(BaseWidgetTestCase):
     widget_cls = widgets.AutoCompleteWidget
@@ -42,7 +64,7 @@ class AutoCompleteWidgetTestCase(BaseWidgetTestCase):
         self.assertTrue('data-selectable-allow-new' in attrs)
 
     def test_update_query_parameters(self):
-        params = {'active': 1} 
+        params = {'active': 1}
         widget = self.get_widget_instance()
         widget.update_query_parameters(params)
         attrs = widget.build_attrs()
@@ -50,7 +72,7 @@ class AutoCompleteWidgetTestCase(BaseWidgetTestCase):
         parse = urlparse(url)
         query = parse.query
         self.assertEqual(query, urlencode(params))
-        
+
     def test_limit_paramter(self):
         widget = self.get_widget_instance(limit=10)
         attrs = widget.build_attrs()
@@ -60,7 +82,7 @@ class AutoCompleteWidgetTestCase(BaseWidgetTestCase):
         self.assertTrue('limit=10' in query)
 
     def test_initial_query_parameters(self):
-        params = {'active': 1} 
+        params = {'active': 1}
         widget = self.get_widget_instance(query_params=params)
         attrs = widget.build_attrs()
         url = attrs['data-selectable-url']
@@ -89,7 +111,7 @@ class AutoCompleteSelectWidgetTestCase(BaseWidgetTestCase):
         self.assertEqual(attrs['data-selectable-type'], 'hidden')
 
     def test_update_query_parameters(self):
-        params = {'active': 1} 
+        params = {'active': 1}
         widget = self.get_widget_instance()
         widget.update_query_parameters(params)
         sub_widget = widget.widgets[0]
@@ -109,7 +131,7 @@ class AutoCompleteSelectWidgetTestCase(BaseWidgetTestCase):
         self.assertTrue('limit=10' in query)
 
     def test_initial_query_parameters(self):
-        params = {'active': 1} 
+        params = {'active': 1}
         widget = self.get_widget_instance(query_params=params)
         sub_widget = widget.widgets[0]
         attrs = sub_widget.build_attrs()
@@ -131,7 +153,7 @@ class AutoComboboxWidgetTestCase(BaseWidgetTestCase):
         self.assertTrue('data-selectable-allow-new' in attrs)
 
     def test_update_query_parameters(self):
-        params = {'active': 1} 
+        params = {'active': 1}
         widget = self.get_widget_instance()
         widget.update_query_parameters(params)
         attrs = widget.build_attrs()
@@ -149,7 +171,7 @@ class AutoComboboxWidgetTestCase(BaseWidgetTestCase):
         self.assertTrue('limit=10' in query)
 
     def test_initial_query_parameters(self):
-        params = {'active': 1} 
+        params = {'active': 1}
         widget = self.get_widget_instance(query_params=params)
         attrs = widget.build_attrs()
         url = attrs['data-selectable-url']
@@ -178,7 +200,7 @@ class AutoComboboxSelectWidgetTestCase(BaseWidgetTestCase):
         self.assertEqual(attrs['data-selectable-type'], 'hidden')
 
     def test_update_query_parameters(self):
-        params = {'active': 1} 
+        params = {'active': 1}
         widget = self.get_widget_instance()
         widget.update_query_parameters(params)
         sub_widget = widget.widgets[0]
@@ -198,7 +220,7 @@ class AutoComboboxSelectWidgetTestCase(BaseWidgetTestCase):
         self.assertTrue('limit=10' in query)
 
     def test_initial_query_parameters(self):
-        params = {'active': 1} 
+        params = {'active': 1}
         widget = self.get_widget_instance(query_params=params)
         sub_widget = widget.widgets[0]
         attrs = sub_widget.build_attrs()
@@ -271,7 +293,7 @@ class AutoCompleteSelectMultipleWidgetTestCase(BaseWidgetTestCase):
         self.assertListEqual(found_values, [t1.pk, t2.pk])
 
     def test_update_query_parameters(self):
-        params = {'active': 1} 
+        params = {'active': 1}
         widget = self.get_widget_instance()
         widget.update_query_parameters(params)
         sub_widget = widget.widgets[0]
@@ -291,7 +313,7 @@ class AutoCompleteSelectMultipleWidgetTestCase(BaseWidgetTestCase):
         self.assertTrue('limit=10' in query)
 
     def test_initial_query_parameters(self):
-        params = {'active': 1} 
+        params = {'active': 1}
         widget = self.get_widget_instance(query_params=params)
         sub_widget = widget.widgets[0]
         attrs = sub_widget.build_attrs()
@@ -364,7 +386,7 @@ class AutoComboboxSelectMultipleWidgetTestCase(BaseWidgetTestCase):
         self.assertListEqual(found_values, [t1.pk, t2.pk])
 
     def test_update_query_parameters(self):
-        params = {'active': 1} 
+        params = {'active': 1}
         widget = self.get_widget_instance()
         widget.update_query_parameters(params)
         sub_widget = widget.widgets[0]
@@ -384,7 +406,7 @@ class AutoComboboxSelectMultipleWidgetTestCase(BaseWidgetTestCase):
         self.assertTrue('limit=10' in query)
 
     def test_initial_query_parameters(self):
-        params = {'active': 1} 
+        params = {'active': 1}
         widget = self.get_widget_instance(query_params=params)
         sub_widget = widget.widgets[0]
         attrs = sub_widget.build_attrs()

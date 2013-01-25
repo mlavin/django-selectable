@@ -5,6 +5,7 @@ from django.utils.http import urlencode
 from django.utils.encoding import force_unicode
 from django.utils.safestring import mark_safe
 
+from selectable.forms.base import import_lookup_class
 
 __all__ = (
     'AutoCompleteWidget',
@@ -31,7 +32,7 @@ class SelectableMediaMixin(object):
 class AutoCompleteWidget(forms.TextInput, SelectableMediaMixin):
 
     def __init__(self, lookup_class, *args, **kwargs):
-        self.lookup_class = lookup_class
+        self.lookup_class = import_lookup_class(lookup_class)
         self.allow_new = kwargs.pop('allow_new', False)
         self.qs = kwargs.pop('query_params', {})
         self.limit = kwargs.pop('limit', None)
@@ -62,7 +63,7 @@ class SelectableMultiWidget(forms.MultiWidget):
 class AutoCompleteSelectWidget(SelectableMultiWidget, SelectableMediaMixin):
 
     def __init__(self, lookup_class, *args, **kwargs):
-        self.lookup_class = lookup_class
+        self.lookup_class = import_lookup_class(lookup_class)
         self.allow_new = kwargs.pop('allow_new', False)
         self.limit = kwargs.pop('limit', None)
         query_params = kwargs.pop('query_params', {})
@@ -106,7 +107,7 @@ class AutoComboboxWidget(AutoCompleteWidget, SelectableMediaMixin):
 class AutoComboboxSelectWidget(SelectableMultiWidget, SelectableMediaMixin):
 
     def __init__(self, lookup_class, *args, **kwargs):
-        self.lookup_class = lookup_class
+        self.lookup_class = import_lookup_class(lookup_class)
         self.allow_new = kwargs.pop('allow_new', False)
         self.limit = kwargs.pop('limit', None)
         query_params = kwargs.pop('query_params', {})
@@ -142,7 +143,7 @@ class AutoComboboxSelectWidget(SelectableMultiWidget, SelectableMediaMixin):
 class LookupMultipleHiddenInput(forms.MultipleHiddenInput):
 
     def __init__(self, lookup_class, *args, **kwargs):
-        self.lookup_class = lookup_class
+        self.lookup_class = import_lookup_class(lookup_class)
         super(LookupMultipleHiddenInput, self).__init__(*args, **kwargs)
 
     def render(self, name, value, attrs=None, choices=()):
@@ -177,7 +178,7 @@ class LookupMultipleHiddenInput(forms.MultipleHiddenInput):
 class AutoCompleteSelectMultipleWidget(SelectableMultiWidget, SelectableMediaMixin):
 
     def __init__(self, lookup_class, *args, **kwargs):
-        self.lookup_class = lookup_class
+        self.lookup_class = import_lookup_class(lookup_class)
         self.limit = kwargs.pop('limit', None)
         position = kwargs.pop('position', 'bottom')
         attrs = {
@@ -207,7 +208,7 @@ class AutoCompleteSelectMultipleWidget(SelectableMultiWidget, SelectableMediaMix
 class AutoComboboxSelectMultipleWidget(SelectableMultiWidget, SelectableMediaMixin):
 
     def __init__(self, lookup_class, *args, **kwargs):
-        self.lookup_class = lookup_class
+        self.lookup_class = import_lookup_class(lookup_class)
         self.limit = kwargs.pop('limit', None)
         position = kwargs.pop('position', 'bottom')
         attrs = {

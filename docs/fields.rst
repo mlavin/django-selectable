@@ -15,8 +15,8 @@ argument.
 
 AutoCompleteSelectField
 --------------------------------------
-    
-Field tied to :ref:`AutoCompleteSelectWidget` to bind the selection to the form and  
+
+Field tied to :ref:`AutoCompleteSelectWidget` to bind the selection to the form and
 create new items, if allowed. The ``allow_new`` keyword argument (default: ``False``)
 which determines if the field allows new items. This field cleans to a single item.
 
@@ -24,6 +24,14 @@ which determines if the field allows new items. This field cleans to a single it
         :start-after: # AutoCompleteSelectField (no new items)
         :end-before: # AutoCompleteSelectField (allows new items)
 
+
+.. Note::
+
+	`lookup_class` may also be a dotted path.
+
+	.. code-block:: python
+
+		selectable.AutoCompleteSelectField(lookup_class='core.lookups.FruitLookup')
 
 .. _AutoCompleteSelectMultipleField:
 

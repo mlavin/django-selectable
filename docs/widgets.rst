@@ -1,11 +1,11 @@
 Widgets
 ==========
 
-Below are the custom widgets defined by Django-Selectable. All widgets take the 
+Below are the custom widgets defined by Django-Selectable. All widgets take the
 lookup class as the first required argument.
 
 These widgets all support a ``query_params`` keyword argument which is used to pass
-additional query parameters to the lookup search. See the section on 
+additional query parameters to the lookup search. See the section on
 :ref:`Adding Parameters on the Server Side <server-side-parameters>` for more
 information.
 
@@ -18,7 +18,6 @@ AutoCompleteWidget
 Basic widget for auto-completing text. The widget returns the item value as defined
 by the lookup ``get_item_value``. If the ``allow_new`` keyword argument is passed as
 true it will allow the user to type any text they wish.
-
 
 .. _AutoComboboxWidget:
 
@@ -52,6 +51,15 @@ You can simply replace the widget without replacing the entire field.
                 }
 
 The one catch is that you must use ``allow_new=False`` which is the default.
+
+
+.. Note::
+
+    `lookup_class` may also be a dotted path.
+
+    .. code-block:: python
+
+         widget = selectable.AutoCompleteWidget(lookup_class='core.lookups.FruitLookup')
 
 
 .. _AutoComboboxSelectWidget:

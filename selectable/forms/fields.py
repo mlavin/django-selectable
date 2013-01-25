@@ -3,6 +3,7 @@ from django.core.exceptions import ValidationError
 from django.core.validators import EMPTY_VALUES
 from django.utils.translation import ugettext_lazy as _
 
+from selectable.forms.base import import_lookup_class
 from selectable.forms.widgets import AutoCompleteSelectWidget
 from selectable.forms.widgets import AutoCompleteSelectMultipleWidget
 
@@ -20,7 +21,7 @@ class AutoCompleteSelectField(forms.Field):
     }
 
     def __init__(self, lookup_class, *args, **kwargs):
-        self.lookup_class = lookup_class
+        self.lookup_class = import_lookup_class(lookup_class)
         self.allow_new = kwargs.pop('allow_new', False)
         self.limit = kwargs.pop('limit', None)
         widget = kwargs.get('widget', self.widget) or self.widget
@@ -44,7 +45,7 @@ class AutoCompleteSelectField(forms.Field):
                         raise ValidationError(self.error_messages['invalid_choice'])
                     else:
                         return None
-                value = lookup.create_item(value[0])  
+                value = lookup.create_item(value[0])
             else:
                 value = lookup.get_item(value[1])
                 if value is None:
@@ -64,7 +65,7 @@ class AutoCompleteSelectMultipleField(forms.Field):
     }
 
     def __init__(self, lookup_class, *args, **kwargs):
-        self.lookup_class = lookup_class
+        self.lookup_class = import_lookup_class(lookup_class)
         self.limit = kwargs.pop('limit', None)
         widget = kwargs.get('widget', self.widget) or self.widget
         if isinstance(widget, type):
