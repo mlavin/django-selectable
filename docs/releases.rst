@@ -6,6 +6,7 @@ v0.7.0 (Released TBD)
 
 
 - Improved the scope of ``prepareQuery`` and ``formatLabel`` options. Not fully backwards compatible. Thanks to Augusto Men.
+- Allow passing the Python path string in place of the lookup class to the fields and widgets. Thanks to Michael Manfre.
 
 
 Bug Fixes

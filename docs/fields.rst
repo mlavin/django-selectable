@@ -25,13 +25,14 @@ which determines if the field allows new items. This field cleans to a single it
         :end-before: # AutoCompleteSelectField (allows new items)
 
 
-.. Note::
+.. versionadded:: 0.7
 
-	`lookup_class` may also be a dotted path.
+`lookup_class`` may also be a dotted path.
 
-	.. code-block:: python
+    .. code-block:: python
 
-		selectable.AutoCompleteSelectField(lookup_class='core.lookups.FruitLookup')
+	    selectable.AutoCompleteSelectField(lookup_class='core.lookups.FruitLookup')
+
 
 .. _AutoCompleteSelectMultipleField:
 

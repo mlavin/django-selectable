@@ -53,9 +53,9 @@ You can simply replace the widget without replacing the entire field.
 The one catch is that you must use ``allow_new=False`` which is the default.
 
 
-.. Note::
+.. versionadded:: 0.7
 
-    `lookup_class` may also be a dotted path.
+``lookup_class`` may also be a dotted path.
 
     .. code-block:: python
 
