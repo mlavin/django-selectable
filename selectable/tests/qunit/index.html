@@ -15,7 +15,7 @@
     $(document).ready(function(){
         module("Text Autocomplete");
         test("bind input", function() {
-            bindSelectables('#text');            
+            bindSelectables('#text');
             var input = $('#id_autocomplete');
             ok(input.data('djselectable'), "input should be bound with djselecable widget");
         });
@@ -95,7 +95,7 @@
             ok(input.data('djselectable'), "input should be bound with djselecable widget");
             ok(deck.hasClass('selectable-deck'), 'deck should have selectable-deck class');
             equal($('li', deck).length, 0, 'no initial deck items');
-        }); 
+        });
         test("item selection", function() {
             bindSelectables('#multi-select-initial');
             var input = $('#id_multiselect-initial_0');
@@ -124,7 +124,7 @@
             equal($('li', deck).length, 0, 'no initial deck items');
             var button = $('button', '#multi-combo');
             equal(button.attr('title'), 'Show All Items', "combobox button should be created");
-        }); 
+        });
         test("item selection", function() {
             bindSelectables('#multi-combo-initial');
             var input = $('#id_multicombo-initial_0');
@@ -155,6 +155,20 @@
             input.djselectable('select', item);
             equal(count, 1, "autocompleteselect should fire once when manually selected.");
         });
+
+        test("manual select double bind", function() {
+            bindSelectables('#manual-event-double-bind');
+            bindSelectables('#manual-event-double-bind');
+            var input = $('#id_manualevent_double_bind');
+            var count = 0;
+            input.bind('autocompleteselect', function(e, item) {
+                count = count + 1;
+            });
+            var item = {id: "1", value: 'foo'};
+            input.djselectable('select', item);
+            equal(count, 1, "autocompleteselect should fire once when manually selected.");
+        });
+
         asyncTest("autocompleteselect", function() {
             expect(1);
             bindSelectables('#select-event');
@@ -174,9 +188,34 @@
                 var enter = jQuery.Event("keydown");
                 enter.keyCode = $.ui.keyCode.ENTER;
                 input.trigger(enter);
-		        equal(count, 1, "autocompleteselect should only fire once.");
+                equal(count, 1, "autocompleteselect should only fire once.");
                 start();
-	        }, 500);
+            }, 500);
+        });
+
+        asyncTest("autocompleteselect", function() {
+            expect(1);
+            bindSelectables('#select-event-double-bind');
+            bindSelectables('#select-event-double-bind');
+            var input = $('#id_selectevent_double_bind');
+            var count = 0;
+            input.bind('autocompleteselect', function(e, item) {
+                count = count + 1;
+            });
+            // Change source to prevent remote calls
+            input.autocomplete("option", "source", ["javascript", "python"]);
+            // Simulate typing in and selecting the first item.
+            input.val("ja").keydown();
+            setTimeout(function() {
+                var down = jQuery.Event("keydown");
+                down.keyCode = $.ui.keyCode.DOWN;
+                input.trigger(down);
+                var enter = jQuery.Event("keydown");
+                enter.keyCode = $.ui.keyCode.ENTER;
+                input.trigger(enter);
+                equal(count, 1, "autocompleteselect should only fire once.");
+                start();
+            }, 500);
         });
     });
     </script>
@@ -233,8 +272,14 @@
         <div id="manual-event">
             <input name="manualevent" data-selectable-type="text" data-selectable-allow-new="false" data-selectable-url="/_/core-fruitlookup/" type="text" id="id_manualevent" />
         </div>
+        <div id="manual-event-double-bind">
+            <input name="manualevent" data-selectable-type="text" data-selectable-allow-new="false" data-selectable-url="/_/core-fruitlookup/" type="text" id="id_manualevent_double_bind" />
+        </div>
         <div id="select-event">
             <input name="selectevent" data-selectable-type="text" data-selectable-allow-new="false" data-selectable-url="/_/core-fruitlookup/" type="text" id="id_selectevent" />
+        </div>
+        <div id="select-event-double-bind">
+            <input name="selectevent" data-selectable-type="text" data-selectable-allow-new="false" data-selectable-url="/_/core-fruitlookup/" type="text" id="id_selectevent_double_bind" />
         </div>
     </div>
 </body>
