@@ -153,7 +153,7 @@
                 $input.removeClass("ui-corner-all")
                 .addClass("ui-corner-left ui-combo-input");
                 // Add show all items button
-                $("<button>&nbsp;</button>").attr("tabIndex", -1).attr("title", "Show All Items")
+                $("<a>").text("&nbsp;").attr("tabIndex", -1).attr("title", "Show All Items")
                 .insertAfter($input)
                 .button({
                     icons: {
