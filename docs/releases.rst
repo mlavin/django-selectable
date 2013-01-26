@@ -12,6 +12,7 @@ be updated to reference the ``djselectable`` plugin.
 
 - Improved the scope of ``prepareQuery`` and ``formatLabel`` options. Not fully backwards compatible. Thanks to Augusto Men.
 - Allow passing the Python path string in place of the lookup class to the fields and widgets. Thanks to Michael Manfre.
+- Allow passing JS plugin options through the widget ``attrs`` option. Thanks to Felipe Prenholato.
 
 Bug Fixes
 _________________
