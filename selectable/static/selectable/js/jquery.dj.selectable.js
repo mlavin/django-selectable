@@ -8,13 +8,13 @@
  *   - jQuery 1.4.4+
  *   - jQuery UI 1.8 widget factory
  *
- * Copyright 2010-2012, Mark Lavin
+ * Copyright 2010-2013, Mark Lavin
  * BSD License
  *
 */
 (function ($) {
 
-	$.widget("ui.djselectable", {
+	$.widget("ui.djselectable", $.ui.autocomplete, {
 
         options: {
             removeIcon: "ui-icon-close",
@@ -79,63 +79,111 @@
             Event is the original select event if there is one.
             Event should not be passed if triggered manually.
             */
-            var self = this,
-            input = this.element;
-            $(input).removeClass('ui-state-error');
+            var $input = $(this.element);
+            $input.removeClass('ui-state-error');
+            this._setHidden(item);
             if (item) {
-                if (self.allowMultiple) {
-                    $(input).val("");
-                    $(input).data("autocomplete").term = "";
-                    if ($(self.hiddenMultipleSelector + '[value="' + item.id + '"]').length === 0) {
+                if (this.allowMultiple) {
+                    $input.val("");
+                    this.term = "";
+                    if ($(this.hiddenMultipleSelector + '[value="' + item.id + '"]').length === 0) {
                         var newInput = $('<input />', {
                             'type': 'hidden',
-                            'name': self.hiddenName,
+                            'name': this.hiddenName,
                             'value': item.id,
                             'title': item.value,
                             'data-selectable-type': 'hidden-multiple'
                         });
-                        $(input).after(newInput);
-                        self._addDeckItem(newInput);
+                        $input.after(newInput);
+                        this._addDeckItem(newInput);
                     }
                     return false;
                 } else {
-                    $(input).val(item.value);
+                    $input.val(item.value);
                     var ui = {item: item};
-                    if (typeof(event) === 'undefined' || event.type !== "autocompleteselect") {
-                        $(input).trigger('autocompleteselect', [ui ]);
+                    if (typeof(event) === 'undefined' || event.type !== "djselectableselect") {
+                        this.element.trigger("djselectableselect", [ui ]);
                     }
                 }
+            }
+        },
+
+        _setHidden: function (item) {
+            /* Set or clear single hidden input */
+            var $elem = $(this.hiddenSelector);
+            if (item && item.id) {
+                $elem.val(item.id);
+            } else {
+                $elem.val("");
             }
         },
 
         _create: function () {
             /* Initialize a new selectable widget */
             var self = this,
-            input = this.element,
-            data = $(input).data();
-            self.allowNew = data.selectableAllowNew || data['selectable-allow-new'];
-            self.allowMultiple = data.selectableMultiple || data['selectable-multiple'];
-            self.textName = $(input).attr('name');
-            self.hiddenName = self.textName.replace(new RegExp('_0$'), '_1');
-            self.hiddenSelector = ':input[data-selectable-type=hidden][name=' + self.hiddenName + ']';
-            self.hiddenMultipleSelector = ':input[data-selectable-type=hidden-multiple][name=' + self.hiddenName + ']';
-            if (self.allowMultiple) {
-                self.allowNew = false;
-                $(input).val("");
+            $input = $(this.element),
+            data = $input.data();
+            this.url = data.selectableUrl || data['selectable-url'];
+            this.allowNew = data.selectableAllowNew || data['selectable-allow-new'];
+            this.allowMultiple = data.selectableMultiple || data['selectable-multiple'];
+            this.textName = $input.attr('name');
+            this.hiddenName = this.textName.replace(new RegExp('_0$'), '_1');
+            this.hiddenSelector = ':input[data-selectable-type=hidden][name=' + this.hiddenName + ']';
+            this.hiddenMultipleSelector = ':input[data-selectable-type=hidden-multiple][name=' + this.hiddenName + ']';
+            this.selectableType = data.selectableType || data['selectable-type'];
+            if (this.allowMultiple) {
+                this.allowNew = false;
+                $input.val("");
                 this._initDeck();
             }
+            // Call super-create
+            // This could be replaced by this._super() with jQuery UI 1.9
+            $.ui.autocomplete.prototype._create.call(this);
+            $input.addClass("ui-widget ui-widget-content ui-corner-all");
+            // Additional work for combobox widgets
+            if (this.selectableType === 'combobox') {
+                // Change auto-complete options
+                this.option("delay", 0);
+                this.option("minLength", 0);
+                $input.removeClass("ui-corner-all")
+                .addClass("ui-corner-left ui-combo-input");
+                // Add show all items button
+                $("<button>&nbsp;</button>").attr("tabIndex", -1).attr("title", "Show All Items")
+                .insertAfter($input)
+                .button({
+                    icons: {
+                        primary: this.options.comboboxIcon
+                    },
+                    text: false
+                })
+                .removeClass("ui-corner-all")
+                .addClass("ui-corner-right ui-button-icon ui-combo-button")
+                .click(function (e) {
+                    e.preventDefault();
+                    // close if already visible
+                    if (self.widget().is(":visible")) {
+                        self.close();
+                    }
+                    // pass empty string as value to search for, displaying all results
+                    self.search("");
+                    $input.focus();
+                });
+            }
+        },
 
-            function dataSource(request, response) {
+        // Override the default source creation
+        _initSource: function () {
+            var self = this;
+            this.source = function dataSource(request, response) {
                 /* Custom data source to uses the lookup url with pagination
                 Adds hook for adjusting query parameters.
                 Includes timestamp to prevent browser caching the lookup. */
-                var url = data.selectableUrl || data['selectable-url'];
                 var now = new Date().getTime();
                 var query = {term: request.term, timestamp: now};
                 if (self.options.prepareQuery) {
                     self.options.prepareQuery.apply(self, [query]);
                 }
-                var page = $(input).data("page");
+                var page = $(self.element).data("page");
                 if (page) {
                     query.page = page;
                 }
@@ -152,114 +200,84 @@
                     }
                     return response(results);
                 }
-				$.getJSON(url, query, unwrapResponse);
+				$.getJSON(self.url, query, unwrapResponse);
+            };
+        },
+        // Override the default auto-complete render.
+        _renderItem: function (ul, item) {
+            /* Adds hook for additional formatting, allows HTML in the label,
+            highlights term matches and handles pagination. */
+            var label = item.label;
+            if (this.options.formatLabel) {
+                label = this.options.formatLabel.apply(this, [label, item]);
             }
-            // Create base auto-complete lookup
-            $(input).autocomplete({
-                source: dataSource,
-                change: function (event, ui) {
-                    $(input).removeClass('ui-state-error');
-                    if ($(input).val() && !ui.item) {
-                        if (!self.allowNew) {
-                            $(input).addClass('ui-state-error');
-                        }
-                    }
-                    if (self.allowMultiple && !$(input).hasClass('ui-state-error')) {
-                        $(input).val("");
-                        $(input).data("autocomplete").term = "";
-                    }
-                },
-                select: function (event, ui) {
-                    $(input).removeClass('ui-state-error');
-                    if (ui.item && ui.item.page) {
-                        // Set current page value
-                        $(input).data("page", ui.item.page);
-                        $('.selectable-paginator', self.menu).remove();
-                        // Search for next page of results
-                        $(input).autocomplete("search");
-                        return false;
-                    }
-                    return self.select(ui.item, event);
-                }
-            }).addClass("ui-widget ui-widget-content ui-corner-all");
-            // Override the default auto-complete render.
-            $(input).data("autocomplete")._renderItem = function (ul, item) {
-                /* Adds hook for additional formatting, allows HTML in the label,
-                highlights term matches and handles pagination. */
-                var label = item.label;
-                if (self.options.formatLabel) {
-                    label = self.options.formatLabel.apply(self, [label, item]);
-                }
-                if (self.options.highlightMatch && this.term) {
-                    var re = new RegExp("(?![^&;]+;)(?!<[^<>]*)(" +
-                    $.ui.autocomplete.escapeRegex(this.term) +
-                    ")(?![^<>]*>)(?![^&;]+;)", "gi");
-                    label = label.replace(re, "<span class='highlight'>$1</span>");
-                }
-                var li =  $("<li></li>")
-                    .data("item.autocomplete", item)
-                    .append($("<a></a>").append(label))
-                    .appendTo(ul);
-                if (item.page) {
-                    li.addClass('selectable-paginator');
-                }
-                return li;
-            };
-            // Override the default auto-complete suggest.
-            $(input).data("autocomplete")._suggest = function (items) {
-                /* Needed for handling pagination links */
-                var page = $(input).data('page');
-                var ul = this.menu.element;
-                if (!page) {
-                    ul.empty();
-                }
-                $(input).data('page', null);
-                ul.zIndex(this.element.zIndex() + 1);
-                this._renderMenu(ul, items);
-                // jQuery UI menu does not define deactivate
-                if (this.menu.deactivate) this.menu.deactivate();
-                this.menu.refresh();
-                // size and position menu
-                ul.show();
-                this._resizeMenu();
-                ul.position($.extend({of: this.element}, this.options.position));
-                if (this.options.autoFocus) {
-                    this.menu.next(new $.Event("mouseover"));
-                }
-            };
-            // Additional work for combobox widgets
-            var selectableType = data.selectableType || data['selectable-type'];
-            if (selectableType === 'combobox') {
-                // Change auto-complete options
-                $(input).autocomplete("option", {
-                    delay: 0,
-                    minLength: 0
-                })
-                .removeClass("ui-corner-all")
-                .addClass("ui-corner-left ui-combo-input");
-                // Add show all items button
-                $("<button>&nbsp;</button>").attr("tabIndex", -1).attr("title", "Show All Items")
-                .insertAfter($(input))
-                .button({
-                    icons: {
-                        primary: self.options.comboboxIcon
-                    },
-                    text: false
-                })
-                .removeClass("ui-corner-all")
-                .addClass("ui-corner-right ui-button-icon ui-combo-button")
-                .click(function () {
-                    // close if already visible
-                    if ($(input).autocomplete("widget").is(":visible")) {
-                        $(input).autocomplete("close");
-                        return false;
-                    }
-                    // pass empty string as value to search for, displaying all results
-                    $(input).autocomplete("search", "");
-                    $(input).focus();
+            if (this.options.highlightMatch && this.term) {
+                var re = new RegExp("(?![^&;]+;)(?!<[^<>]*)(" +
+                $.ui.autocomplete.escapeRegex(this.term) +
+                ")(?![^<>]*>)(?![^&;]+;)", "gi");
+                label = label.replace(re, "<span class='highlight'>$1</span>");
+            }
+            var li = $("<li></li>")
+                .data("item.autocomplete", item)
+                .append($("<a></a>").append(label))
+                .appendTo(ul);
+            if (item.page) {
+                li.addClass('selectable-paginator');
+            }
+            return li;
+        },
+        // Override the default auto-complete suggest.
+        _suggest: function (items) {
+            /* Needed for handling pagination links */
+            var page = $(this.element).data('page');
+            var ul = this.menu.element;
+            if (!page) {
+                ul.empty();
+            }
+            $(this.element).data('page', null);
+            ul.zIndex(this.element.zIndex() + 1);
+            this._renderMenu(ul, items);
+            // jQuery UI menu does not define deactivate
+            if (this.menu.deactivate) this.menu.deactivate();
+            this.menu.refresh();
+            // size and position menu
+            ul.show();
+            this._resizeMenu();
+            ul.position($.extend({of: this.element}, this.options.position));
+            if (this.options.autoFocus) {
+                this.menu.next(new $.Event("mouseover"));
+            }
+        },
+        // Override default trigger for additional change/select logic
+        _trigger: function (type, event, data) {
+            var $input = $(this.element);
+            if (type === "select") {
+                $input.removeClass('ui-state-error');
+                if (data.item && data.item.page) {
+                    // Set current page value
+                    $input.data("page", data.item.page);
+                    $('.selectable-paginator', this.menu).remove();
+                    // Search for next page of results
+                    this.search();
                     return false;
-                });
+                }
+                return this.select(data.item, event);
+            } else if (type === "change") {
+                $input.removeClass('ui-state-error');
+                this._setHidden(data.item);
+                if ($input.val() && !data.item) {
+                    if (!this.allowNew) {
+                        $input.addClass('ui-state-error');
+                    }
+                }
+                if (this.allowMultiple && !$input.hasClass('ui-state-error')) {
+                    $input.val("");
+                    this.term = "";
+                }
             }
+            // Call super trigger
+            // This could be replaced by this._super() with jQuery UI 1.9
+            return $.ui.autocomplete.prototype._trigger.apply(this, arguments);
         }
 	});
 
@@ -270,20 +288,6 @@
         */
         $(":input[data-selectable-type=text]", context).djselectable();
         $(":input[data-selectable-type=combobox]", context).djselectable();
-        $(":input[data-selectable-type=hidden]", context).each(function (i, elem) {
-            var hiddenName = $(elem).attr('name');
-            var textName = hiddenName.replace(new RegExp('_1$'), '_0');
-            $(":input[name=" + textName + "][data-selectable-url]").bind(
-                "autocompletechange autocompleteselect",
-                function (event, ui) {
-                    if (ui.item && ui.item.id) {
-                        $(elem).val(ui.item.id);
-                    } else {
-                        $(elem).val("");
-                    }
-                }
-            );
-        });
     };
 
     /* Monkey-patch Django's dynamic formset, if defined */
