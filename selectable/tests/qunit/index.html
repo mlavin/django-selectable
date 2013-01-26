@@ -148,12 +148,12 @@
             bindSelectables('#manual-event');
             var input = $('#id_manualevent');
             var count = 0;
-            input.bind('autocompleteselect', function(e, item) {
+            input.bind('djselectableselect', function(e, item) {
                 count = count + 1;
             });
             var item = {id: "1", value: 'foo'};
             input.djselectable('select', item);
-            equal(count, 1, "autocompleteselect should fire once when manually selected.");
+            equal(count, 1, "djselectableselect should fire once when manually selected.");
         });
 
         test("manual select double bind", function() {
@@ -161,24 +161,26 @@
             bindSelectables('#manual-event-double-bind');
             var input = $('#id_manualevent_double_bind');
             var count = 0;
-            input.bind('autocompleteselect', function(e, item) {
+            input.bind('djselectableselect', function(e, item) {
                 count = count + 1;
             });
             var item = {id: "1", value: 'foo'};
             input.djselectable('select', item);
-            equal(count, 1, "autocompleteselect should fire once when manually selected.");
+            equal(count, 1, "djselectableselect should fire once when manually selected.");
         });
 
-        asyncTest("autocompleteselect", function() {
+        asyncTest("djselectableselect", function() {
             expect(1);
             bindSelectables('#select-event');
             var input = $('#id_selectevent');
             var count = 0;
-            input.bind('autocompleteselect', function(e, item) {
+            input.bind('djselectableselect', function(e, item) {
                 count = count + 1;
             });
             // Change source to prevent remote calls
-            input.autocomplete("option", "source", ["javascript", "python"]);
+            input.data("djselectable").source = function (request, response) {
+                response($.ui.autocomplete.filter(["javascript", "python"], request.term));
+            };
             // Simulate typing in and selecting the first item.
             input.val("ja").keydown();
             setTimeout(function() {
@@ -188,22 +190,24 @@
                 var enter = jQuery.Event("keydown");
                 enter.keyCode = $.ui.keyCode.ENTER;
                 input.trigger(enter);
-                equal(count, 1, "autocompleteselect should only fire once.");
+                equal(count, 1, "djselectableselect should only fire once.");
                 start();
             }, 500);
         });
 
-        asyncTest("autocompleteselect", function() {
+        asyncTest("double bind djselectableselect", function() {
             expect(1);
             bindSelectables('#select-event-double-bind');
             bindSelectables('#select-event-double-bind');
             var input = $('#id_selectevent_double_bind');
             var count = 0;
-            input.bind('autocompleteselect', function(e, item) {
+            input.bind('djselectableselect', function(e, item) {
                 count = count + 1;
             });
             // Change source to prevent remote calls
-            input.autocomplete("option", "source", ["javascript", "python"]);
+            input.data("djselectable").source = function (request, response) {
+                response($.ui.autocomplete.filter(["javascript", "python"], request.term));
+            };
             // Simulate typing in and selecting the first item.
             input.val("ja").keydown();
             setTimeout(function() {
@@ -213,7 +217,7 @@
                 var enter = jQuery.Event("keydown");
                 enter.keyCode = $.ui.keyCode.ENTER;
                 input.trigger(enter);
-                equal(count, 1, "autocompleteselect should only fire once.");
+                equal(count, 1, "djselectableselect should only fire once.");
                 start();
             }, 500);
         });
