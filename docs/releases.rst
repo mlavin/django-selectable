@@ -17,7 +17,8 @@ be updated to reference the ``djselectable`` plugin.
 Bug Fixes
 _________________
 
-- Fix bug with matching hidden input when the name contains '_1'. Thanks to Augusto Men for the report and fix.
+- Fixed bug with matching hidden input when the name contains '_1'. Thanks to Augusto Men for the report and fix.
+- Fixed bug where the enter button would open the combobox options rather than submit the form. Thanks to Felipe Prenholato for the report.
 
 
 Backwards Incompatible Changes
@@ -25,6 +26,7 @@ ________________________________
 
 - The JS event namespace has changed from ``autocomplete`` to ``djselectable``.
 - ``data('autocomplete')`` is no longer available on the widgets on the client-side. Use ``data('djselectable')`` instead.
+- Combobox button was changed from a ``<button>`` to ``<a>``. Any customized styles you may have should be updated.
 
 
 v0.6.2 (Released 2012-11-07)
