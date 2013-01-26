@@ -1,3 +1,5 @@
+import json
+
 from django import forms
 from django.conf import settings
 from django.forms.util import flatatt
@@ -48,6 +50,8 @@ class AutoCompleteWidget(forms.TextInput, SelectableMediaMixin):
             self.qs['limit'] = self.limit
         if self.qs:
             url = '%s?%s' % (url, urlencode(self.qs))
+        if u'data-selectable-options' in attrs:
+            attrs[u'data-selectable-options'] = json.dumps(attrs[u'data-selectable-options'])
         attrs[u'data-selectable-url'] = url
         attrs[u'data-selectable-type'] = 'text'
         attrs[u'data-selectable-allow-new'] = str(self.allow_new).lower()
@@ -70,7 +74,8 @@ class AutoCompleteSelectWidget(SelectableMultiWidget, SelectableMediaMixin):
         widgets = [
             AutoCompleteWidget(
                 lookup_class, allow_new=self.allow_new,
-                limit=self.limit, query_params=query_params
+                limit=self.limit, query_params=query_params,
+                attrs=kwargs.get('attrs'),
             ),
             forms.HiddenInput(attrs={u'data-selectable-type': 'hidden'})
         ]
@@ -114,7 +119,8 @@ class AutoComboboxSelectWidget(SelectableMultiWidget, SelectableMediaMixin):
         widgets = [
             AutoComboboxWidget(
                 lookup_class, allow_new=self.allow_new,
-                limit=self.limit, query_params=query_params
+                limit=self.limit, query_params=query_params,
+                attrs=kwargs.get('attrs'),
             ),
             forms.HiddenInput(attrs={u'data-selectable-type': 'hidden'})
         ]
@@ -185,6 +191,7 @@ class AutoCompleteSelectMultipleWidget(SelectableMultiWidget, SelectableMediaMix
             u'data-selectable-multiple': 'true',
             u'data-selectable-position': position
         }
+        attrs.update(kwargs.get('attrs', {}))
         query_params = kwargs.pop('query_params', {})
         widgets = [
             AutoCompleteWidget(
@@ -215,6 +222,7 @@ class AutoComboboxSelectMultipleWidget(SelectableMultiWidget, SelectableMediaMix
             u'data-selectable-multiple': 'true',
             u'data-selectable-position': position
         }
+        attrs.update(kwargs.get('attrs', {}))
         query_params = kwargs.pop('query_params', {})
         widgets = [
             AutoComboboxWidget(
