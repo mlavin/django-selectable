@@ -122,7 +122,8 @@
             /* Initialize a new selectable widget */
             var self = this,
             $input = $(this.element),
-            data = $input.data();
+            data = $input.data(),
+            options;
             this.url = data.selectableUrl || data['selectable-url'];
             this.allowNew = data.selectableAllowNew || data['selectable-allow-new'];
             this.allowMultiple = data.selectableMultiple || data['selectable-multiple'];
@@ -135,6 +136,10 @@
                 this.allowNew = false;
                 $input.val("");
                 this._initDeck();
+            }
+            options = data.selectableOptions || data['selectable-options'];
+            if (options) {
+                this._setOptions(options);
             }
             // Call super-create
             // This could be replaced by this._super() with jQuery UI 1.9
