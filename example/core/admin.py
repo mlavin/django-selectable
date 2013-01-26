@@ -22,7 +22,7 @@ class FarmAdminForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(FarmAdminForm, self).__init__(*args, **kwargs)
         if self.instance and self.instance.pk and self.instance.owner:
-            self.initial['owner'] = self.instance.owner
+            self.initial['owner'] = self.instance.owner.pk
 
     def save(self, *args, **kwargs):
         owner = self.cleaned_data['owner']
