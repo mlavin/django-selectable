@@ -4,15 +4,26 @@ Release Notes
 v0.7.0 (Released TBD)
 --------------------------------------
 
+This release features a large refactor of the JS plugin used by the widgets. While this
+over makes the plugin more maintainable and allowed for some of the new features in this
+release, it does introduce a few incompatible changes. For the most part places where you
+might have previously used the ``autocomplete`` namespace/plugin, those references should
+be updated to reference the ``djselectable`` plugin.
 
 - Improved the scope of ``prepareQuery`` and ``formatLabel`` options. Not fully backwards compatible. Thanks to Augusto Men.
 - Allow passing the Python path string in place of the lookup class to the fields and widgets. Thanks to Michael Manfre.
-
 
 Bug Fixes
 _________________
 
 - Fix bug with matching hidden input when the name contains '_1'. Thanks to Augusto Men for the report and fix.
+
+
+Backwards Incompatible Changes
+________________________________
+
+- The JS event namespace has changed from ``autocomplete`` to ``djselectable``.
+- ``data('autocomplete')`` is no longer available on the widgets on the client-side. Use ``data('djselectable')`` instead.
 
 
 v0.6.2 (Released 2012-11-07)

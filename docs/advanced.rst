@@ -145,13 +145,19 @@ parameters to the lookup. Since django-selectable is built on top of the jQuery 
 `Autocomplete plug-in <http://jqueryui.com/demos/autocomplete/>`_, the widgets
 expose the events defined by the plugin.
 
-    - autocompletecreate
-    - autocompletesearch
-    - autocompleteopen
-    - autocompletefocus
-    - autocompleteselect
-    - autocompleteclose
-    - autocompletechange
+    - djselectablecreate
+    - djselectablesearch
+    - djselectableopen
+    - djselectablefocus
+    - djselectableselect
+    - djselectableclose
+    - djselectablechange
+
+.. note::
+
+    Prior to v0.7 these event names were under the ``autocomplete`` namespace. If you
+    are upgrading from a previous version and had customizations using these events
+    you should be sure to update the names.
 
 For the most part these event names should be self-explanatory. If you need additional
 detail you should refer to the `jQuery UI docs on these events <http://jqueryui.com/demos/autocomplete/#events>`_.
@@ -186,7 +192,7 @@ Submit On Selection
 --------------------------------------
 
 You might want to help your users by submitting the form once they have selected a valid
-item. To do this you simply need to listen for the ``autocompleteselect`` event. This
+item. To do this you simply need to listen for the ``djselectableselect`` event. This
 event is fired by the text input which has an index of 0. If your field is named ``my_field``
 then input to watch would be ``my_field_0`` such as:
 
@@ -194,7 +200,7 @@ then input to watch would be ``my_field_0`` such as:
 
         <script type="text/javascript">
             $(document).ready(function() {
-                $(':input[name=my_field_0]').bind('autocompleteselect', function(event, ui) {
+                $(':input[name=my_field_0]').bind('djselectableselect', function(event, ui) {
                     $(this).parents("form").submit();
                 });
             });
