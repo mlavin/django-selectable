@@ -156,9 +156,9 @@ class ModelLookup(LookupBase):
         item = None
         if value:
             try:
-                item = self.get_queryset().filter(pk=value)[0]
-            except IndexError:
-                pass
+                item = self.get_queryset().get(pk=value)
+            except (ValueError, self.model.DoesNotExist):
+                item = None
         return item
 
     def create_item(self, value):

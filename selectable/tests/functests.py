@@ -116,7 +116,7 @@ class FuncSelectModelChoiceTestCase(BaseSelectableTestCase):
         self.test_thing = self.create_thing()
 
     def test_valid_form(self):
-        "Valid form using an AutoCompleteSelectField."
+        "Valid form using an AutoCompleteSelectWidget."
         data = {
             'name': self.get_random_string(),
             'thing_0': self.test_thing.name, # Text input
@@ -124,6 +124,28 @@ class FuncSelectModelChoiceTestCase(BaseSelectableTestCase):
         }
         form = SelectWidgetForm(data=data)
         self.assertTrue(form.is_valid(), str(form.errors))
+
+    def test_missing_pk(self):
+        "Invalid form (missing required pk) using an AutoCompleteSelectWidget."
+        data = {
+            'name': self.get_random_string(),
+            'thing_0': self.test_thing.name, # Text input
+            'thing_1': u'', # Hidden input missing
+        }
+        form = SelectWidgetForm(data=data)
+        self.assertFalse(form.is_valid())
+        self.assertTrue('thing' in form.errors)
+
+    def test_invalid_pk(self):
+        "Invalid form (invalid pk value) using an AutoCompleteSelectWidget."
+        data = {
+            'name': self.get_random_string(),
+            'thing_0': self.test_thing.name, # Text input
+            'thing_1': u'XXX', # Hidden input doesn't match a PK
+        }
+        form = SelectWidgetForm(data=data)
+        self.assertFalse(form.is_valid())
+        self.assertTrue('thing' in form.errors)
 
 
 class ComboboxSelectWidgetForm(forms.ModelForm):
@@ -145,7 +167,7 @@ class FuncComboboxModelChoiceTestCase(BaseSelectableTestCase):
         self.test_thing = self.create_thing()
 
     def test_valid_form(self):
-        "Valid form using an AutoCompleteSelectField."
+        "Valid form using an AutoComboboxSelectWidget."
         data = {
             'name': self.get_random_string(),
             'thing_0': self.test_thing.name, # Text input
@@ -153,6 +175,28 @@ class FuncComboboxModelChoiceTestCase(BaseSelectableTestCase):
         }
         form = ComboboxSelectWidgetForm(data=data)
         self.assertTrue(form.is_valid(), str(form.errors))
+
+    def test_missing_pk(self):
+        "Invalid form (missing required pk) using an AutoComboboxSelectWidget."
+        data = {
+            'name': self.get_random_string(),
+            'thing_0': self.test_thing.name, # Text input
+            'thing_1': u'', # Hidden input missing
+        }
+        form = SelectWidgetForm(data=data)
+        self.assertFalse(form.is_valid())
+        self.assertTrue('thing' in form.errors)
+
+    def test_invalid_pk(self):
+        "Invalid form (invalid pk value) using an AutoComboboxSelectWidget."
+        data = {
+            'name': self.get_random_string(),
+            'thing_0': self.test_thing.name, # Text input
+            'thing_1': u'XXX', # Hidden input doesn't match a PK
+        }
+        form = SelectWidgetForm(data=data)
+        self.assertFalse(form.is_valid())
+        self.assertTrue('thing' in form.errors)
 
 
 class ManyThingForm(forms.ModelForm):

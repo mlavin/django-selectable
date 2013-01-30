@@ -87,6 +87,11 @@ class AutoCompleteSelectFieldTestCase(BaseFieldTestCase):
         field = self.get_field_instance(widget=widget)
         self.assertTrue(isinstance(field.widget, widgets.AutoComboboxWidget))
 
+    def test_invalid_pk(self):
+        field = self.get_field_instance()
+        value = self.get_random_string()
+        self.assertRaises(forms.ValidationError, field.clean, [value, 'XXX'])
+
 
 class AutoCompleteSelectMultipleFieldTestCase(BaseFieldTestCase):
     field_cls = fields.AutoCompleteSelectMultipleField
@@ -122,3 +127,8 @@ class AutoCompleteSelectMultipleFieldTestCase(BaseFieldTestCase):
         widget = widgets.AutoComboboxSelectMultipleWidget(self.lookup_cls)
         field = self.get_field_instance(widget=widget)
         self.assertTrue(isinstance(field.widget, widgets.AutoComboboxSelectMultipleWidget))
+
+    def test_invalid_pk(self):
+        field = self.get_field_instance()
+        value = self.get_random_string()
+        self.assertRaises(forms.ValidationError, field.clean, ['XXX', ])
