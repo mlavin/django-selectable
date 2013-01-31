@@ -2,7 +2,7 @@
 import sys
 
 try:
-    from urllib import parse as urlparse
+    from urllib.parse import urlparse
 except ImportError:
     from urlparse import urlparse
 
