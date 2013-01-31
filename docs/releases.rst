@@ -10,6 +10,10 @@ release, it does introduce a few incompatible changes. For the most part places 
 might have previously used the ``autocomplete`` namespace/plugin, those references should
 be updated to reference the ``djselectable`` plugin.
 
+This release also adds experimental support for Python 3.2+ to go along with Django's support in 1.5.
+To use Python 3 with django-selectable you will need to use Django 1.5+.
+
+- Experimental Python 3.2+ support
 - Improved the scope of ``prepareQuery`` and ``formatLabel`` options. Not fully backwards compatible. Thanks to Augusto Men.
 - Allow passing the Python path string in place of the lookup class to the fields and widgets. Thanks to Michael Manfre.
 - Allow passing JS plugin options through the widget ``attrs`` option. Thanks to Felipe Prenholato.

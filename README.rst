@@ -23,8 +23,10 @@ Installation Requirements
     Begining with version django-selectable version 0.6, Django 1.2 is no longer supported.
     While it may continue to work, bugs related to Django 1.2 support will not be fixed.
 
+    Version 0.7 adds experimental support for Python 3.2+ when used with Django 1.5+.
+
 To install::
-    
+
     pip install django-selectable
 
 Next add `selectable` to your `INSTALLED_APPS` to include the related css/js::
