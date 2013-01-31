@@ -2,7 +2,7 @@ from __future__ import unicode_literals
 
 from django import forms
 from django.conf import settings
-
+from django.utils.importlib import import_module
 
 from selectable.compat import string_types
 
@@ -38,7 +38,7 @@ def import_lookup_class(lookup_class):
     from selectable.base import LookupBase
     if isinstance(lookup_class, string_types):
         mod_str, cls_str = lookup_class.rsplit('.', 1)
-        mod = __import__(mod_str, fromlist=[cls_str])
+        mod = import_module(mod_str)
         lookup_class = getattr(mod, cls_str)
     if not issubclass(lookup_class, LookupBase):
         raise TypeError('lookup_class must extend from selectable.base.LookupBase')

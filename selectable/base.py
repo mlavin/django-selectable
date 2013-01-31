@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 import json
 import operator
 import re
+from functools import reduce
 
 from django.conf import settings
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
