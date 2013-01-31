@@ -1,3 +1,4 @@
+import json
 from urlparse import urlparse
 
 from django import forms
@@ -52,6 +53,7 @@ class BaseWidgetTestCase(BaseSelectableTestCase):
         with self.assertRaises(TypeError):
             self.__class__.widget_cls(dotted_path)
 
+
 class AutoCompleteWidgetTestCase(BaseWidgetTestCase):
     widget_cls = widgets.AutoCompleteWidget
     lookup_cls = ThingLookup
@@ -89,6 +91,14 @@ class AutoCompleteWidgetTestCase(BaseWidgetTestCase):
         parse = urlparse(url)
         query = parse.query
         self.assertEqual(query, urlencode(params))
+
+    def test_build_selectable_options(self):
+        "Serialize selectable options as json in data attribute."
+        options = {'autoFocus': True}
+        widget = self.get_widget_instance(attrs={'data-selectable-options': options})
+        attrs = widget.build_attrs()
+        self.assertTrue('data-selectable-options' in attrs)
+        self.assertEqual(attrs['data-selectable-options'], json.dumps(options))
 
 
 class AutoCompleteSelectWidgetTestCase(BaseWidgetTestCase):
@@ -140,6 +150,15 @@ class AutoCompleteSelectWidgetTestCase(BaseWidgetTestCase):
         query = parse.query
         self.assertEqual(query, urlencode(params))
 
+    def test_build_selectable_options(self):
+        "Serialize selectable options as json in data attribute."
+        options = {'autoFocus': True}
+        widget = self.get_widget_instance(attrs={'data-selectable-options': options})
+        sub_widget = widget.widgets[0]
+        attrs = sub_widget.build_attrs()
+        self.assertTrue('data-selectable-options' in attrs)
+        self.assertEqual(attrs['data-selectable-options'], json.dumps(options))
+
 
 class AutoComboboxWidgetTestCase(BaseWidgetTestCase):
     widget_cls = widgets.AutoComboboxWidget
@@ -178,6 +197,14 @@ class AutoComboboxWidgetTestCase(BaseWidgetTestCase):
         parse = urlparse(url)
         query = parse.query
         self.assertEqual(query, urlencode(params))
+
+    def test_build_selectable_options(self):
+        "Serialize selectable options as json in data attribute."
+        options = {'autoFocus': True}
+        widget = self.get_widget_instance(attrs={'data-selectable-options': options})
+        attrs = widget.build_attrs()
+        self.assertTrue('data-selectable-options' in attrs)
+        self.assertEqual(attrs['data-selectable-options'], json.dumps(options))
 
 
 class AutoComboboxSelectWidgetTestCase(BaseWidgetTestCase):
@@ -228,6 +255,15 @@ class AutoComboboxSelectWidgetTestCase(BaseWidgetTestCase):
         parse = urlparse(url)
         query = parse.query
         self.assertEqual(query, urlencode(params))
+
+    def test_build_selectable_options(self):
+        "Serialize selectable options as json in data attribute."
+        options = {'autoFocus': True}
+        widget = self.get_widget_instance(attrs={'data-selectable-options': options})
+        sub_widget = widget.widgets[0]
+        attrs = sub_widget.build_attrs()
+        self.assertTrue('data-selectable-options' in attrs)
+        self.assertEqual(attrs['data-selectable-options'], json.dumps(options))
 
 
 class AutoCompleteSelectMultipleWidgetTestCase(BaseWidgetTestCase):
@@ -322,6 +358,15 @@ class AutoCompleteSelectMultipleWidgetTestCase(BaseWidgetTestCase):
         query = parse.query
         self.assertEqual(query, urlencode(params))
 
+    def test_build_selectable_options(self):
+        "Serialize selectable options as json in data attribute."
+        options = {'autoFocus': True}
+        widget = self.get_widget_instance(attrs={'data-selectable-options': options})
+        sub_widget = widget.widgets[0]
+        attrs = sub_widget.build_attrs()
+        self.assertTrue('data-selectable-options' in attrs)
+        self.assertEqual(attrs['data-selectable-options'], json.dumps(options))
+
 
 class AutoComboboxSelectMultipleWidgetTestCase(BaseWidgetTestCase):
     widget_cls = widgets.AutoComboboxSelectMultipleWidget
@@ -415,3 +460,11 @@ class AutoComboboxSelectMultipleWidgetTestCase(BaseWidgetTestCase):
         query = parse.query
         self.assertEqual(query, urlencode(params))
 
+    def test_build_selectable_options(self):
+        "Serialize selectable options as json in data attribute."
+        options = {'autoFocus': True}
+        widget = self.get_widget_instance(attrs={'data-selectable-options': options})
+        sub_widget = widget.widgets[0]
+        attrs = sub_widget.build_attrs()
+        self.assertTrue('data-selectable-options' in attrs)
+        self.assertEqual(attrs['data-selectable-options'], json.dumps(options))
