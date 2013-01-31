@@ -6,9 +6,9 @@ from django import forms
 from django.conf import settings
 from django.forms.util import flatatt
 from django.utils.http import urlencode
-from django.utils.encoding import force_unicode
 from django.utils.safestring import mark_safe
 
+from selectable.compat import force_text
 from selectable.forms.base import import_lookup_class
 
 __all__ = (
@@ -166,7 +166,7 @@ class LookupMultipleHiddenInput(forms.MultipleHiddenInput):
             if model and isinstance(v, model):
                 item = v
                 v = lookup.get_item_id(item)
-            input_attrs = dict(value=force_unicode(v), **final_attrs)
+            input_attrs = dict(value=force_text(v), **final_attrs)
             if id_:
                 # An ID attribute was given. Add a numeric index as a suffix
                 # so that the inputs don't all have the same ID attribute.

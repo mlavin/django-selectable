@@ -1,10 +1,7 @@
 from __future__ import unicode_literals
 
-import warnings
-
-from django.utils.encoding import force_unicode
-
 from selectable.base import LookupBase, ModelLookup
+from selectable.compat import force_text
 from selectable.exceptions import (LookupAlreadyRegistered, LookupNotRegistered,
                                     LookupInvalid)
 
@@ -20,14 +17,14 @@ class LookupRegistry(object):
 
     def register(self, lookup):
         self.validate(lookup)
-        name = force_unicode(lookup.name())
+        name = force_text(lookup.name())
         if name in self._registry:
             raise LookupAlreadyRegistered('The name %s is already registered' % name)
         self._registry[name] = lookup
 
     def unregister(self, lookup):
         self.validate(lookup)
-        name = force_unicode(lookup.name())
+        name = force_text(lookup.name())
         if name not in self._registry:
            raise LookupNotRegistered('The name %s is not registered' % name)
         del self._registry[name]

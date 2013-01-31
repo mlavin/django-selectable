@@ -1,9 +1,9 @@
 import json
-from urlparse import urlparse
 
 from django import forms
 from django.utils.http import urlencode
 
+from selectable.compat import urlparse
 from selectable.forms import widgets
 from selectable.tests import Thing, ThingLookup
 from selectable.tests.base import BaseSelectableTestCase, parsed_inputs

@@ -11,10 +11,10 @@ from django.core.urlresolvers import reverse
 from django.core.serializers.json import DjangoJSONEncoder
 from django.http import HttpResponse
 from django.db.models import Q
-from django.utils.encoding import smart_unicode
 from django.utils.html import conditional_escape
 from django.utils.translation import ugettext as _
 
+from selectable.compat import smart_text
 from selectable.forms import BaseLookupForm
 
 
@@ -53,13 +53,13 @@ class LookupBase(object):
         return []
 
     def get_item_label(self, item):
-        return smart_unicode(item)
+        return smart_text(item)
 
     def get_item_id(self, item):
-        return smart_unicode(item)
+        return smart_text(item)
 
     def get_item_value(self, item):
-        return smart_unicode(item)
+        return smart_text(item)
 
     def get_item(self, value):
         return value
@@ -82,7 +82,7 @@ class LookupBase(object):
     def paginate_results(self, results, options):
         "Return a django.core.paginator.Page of results."
         limit = options.get('limit', settings.SELECTABLE_MAX_LIMIT)
-        paginator = Paginator(results, limit)        
+        paginator = Paginator(results, limit)
         page = options.get('page', 1)
         try:
             results = paginator.page(page)
