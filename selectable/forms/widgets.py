@@ -1,3 +1,5 @@
+from __future__ import unicode_literals
+
 import json
 
 from django import forms
@@ -19,16 +21,16 @@ __all__ = (
 )
 
 
-STATIC_PREFIX = u'%sselectable/' % settings.STATIC_URL
+STATIC_PREFIX = '%sselectable/' % settings.STATIC_URL
 
 
 class SelectableMediaMixin(object):
 
     class Media(object):
         css = {
-            'all': (u'%scss/dj.selectable.css' % STATIC_PREFIX, )
+            'all': ('%scss/dj.selectable.css' % STATIC_PREFIX, )
         }
-        js = (u'%sjs/jquery.dj.selectable.js' % STATIC_PREFIX, )
+        js = ('%sjs/jquery.dj.selectable.js' % STATIC_PREFIX, )
 
 
 class AutoCompleteWidget(forms.TextInput, SelectableMediaMixin):
@@ -50,11 +52,11 @@ class AutoCompleteWidget(forms.TextInput, SelectableMediaMixin):
             self.qs['limit'] = self.limit
         if self.qs:
             url = '%s?%s' % (url, urlencode(self.qs))
-        if u'data-selectable-options' in attrs:
-            attrs[u'data-selectable-options'] = json.dumps(attrs[u'data-selectable-options'])
-        attrs[u'data-selectable-url'] = url
-        attrs[u'data-selectable-type'] = 'text'
-        attrs[u'data-selectable-allow-new'] = str(self.allow_new).lower()
+        if 'data-selectable-options' in attrs:
+            attrs['data-selectable-options'] = json.dumps(attrs['data-selectable-options'])
+        attrs['data-selectable-url'] = url
+        attrs['data-selectable-type'] = 'text'
+        attrs['data-selectable-allow-new'] = str(self.allow_new).lower()
         return attrs
 
 
@@ -77,7 +79,7 @@ class AutoCompleteSelectWidget(SelectableMultiWidget, SelectableMediaMixin):
                 limit=self.limit, query_params=query_params,
                 attrs=kwargs.get('attrs'),
             ),
-            forms.HiddenInput(attrs={u'data-selectable-type': 'hidden'})
+            forms.HiddenInput(attrs={'data-selectable-type': 'hidden'})
         ]
         super(AutoCompleteSelectWidget, self).__init__(widgets, *args, **kwargs)
 
@@ -105,7 +107,7 @@ class AutoComboboxWidget(AutoCompleteWidget, SelectableMediaMixin):
 
     def build_attrs(self, extra_attrs=None, **kwargs):
         attrs = super(AutoComboboxWidget, self).build_attrs(extra_attrs, **kwargs)
-        attrs[u'data-selectable-type'] = 'combobox'
+        attrs['data-selectable-type'] = 'combobox'
         return attrs
 
 
@@ -122,7 +124,7 @@ class AutoComboboxSelectWidget(SelectableMultiWidget, SelectableMediaMixin):
                 limit=self.limit, query_params=query_params,
                 attrs=kwargs.get('attrs'),
             ),
-            forms.HiddenInput(attrs={u'data-selectable-type': 'hidden'})
+            forms.HiddenInput(attrs={'data-selectable-type': 'hidden'})
         ]
         super(AutoComboboxSelectWidget, self).__init__(widgets, *args, **kwargs)
 
@@ -172,12 +174,12 @@ class LookupMultipleHiddenInput(forms.MultipleHiddenInput):
             if v:
                 item = item or lookup.get_item(v)
                 input_attrs['title'] = lookup.get_item_value(item)
-            inputs.append(u'<input%s />' % flatatt(input_attrs))
-        return mark_safe(u'\n'.join(inputs))
+            inputs.append('<input%s />' % flatatt(input_attrs))
+        return mark_safe('\n'.join(inputs))
 
     def build_attrs(self, extra_attrs=None, **kwargs):
         attrs = super(LookupMultipleHiddenInput, self).build_attrs(extra_attrs, **kwargs)
-        attrs[u'data-selectable-type'] = 'hidden-multiple'
+        attrs['data-selectable-type'] = 'hidden-multiple'
         return attrs
 
 
@@ -188,8 +190,8 @@ class AutoCompleteSelectMultipleWidget(SelectableMultiWidget, SelectableMediaMix
         self.limit = kwargs.pop('limit', None)
         position = kwargs.pop('position', 'bottom')
         attrs = {
-            u'data-selectable-multiple': 'true',
-            u'data-selectable-position': position
+            'data-selectable-multiple': 'true',
+            'data-selectable-position': position
         }
         attrs.update(kwargs.get('attrs', {}))
         query_params = kwargs.pop('query_params', {})
@@ -208,7 +210,7 @@ class AutoCompleteSelectMultipleWidget(SelectableMultiWidget, SelectableMediaMix
     def render(self, name, value, attrs=None):
         if value and not hasattr(value, '__iter__'):
             value = [value]
-        value = [u'', value]
+        value = ['', value]
         return super(AutoCompleteSelectMultipleWidget, self).render(name, value, attrs)
 
 
@@ -219,8 +221,8 @@ class AutoComboboxSelectMultipleWidget(SelectableMultiWidget, SelectableMediaMix
         self.limit = kwargs.pop('limit', None)
         position = kwargs.pop('position', 'bottom')
         attrs = {
-            u'data-selectable-multiple': 'true',
-            u'data-selectable-position': position
+            'data-selectable-multiple': 'true',
+            'data-selectable-position': position
         }
         attrs.update(kwargs.get('attrs', {}))
         query_params = kwargs.pop('query_params', {})
@@ -239,6 +241,6 @@ class AutoComboboxSelectMultipleWidget(SelectableMultiWidget, SelectableMediaMix
     def render(self, name, value, attrs=None):
         if value and not hasattr(value, '__iter__'):
             value = [value]
-        value = [u'', value]
+        value = ['', value]
         return super(AutoComboboxSelectMultipleWidget, self).render(name, value, attrs)
 

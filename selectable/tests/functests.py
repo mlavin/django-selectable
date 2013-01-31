@@ -1,6 +1,7 @@
 """
 Larger functional tests for fields and widgets.
 """
+from __future__ import unicode_literals
 
 from django import forms
 
@@ -46,34 +47,34 @@ class FuncAutoCompleteSelectTestCase(BaseSelectableTestCase):
         data = {
             'name': self.get_random_string(),
             'thing_0': self.test_thing.name, # Text input
-            'thing_1': u'', # Hidden input
+            'thing_1': '', # Hidden input
         }
         form = OtherThingForm(data=data)
-        self.assertFalse(form.is_valid(), u'Form should not be valid')
+        self.assertFalse(form.is_valid(), 'Form should not be valid')
         self.assertFalse('name' in form.errors)
         self.assertTrue('thing' in form.errors)
 
     def test_invalid_form_missing_name(self):
         "Invalid form using an AutoCompleteSelectField."
         data = {
-            'name': u'',
+            'name': '',
             'thing_0': self.test_thing.name, # Text input
             'thing_1': self.test_thing.pk, # Hidden input
         }
         form = OtherThingForm(data=data)
-        self.assertFalse(form.is_valid(), u'Form should not be valid')
+        self.assertFalse(form.is_valid(), 'Form should not be valid')
         self.assertTrue('name' in form.errors)
         self.assertFalse('thing' in form.errors)
 
     def test_invalid_but_still_selected(self):
         "Invalid form should keep selected item."
         data = {
-            'name': u'',
+            'name': '',
             'thing_0': self.test_thing.name, # Text input
             'thing_1': self.test_thing.pk, # Hidden input
         }
         form = OtherThingForm(data=data)
-        self.assertFalse(form.is_valid(), u'Form should not be valid')
+        self.assertFalse(form.is_valid(), 'Form should not be valid')
         rendered_form = form.as_p()
         inputs = parsed_inputs(rendered_form)
         # Selected text should be populated
@@ -130,7 +131,7 @@ class FuncSelectModelChoiceTestCase(BaseSelectableTestCase):
         data = {
             'name': self.get_random_string(),
             'thing_0': self.test_thing.name, # Text input
-            'thing_1': u'', # Hidden input missing
+            'thing_1': '', # Hidden input missing
         }
         form = SelectWidgetForm(data=data)
         self.assertFalse(form.is_valid())
@@ -141,7 +142,7 @@ class FuncSelectModelChoiceTestCase(BaseSelectableTestCase):
         data = {
             'name': self.get_random_string(),
             'thing_0': self.test_thing.name, # Text input
-            'thing_1': u'XXX', # Hidden input doesn't match a PK
+            'thing_1': 'XXX', # Hidden input doesn't match a PK
         }
         form = SelectWidgetForm(data=data)
         self.assertFalse(form.is_valid())
@@ -181,7 +182,7 @@ class FuncComboboxModelChoiceTestCase(BaseSelectableTestCase):
         data = {
             'name': self.get_random_string(),
             'thing_0': self.test_thing.name, # Text input
-            'thing_1': u'', # Hidden input missing
+            'thing_1': '', # Hidden input missing
         }
         form = SelectWidgetForm(data=data)
         self.assertFalse(form.is_valid())
@@ -192,7 +193,7 @@ class FuncComboboxModelChoiceTestCase(BaseSelectableTestCase):
         data = {
             'name': self.get_random_string(),
             'thing_0': self.test_thing.name, # Text input
-            'thing_1': u'XXX', # Hidden input doesn't match a PK
+            'thing_1': 'XXX', # Hidden input doesn't match a PK
         }
         form = SelectWidgetForm(data=data)
         self.assertFalse(form.is_valid())
@@ -220,7 +221,7 @@ class FuncManytoManyMultipleSelectTestCase(BaseSelectableTestCase):
         "Valid form using an AutoCompleteSelectMultipleField."
         data = {
             'name': self.get_random_string(),
-            'things_0': u'', # Text input
+            'things_0': '', # Text input
             'things_1': [self.test_thing.pk, ], # Hidden inputs
         }
         form = ManyThingForm(data=data)
@@ -230,7 +231,7 @@ class FuncManytoManyMultipleSelectTestCase(BaseSelectableTestCase):
         "Saving data from a valid form."
         data = {
             'name': self.get_random_string(),
-            'things_0': u'', # Text input
+            'things_0': '', # Text input
             'things_1': [self.test_thing.pk, ], # Hidden inputs
         }
         form = ManyThingForm(data=data)
@@ -244,7 +245,7 @@ class FuncManytoManyMultipleSelectTestCase(BaseSelectableTestCase):
         "Valid form where many to many is not required."
         data = {
             'name': self.get_random_string(),
-            'things_0': u'', # Text input
+            'things_0': '', # Text input
             'things_1': [], # Hidden inputs
         }
         form = ManyThingForm(data=data)
@@ -255,7 +256,7 @@ class FuncManytoManyMultipleSelectTestCase(BaseSelectableTestCase):
         "Saving data when many to many is not required."
         data = {
             'name': self.get_random_string(),
-            'things_0': u'', # Text input
+            'things_0': '', # Text input
             'things_1': [], # Hidden inputs
         }
         form = ManyThingForm(data=data)

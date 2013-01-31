@@ -1,3 +1,5 @@
+from __future__ import unicode_literals
+
 import random
 import string
 from xml.dom.minidom import parseString
@@ -53,7 +55,7 @@ class BaseSelectableTestCase(TestCase):
     urls = 'selectable.tests.urls'
 
     def get_random_string(self, length=10):
-        return u''.join(random.choice(string.ascii_letters) for x in xrange(length))
+        return ''.join(random.choice(string.ascii_letters) for x in xrange(length))
 
     def create_thing(self, data=None):
         data = data or {}

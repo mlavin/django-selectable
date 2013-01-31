@@ -21,7 +21,7 @@ class BaseLookupFormTestCase(PatchSettingsMixin, BaseSelectableTestCase):
     def test_valid_data(self):
         data = self.get_valid_data()
         form = BaseLookupForm(data)
-        self.assertTrue(form.is_valid(), u"%s" % form.errors)
+        self.assertTrue(form.is_valid(), "%s" % form.errors)
 
     def test_invalid_limit(self):
         """
@@ -43,7 +43,7 @@ class BaseLookupFormTestCase(PatchSettingsMixin, BaseSelectableTestCase):
         if 'limit' in data:
             del data['limit']
         form = BaseLookupForm(data)
-        self.assertTrue(form.is_valid(), u"%s" % form.errors)
+        self.assertTrue(form.is_valid(), "%s" % form.errors)
         self.assertEqual(form.cleaned_data['limit'], settings.SELECTABLE_MAX_LIMIT)
 
     def test_no_max_set(self):
@@ -55,7 +55,7 @@ class BaseLookupFormTestCase(PatchSettingsMixin, BaseSelectableTestCase):
         settings.SELECTABLE_MAX_LIMIT = None
         data = self.get_valid_data()
         form = BaseLookupForm(data)
-        self.assertTrue(form.is_valid(), u"%s" % form.errors)
+        self.assertTrue(form.is_valid(), "%s" % form.errors)
         if 'limit' in data:
             self.assertTrue(form.cleaned_data['limit'], data['limit'])
 
@@ -70,7 +70,7 @@ class BaseLookupFormTestCase(PatchSettingsMixin, BaseSelectableTestCase):
         if 'limit' in data:
             del data['limit']
         form = BaseLookupForm(data)
-        self.assertTrue(form.is_valid(), u"%s" % form.errors)
+        self.assertTrue(form.is_valid(), "%s" % form.errors)
         self.assertFalse(form.cleaned_data.get('limit'))
 
     def test_over_limit(self):
@@ -82,5 +82,5 @@ class BaseLookupFormTestCase(PatchSettingsMixin, BaseSelectableTestCase):
         data = self.get_valid_data()
         data['limit'] = settings.SELECTABLE_MAX_LIMIT + 100
         form = BaseLookupForm(data)
-        self.assertTrue(form.is_valid(), u"%s" % form.errors)
+        self.assertTrue(form.is_valid(), "%s" % form.errors)
         self.assertEqual(form.cleaned_data['limit'], settings.SELECTABLE_MAX_LIMIT)
