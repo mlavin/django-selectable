@@ -119,7 +119,7 @@ class LookupBase(object):
             meta['next_page'] = page_data.next_page_number()
         if page_data and page_data.has_previous():
             meta['prev_page'] = page_data.previous_page_number()
-        results['data'] = map(self.format_item, page_data.object_list)
+        results['data'] = [self.format_item(item) for item in page_data.object_list]
         results['meta'] = meta
         return results
 
