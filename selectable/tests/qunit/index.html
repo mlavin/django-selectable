@@ -1,14 +1,20 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
+    <meta charset="utf-8">
     <title>Django Selectable Qunit Test Suite</title>
     <link rel="stylesheet" href="qunit.css" type="text/css" media="screen" />
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.24/jquery-ui.min.js"></script>
+    <script src="jquery-loader.js"></script>
     <script type="text/javascript" src="qunit.js"></script>
     <script>
         // Disable auto-binding of djselectable widgets to avoid test race conditions
         var djselectableAutoLoad = false;
+        var namespace = 'djselectable';
+        if (window.uiversion.lastIndexOf('1.10', 0) === 0) {
+            // jQuery UI 1.10 introduces a namespace change to include ui-prefix
+            namespace = 'ui-' + namespace;
+        }
+        var data
     </script>
     <script type="text/javascript" src="../../static/selectable/js/jquery.dj.selectable.js"></script>
     <script>
@@ -17,7 +23,7 @@
         test("bind input", function() {
             bindSelectables('#text');
             var input = $('#id_autocomplete');
-            ok(input.data('djselectable'), "input should be bound with djselecable widget");
+            ok(input.data(namespace), "input should be bound with djselecable widget");
         });
         test("item selection", function() {
             bindSelectables('#text-initial');
@@ -32,8 +38,8 @@
         test("bind input", function() {
             bindSelectables('#combobox');
             var input = $('#id_combobox');
-            ok(input.data('djselectable'), "input should be bound with djselecable widget");
-            var button = $('button', '#combobox');
+            ok(input.data(namespace), "input should be bound with djselecable widget");
+            var button = $('.ui-combo-button', '#combobox');
             equal(button.attr('title'), 'Show All Items', "combobox button should be created");
         });
         test("item selection", function() {
@@ -50,8 +56,8 @@
             bindSelectables('#auto-select');
             var input = $('#id_autoselect_0');
             var hidden = $('#id_autoselect_1');
-            ok(input.data('djselectable'), "input should be bound with djselecable widget");
-            ok(!hidden.data('djselectable'), "hidden should not be bound with djselecable widget");
+            ok(input.data(namespace), "input should be bound with djselecable widget");
+            ok(!hidden.data(namespace), "hidden should not be bound with djselecable widget");
         });
         test("item selection", function() {
             bindSelectables('#auto-select-initial');
@@ -70,9 +76,9 @@
             bindSelectables('#combo-select');
             var input = $('#id_comboselect_0');
             var hidden = $('#id_comboselect_1');
-            ok(input.data('djselectable'), "input should be bound with djselecable widget");
-            ok(!hidden.data('djselectable'), "hidden should not be bound with djselecable widget");
-            var button = $('button', '#combo-select');
+            ok(input.data(namespace), "input should be bound with djselecable widget");
+            ok(!hidden.data(namespace), "hidden should not be bound with djselecable widget");
+            var button = $('.ui-combo-button', '#combo-select');
             equal(button.attr('title'), 'Show All Items', "combobox button should be created");
         });
         test("item selection", function() {
@@ -92,7 +98,7 @@
             bindSelectables('#multi-select');
             var input = $('#id_multiselect_0');
             var deck = $('#multi-select ul');
-            ok(input.data('djselectable'), "input should be bound with djselecable widget");
+            ok(input.data(namespace), "input should be bound with djselecable widget");
             ok(deck.hasClass('selectable-deck'), 'deck should have selectable-deck class');
             equal($('li', deck).length, 0, 'no initial deck items');
         });
@@ -119,10 +125,10 @@
             bindSelectables('#multi-combo');
             var input = $('#id_multicombo_0');
             var deck = $('#multi-combo ul');
-            ok(input.data('djselectable'), "input should be bound with djselecable widget");
+            ok(input.data(namespace), "input should be bound with djselecable widget");
             ok(deck.hasClass('selectable-deck'), 'deck should have selectable-deck class');
             equal($('li', deck).length, 0, 'no initial deck items');
-            var button = $('button', '#multi-combo');
+            var button = $('.ui-combo-button', '#multi-combo');
             equal(button.attr('title'), 'Show All Items', "combobox button should be created");
         });
         test("item selection", function() {
@@ -178,7 +184,7 @@
                 count = count + 1;
             });
             // Change source to prevent remote calls
-            input.data("djselectable").source = function (request, response) {
+            input.data(namespace).source = function (request, response) {
                 response($.ui.autocomplete.filter(["javascript", "python"], request.term));
             };
             // Simulate typing in and selecting the first item.
@@ -205,7 +211,7 @@
                 count = count + 1;
             });
             // Change source to prevent remote calls
-            input.data("djselectable").source = function (request, response) {
+            input.data(namespace).source = function (request, response) {
                 response($.ui.autocomplete.filter(["javascript", "python"], request.term));
             };
             // Simulate typing in and selecting the first item.
