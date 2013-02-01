@@ -1,3 +1,5 @@
+from __future__ import unicode_literals
+
 from django.contrib.auth.models import User
 
 from selectable.base import ModelLookup
@@ -33,7 +35,7 @@ class CityLookup(ModelLookup):
         return results
 
     def get_item_label(self, item):
-        return u"%s, %s" % (item.name, item.state)
+        return "%s, %s" % (item.name, item.state)
 
 
 registry.register(CityLookup)
