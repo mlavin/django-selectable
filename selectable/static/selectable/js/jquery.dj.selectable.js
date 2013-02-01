@@ -243,7 +243,9 @@
             ul.zIndex(this.element.zIndex() + 1);
             this._renderMenu(ul, items);
             // jQuery UI menu does not define deactivate
-            if (this.menu.deactivate) this.menu.deactivate();
+            if (this.menu.deactivate) {
+                this.menu.deactivate();
+            }
             this.menu.refresh();
             // size and position menu
             ul.show();
@@ -303,7 +305,7 @@
                 django.jQuery.fn.formset = function (opts) {
                     var options = $.extend({}, opts);
                     var addedevent = function (row) {
-                        bindSelectables($(row));
+                        window.bindSelectables($(row));
                     };
                     var added = null;
                     if (options.added) {
@@ -361,7 +363,7 @@
         }
         // Bind existing widgets on document ready
         if (typeof(djselectableAutoLoad) === "undefined" || djselectableAutoLoad) {
-            bindSelectables('body');
+            window.bindSelectables('body');
         }
     });
 })(jQuery);
