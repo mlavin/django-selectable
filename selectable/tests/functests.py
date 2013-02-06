@@ -298,3 +298,64 @@ class FuncFormTestCase(BaseSelectableTestCase):
         form = SimpleForm(data=data)
         self.assertFalse(form.is_valid())
         self.assertTrue('new_thing' in form.errors)
+
+    def test_has_changed_with_empty_permitted(self):
+        """
+        Regression test for #92. has_changed fails when there is no initial and
+        allow_new=False.
+        """
+        data = {
+            'thing_0': '',
+            'thing_1': self.test_thing.pk,
+            'new_thing_0': self.test_thing.name,
+            'new_thing_1': self.test_thing.pk,
+            'things_0': '',
+            'things_1': [self.test_thing.pk, ]
+        }
+        form = SimpleForm(data=data, empty_permitted=True)
+        self.assertTrue(form.has_changed())
+        self.assertTrue(form.is_valid(), str(form.errors))
+
+    def test_not_changed(self):
+        """
+        Regression test for #92. has_changed fails when there is no initial and
+        allow_new=False.
+        """
+        data = {
+            'thing_0': self.test_thing.name,
+            'thing_1': self.test_thing.pk,
+            'new_thing_0': self.test_thing.name,
+            'new_thing_1': self.test_thing.pk,
+            'things_0': '',
+            'things_1': [self.test_thing.pk, ]
+        }
+        initial = {
+            'thing': self.test_thing.pk,
+            'new_thing': self.test_thing.pk,
+            'things': [self.test_thing.pk, ]
+        }
+        form = SimpleForm(data=data, initial=initial)
+        self.assertFalse(form.has_changed())
+        self.assertTrue(form.is_valid(), str(form.errors))
+
+    def test_not_changed_with_empty_permitted(self):
+        """
+        Regression test for #92. has_changed fails when there is no initial and
+        allow_new=False.
+        """
+        data = {
+            'thing_0': '',
+            'thing_1': '',
+            'new_thing_0': '',
+            'new_thing_1': '',
+            'things_0': '',
+            'things_1': '',
+        }
+        initial = {
+            'thing': '',
+            'new_thing': '',
+            'things': '',
+        }
+        form = SimpleForm(data=data, initial=initial, empty_permitted=True)
+        self.assertFalse(form.has_changed())
+        self.assertTrue(form.is_valid(), str(form.errors))

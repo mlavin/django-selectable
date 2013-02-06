@@ -65,6 +65,27 @@ class SelectableMultiWidget(forms.MultiWidget):
     def update_query_parameters(self, qs_dict):
         self.widgets[0].update_query_parameters(qs_dict)
 
+    def _has_changed(self, initial, data):
+        "Decects if the widget was changed. This is removed in 1.6."
+        if initial is None and data is not None:
+            return True
+        if data and not hasattr(data, '__iter__'):
+            data = self.decompress(data)
+        return super(SelectableMultiWidget, self)._has_changed(initial, data)
+
+    def decompress(self, value):
+        if value:
+            lookup = self.lookup_class()
+            model = getattr(self.lookup_class, 'model', None)
+            if model and isinstance(value, model):
+                item = value
+                value = lookup.get_item_id(item)
+            else:
+                item = lookup.get_item(value)
+            item_value = lookup.get_item_value(item)
+            return [item_value, value]
+        return [None, None]
+
 
 class AutoCompleteSelectWidget(SelectableMultiWidget, SelectableMediaMixin):
 
@@ -82,19 +103,6 @@ class AutoCompleteSelectWidget(SelectableMultiWidget, SelectableMediaMixin):
             forms.HiddenInput(attrs={'data-selectable-type': 'hidden'})
         ]
         super(AutoCompleteSelectWidget, self).__init__(widgets, *args, **kwargs)
-
-    def decompress(self, value):
-        if value:
-            lookup = self.lookup_class()
-            model = getattr(self.lookup_class, 'model', None)
-            if model and isinstance(value, model):
-                item = value
-                value = lookup.get_item_id(item)
-            else:
-                item = lookup.get_item(value)
-            item_value = lookup.get_item_value(item)
-            return [item_value, value]
-        return [None, None]
 
     def value_from_datadict(self, data, files, name):
         value = super(AutoCompleteSelectWidget, self).value_from_datadict(data, files, name)
@@ -127,19 +135,6 @@ class AutoComboboxSelectWidget(SelectableMultiWidget, SelectableMediaMixin):
             forms.HiddenInput(attrs={'data-selectable-type': 'hidden'})
         ]
         super(AutoComboboxSelectWidget, self).__init__(widgets, *args, **kwargs)
-
-    def decompress(self, value):
-        if value:
-            lookup = self.lookup_class()
-            model = getattr(self.lookup_class, 'model', None)
-            if model and isinstance(value, model):
-                item = value
-                value = lookup.get_item_id(item)
-            else:
-                item = lookup.get_item(value)
-            item_value = lookup.get_item_value(item)
-            return [item_value, value]
-        return [None, None]
 
     def value_from_datadict(self, data, files, name):
         value = super(AutoComboboxSelectWidget, self).value_from_datadict(data, files, name)
