@@ -23,6 +23,7 @@ _________________
 
 - Fixed bug with matching hidden input when the name contains '_1'. Thanks to Augusto Men for the report and fix.
 - Fixed bug where the enter button would open the combobox options rather than submit the form. Thanks to Felipe Prenholato for the report.
+- Fixed bug with using ``allow_new=True`` creating items when no data was submitted. See #91
 
 
 Backwards Incompatible Changes

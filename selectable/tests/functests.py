@@ -16,6 +16,7 @@ __all__ = (
     'FuncSelectModelChoiceTestCase',
     'FuncComboboxModelChoiceTestCase',
     'FuncManytoManyMultipleSelectTestCase',
+    'FuncFormTestCase',
 )
 
 
@@ -265,3 +266,35 @@ class FuncManytoManyMultipleSelectTestCase(BaseSelectableTestCase):
         self.assertEqual(manything.name, data['name'])
         things = manything.things.all()
         self.assertEqual(things.count(), 0)
+
+
+class SimpleForm(forms.Form):
+    "Non-model form usage."
+    thing = AutoCompleteSelectField(lookup_class=ThingLookup)
+    new_thing = AutoCompleteSelectField(lookup_class=ThingLookup, allow_new=True)
+    things = AutoCompleteSelectMultipleField(lookup_class=ThingLookup)
+
+
+class FuncFormTestCase(BaseSelectableTestCase):
+    """
+    Functional tests for using AutoCompleteSelectField
+    and AutoCompleteSelectMultipleField outside the context
+    of a ModelForm.
+    """
+
+    def setUp(self):
+        self.test_thing = self.create_thing()
+
+    def test_blank_new_item(self):
+        "Regression test for #91. new_thing is required but both are blank."
+        data = {
+            'thing_0': self.test_thing.name,
+            'thing_1': self.test_thing.pk,
+            'new_thing_0': '',
+            'new_thing_1': '',
+            'things_0': '',
+            'things_1': [self.test_thing.pk, ]
+        }
+        form = SimpleForm(data=data)
+        self.assertFalse(form.is_valid())
+        self.assertTrue('new_thing' in form.errors)
