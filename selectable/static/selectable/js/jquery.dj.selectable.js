@@ -44,7 +44,7 @@
             /* Add new deck list item from a given hidden input */
             var self = this;
             var li = $('<li>')
-            .text($(input).attr('title'))
+            .html($(input).attr('title'))
             .addClass('selectable-deck-item');
             var item = {element: self.element, input: input, wrapper: li, deck: self.deck};
             if (self._trigger("add", null, item) === false) {
@@ -153,7 +153,7 @@
                 $input.removeClass("ui-corner-all")
                 .addClass("ui-corner-left ui-combo-input");
                 // Add show all items button
-                $("<a>").text("&nbsp;").attr("tabIndex", -1).attr("title", "Show All Items")
+                $("<a>").html("&nbsp;").attr("tabIndex", -1).attr("title", "Show All Items")
                 .insertAfter($input)
                 .button({
                     icons: {
