@@ -50,7 +50,8 @@
     window.createTextSelectMultiple = function (name, attrs) {
         var inputAttrs = $.extend({
             'name': name + '_0',
-            'selectable-multiple': true
+            'data-selectable-multiple': true,
+            'data-selectable-allow-new': false
         }, attrs || {}), textInput, hiddenInput,
         hiddenAttrs = {
             'name': name + '_1',
@@ -65,7 +66,8 @@
     window.createComboboxSelectMultiple = function (name, attrs) {
         var inputAttrs = $.extend({
             'name': name + '_0',
-            'selectable-multiple': true
+            'data-selectable-multiple': true,
+            'data-selectable-allow-new': false
         }, attrs || {}), textInput, hiddenInput,
         hiddenAttrs = {
             'name': name + '_1',

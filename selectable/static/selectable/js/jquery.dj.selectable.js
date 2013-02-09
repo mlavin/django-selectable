@@ -44,8 +44,8 @@
             /* Add new deck list item from a given hidden input */
             var self = this;
             var li = $('<li>')
-            .html($(input).attr('title'))
             .addClass('selectable-deck-item');
+            li.html($(input).attr('title'));
             var item = {element: self.element, input: input, wrapper: li, deck: self.deck};
             if (self._trigger("add", null, item) === false) {
                 input.remove();
