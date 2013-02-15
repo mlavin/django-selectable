@@ -212,7 +212,9 @@
         _renderItem: function (ul, item) {
             /* Adds hook for additional formatting, allows HTML in the label,
             highlights term matches and handles pagination. */
-            var label = item.label;
+            var label = item.label,
+                self = this,
+                $input = $(this.element);
             if (this.options.formatLabel) {
                 label = this.options.formatLabel.apply(this, [label, item]);
             }
@@ -227,20 +229,27 @@
                 .append($("<a></a>").append(label))
                 .appendTo(ul);
             if (item.page) {
-                li.addClass('selectable-paginator');
+                li.addClass('selectable-paginator').click(function (e) {
+                    $input.data("page", item.page);
+                    self.search();
+                    return false;
+                });
             }
             return li;
         },
         // Override the default auto-complete suggest.
         _suggest: function (items) {
             /* Needed for handling pagination links */
-            var page = $(this.element).data('page');
-            var ul = this.menu.element;
-            if (!page) {
+            var $input = $(this.element),
+                page = $input.data('page'),
+                ul = this.menu.element;
+            if (page) {
+                $('.selectable-paginator', ul).remove();
+            } else {
                 ul.empty();
             }
-            $(this.element).data('page', null);
-            ul.zIndex(this.element.zIndex() + 1);
+            $input.data('page', null);
+            ul.zIndex($input.zIndex() + 1);
             this._renderMenu(ul, items);
             // jQuery UI menu does not define deactivate
             if (this.menu.deactivate) {
@@ -260,14 +269,6 @@
             var $input = $(this.element);
             if (type === "select") {
                 $input.removeClass('ui-state-error');
-                if (data.item && data.item.page) {
-                    // Set current page value
-                    $input.data("page", data.item.page);
-                    $('.selectable-paginator', this.menu).remove();
-                    // Search for next page of results
-                    this.search();
-                    return false;
-                }
                 return this.select(data.item, event);
             } else if (type === "change") {
                 $input.removeClass('ui-state-error');
