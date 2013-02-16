@@ -213,17 +213,24 @@
             highlights term matches and handles pagination. */
             var label = item.label,
                 self = this,
-                $input = $(this.element);
-            if (this.options.formatLabel) {
+                $input = $(this.element),
+                re = new RegExp("(?![^&;]+;)(?!<[^<>]*)(" +
+                $.ui.autocomplete.escapeRegex(this.term) +
+                ")(?![^<>]*>)(?![^&;]+;)", "gi"),
+                 html, li;
+            if (this.options.formatLabel && !item.page) {
                 label = this.options.formatLabel.apply(this, [label, item]);
             }
-            if (this.options.highlightMatch && this.term) {
-                var re = new RegExp("(?![^&;]+;)(?!<[^<>]*)(" +
-                $.ui.autocomplete.escapeRegex(this.term) +
-                ")(?![^<>]*>)(?![^&;]+;)", "gi");
-                label = label.replace(re, "<span class='highlight'>$1</span>");
+            if (this.options.highlightMatch && this.term && !item.page) {
+                if (label.html) {
+                    html = label.html();
+                    html = html.replace(re, "<span class='highlight'>$1</span>");
+                    label.html(html);
+                } else {
+                    label = label.replace(re, "<span class='highlight'>$1</span>");
+                }
             }
-            var li = $("<li></li>")
+            li = $("<li></li>")
                 .data("item.autocomplete", item)
                 .append($("<a></a>").append(label))
                 .appendTo(ul);
