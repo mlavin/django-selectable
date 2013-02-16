@@ -78,4 +78,17 @@
         hiddenInput = $('<input>', hiddenAttrs);
         return [textInput, hiddenInput];
     };
+
+    window.simpleLookupResponse = function () {
+        var meta = {
+            "term": "ap",
+            "limit": 25,
+            "page": 1,
+            "more": "Show more results"
+        }, data = [
+            {"id": 1, "value": "Apple", "label": "Apple"},
+            {"id": 3, "value": "Grape", "label": "Grape"}
+        ];
+        return {"meta": meta, "data": data};
+    }
 })(jQuery);
