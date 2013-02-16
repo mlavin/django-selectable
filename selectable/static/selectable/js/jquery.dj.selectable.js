@@ -147,9 +147,6 @@
             $input.addClass("ui-widget ui-widget-content ui-corner-all");
             // Additional work for combobox widgets
             if (this.selectableType === 'combobox') {
-                // Change auto-complete options
-                this.option("delay", 0);
-                //this.option("minLength", 0);
                 $input.removeClass("ui-corner-all")
                 .addClass("ui-corner-left ui-combo-input");
                 // Add show all items button

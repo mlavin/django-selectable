@@ -33,6 +33,7 @@ ________________________________
 - The JS event namespace has changed from ``autocomplete`` to ``djselectable``.
 - ``data('autocomplete')`` is no longer available on the widgets on the client-side. Use ``data('djselectable')`` instead.
 - Combobox button was changed from a ``<button>`` to ``<a>``. Any customized styles you may have should be updated.
+- Combobox no longer changes the ``minLength`` or ``delay`` options.
 
 
 v0.6.2 (Released 2012-11-07)
