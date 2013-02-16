@@ -20,6 +20,7 @@ define(['selectable'], function ($) {
         },
         teardown: function () {
             this.xhr.restore();
+            this.textInput.djselectable('destroy');
         }
     });
 
@@ -47,7 +48,7 @@ define(['selectable'], function ($) {
         equal(count, 1, "djselectableselect should fire once when manually selected.");
     });
 
-    asyncTest("Menu Selection", function() {
+    test("Menu Selection", function() {
         expect(2);
         var count = 0,
             down = jQuery.Event("keydown"),
@@ -60,6 +61,7 @@ define(['selectable'], function ($) {
             count = count + 1;
         });
         this.textInput.val("ap").keydown();
+        stop();
         setTimeout(function () {
             equal(self.requests.length, 1, "AJAX request should be triggered.");
             self.requests[0].respond(200, {"Content-Type": "application/json"},
@@ -69,7 +71,53 @@ define(['selectable'], function ($) {
             self.textInput.trigger(enter);
             equal(count, 1, "djselectableselect should only fire once.");
             start();
-        }, 500);
+        }, 300);
+    });
+
+    test("Pagination Click", function() {
+        expect(3);
+        var count = 0,
+            response = paginatedLookupResponse(),
+            self = this;
+        this.textInput.bind('djselectableselect', function(e, item) {
+            count = count + 1;
+        });
+        this.textInput.val("ap").keydown();
+        stop();
+        setTimeout(function () {
+            equal(self.requests.length, 1, "AJAX request should be triggered.");
+            self.requests[0].respond(200, {"Content-Type": "application/json"},
+                JSON.stringify(response)
+            );
+            $('.selectable-paginator:visible').click();
+            equal(self.requests.length, 2, "Another AJAX request should be triggered.");
+            equal(count, 0, "djselectableselect should not fire for new page.");
+            start();
+        }, 300);
+    });
+
+    test("Pagination Render", function() {
+        expect(2);
+        var count = 0,
+            response = paginatedLookupResponse(),
+            self = this;
+        this.textInput.val("ap").keydown();
+        stop();
+        setTimeout(function () {
+            var options;
+            self.requests[0].respond(200, {"Content-Type": "application/json"},
+                JSON.stringify(response)
+            );
+            options = $('li.ui-menu-item:visible');
+            equal(options.length, 3, "Currently 3 menu items.");
+            $('.selectable-paginator:visible').click();
+            self.requests[1].respond(200, {"Content-Type": "application/json"},
+                JSON.stringify(response)
+            );
+            options = $('li.ui-menu-item:visible');
+            equal(options.length, 5, "Now 5 menu items.");
+            start();
+        }, 300);
     });
 
     module("Custom Event Tests", {
