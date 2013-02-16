@@ -71,4 +71,65 @@ define(['selectable'], function ($) {
             start();
         }, 500);
     });
+
+    module("Custom Event Tests", {
+        setup: function () {
+            this.inputs = createTextSelectMultiple('autocompleteselectmultiple');
+            this.textInput = this.inputs[0];
+            this.hiddenInput = this.inputs[1];
+            $('#qunit-fixture').append(this.textInput);
+            bindSelectables('#qunit-fixture');
+        }
+    });
+
+    test("Add Deck Item", function() {
+        expect(1);
+        var count = 0,
+            item = {id: "1", value: 'foo'};
+        this.textInput.bind('djselectableadd', function(e, item) {
+            count = count + 1;
+        });
+        this.textInput.djselectable('select', item);
+        equal(count, 1, "djselectableadd should fire once when manually selected.");
+    });
+
+    test("Prevent Add Deck Item", function() {
+        expect(1);
+        var count = 0,
+            item = {id: "1", value: 'foo'},
+            deck = $('.selectable-deck', '#qunit-fixture');
+        this.textInput.bind('djselectableadd', function(e, item) {
+            return false;
+        });
+        this.textInput.djselectable('select', item);
+        deck = $('.selectable-deck', '#qunit-fixture');
+        equal($('li', deck).length, 0, "Item should not be added.");
+    });
+
+    test("Remove Deck Item", function() {
+        expect(1);
+        var count = 0,
+            item = {id: "1", value: 'foo'},
+            deck = $('.selectable-deck', '#qunit-fixture');
+        this.textInput.bind('djselectableremove', function(e, item) {
+            count = count + 1;
+        });
+        this.textInput.djselectable('select', item);
+        $('.selectable-deck-remove a', deck).click();
+        equal(count, 1, "djselectableremove should fire once when item is removed.");
+    });
+
+    test("Prevent Remove Deck Item", function() {
+        expect(1);
+        var count = 0,
+            item = {id: "1", value: 'foo'},
+            deck = $('.selectable-deck', '#qunit-fixture');
+        this.textInput.bind('djselectableremove', function(e, item) {
+            return false;
+        });
+        var item = {id: "1", value: 'foo'};
+        this.textInput.djselectable('select', item);
+        $('.selectable-deck-remove a', deck).click();
+        equal($('li', deck).length, 1, "Item should not be removed.");
+    });
 });
