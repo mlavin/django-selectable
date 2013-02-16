@@ -19,6 +19,10 @@
         options: {
             removeIcon: "ui-icon-close",
             comboboxIcon: "ui-icon-triangle-1-s",
+            defaultClasses: {
+                "text": "ui-widget ui-widget-content ui-corner-all",
+                "combobox": "ui-widget ui-widget-content ui-corner-left ui-combo-input"
+            },
             prepareQuery: null,
             highlightMatch: true,
             formatLabel: null
@@ -42,35 +46,38 @@
 
         _addDeckItem: function (input) {
             /* Add new deck list item from a given hidden input */
-            var self = this;
-            var li = $('<li>')
-            .addClass('selectable-deck-item');
+            var self = this,
+                li = $('<li>').addClass('selectable-deck-item'),
+                item = {element: self.element, input: input, wrapper: li, deck: self.deck},
+                button;
             li.html($(input).attr('title'));
-            var item = {element: self.element, input: input, wrapper: li, deck: self.deck};
             if (self._trigger("add", null, item) === false) {
                 input.remove();
             } else {
-                var button = $('<div>')
-                .addClass('selectable-deck-remove')
-                .append(
-                    $('<a>')
-                    .attr('href', '#')
-                    .button({
-                        icons: {
-                            primary: self.options.removeIcon
-                        },
-                        text: false
-                    })
-                    .click(function (e) {
-                        e.preventDefault();
-                        if (self._trigger("remove", e, item) !== false) {
-                            $(input).remove();
-                            li.remove();
-                        }
-                    })
-                );
+                button = this._removeButtonTemplate(item);
+                button.click(function (e) {
+                    e.preventDefault();
+                    if (self._trigger("remove", e, item) !== false) {
+                        $(input).remove();
+                        li.remove();
+                    }
+                });
                 li.append(button).appendTo(this.deck);
             }
+        },
+
+        _removeButtonTemplate: function (item) {
+            var options = {
+                    icons: {
+                        primary: this.options.removeIcon
+                    },
+                    text: false
+                },
+                button = $('<a>')
+                .attr('href', '#')
+                .addClass('selectable-deck-remove')
+                .button(options);
+            return button;
         },
 
         select: function (item, event) {
@@ -118,12 +125,30 @@
             }
         },
 
+        _comboButtonTemplate: function (input) {
+            // Add show all items button
+            var options = {
+                    icons: {
+                        primary: this.options.comboboxIcon
+                    },
+                    text: false
+                },
+                button = $("<a>")
+                    .html("&nbsp;")
+                    .attr("tabIndex", -1)
+                    .attr("title", "Show All Items")
+                    .button(options)
+                    .removeClass("ui-corner-all")
+                    .addClass("ui-corner-right ui-button-icon ui-combo-button");
+            return button;
+        },
+
         _create: function () {
             /* Initialize a new selectable widget */
             var self = this,
             $input = $(this.element),
             data = $input.data(),
-            options;
+            options, button;
             this.url = data.selectableUrl || data['selectable-url'];
             this.allowNew = data.selectableAllowNew || data['selectable-allow-new'];
             this.allowMultiple = data.selectableMultiple || data['selectable-multiple'];
@@ -144,23 +169,12 @@
             // Call super-create
             // This could be replaced by this._super() with jQuery UI 1.9
             $.ui.autocomplete.prototype._create.call(this);
-            $input.addClass("ui-widget ui-widget-content ui-corner-all");
+            $input.addClass(this.options.defaultClasses[this.selectableType]);
             // Additional work for combobox widgets
             if (this.selectableType === 'combobox') {
-                $input.removeClass("ui-corner-all")
-                .addClass("ui-corner-left ui-combo-input");
                 // Add show all items button
-                $("<a>").html("&nbsp;").attr("tabIndex", -1).attr("title", "Show All Items")
-                .insertAfter($input)
-                .button({
-                    icons: {
-                        primary: this.options.comboboxIcon
-                    },
-                    text: false
-                })
-                .removeClass("ui-corner-all")
-                .addClass("ui-corner-right ui-button-icon ui-combo-button")
-                .click(function (e) {
+                button = this._comboButtonTemplate($input);
+                button.insertAfter($input).click(function (e) {
                     e.preventDefault();
                     // close if already visible
                     if (self.widget().is(":visible")) {
@@ -214,14 +228,14 @@
             var label = item.label,
                 self = this,
                 $input = $(this.element),
-                re = new RegExp("(?![^&;]+;)(?!<[^<>]*)(" +
-                $.ui.autocomplete.escapeRegex(this.term) +
-                ")(?![^<>]*>)(?![^&;]+;)", "gi"),
-                 html, li;
+                re, html, li;
             if (this.options.formatLabel && !item.page) {
                 label = this.options.formatLabel.apply(this, [label, item]);
             }
             if (this.options.highlightMatch && this.term && !item.page) {
+                re = new RegExp("(?![^&;]+;)(?!<[^<>]*)(" +
+                    $.ui.autocomplete.escapeRegex(this.term) +
+                    ")(?![^<>]*>)(?![^&;]+;)", "gi");
                 if (label.html) {
                     html = label.html();
                     html = html.replace(re, "<span class='highlight'>$1</span>");

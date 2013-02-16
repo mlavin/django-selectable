@@ -201,7 +201,7 @@ define(['selectable'], function ($) {
             count = count + 1;
         });
         this.textInput.djselectable('select', item);
-        $('.selectable-deck-remove a', deck).click();
+        $('.selectable-deck-remove', deck).click();
         equal(count, 1, "djselectableremove should fire once when item is removed.");
     });
 
@@ -215,7 +215,7 @@ define(['selectable'], function ($) {
         });
         var item = {id: "1", value: 'foo'};
         this.textInput.djselectable('select', item);
-        $('.selectable-deck-remove a', deck).click();
+        $('.selectable-deck-remove', deck).click();
         equal($('li', deck).length, 1, "Item should not be removed.");
     });
 });
