@@ -3,7 +3,7 @@
 require.config({
     baseUrl: '../../static/selectable/js/',
     paths: {
-        selectable: 'jquery.dj.selectable',
+        selectable: 'jquery.dj.selectable'
     },
     shim: {
         selectable: {
