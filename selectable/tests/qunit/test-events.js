@@ -89,7 +89,37 @@ define(['selectable'], function ($) {
             self.requests[0].respond(200, {"Content-Type": "application/json"},
                 JSON.stringify(response)
             );
-            $('.selectable-paginator:visible').click();
+            $('.ui-menu-item.selectable-paginator:visible a').trigger("mouseenter");
+            $('.ui-menu-item.selectable-paginator:visible a').trigger("click");
+            equal(self.requests.length, 2, "Another AJAX request should be triggered.");
+            equal(count, 0, "djselectableselect should not fire for new page.");
+            start();
+        }, 300);
+    });
+
+    test("Pagination Enter", function() {
+        expect(3);
+        var count = 0,
+            down = jQuery.Event("keydown"),
+            enter = jQuery.Event("keydown"),
+            response = paginatedLookupResponse(),
+            self = this;
+        down.keyCode = $.ui.keyCode.DOWN;
+        enter.keyCode = $.ui.keyCode.ENTER;
+        this.textInput.bind('djselectableselect', function(e, item) {
+            count = count + 1;
+        });
+        this.textInput.val("ap").keydown();
+        stop();
+        setTimeout(function () {
+            equal(self.requests.length, 1, "AJAX request should be triggered.");
+            self.requests[0].respond(200, {"Content-Type": "application/json"},
+                JSON.stringify(response)
+            );
+            self.textInput.trigger(down);
+            self.textInput.trigger(down);
+            self.textInput.trigger(down);
+            self.textInput.trigger(enter);
             equal(self.requests.length, 2, "Another AJAX request should be triggered.");
             equal(count, 0, "djselectableselect should not fire for new page.");
             start();
@@ -99,8 +129,12 @@ define(['selectable'], function ($) {
     test("Pagination Render", function() {
         expect(2);
         var count = 0,
+            down = jQuery.Event("keydown"),
+            enter = jQuery.Event("keydown"),
             response = paginatedLookupResponse(),
             self = this;
+        down.keyCode = $.ui.keyCode.DOWN;
+        enter.keyCode = $.ui.keyCode.ENTER;
         this.textInput.val("ap").keydown();
         stop();
         setTimeout(function () {
@@ -110,7 +144,11 @@ define(['selectable'], function ($) {
             );
             options = $('li.ui-menu-item:visible');
             equal(options.length, 3, "Currently 3 menu items.");
-            $('.selectable-paginator:visible').click();
+            // $('.selectable-paginator:visible').click();
+            self.textInput.trigger(down);
+            self.textInput.trigger(down);
+            self.textInput.trigger(down);
+            self.textInput.trigger(enter);
             self.requests[1].respond(200, {"Content-Type": "application/json"},
                 JSON.stringify(response)
             );

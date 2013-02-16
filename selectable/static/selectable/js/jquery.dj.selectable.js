@@ -149,7 +149,7 @@
             if (this.selectableType === 'combobox') {
                 // Change auto-complete options
                 this.option("delay", 0);
-                this.option("minLength", 0);
+                //this.option("minLength", 0);
                 $input.removeClass("ui-corner-all")
                 .addClass("ui-corner-left ui-combo-input");
                 // Add show all items button
@@ -170,7 +170,7 @@
                         self.close();
                     }
                     // pass empty string as value to search for, displaying all results
-                    self.search("");
+                    self._search("");
                     $input.focus();
                 });
             }
@@ -178,29 +178,31 @@
 
         // Override the default source creation
         _initSource: function () {
-            var self = this;
+            var self = this,
+                $input = $(this.element);
             this.source = function dataSource(request, response) {
                 /* Custom data source to uses the lookup url with pagination
                 Adds hook for adjusting query parameters.
                 Includes timestamp to prevent browser caching the lookup. */
-                var now = new Date().getTime();
-                var query = {term: request.term, timestamp: now};
+                var now = new Date().getTime(),
+                    query = {term: request.term, timestamp: now},
+                    page = $input.data("page");
                 if (self.options.prepareQuery) {
                     self.options.prepareQuery.apply(self, [query]);
                 }
-                var page = $(self.element).data("page");
                 if (page) {
                     query.page = page;
                 }
                 function unwrapResponse(data) {
-                    var results = data.data;
-                    var meta = data.meta;
+                    var results = data.data,
+                        meta = data.meta;
                     if (meta.next_page && meta.more) {
                         results.push({
                             id: '',
                             value: '',
                             label: meta.more,
-                            page: meta.next_page
+                            page: meta.next_page,
+                            term: request.term
                         });
                     }
                     return response(results);
@@ -229,11 +231,7 @@
                 .append($("<a></a>").append(label))
                 .appendTo(ul);
             if (item.page) {
-                li.addClass('selectable-paginator').click(function (e) {
-                    $input.data("page", item.page);
-                    self.search();
-                    return false;
-                });
+                li.addClass('selectable-paginator');
             }
             return li;
         },
@@ -262,13 +260,21 @@
             ul.position($.extend({of: this.element}, this.options.position));
             if (this.options.autoFocus) {
                 this.menu.next(new $.Event("mouseover"));
+            } else if (page) {
+                $input.focus();
             }
         },
         // Override default trigger for additional change/select logic
         _trigger: function (type, event, data) {
-            var $input = $(this.element);
+            var $input = $(this.element),
+                self = this;
             if (type === "select") {
                 $input.removeClass('ui-state-error');
+                if (data.item.page) {
+                    $input.data("page", data.item.page);
+                    this._search(data.item.term);
+                    return false;
+                }
                 return this.select(data.item, event);
             } else if (type === "change") {
                 $input.removeClass('ui-state-error');
@@ -286,6 +292,15 @@
             // Call super trigger
             // This could be replaced by this._super() with jQuery UI 1.9
             return $.ui.autocomplete.prototype._trigger.apply(this, arguments);
+        },
+        close: function (event) {
+            var page = $(this.element).data('page');
+            if (page != null) {
+                return;
+            }
+            // Call super trigger
+            // This could be replaced by this._super() with jQuery UI 1.9
+            return $.ui.autocomplete.prototype.close.apply(this, arguments);
         }
 	});
 
