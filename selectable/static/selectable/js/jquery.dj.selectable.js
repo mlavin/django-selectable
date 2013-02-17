@@ -400,4 +400,4 @@
             window.bindSelectables('body');
         }
     });
-})(jQuery);
+})(jQuery || grp.jQuery);

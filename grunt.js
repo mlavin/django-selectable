@@ -44,7 +44,9 @@ module.exports = function(grunt) {
         html_unescape: true,
         // Optional globals
         djselectableAdminPatch: true,
-        djselectableAutoLoad: true
+        djselectableAutoLoad: true,
+        // Grappelli namespace
+        grp: true
       }
     },
     server: {
