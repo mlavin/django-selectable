@@ -68,11 +68,6 @@ Or only change the theme.
 
 See the the jQuery UI documentation for a full list of available stable themes: http://jqueryui.com/download#stable-themes
 
-.. note::
-
-    These template tags were added in v0.5.0. Prior to that these js/css resources
-    need to be added manually.
-
 Of course you can choose to include these rescources manually::
 
     .. code-block:: html
@@ -82,6 +77,12 @@ Of course you can choose to include these rescources manually::
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.0/jquery-ui.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}selectable/js/jquery.dj.selectable.js"></script>
+
+.. note::
+
+    jQuery UI shares a few plugin names with the popular Twitter Bootstrap framework. There
+    are notes on using Bootstrap along with django-selectable in the :ref:`advanced usage
+    section <advanced-bootstrap>`.
 
 
 Defining a Lookup

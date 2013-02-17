@@ -17,6 +17,8 @@ To use Python 3 with django-selectable you will need to use Django 1.5+.
 - Improved the scope of ``prepareQuery`` and ``formatLabel`` options. Not fully backwards compatible. Thanks to Augusto Men.
 - Allow passing the Python path string in place of the lookup class to the fields and widgets. Thanks to Michael Manfre.
 - Allow passing JS plugin options through the widget ``attrs`` option. Thanks to Felipe Prenholato.
+- Tests for compatibility with jQuery 1.6 through 1.9 and jQuery UI 1.8 through 1.10.
+- Added notes on Bootstrap compatibility.
 
 Bug Fixes
 _________________

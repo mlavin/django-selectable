@@ -73,7 +73,7 @@ _______________________________________
 
 There are times where you want to filter the result set based other selections
 by the user such as a filtering cities by a previously selected state. In this
-case you will need to bind a ``prepareQuery`` to the field. This function should accept the query dictionary. 
+case you will need to bind a ``prepareQuery`` to the field. This function should accept the query dictionary.
 You are free to make adjustments to  the query dictionary as needed.
 
     .. code-block:: html
@@ -101,7 +101,7 @@ Chained Selection
 --------------------------------------
 
 It's a fairly common pattern to have two or more inputs depend one another such City/State/Zip.
-In fact there are other Django apps dedicated to this purpose such as 
+In fact there are other Django apps dedicated to this purpose such as
 `django-smart-selects <https://github.com/digi604/django-smart-selects>`_ or
 `django-ajax-filtered-fields <http://code.google.com/p/django-ajax-filtered-fields/>`_.
 It's possible to handle this kind of selection with django-selectable if you are willing
@@ -118,7 +118,7 @@ and a simple form
         :pyobject: ChainedForm
 
 We want our users to select a city and if they choose a state then we will only
-show them cities in that state. To do this we will pass back chosen state as 
+show them cities in that state. To do this we will pass back chosen state as
 addition parameter with the following javascript:
 
     .. literalinclude:: ../example/core/templates/advanced.html
@@ -140,8 +140,8 @@ is included in the example project.
 Detecting Client Side Changes
 ____________________________________________
 
-The previous example detected selection changes on the client side to allow passing 
-parameters to the lookup. Since django-selectable is built on top of the jQuery UI 
+The previous example detected selection changes on the client side to allow passing
+parameters to the lookup. Since django-selectable is built on top of the jQuery UI
 `Autocomplete plug-in <http://jqueryui.com/demos/autocomplete/>`_, the widgets
 expose the events defined by the plugin.
 
@@ -212,11 +212,11 @@ Dynamically Added Forms
 
 django-selectable can work with dynamically added forms such as inlines in the admin.
 To make django-selectable work in the admin there is nothing more to do than include
-the necessary static media as described in the 
+the necessary static media as described in the
 :ref:`Admin Integration <admin-jquery-include>` section.
 
 If you are making use of the popular `django-dynamic-formset <http://code.google.com/p/django-dynamic-formset/>`_
-then you can make django-selectable work by passing ``bindSelectables`` to the 
+then you can make django-selectable work by passing ``bindSelectables`` to the
 `added <http://code.google.com/p/django-dynamic-formset/source/browse/trunk/docs/usage.txt#259>`_ option:
 
     .. code-block:: html
@@ -224,7 +224,7 @@ then you can make django-selectable work by passing ``bindSelectables`` to the
         <script type="text/javascript">
             $(document).ready(function() {
                 $('#my-formset').formset({
-               		added: bindSelectables	
+               		added: bindSelectables
                 });
             });
         </script>
@@ -276,3 +276,59 @@ portions with their own classes for additional styling:
 
 This is a rather simple example but you could also pass additional information in ``format_item``
 such as a flag of whether the city is the capital and render the state captials differently.
+
+.. _advanced-bootstrap:
+
+Using with Twitter Bootstrap
+--------------------------------------
+
+django-selectable can work along side with Twitter Bootstrap but there are a few things to
+take into consideration. Both jQuery UI and Bootstrap define a ``$.button`` plugin. This
+plugin is used by default by django-selectable and expects the UI version. If the jQuery UI
+JS is included after the Bootstrap JS then this will work just fine but the Bootstrap
+button JS will not be available. This is the strategy taken by the  `jQuery UI Bootstrap
+<http://addyosmani.github.com/jquery-ui-bootstrap/>`_ theme.
+
+Another option is to rename the Bootstrap plugin using the ``noConflict`` option.
+
+    .. code-block:: html
+
+        <!-- Include Bootstrap JS -->
+        <script>$.fn.bootstrapBtn = $.fn.button.noConflict();</script>
+        <!-- Include jQuery UI JS -->
+
+Even with this some might complain that it's too resource heavy to include all of
+jQuery UI when you just want the autocomplete to work with django-selectable. For
+this you can use the `Download Builder <http://jqueryui.com/download/>`_ to build
+a minimal set of jQuery UI widgets. django-selectable requires the UI core, autocomplete,
+menu and button widgets. None of the effects or interactions are needed. Minified
+this totals around 100 kb of JS, CSS and images (based on jQuery UI 1.10).
+
+.. note::
+
+    For a comparison this is smaller than the minified Bootstrap 2.3.0 CSS
+    which is 105 kb not including the responsive CSS or the icon graphics.
+
+It is possible to remove the dependency on the UI button plugin and instead
+use the Bootstrap button styles. This is done by overriding
+the ``_comboButtonTemplate`` and ``_removeButtonTemplate`` functions used to
+create the buttons. An example is given below.
+
+    .. code-block:: html
+
+        <script>
+            $.ui.djselectable.prototype._comboButtonTemplate = function (input) {
+                var icon = $("<i>").addClass("icon-chevron-down");
+                // Remove current classes on the text input
+                $(input).attr("class", "");
+                // Wrap with input-append
+                $(input).wrap('<div class="input-append" />');
+                // Return button link with the chosen icon
+                return $("<a>").append(icon).addClass("btn btn-small");
+            };
+            $.ui.djselectable.prototype._removeButtonTemplate = function (item) {
+                var icon = $("<i>").addClass("icon-remove-sign");
+                // Return button link with the chosen icon
+                return $("<a>").append(icon).addClass("btn btn-small pull-right");
+            };
+        </script>
