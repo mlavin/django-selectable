@@ -19,6 +19,8 @@ To use Python 3 with django-selectable you will need to use Django 1.5+.
 - Allow passing JS plugin options through the widget ``attrs`` option. Thanks to Felipe Prenholato.
 - Tests for compatibility with jQuery 1.6 through 1.9 and jQuery UI 1.8 through 1.10.
 - Added notes on Bootstrap compatibility.
+- Added compatibility with Grappelli in the admin.
+
 
 Bug Fixes
 _________________
