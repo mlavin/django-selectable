@@ -1,4 +1,4 @@
-Primary author: 
+Primary author:
 
 Mark Lavin
 
@@ -15,5 +15,6 @@ Felipe Prenholato
 David Ray
 Rick Testore
 Karen Tracey
+Manuel Alvarez
 
 Thanks for all of your work!

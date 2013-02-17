@@ -20,6 +20,7 @@ To use Python 3 with django-selectable you will need to use Django 1.5+.
 - Tests for compatibility with jQuery 1.6 through 1.9 and jQuery UI 1.8 through 1.10.
 - Added notes on Bootstrap compatibility.
 - Added compatibility with Grappelli in the admin.
+- Added Spanish translation thanks to Manuel Alvarez.
 
 
 Bug Fixes
