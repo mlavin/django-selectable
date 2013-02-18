@@ -21,7 +21,7 @@ To use Python 3 with django-selectable you will need to use Django 1.5+.
 - Added notes on Bootstrap compatibility.
 - Added compatibility with Grappelli in the admin.
 - Added Spanish translation thanks to Manuel Alvarez.
-
+- Added documentation notes on testing.
 
 Bug Fixes
 _________________
