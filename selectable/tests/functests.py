@@ -267,6 +267,19 @@ class FuncManytoManyMultipleSelectTestCase(BaseSelectableTestCase):
         things = manything.things.all()
         self.assertEqual(things.count(), 0)
 
+    def test_has_changed(self):
+        "Populate intial data from a model."
+        manything = ManyThing.objects.create(name='Foo')
+        thing_1 = self.create_thing()
+        manything.things.add(thing_1)
+        data = {
+            'name': manything.name,
+            'things_0': '', # Text input
+            'things_1': [thing_1.pk], # Hidden inputs
+        }
+        form = ManyThingForm(data=data, instance=manything)
+        self.assertFalse(form.has_changed(), str(form.changed_data))
+
 
 class SimpleForm(forms.Form):
     "Non-model form usage."
@@ -385,3 +398,105 @@ class FuncFormTestCase(BaseSelectableTestCase):
         form = SimpleForm(data={}, empty_permitted=True)
         self.assertFalse(form.has_changed(), str(form.changed_data))
         self.assertTrue(form.is_valid(), str(form.errors))
+
+    def test_select_multiple_changed(self):
+        """
+        Detect changes for a multiple select input with and without
+        initial data.
+        """
+        data = {
+            'thing_0': '',
+            'thing_1': '',
+            'new_thing_0': '',
+            'new_thing_1': '',
+            'things_0': '',
+            'things_1': [self.test_thing.pk, ]
+        }
+        form = SimpleForm(data=data)
+        self.assertTrue(form.has_changed())
+        self.assertTrue('things' in form.changed_data)
+
+        initial = {
+            'thing': '',
+            'new_thing': '',
+            'things': [self.test_thing.pk, ],
+        }
+        form = SimpleForm(data=data, initial=initial)
+        self.assertFalse(form.has_changed(), str(form.changed_data))
+
+        initial = {
+            'thing': '',
+            'new_thing': '',
+            'things': [],
+        }
+        form = SimpleForm(data=data, initial=initial)
+        self.assertTrue(form.has_changed())
+        self.assertTrue('things' in form.changed_data)
+
+    def test_single_select_changed(self):
+        """
+        Detect changes for a single select input with and without
+        initial data.
+        """
+        data = {
+            'thing_0': '',
+            'thing_1': self.test_thing.pk,
+            'new_thing_0': '',
+            'new_thing_1': '',
+            'things_0': '',
+            'things_1': ''
+        }
+        form = SimpleForm(data=data)
+        self.assertTrue(form.has_changed())
+        self.assertTrue('thing' in form.changed_data)
+
+        initial = {
+            'thing': self.test_thing.pk,
+            'new_thing': '',
+            'things': '',
+        }
+        form = SimpleForm(data=data, initial=initial)
+        self.assertFalse(form.has_changed(), str(form.changed_data))
+
+        initial = {
+            'thing': '',
+            'new_thing': '',
+            'things': '',
+        }
+        form = SimpleForm(data=data, initial=initial)
+        self.assertTrue(form.has_changed())
+        self.assertTrue('thing' in form.changed_data)
+
+    def test_new_select_changed(self):
+        """
+        Detect changes for a single select input which allows new items
+        with and without initial data.
+        """
+        data = {
+            'thing_0': '',
+            'thing_1': '',
+            'new_thing_0': 'Foo',
+            'new_thing_1': '',
+            'things_0': '',
+            'things_1': ''
+        }
+        form = SimpleForm(data=data)
+        self.assertTrue(form.has_changed())
+        self.assertTrue('new_thing' in form.changed_data)
+
+        initial = {
+            'thing': '',
+            'new_thing': ['Foo', None],
+            'things': '',
+        }
+        form = SimpleForm(data=data, initial=initial)
+        self.assertFalse(form.has_changed(), str(form.changed_data))
+
+        initial = {
+            'thing': '',
+            'new_thing': '',
+            'things': '',
+        }
+        form = SimpleForm(data=data, initial=initial)
+        self.assertTrue(form.has_changed())
+        self.assertTrue('new_thing' in form.changed_data)
