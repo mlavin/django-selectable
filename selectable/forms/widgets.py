@@ -67,8 +67,8 @@ class SelectableMultiWidget(forms.MultiWidget):
 
     def _has_changed(self, initial, data):
         "Decects if the widget was changed. This is removed in 1.6."
-        if initial is None and data is not None:
-            return True
+        if initial is None and data is None:
+            return False
         if data and not hasattr(data, '__iter__'):
             data = self.decompress(data)
         return super(SelectableMultiWidget, self)._has_changed(initial, data)
