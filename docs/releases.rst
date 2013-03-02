@@ -1,7 +1,7 @@
 Release Notes
 ==================
 
-v0.7.0 (Released TBD)
+v0.7.0 (Released 2013-03-01)
 --------------------------------------
 
 This release features a large refactor of the JS plugin used by the widgets. While this
