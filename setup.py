@@ -21,7 +21,7 @@ setup(
     include_package_data=True,
     url='http://bitbucket.org/mlavin/django-selectable',
     license='BSD',
-    description=u' '.join(__import__('selectable').__doc__.splitlines()).strip(),
+    description=' '.join(__import__('selectable').__doc__.splitlines()).strip(),
     classifiers=[
         'Intended Audience :: Developers',
         'License :: OSI Approved :: BSD License',

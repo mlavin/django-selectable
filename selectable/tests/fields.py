@@ -10,7 +10,6 @@ __all__ = (
     'AutoCompleteSelectMultipleFieldTestCase',
 )
 
-
 class BaseFieldTestCase(BaseSelectableTestCase):
     field_cls = None
     lookup_cls = None
@@ -30,6 +29,28 @@ class BaseFieldTestCase(BaseSelectableTestCase):
     def test_clean(self):
         self.fail('This test has not yet been written')
 
+    def test_dotted_path(self):
+        """
+        Ensure lookup_class can be imported from a dotted path.
+        """
+        dotted_path = '.'.join([self.lookup_cls.__module__, self.lookup_cls.__name__])
+        field = self.field_cls(dotted_path)
+        self.assertEqual(field.lookup_class, self.lookup_cls)
+
+    def test_invalid_dotted_path(self):
+        """
+        An invalid lookup_class dotted path should raise an ImportError.
+        """
+        with self.assertRaises(ImportError):
+            self.field_cls('this.is.an.invalid.path')
+
+    def test_dotted_path_wrong_type(self):
+        """
+        lookup_class must be a subclass of LookupBase.
+        """
+        dotted_path = 'selectable.forms.fields.AutoCompleteSelectField'
+        with self.assertRaises(TypeError):
+            self.field_cls(dotted_path)
 
 class AutoCompleteSelectFieldTestCase(BaseFieldTestCase):
     field_cls = fields.AutoCompleteSelectField
@@ -66,6 +87,11 @@ class AutoCompleteSelectFieldTestCase(BaseFieldTestCase):
         field = self.get_field_instance(widget=widget)
         self.assertTrue(isinstance(field.widget, widgets.AutoComboboxWidget))
 
+    def test_invalid_pk(self):
+        field = self.get_field_instance()
+        value = self.get_random_string()
+        self.assertRaises(forms.ValidationError, field.clean, [value, 'XXX'])
+
 
 class AutoCompleteSelectMultipleFieldTestCase(BaseFieldTestCase):
     field_cls = fields.AutoCompleteSelectMultipleField
@@ -101,3 +127,8 @@ class AutoCompleteSelectMultipleFieldTestCase(BaseFieldTestCase):
         widget = widgets.AutoComboboxSelectMultipleWidget(self.lookup_cls)
         field = self.get_field_instance(widget=widget)
         self.assertTrue(isinstance(field.widget, widgets.AutoComboboxSelectMultipleWidget))
+
+    def test_invalid_pk(self):
+        field = self.get_field_instance()
+        value = self.get_random_string()
+        self.assertRaises(forms.ValidationError, field.clean, ['XXX', ])

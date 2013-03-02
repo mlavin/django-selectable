@@ -1,4 +1,5 @@
 "Decorators for additional lookup functionality."
+from __future__ import unicode_literals
 
 from functools import wraps
 

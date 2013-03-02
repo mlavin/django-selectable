@@ -1,3 +1,5 @@
+from __future__ import unicode_literals
+
 from django.contrib.localflavor.us.models import USStateField
 from django.db import models
 
@@ -15,12 +17,12 @@ class Farm(models.Model):
     fruit = models.ManyToManyField(Fruit)
 
     def __unicode__(self):
-        return u"%s's Farm: %s" % (self.owner.username, self.name)
+        return "%s's Farm: %s" % (self.owner.username, self.name)
 
 
 class City(models.Model):
     name = models.CharField(max_length=200)
     state = USStateField()
-    
+
     def __unicode__(self):
         return self.name

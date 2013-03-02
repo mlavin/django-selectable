@@ -1,9 +1,12 @@
-Primary author: 
+Primary author:
 
 Mark Lavin
 
 The following people who have contributed to django-selectable:
 
+Michael Manfre
+Luke Plant
+Augusto Men
 @dc
 Colin Copeland
 Sławomir Ehlert
@@ -12,5 +15,6 @@ Felipe Prenholato
 David Ray
 Rick Testore
 Karen Tracey
+Manuel Alvarez
 
 Thanks for all of your work!

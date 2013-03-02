@@ -9,7 +9,8 @@ Contents:
     quick-start
     lookups
     advanced
-    admin    
+    admin
+    testing
     fields
     widgets
     settings

@@ -15,8 +15,8 @@ argument.
 
 AutoCompleteSelectField
 --------------------------------------
-    
-Field tied to :ref:`AutoCompleteSelectWidget` to bind the selection to the form and  
+
+Field tied to :ref:`AutoCompleteSelectWidget` to bind the selection to the form and
 create new items, if allowed. The ``allow_new`` keyword argument (default: ``False``)
 which determines if the field allows new items. This field cleans to a single item.
 
@@ -25,16 +25,13 @@ which determines if the field allows new items. This field cleans to a single it
         :end-before: # AutoCompleteSelectField (allows new items)
 
 
-.. _AutoComboboxSelectField:
+.. versionadded:: 0.7
 
-AutoComboboxSelectField
---------------------------------------
+`lookup_class`` may also be a dotted path.
 
-.. deprecated:: 0.5
+    .. code-block:: python
 
-This field is deprecated in v0.5 and removed in v0.6. You should instead
-use the above :ref:`AutoCompleteSelectField` and pass the :ref:`AutoComboboxSelectWidget`
-in the ``widget`` argument.
+	    selectable.AutoCompleteSelectField(lookup_class='core.lookups.FruitLookup')
 
 
 .. _AutoCompleteSelectMultipleField:
@@ -49,15 +46,3 @@ allow for the creation of new items.
     .. literalinclude:: ../example/core/forms.py
         :start-after: # AutoCompleteSelectMultipleField
         :end-before: # AutoComboboxSelectMultipleField
-
-
-.. _AutoComboboxSelectMultipleField:
-
-AutoComboboxSelectMultipleField
---------------------------------------
-
-.. deprecated:: 0.5
-
-This field is deprecated in v0.5 and removed in v0.6. You should instead
-use the above :ref:`AutoCompleteSelectMultipleField` and pass the 
-:ref:`AutoComboboxSelectMultipleWidget` in the ``widget`` argument.

@@ -1,6 +1,45 @@
 Release Notes
 ==================
 
+v0.7.0 (Released TBD)
+--------------------------------------
+
+This release features a large refactor of the JS plugin used by the widgets. While this
+over makes the plugin more maintainable and allowed for some of the new features in this
+release, it does introduce a few incompatible changes. For the most part places where you
+might have previously used the ``autocomplete`` namespace/plugin, those references should
+be updated to reference the ``djselectable`` plugin.
+
+This release also adds experimental support for Python 3.2+ to go along with Django's support in 1.5.
+To use Python 3 with django-selectable you will need to use Django 1.5+.
+
+- Experimental Python 3.2+ support
+- Improved the scope of ``prepareQuery`` and ``formatLabel`` options. Not fully backwards compatible. Thanks to Augusto Men.
+- Allow passing the Python path string in place of the lookup class to the fields and widgets. Thanks to Michael Manfre.
+- Allow passing JS plugin options through the widget ``attrs`` option. Thanks to Felipe Prenholato.
+- Tests for compatibility with jQuery 1.6 through 1.9 and jQuery UI 1.8 through 1.10.
+- Added notes on Bootstrap compatibility.
+- Added compatibility with Grappelli in the admin.
+- Added Spanish translation thanks to Manuel Alvarez.
+- Added documentation notes on testing.
+
+Bug Fixes
+_________________
+
+- Fixed bug with matching hidden input when the name contains '_1'. Thanks to Augusto Men for the report and fix.
+- Fixed bug where the enter button would open the combobox options rather than submit the form. Thanks to Felipe Prenholato for the report.
+- Fixed bug with using ``allow_new=True`` creating items when no data was submitted. See #91.
+- Fixed bug with widget ``has_changed`` when there is no initial data. See #92.
+
+
+Backwards Incompatible Changes
+________________________________
+
+- The JS event namespace has changed from ``autocomplete`` to ``djselectable``.
+- ``data('autocomplete')`` is no longer available on the widgets on the client-side. Use ``data('djselectable')`` instead.
+- Combobox button was changed from a ``<button>`` to ``<a>``. Any customized styles you may have should be updated.
+- Combobox no longer changes the ``minLength`` or ``delay`` options.
+
 
 v0.6.2 (Released 2012-11-07)
 --------------------------------------
@@ -107,7 +146,7 @@ Backwards Incompatible Changes
 ________________________________
 
 - Previously the minimal version of jQuery was listed as 1.4.3 when it fact there was a bug a that made django-selectable require 1.4.4. Not a new incompatibility but the docs have now been updated and 1.4.3 compatibility will not be added. Thanks to Rick Testore for the report and the fix
-- Started deprecation path for :ref:`AutoComboboxSelectField` and :ref:`AutoComboboxSelectMultipleField`
+- Started deprecation path for AutoComboboxSelectField and AutoComboboxSelectMultipleField
 
 
 v0.4.1 (Released 2012-03-11)

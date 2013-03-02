@@ -61,8 +61,6 @@ most common way to use this would be in the form ``__init__``.
                 super(FruitForm, self).__init__(*args, **kwargs)
                 self.fields['autocomplete'].widget.update_query_parameters({'foo': 'bar'})
 
-.. versionadded:: 0.4
-
 You can also pass the query parameters into the widget using the ``query_params``
 keyword argument. It depends on your use case as to whether the parameters are
 know when the form is defined or when an instance of the form is created.
@@ -75,7 +73,7 @@ _______________________________________
 
 There are times where you want to filter the result set based other selections
 by the user such as a filtering cities by a previously selected state. In this
-case you will need to bind a ``prepareQuery`` to the field. This function should accept the query dictionary. 
+case you will need to bind a ``prepareQuery`` to the field. This function should accept the query dictionary.
 You are free to make adjustments to  the query dictionary as needed.
 
     .. code-block:: html
@@ -90,6 +88,12 @@ You are free to make adjustments to  the query dictionary as needed.
             });
         </script>
 
+.. note::
+
+    In v0.7 the scope of ``prepareQuery`` was updated so that ``this`` refers to the
+    current ``djselectable`` plugin instance. Previously ``this`` refered to the
+    plugin ``options`` instance.
+
 
 .. _chain-select-example:
 
@@ -97,7 +101,7 @@ Chained Selection
 --------------------------------------
 
 It's a fairly common pattern to have two or more inputs depend one another such City/State/Zip.
-In fact there are other Django apps dedicated to this purpose such as 
+In fact there are other Django apps dedicated to this purpose such as
 `django-smart-selects <https://github.com/digi604/django-smart-selects>`_ or
 `django-ajax-filtered-fields <http://code.google.com/p/django-ajax-filtered-fields/>`_.
 It's possible to handle this kind of selection with django-selectable if you are willing
@@ -114,7 +118,7 @@ and a simple form
         :pyobject: ChainedForm
 
 We want our users to select a city and if they choose a state then we will only
-show them cities in that state. To do this we will pass back chosen state as 
+show them cities in that state. To do this we will pass back chosen state as
 addition parameter with the following javascript:
 
     .. literalinclude:: ../example/core/templates/advanced.html
@@ -136,18 +140,24 @@ is included in the example project.
 Detecting Client Side Changes
 ____________________________________________
 
-Our previous example made us of detecting changes to the selection on the client
-side to pass new parameters to the lookup. Since django-selectable is built on top of the jQuery UI 
+The previous example detected selection changes on the client side to allow passing
+parameters to the lookup. Since django-selectable is built on top of the jQuery UI
 `Autocomplete plug-in <http://jqueryui.com/demos/autocomplete/>`_, the widgets
 expose the events defined by the plugin.
 
-    - autocompletecreate
-    - autocompletesearch
-    - autocompleteopen
-    - autocompletefocus
-    - autocompleteselect
-    - autocompleteclose
-    - autocompletechange
+    - djselectablecreate
+    - djselectablesearch
+    - djselectableopen
+    - djselectablefocus
+    - djselectableselect
+    - djselectableclose
+    - djselectablechange
+
+.. note::
+
+    Prior to v0.7 these event names were under the ``autocomplete`` namespace. If you
+    are upgrading from a previous version and had customizations using these events
+    you should be sure to update the names.
 
 For the most part these event names should be self-explanatory. If you need additional
 detail you should refer to the `jQuery UI docs on these events <http://jqueryui.com/demos/autocomplete/#events>`_.
@@ -182,7 +192,7 @@ Submit On Selection
 --------------------------------------
 
 You might want to help your users by submitting the form once they have selected a valid
-item. To do this you simply need to listen for the ``autocompleteselect`` event. This
+item. To do this you simply need to listen for the ``djselectableselect`` event. This
 event is fired by the text input which has an index of 0. If your field is named ``my_field``
 then input to watch would be ``my_field_0`` such as:
 
@@ -190,7 +200,7 @@ then input to watch would be ``my_field_0`` such as:
 
         <script type="text/javascript">
             $(document).ready(function() {
-                $(':input[name=my_field_0]').bind('autocompleteselect', function(event, ui) {
+                $(':input[name=my_field_0]').bind('djselectableselect', function(event, ui) {
                     $(this).parents("form").submit();
                 });
             });
@@ -202,11 +212,11 @@ Dynamically Added Forms
 
 django-selectable can work with dynamically added forms such as inlines in the admin.
 To make django-selectable work in the admin there is nothing more to do than include
-the necessary static media as described in the 
+the necessary static media as described in the
 :ref:`Admin Integration <admin-jquery-include>` section.
 
 If you are making use of the popular `django-dynamic-formset <http://code.google.com/p/django-dynamic-formset/>`_
-then you can make django-selectable work by passing ``bindSelectables`` to the 
+then you can make django-selectable work by passing ``bindSelectables`` to the
 `added <http://code.google.com/p/django-dynamic-formset/source/browse/trunk/docs/usage.txt#259>`_ option:
 
     .. code-block:: html
@@ -214,7 +224,7 @@ then you can make django-selectable work by passing ``bindSelectables`` to the
         <script type="text/javascript">
             $(document).ready(function() {
                 $('#my-formset').formset({
-               		added: bindSelectables	
+               		added: bindSelectables
                 });
             });
         </script>
@@ -240,6 +250,12 @@ The item is a dictionary object matching what is returned by the lookup's
 :ref:`format_item <lookup-format-item>`. ``formatLabel`` should return the string
 which should be used for the label.
 
+.. note::
+
+    In v0.7 the scope of ``formatLabel`` was updated so that ``this`` refers to the
+    current ``djselectable`` plugin instance. Previously ``this`` refered to the
+    plugin ``options`` instance.
+
 Going back to the ``CityLookup`` we can adjust the label to wrap the city and state
 portions with their own classes for additional styling:
 
@@ -260,3 +276,59 @@ portions with their own classes for additional styling:
 
 This is a rather simple example but you could also pass additional information in ``format_item``
 such as a flag of whether the city is the capital and render the state captials differently.
+
+.. _advanced-bootstrap:
+
+Using with Twitter Bootstrap
+--------------------------------------
+
+django-selectable can work along side with Twitter Bootstrap but there are a few things to
+take into consideration. Both jQuery UI and Bootstrap define a ``$.button`` plugin. This
+plugin is used by default by django-selectable and expects the UI version. If the jQuery UI
+JS is included after the Bootstrap JS then this will work just fine but the Bootstrap
+button JS will not be available. This is the strategy taken by the  `jQuery UI Bootstrap
+<http://addyosmani.github.com/jquery-ui-bootstrap/>`_ theme.
+
+Another option is to rename the Bootstrap plugin using the ``noConflict`` option.
+
+    .. code-block:: html
+
+        <!-- Include Bootstrap JS -->
+        <script>$.fn.bootstrapBtn = $.fn.button.noConflict();</script>
+        <!-- Include jQuery UI JS -->
+
+Even with this some might complain that it's too resource heavy to include all of
+jQuery UI when you just want the autocomplete to work with django-selectable. For
+this you can use the `Download Builder <http://jqueryui.com/download/>`_ to build
+a minimal set of jQuery UI widgets. django-selectable requires the UI core, autocomplete,
+menu and button widgets. None of the effects or interactions are needed. Minified
+this totals around 100 kb of JS, CSS and images (based on jQuery UI 1.10).
+
+.. note::
+
+    For a comparison this is smaller than the minified Bootstrap 2.3.0 CSS
+    which is 105 kb not including the responsive CSS or the icon graphics.
+
+It is possible to remove the dependency on the UI button plugin and instead
+use the Bootstrap button styles. This is done by overriding
+the ``_comboButtonTemplate`` and ``_removeButtonTemplate`` functions used to
+create the buttons. An example is given below.
+
+    .. code-block:: html
+
+        <script>
+            $.ui.djselectable.prototype._comboButtonTemplate = function (input) {
+                var icon = $("<i>").addClass("icon-chevron-down");
+                // Remove current classes on the text input
+                $(input).attr("class", "");
+                // Wrap with input-append
+                $(input).wrap('<div class="input-append" />');
+                // Return button link with the chosen icon
+                return $("<a>").append(icon).addClass("btn btn-small");
+            };
+            $.ui.djselectable.prototype._removeButtonTemplate = function (item) {
+                var icon = $("<i>").addClass("icon-remove-sign");
+                // Return button link with the chosen icon
+                return $("<a>").append(icon).addClass("btn btn-small pull-right");
+            };
+        </script>

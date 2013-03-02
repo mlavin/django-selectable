@@ -50,9 +50,6 @@ installed and run::
 
     python runtests.py
 
-Client side tests are written using `QUnit <http://docs.jquery.com/QUnit>`_. They
-can be found in `selectable/tests/qunit/`.
-
 `tox <http://tox.readthedocs.org/en/latest/index.html>`_ is used to test django-selectable
 against multiple versions of Django/Python. With tox installed you can run::
 
@@ -60,18 +57,28 @@ against multiple versions of Django/Python. With tox installed you can run::
 
 to run all the version combinations. You can also run tox against a subset of supported
 environments::
-    
-    tox -e py26-1.2.X,py26-1.3.X,py26
 
-This example will run the test against the latest 1.4.X, 1.3.X and 1.2.X releases
-using Python 2.6. For more information on running/installing tox please see the
+    tox -e py26-1.4.X
+
+This example will run the test against the latest 1.5.X, 1.4.X, and 1.3.X releases
+using Python 2.6 and 3.2 for 1.5+. For more information on running/installing tox please see the
 tox documentation: http://tox.readthedocs.org/en/latest/index.html
+
+Client side tests are written using `QUnit <http://docs.jquery.com/QUnit>`_. They
+can be found in ``selectable/tests/qunit/index.html``. The test suite also uses
+`Grunt <https://github.com/gruntjs/grunt>`_ and `PhantomJS <http://phantomjs.org/>`_ to
+run the tests. You can install Grunt and PhantomJS from NPM::
+
+    # Install grunt requirements
+    npm install -g grunt phantomjs jshint
+    # Execute default grunt tasks
+    grunt
 
 
 Building the Documentation
 --------------------------------------
 
-The documentation is built using `Sphinx <http://sphinx.pocoo.org/>`_ 
+The documentation is built using `Sphinx <http://sphinx.pocoo.org/>`_
 and available on `Read the Docs <http://django-selectable.readthedocs.org/>`_. With
 Sphinx installed you can build the documentation by running::
 

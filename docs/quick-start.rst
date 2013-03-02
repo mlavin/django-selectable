@@ -24,7 +24,7 @@ please check out the `Django documentation <https://docs.djangoproject.com/en/1.
 
 The jQuery and jQuery UI libraries are not included in the distribution but must be included
 in your templates. However there is a template tag to easily add these libraries from
-the  from the `Google CDN <http://code.google.com/apis/libraries/devguide.html#jquery>`_. 
+the  from the `Google CDN <http://code.google.com/apis/libraries/devguide.html#jquery>`_.
 
     .. code-block:: html
 
@@ -40,7 +40,7 @@ jQuery UI version.
         {% load selectable_tags %}
         {% include_jquery_libs '1.4.4' '1.8.13' %}
 
-Django-Selectable should work with `jQuery <http://jquery.com/>`_ >= 1.4.4 and 
+Django-Selectable should work with `jQuery <http://jquery.com/>`_ >= 1.4.4 and
 `jQuery UI <http://jqueryui.com/>`_ >= 1.8.13.
 
 You must also include a `jQuery UI theme <http://jqueryui.com/themeroller/>`_ stylesheet. There
@@ -68,10 +68,21 @@ Or only change the theme.
 
 See the the jQuery UI documentation for a full list of available stable themes: http://jqueryui.com/download#stable-themes
 
+Of course you can choose to include these rescources manually::
+
+    .. code-block:: html
+
+        <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.0/themes/base/jquery-ui.css" type="text/css">
+        <link href="{{ STATIC_URL }}selectable/css/dj.selectable.css" type="text/css" media="all" rel="stylesheet">
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.0/jquery-ui.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}selectable/js/jquery.dj.selectable.js"></script>
+
 .. note::
 
-    These template tags were added in v0.5.0. Prior to that these js/css resources
-    need to be added manually.
+    jQuery UI shares a few plugin names with the popular Twitter Bootstrap framework. There
+    are notes on using Bootstrap along with django-selectable in the :ref:`advanced usage
+    section <advanced-bootstrap>`.
 
 
 Defining a Lookup

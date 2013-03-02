@@ -1,7 +1,10 @@
 "Base classes for lookup creation."
+from __future__ import unicode_literals
 
+import json
 import operator
 import re
+from functools import reduce
 
 from django.conf import settings
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
@@ -9,11 +12,10 @@ from django.core.urlresolvers import reverse
 from django.core.serializers.json import DjangoJSONEncoder
 from django.http import HttpResponse
 from django.db.models import Q
-from django.utils import simplejson as json
-from django.utils.encoding import smart_unicode
 from django.utils.html import conditional_escape
 from django.utils.translation import ugettext as _
 
+from selectable.compat import smart_text
 from selectable.forms import BaseLookupForm
 
 
@@ -40,7 +42,7 @@ class LookupBase(object):
     def _name(cls):
         app_name = cls.__module__.split('.')[-2].lower()
         class_name = cls.__name__.lower()
-        name = u'%s-%s' % (app_name, class_name)
+        name = '%s-%s' % (app_name, class_name)
         return name
     name = classmethod(_name)
 
@@ -52,13 +54,13 @@ class LookupBase(object):
         return []
 
     def get_item_label(self, item):
-        return smart_unicode(item)
+        return smart_text(item)
 
     def get_item_id(self, item):
-        return smart_unicode(item)
+        return smart_text(item)
 
     def get_item_value(self, item):
-        return smart_unicode(item)
+        return smart_text(item)
 
     def get_item(self, value):
         return value
@@ -81,7 +83,7 @@ class LookupBase(object):
     def paginate_results(self, results, options):
         "Return a django.core.paginator.Page of results."
         limit = options.get('limit', settings.SELECTABLE_MAX_LIMIT)
-        paginator = Paginator(results, limit)        
+        paginator = Paginator(results, limit)
         page = options.get('page', 1)
         try:
             results = paginator.page(page)
@@ -117,7 +119,7 @@ class LookupBase(object):
             meta['next_page'] = page_data.next_page_number()
         if page_data and page_data.has_previous():
             meta['prev_page'] = page_data.previous_page_number()
-        results['data'] = map(self.format_item, page_data.object_list)
+        results['data'] = [self.format_item(item) for item in page_data.object_list]
         results['meta'] = meta
         return results
 
@@ -156,9 +158,9 @@ class ModelLookup(LookupBase):
         item = None
         if value:
             try:
-                item = self.get_queryset().filter(pk=value)[0]
-            except IndexError:
-                pass
+                item = self.get_queryset().get(pk=value)
+            except (ValueError, self.model.DoesNotExist):
+                item = None
         return item
 
     def create_item(self, value):

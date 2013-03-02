@@ -1,7 +1,10 @@
+from __future__ import division
+
+import json
+
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseNotFound, HttpResponseServerError
-from django.utils import simplejson as json
 
 from selectable.tests import ThingLookup
 from selectable.tests.base import BaseSelectableTestCase, PatchSettingsMixin
@@ -35,7 +38,7 @@ class SelectableViewTest(PatchSettingsMixin, BaseSelectableTestCase):
 
     def test_response_keys(self):
         response = self.client.get(self.url)
-        data = json.loads(response.content)
+        data = json.loads(response.content.decode('utf-8'))
         for result in data.get('data'):
             self.assertTrue('id' in result)
             self.assertTrue('value' in result)
@@ -44,13 +47,13 @@ class SelectableViewTest(PatchSettingsMixin, BaseSelectableTestCase):
     def test_no_term_lookup(self):
         data = {}
         response = self.client.get(self.url, data)
-        data = json.loads(response.content)
+        data = json.loads(response.content.decode('utf-8'))
         self.assertEqual(len(data), 2)
 
     def test_simple_term_lookup(self):
         data = {'term': self.thing.name}
         response = self.client.get(self.url, data)
-        data = json.loads(response.content)
+        data = json.loads(response.content.decode('utf-8'))
         self.assertEqual(len(data), 2)
         self.assertEqual(len(data.get('data')), 1)
 
@@ -63,7 +66,7 @@ class SelectableViewTest(PatchSettingsMixin, BaseSelectableTestCase):
         for i in range(settings.SELECTABLE_MAX_LIMIT):
             self.create_thing(data={'name': 'Thing%s' % i})
         response = self.client.get(self.url)
-        data = json.loads(response.content)
+        data = json.loads(response.content.decode('utf-8'))
         self.assertEqual(len(data.get('data')), settings.SELECTABLE_MAX_LIMIT)
         meta = data.get('meta')
         self.assertTrue('next_page' in meta)
@@ -73,7 +76,7 @@ class SelectableViewTest(PatchSettingsMixin, BaseSelectableTestCase):
             self.create_thing(data={'name': 'Thing%s' % i})
         data = {'term': 'Thing', 'page': 2}
         response = self.client.get(self.url, data)
-        data = json.loads(response.content)
+        data = json.loads(response.content.decode('utf-8'))
         self.assertEqual(len(data.get('data')), settings.SELECTABLE_MAX_LIMIT)
         # No next page
         meta = data.get('meta')
@@ -84,14 +87,14 @@ class SelectableViewTest(PatchSettingsMixin, BaseSelectableTestCase):
             self.create_thing(data={'name': 'Thing%s' % i})
         data = {'term': '', 'limit': settings.SELECTABLE_MAX_LIMIT * 2}
         response = self.client.get(self.url)
-        data = json.loads(response.content)
+        data = json.loads(response.content.decode('utf-8'))
         self.assertEqual(len(data.get('data')), settings.SELECTABLE_MAX_LIMIT)
 
     def test_request_less_than_max(self):
         for i in range(settings.SELECTABLE_MAX_LIMIT):
             self.create_thing(data={'name': 'Thing%s' % i})
-        new_limit = settings.SELECTABLE_MAX_LIMIT / 2
+        new_limit = settings.SELECTABLE_MAX_LIMIT // 2
         data = {'term': '', 'limit': new_limit}
         response = self.client.get(self.url, data)
-        data = json.loads(response.content)
+        data = json.loads(response.content.decode('utf-8'))
         self.assertEqual(len(data.get('data')), new_limit)
