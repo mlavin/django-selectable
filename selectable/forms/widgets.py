@@ -67,8 +67,8 @@ class SelectableMultiWidget(forms.MultiWidget):
 
     def _has_changed(self, initial, data):
         "Decects if the widget was changed. This is removed in 1.6."
-        if initial is None and data is not None:
-            return True
+        if initial is None and data is None:
+            return False
         if data and not hasattr(data, '__iter__'):
             data = self.decompress(data)
         return super(SelectableMultiWidget, self)._has_changed(initial, data)
@@ -208,6 +208,17 @@ class AutoCompleteSelectMultipleWidget(SelectableMultiWidget, SelectableMediaMix
         value = ['', value]
         return super(AutoCompleteSelectMultipleWidget, self).render(name, value, attrs)
 
+    def _has_changed(self, initial, data):
+        """"
+        Decects if the widget was changed. This is removed in 1.6.
+
+        For the multi-select case we only care if the hidden inputs changed.
+        """
+        initial = ['', initial]
+        data = ['', data]
+        return super(AutoCompleteSelectMultipleWidget, self)._has_changed(initial, data)
+
+
 
 class AutoComboboxSelectMultipleWidget(SelectableMultiWidget, SelectableMediaMixin):
 
@@ -239,3 +250,12 @@ class AutoComboboxSelectMultipleWidget(SelectableMultiWidget, SelectableMediaMix
         value = ['', value]
         return super(AutoComboboxSelectMultipleWidget, self).render(name, value, attrs)
 
+    def _has_changed(self, initial, data):
+        """"
+        Decects if the widget was changed. This is removed in 1.6.
+
+        For the multi-select case we only care if the hidden inputs changed.
+        """
+        initial = ['', initial]
+        data = ['', data]
+        return super(AutoComboboxSelectMultipleWidget, self)._has_changed(initial, data)

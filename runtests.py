@@ -28,10 +28,11 @@ from django.test.utils import get_runner
 def runtests():
     TestRunner = get_runner(settings)
     test_runner = TestRunner(verbosity=1, interactive=True, failfast=False)
-    failures = test_runner.run_tests(['selectable', ])
+    args = sys.argv[1:] or ['selectable', ]
+    failures = test_runner.run_tests(args)
     sys.exit(failures)
 
 
 if __name__ == '__main__':
-    runtests(*sys.argv[1:])
+    runtests()
 
