@@ -8,6 +8,7 @@ from django.forms.util import flatatt
 from django.utils.http import urlencode
 from django.utils.safestring import mark_safe
 
+from selectable import __version__
 from selectable.compat import force_text
 from selectable.forms.base import import_lookup_class
 
@@ -28,10 +29,9 @@ class SelectableMediaMixin(object):
 
     class Media(object):
         css = {
-            'all': ('%scss/dj.selectable.css' % STATIC_PREFIX, )
+            'all': ('%scss/dj.selectable.css?v=%s' % (STATIC_PREFIX, __version__),)
         }
-        js = ('%sjs/jquery.dj.selectable.js' % STATIC_PREFIX, )
-
+        js = ('%sjs/jquery.dj.selectable.js?v=%s' % (STATIC_PREFIX, __version__),)
 
 class AutoCompleteWidget(forms.TextInput, SelectableMediaMixin):
 
