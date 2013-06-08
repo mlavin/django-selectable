@@ -1,6 +1,12 @@
 Release Notes
 ==================
 
+v0.7.1 (Released TBD)
+--------------------------------------
+
+- Widget media references now include a version string for cache-busting when upgrading django-selectable. Thanks to Ustun Ozgur.
+
+
 v0.7.0 (Released 2013-03-01)
 --------------------------------------
 
