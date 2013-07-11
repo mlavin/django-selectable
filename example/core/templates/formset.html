@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 
+{% block nav %}
+    {% include "nav.html" with page_formset=True %}
+{% endblock %}
+
 {% block extra-css %}
 {{ formset.media.css }}
 {% endblock %}
@@ -12,7 +16,7 @@
             prefix: '{{ formset.prefix }}',
        		added: function(row) {
        			bindSelectables($(row));
-       		}	               		
+       		}
         });
     });
 </script>

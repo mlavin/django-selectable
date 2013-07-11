@@ -1,0 +1,5 @@
+<ul class="nav">
+    <li {% if page_home %}class="active"{% endif %}><a href="{% url "example-index" %}">Home</a></li>
+    <li {% if page_formset %}class="active"{% endif %}><a href="{% url "example-formset" %}">Formset</a></li>
+    <li {% if page_advanced %}class="active"{% endif %}><a href="{% url "example-advanced" %}">Advanced</a></li>
+</ul>

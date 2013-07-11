@@ -22,9 +22,9 @@
                 </a>
                 <a class="brand" href="#">Django-Selectable</a>
                 <div class="nav-collapse">
-                    <ul class="nav">
-                        <li class="active"><a href="/">Home</a></li>
-                    </ul>
+                    {% block nav %}
+                        {% include "nav.html" with page_home=True %}
+                    {% endblock nav %}
                 </div><!--/.nav-collapse -->
             </div>
         </div>

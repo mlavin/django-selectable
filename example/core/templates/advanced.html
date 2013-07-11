@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 
+{% block nav %}
+    {% include "nav.html" with page_advanced=True %}
+{% endblock nav %}
+
 {% block extra-css %}
 <style type="text/css">
     .ui-autocomplete-input {
