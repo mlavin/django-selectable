@@ -1,3 +1,5 @@
+import pprint
+
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 
@@ -14,7 +16,19 @@ def index(request):
         else:
             form = FruitForm()
 
-    return render_to_response('base.html', {'form': form}, context_instance=RequestContext(request))
+    raw_post = ''
+    cleaned_data = ''
+    if request.POST:
+        raw_post = pprint.pformat(dict(request.POST))
+        if form.is_valid():
+            cleaned_data = pprint.pformat(getattr(form, 'cleaned_data', ''))
+
+    context = {
+        'cleaned_data': cleaned_data,
+        'form': form,
+        'raw_post': raw_post
+    }
+    return render_to_response('base.html', context, context_instance=RequestContext(request))
 
 
 def advanced(request):

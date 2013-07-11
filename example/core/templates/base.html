@@ -34,15 +34,21 @@
     {% block content %}
         <form action="" method="post" >
             {% csrf_token %}
-            {% if form.is_valid %}
-                {{ form.as_p }}
-                <h2>Cleaned Data</h2>
-                {{ form.cleaned_data }}
-            {% else %}
-                {{ form.as_p }}
-            {% endif %}
+            {{ form.as_p }}
             <button class="btn">Submit</button>
         </form>
+        {% if form.is_valid %}
+            <div>
+                <h2>Cleaned Data</h2>
+                <pre>{{ cleaned_data }}</pre>
+            </div>
+        {% endif %}
+        {% if raw_post %}
+            <div>
+                <h2>Raw POST data:</h2>
+                <pre>{{ raw_post }}</pre>
+            </div>
+        {% endif %}
     {% endblock %}
     </div>
     {% include_jquery_libs %}
