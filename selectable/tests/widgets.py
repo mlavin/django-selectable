@@ -159,6 +159,13 @@ class AutoCompleteSelectWidgetTestCase(BaseWidgetTestCase):
         self.assertTrue('data-selectable-options' in attrs)
         self.assertEqual(attrs['data-selectable-options'], json.dumps(options))
 
+    def test_postdata_compatible_with_select(self):
+        "Checks postdata for values that a select widget would generate."
+        postdata = {'fruit': '1'}
+        widget = self.get_widget_instance()
+        widget_val = widget.value_from_datadict(postdata, [], 'fruit')
+        self.assertEquals(widget_val, '1')
+
 
 class AutoComboboxWidgetTestCase(BaseWidgetTestCase):
     widget_cls = widgets.AutoComboboxWidget

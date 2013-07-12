@@ -104,8 +104,27 @@ class AutoCompleteSelectWidget(SelectableMultiWidget, SelectableMediaMixin):
         ]
         super(AutoCompleteSelectWidget, self).__init__(widgets, *args, **kwargs)
 
+    def get_compatible_postdata(self, data, name):
+        """Get postdata built for a normal <select> element.
+
+        Django MultiWidgets create post variables like ``foo_0`` and ``foo_1``,
+        and this behavior is not cleanly overridable.  Non-multiwidgets, like
+        Select, get simple names like ``foo``. In order to keep this widget
+        compatible with requests designed for traditional select widgets,
+        search postdata for a name like ``foo`` and return that value.
+
+        This will return ``None`` if a ``<select>``-compatibile post variable
+        is not found.
+
+        """
+        return data.get(name, None)
+
     def value_from_datadict(self, data, files, name):
         value = super(AutoCompleteSelectWidget, self).value_from_datadict(data, files, name)
+        if not value[1]:
+            compatible_postdata = self.get_compatible_postdata(data, name)
+            if compatible_postdata:
+                value[1] = compatible_postdata
         if not self.allow_new:
             return value[1]
         return value
