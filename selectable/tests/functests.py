@@ -149,6 +149,18 @@ class FuncSelectModelChoiceTestCase(BaseSelectableTestCase):
         self.assertFalse(form.is_valid())
         self.assertTrue('thing' in form.errors)
 
+    def test_post_compatibility(self):
+        """
+        If new items are not allowed then the original field
+        name can be included in the POST with the selected id.
+        """
+        data = {
+            'name': self.get_random_string(),
+            'thing': self.test_thing.pk,
+        }
+        form = SelectWidgetForm(data=data)
+        self.assertTrue(form.is_valid(), str(form.errors))
+
 
 class ComboboxSelectWidgetForm(forms.ModelForm):
 
@@ -185,7 +197,7 @@ class FuncComboboxModelChoiceTestCase(BaseSelectableTestCase):
             'thing_0': self.test_thing.name, # Text input
             'thing_1': '', # Hidden input missing
         }
-        form = SelectWidgetForm(data=data)
+        form = ComboboxSelectWidgetForm(data=data)
         self.assertFalse(form.is_valid())
         self.assertTrue('thing' in form.errors)
 
@@ -196,9 +208,21 @@ class FuncComboboxModelChoiceTestCase(BaseSelectableTestCase):
             'thing_0': self.test_thing.name, # Text input
             'thing_1': 'XXX', # Hidden input doesn't match a PK
         }
-        form = SelectWidgetForm(data=data)
+        form = ComboboxSelectWidgetForm(data=data)
         self.assertFalse(form.is_valid())
         self.assertTrue('thing' in form.errors)
+
+    def test_post_compatibility(self):
+        """
+        If new items are not allowed then the original field
+        name can be included in the POST with the selected id.
+        """
+        data = {
+            'name': self.get_random_string(),
+            'thing': self.test_thing.pk,
+        }
+        form = ComboboxSelectWidgetForm(data=data)
+        self.assertTrue(form.is_valid(), str(form.errors))
 
 
 class ManyThingForm(forms.ModelForm):
@@ -279,6 +303,18 @@ class FuncManytoManyMultipleSelectTestCase(BaseSelectableTestCase):
         }
         form = ManyThingForm(data=data, instance=manything)
         self.assertFalse(form.has_changed(), str(form.changed_data))
+
+    def test_post_compatibility(self):
+        """
+        If new items are not allowed then the original field
+        name can be included in the POST with the selected ids.
+        """
+        data = {
+            'name': self.get_random_string(),
+            'things': [self.test_thing.pk, ],
+        }
+        form = ManyThingForm(data=data)
+        self.assertTrue(form.is_valid(), str(form.errors))
 
 
 class SimpleForm(forms.Form):
