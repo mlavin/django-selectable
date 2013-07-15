@@ -1,10 +1,11 @@
 Release Notes
 ==================
 
-v0.7.1 (Released TBD)
+v0.8.0 (Released TBD)
 --------------------------------------
 
 - Widget media references now include a version string for cache-busting when upgrading django-selectable. Thanks to Ustun Ozgur.
+- Added compatibility code for *SelectWidgets to handle POST data for the default SelectWidget. Thanks to leo-the-manic.
 
 
 v0.7.0 (Released 2013-03-01)
