@@ -100,6 +100,12 @@ Here you will note that while there is only one field ``thing`` it requires
 two items in the POST the first is for the text input and the second is for
 the hidden input. This is again due to the use of MultiWidget for the selection.
 
+.. versionadded:: 0.8
+
+Version 0.8 adds compatibility code to the widgets to lookup the original name
+from the POST. This makes it easier to transition to the the selectable widgets without
+breaking existing tests.
+
 
 Testing Lookup Results
 --------------------------------------------------
