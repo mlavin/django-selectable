@@ -211,7 +211,7 @@ _________________
 Bug Fixes
 _________________
 
-- Fixed issue with Enter key removing items from select multiple widgets `#24 <https://bitbucket.org/mlavin/django-selectable/issue/24/pressing-enter-when-autocomplete-input-box>`_
+- Fixed issue with Enter key removing items from select multiple widgets `#24 <https://github.com/mlavin/django-selectable/issues/24>`_
 
 
 Backwards Incompatible Changes
@@ -242,7 +242,7 @@ v0.1.2 (Released 2011-05-25)
 Bug Fixes
 _________________
 
-- Fixed issue `#17 <https://bitbucket.org/mlavin/django-selectable/issue/17/update-not-working>`_
+- Fixed issue `#17 <https://github.com/mlavin/django-selectable/issues/17>`_
 
 
 v0.1.1 (Release 2011-03-21)

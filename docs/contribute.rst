@@ -12,10 +12,10 @@ you can add to our example project.
 Getting the Source
 --------------------------------------
 
-The source code is hosted on `Bitbucket <https://bitbucket.org/mlavin/django-selectable>`_.
-You can download the full source by cloning the hg repo::
+The source code is hosted on `Github <https://github.com/mlavin/django-selectable>`_.
+You can download the full source by cloning the git repo::
 
-    hg clone https://bitbucket.org/mlavin/django-selectable
+    git clone git://github.com/mlavin/django-selectable.git
 
 Feel free to fork the project and make your own changes. If you think that it would
 be helpful for other then please submit a pull request to have it merged in.
@@ -24,7 +24,7 @@ be helpful for other then please submit a pull request to have it merged in.
 Submit an Issue
 --------------------------------------
 
-The issues are also managed on `Bitbucket issue page <https://bitbucket.org/mlavin/django-selectable/issues>`_.
+The issues are also managed on `Github issue page <https://github.com/mlavin/django-selectable/issues>`_.
 If you think you've found a bug it's helpful if you indicate the version of django-selectable
 you are using the ticket version flag. If you think your bug is javascript related it is
 also helpful to know the version of jQuery, jQuery UI, and the browser you are using.

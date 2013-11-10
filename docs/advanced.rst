@@ -230,7 +230,7 @@ then you can make django-selectable work by passing ``bindSelectables`` to the
         </script>
 
 Currently you must include the django-selectable javascript below this formset initialization
-code for this to work. See django-selectable `issue #31 <https://bitbucket.org/mlavin/django-selectable/issue/31/>`_
+code for this to work. See django-selectable `issue #31 <https://github.com/mlavin/django-selectable/issues/31>`_
 for some additional detail on this problem.
 
 
