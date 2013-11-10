@@ -8,7 +8,7 @@ own. This section contains some tips or techniques for testing your lookups.
 
 This guide assumes that you are reasonable familiar with the concepts of unit testing
 including Python's `unittest <http://docs.python.org/2/library/unittest.html>`_ module and
-Django's `testing guide <https://docs.djangoproject.com/en/1.4/topics/testing/>`_.
+Django's `testing guide <https://docs.djangoproject.com/en/stable/topics/testing/>`_.
 
 
 Testing Forms with django-selectable
@@ -17,7 +17,7 @@ Testing Forms with django-selectable
 For the most part testing forms which use django-selectable's custom fields
 and widgets is the same as testing any Django form. One point that is slightly
 different is that the select and multi-select widgets are
-`MultiWidgets <https://docs.djangoproject.com/en/1.4/ref/forms/widgets/#django.forms.MultiWidget>`_.
+`MultiWidgets <https://docs.djangoproject.com/en/stable/ref/forms/widgets/#django.forms.MultiWidget>`_.
 The effect of this is that there are two names in the post rather than one. Take the below
 form for example.
 
@@ -112,9 +112,9 @@ Testing Lookup Results
 
 Testing the lookups used by django-selectable is similar to testing your Django views.
 While it might be tempting to use the Django
-`test client <https://docs.djangoproject.com/en/1.4/topics/testing/#module-django.test.client>`_,
+`test client <https://docs.djangoproject.com/en/stable/topics/testing/#module-django.test.client>`_,
 it is slightly easier to use the
-`request factory <https://docs.djangoproject.com/en/1.4/topics/testing/#the-request-factory>`_.
+`request factory <https://docs.djangoproject.com/en/stable/topics/testing/#the-request-factory>`_.
 A simple example is given below.
 
     .. code-block:: python

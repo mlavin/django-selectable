@@ -6,9 +6,9 @@ Overview
 
 Django-Selectables will work in the admin. To get started on integrated the
 fields and widgets in the admin make sure you are familiar with the Django
-documentation on the `ModelAdmin.form <http://docs.djangoproject.com/en/1.3/ref/contrib/admin/#django.contrib.admin.ModelAdmin.form>`_
-and `ModelForms <http://docs.djangoproject.com/en/1.3/topics/forms/modelforms/>`_ particularly
-on `overriding the default widgets <http://docs.djangoproject.com/en/1.3/topics/forms/modelforms/#overriding-the-default-field-types-or-widgets>`_.
+documentation on the `ModelAdmin.form <http://docs.djangoproject.com/en/stable/ref/contrib/admin/#django.contrib.admin.ModelAdmin.form>`_
+and `ModelForms <http://docs.djangoproject.com/en/stable/topics/forms/modelforms/>`_ particularly
+on `overriding the default widgets <http://docs.djangoproject.com/en/stable/topics/forms/modelforms/#overriding-the-default-field-types-or-widgets>`_.
 As you will see integrating django-selectable in the adminis the same as working with regular forms.
 
 
@@ -29,7 +29,7 @@ You can include this media in the block name `extrahead` which is defined in
         :end-before: {% block branding %}
 
 See the Django documentation on
-`overriding admin templates <https://docs.djangoproject.com/en/1.3/ref/contrib/admin/#overriding-admin-templates>`_.
+`overriding admin templates <https://docs.djangoproject.com/en/stable/ref/contrib/admin/#overriding-admin-templates>`_.
 See the example project for the full template example.
 
 
@@ -76,7 +76,7 @@ items you'll see these steps are not necessary.
 The django-selectable widgets are compatitible with the add another popup in the
 admin. It's that little green plus sign that appears next to ``ForeignKey`` or
 ``ManyToManyField`` items. This makes django-selectable a user friendly replacement
-for the `ModelAdmin.raw_id_fields <https://docs.djangoproject.com/en/1.3/ref/contrib/admin/#django.contrib.admin.ModelAdmin.raw_id_fields>`_
+for the `ModelAdmin.raw_id_fields <https://docs.djangoproject.com/en/stable/ref/contrib/admin/#django.contrib.admin.ModelAdmin.raw_id_fields>`_
 when the default select box grows too long.
 
 
@@ -87,7 +87,7 @@ Inline Example
 
 With our ``Farm`` model we can also associate the ``UserAdmin`` with a ``Farm``
 by making use of the `InlineModelAdmin
-<http://docs.djangoproject.com/en/1.3/ref/contrib/admin/#inlinemodeladmin-objects>`_.
+<http://docs.djangoproject.com/en/stable/ref/contrib/admin/#inlinemodeladmin-objects>`_.
 We can even make use of the same ``FarmAdminForm``.
 
     .. literalinclude:: ../example/core/admin.py

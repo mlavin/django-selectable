@@ -50,7 +50,7 @@ This widget should be used in conjunction with the :ref:`AutoCompleteSelectField
 return both the text entered by the user and the id (if an item was selected/matched).
 
 :ref:`AutoCompleteSelectWidget` works directly with Django's
-`ModelChoiceField <https://docs.djangoproject.com/en/1.3/ref/forms/fields/#modelchoicefield>`_.
+`ModelChoiceField <https://docs.djangoproject.com/en/stable/ref/forms/fields/#modelchoicefield>`_.
 You can simply replace the widget without replacing the entire field.
 
     .. code-block:: python
@@ -82,7 +82,7 @@ AutoComboboxSelectWidget
 Similar to :ref:`AutoCompleteSelectWidget` but has a button to reveal all options.
 
 :ref:`AutoComboboxSelectWidget` works directly with Django's
-`ModelChoiceField <https://docs.djangoproject.com/en/1.3/ref/forms/fields/#modelchoicefield>`_.
+`ModelChoiceField <https://docs.djangoproject.com/en/stable/ref/forms/fields/#modelchoicefield>`_.
 You can simply replace the widget without replacing the entire field.
 
     .. code-block:: python
