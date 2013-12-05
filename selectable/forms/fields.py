@@ -31,6 +31,14 @@ class AutoCompleteSelectField(forms.Field):
             kwargs['widget'] = widget(lookup_class, allow_new=self.allow_new, limit=self.limit)
         super(AutoCompleteSelectField, self).__init__(*args, **kwargs)
 
+    def _has_changed(self, initial, data):
+        "Detects if the data was changed. This is added in 1.6."
+        if initial is None and data is None:
+            return False
+        if data and not hasattr(data, '__iter__'):
+            data = self.widget.decompress(data)
+        initial = self.to_python(initial)
+        return super(AutoCompleteSelectField, self)._has_changed(initial, data)
 
     def to_python(self, value):
         if value in EMPTY_VALUES:
@@ -76,6 +84,15 @@ class AutoCompleteSelectMultipleField(forms.Field):
         if isinstance(widget, type):
             kwargs['widget'] = widget(lookup_class, limit=self.limit)
         super(AutoCompleteSelectMultipleField, self).__init__(*args, **kwargs)
+
+    def _has_changed(self, initial, data):
+        "Detects if the data was changed. This is added in 1.6."
+        if initial is None and data is None:
+            return False
+        if data and not hasattr(data, '__iter__'):
+            data = self.widget.decompress(data)
+        initial = self.to_python(initial)
+        return super(AutoCompleteSelectMultipleField, self)._has_changed(initial, data)
 
     def to_python(self, value):
         if value in EMPTY_VALUES:
