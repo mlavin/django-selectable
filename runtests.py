@@ -19,6 +19,7 @@ if not settings.configured:
         SITE_ID=1,
         SECRET_KEY='super-secret',
         ROOT_URLCONF='selectable.tests.urls',
+        TEST_RUNNER='django.test.simple.DjangoTestSuiteRunner',
     )
 
 
