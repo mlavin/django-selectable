@@ -1,7 +1,7 @@
 from django.conf import settings
 
-from selectable.forms import BaseLookupForm
-from selectable.tests.base import BaseSelectableTestCase, PatchSettingsMixin
+from ..forms import BaseLookupForm
+from .base import BaseSelectableTestCase, PatchSettingsMixin
 
 
 __all__ = (

@@ -1,7 +1,7 @@
 from django.db import models
 
-from selectable.base import ModelLookup
-from selectable.registry import registry
+from ..base import ModelLookup
+from ..registry import registry
 
 
 class Thing(models.Model):
@@ -36,11 +36,11 @@ class ThingLookup(ModelLookup):
 registry.register(ThingLookup)
 
 
-from selectable.tests.base import *
-from selectable.tests.decorators import *
-from selectable.tests.fields import *
-from selectable.tests.functests import *
-from selectable.tests.forms import *
-from selectable.tests.templatetags import *
-from selectable.tests.views import *
-from selectable.tests.widgets import *
+from .test_base import *
+from .test_decorators import *
+from .test_fields import *
+from .test_functional import *
+from .test_forms import *
+from .test_templatetags import *
+from .test_views import *
+from .test_widgets import *

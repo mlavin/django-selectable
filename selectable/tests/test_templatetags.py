@@ -1,6 +1,6 @@
 from django.template import Template, Context
 
-from selectable.tests.base import BaseSelectableTestCase
+from .base import BaseSelectableTestCase
 
 __all__ = (
     'JqueryTagTestCase',

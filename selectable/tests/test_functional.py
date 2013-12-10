@@ -5,10 +5,10 @@ from __future__ import unicode_literals
 
 from django import forms
 
-from selectable.forms import AutoCompleteSelectField, AutoCompleteSelectMultipleField
-from selectable.forms import AutoCompleteSelectWidget, AutoComboboxSelectWidget
-from selectable.tests import ManyThing, OtherThing, ThingLookup
-from selectable.tests.base import BaseSelectableTestCase, parsed_inputs
+from ..forms import AutoCompleteSelectField, AutoCompleteSelectMultipleField
+from ..forms import AutoCompleteSelectWidget, AutoComboboxSelectWidget
+from . import ManyThing, OtherThing, ThingLookup
+from .base import BaseSelectableTestCase, parsed_inputs
 
 
 __all__ = (

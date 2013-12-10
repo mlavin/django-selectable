@@ -1,7 +1,7 @@
 from mock import Mock
 
-from selectable.decorators import ajax_required, login_required, staff_member_required
-from selectable.tests.base import BaseSelectableTestCase, SimpleModelLookup
+from ..decorators import ajax_required, login_required, staff_member_required
+from .base import BaseSelectableTestCase, SimpleModelLookup
 
 
 __all__ = (
