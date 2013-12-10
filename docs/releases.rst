@@ -8,6 +8,7 @@ v0.8.0 (Released TBD)
 - Added compatibility code for \*SelectWidgets to handle POST data for the default SelectWidget. Thanks to leo-the-manic.
 - Development moved from Bitbucket to Github.
 - Update test suite compatibility with new test runner in Django 1.6. Thanks to Dan Poirier for the report and fix.
+- Tests now run on Travis CI.
 
 v0.7.0 (Released 2013-03-01)
 --------------------------------------
