@@ -19,7 +19,7 @@ __all__ = (
 )
 
 
-class BaseWidgetTestCase(BaseSelectableTestCase):
+class WidgetTestMixin(object):
     widget_cls = None
     lookup_cls = None
 
@@ -54,7 +54,7 @@ class BaseWidgetTestCase(BaseSelectableTestCase):
             self.__class__.widget_cls(dotted_path)
 
 
-class AutoCompleteWidgetTestCase(BaseWidgetTestCase):
+class AutoCompleteWidgetTestCase(BaseSelectableTestCase, WidgetTestMixin):
     widget_cls = widgets.AutoCompleteWidget
     lookup_cls = ThingLookup
 
@@ -101,7 +101,7 @@ class AutoCompleteWidgetTestCase(BaseWidgetTestCase):
         self.assertEqual(attrs['data-selectable-options'], json.dumps(options))
 
 
-class AutoCompleteSelectWidgetTestCase(BaseWidgetTestCase):
+class AutoCompleteSelectWidgetTestCase(BaseSelectableTestCase, WidgetTestMixin):
     widget_cls = widgets.AutoCompleteSelectWidget
     lookup_cls = ThingLookup
 
@@ -167,7 +167,7 @@ class AutoCompleteSelectWidgetTestCase(BaseWidgetTestCase):
         self.assertEquals(widget_val, '1')
 
 
-class AutoComboboxWidgetTestCase(BaseWidgetTestCase):
+class AutoComboboxWidgetTestCase(BaseSelectableTestCase, WidgetTestMixin):
     widget_cls = widgets.AutoComboboxWidget
     lookup_cls = ThingLookup
 
@@ -214,7 +214,7 @@ class AutoComboboxWidgetTestCase(BaseWidgetTestCase):
         self.assertEqual(attrs['data-selectable-options'], json.dumps(options))
 
 
-class AutoComboboxSelectWidgetTestCase(BaseWidgetTestCase):
+class AutoComboboxSelectWidgetTestCase(BaseSelectableTestCase, WidgetTestMixin):
     widget_cls = widgets.AutoComboboxSelectWidget
     lookup_cls = ThingLookup
 
@@ -273,7 +273,7 @@ class AutoComboboxSelectWidgetTestCase(BaseWidgetTestCase):
         self.assertEqual(attrs['data-selectable-options'], json.dumps(options))
 
 
-class AutoCompleteSelectMultipleWidgetTestCase(BaseWidgetTestCase):
+class AutoCompleteSelectMultipleWidgetTestCase(BaseSelectableTestCase, WidgetTestMixin):
     widget_cls = widgets.AutoCompleteSelectMultipleWidget
     lookup_cls = ThingLookup
 
@@ -375,7 +375,7 @@ class AutoCompleteSelectMultipleWidgetTestCase(BaseWidgetTestCase):
         self.assertEqual(attrs['data-selectable-options'], json.dumps(options))
 
 
-class AutoComboboxSelectMultipleWidgetTestCase(BaseWidgetTestCase):
+class AutoComboboxSelectMultipleWidgetTestCase(BaseSelectableTestCase, WidgetTestMixin):
     widget_cls = widgets.AutoComboboxSelectMultipleWidget
     lookup_cls = ThingLookup
 

@@ -10,7 +10,7 @@ __all__ = (
     'AutoCompleteSelectMultipleFieldTestCase',
 )
 
-class BaseFieldTestCase(BaseSelectableTestCase):
+class FieldTestMixin(object):
     field_cls = None
     lookup_cls = None
 
@@ -52,7 +52,7 @@ class BaseFieldTestCase(BaseSelectableTestCase):
         with self.assertRaises(TypeError):
             self.field_cls(dotted_path)
 
-class AutoCompleteSelectFieldTestCase(BaseFieldTestCase):
+class AutoCompleteSelectFieldTestCase(BaseSelectableTestCase, FieldTestMixin):
     field_cls = fields.AutoCompleteSelectField
     lookup_cls = ThingLookup
 
@@ -93,7 +93,7 @@ class AutoCompleteSelectFieldTestCase(BaseFieldTestCase):
         self.assertRaises(forms.ValidationError, field.clean, [value, 'XXX'])
 
 
-class AutoCompleteSelectMultipleFieldTestCase(BaseFieldTestCase):
+class AutoCompleteSelectMultipleFieldTestCase(BaseSelectableTestCase, FieldTestMixin):
     field_cls = fields.AutoCompleteSelectMultipleField
     lookup_cls = ThingLookup
 
