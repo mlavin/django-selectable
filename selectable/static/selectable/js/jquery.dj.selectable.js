@@ -332,26 +332,13 @@
     };
 
     function djangoAdminPatches() {
-        /* Monkey-patch Django's dynamic formset, if defined */
-        if (typeof(django) !== "undefined" && typeof(django.jQuery) !== "undefined") {
-            if (django.jQuery.fn.formset) {
-                var oldformset = django.jQuery.fn.formset;
-                django.jQuery.fn.formset = function (opts) {
-                    var options = $.extend({}, opts);
-                    var addedevent = function (row) {
-                        window.bindSelectables($(row));
-                    };
-                    var added = null;
-                    if (options.added) {
-                        // Wrap previous added function and include call to bindSelectables
-                        var oldadded = options.added;
-                        added = function (row) { oldadded(row); addedevent(row); };
-                    }
-                    options.added = added || addedevent;
-                    return oldformset.call(this, options);
-                };
-            }
-        }
+        /* Listen for new rows being added to the dynamic inlines.
+        Requires Django 1.5+ */
+        $('.add-row').click(function (e) {
+            var wrapper = $(this).parents('.inline-related'),
+                newRow = $('.form-row:not(.empty-form)', wrapper).last();
+            window.bindSelectables(newRow);
+        });
 
         /* Monkey-patch Django's dismissAddAnotherPopup(), if defined */
         if (typeof(dismissAddAnotherPopup) !== "undefined" &&
