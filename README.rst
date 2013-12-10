@@ -3,6 +3,11 @@ django-selectable
 
 Tools and widgets for using/creating auto-complete selection widgets using Django and jQuery UI.
 
+.. image::
+    https://secure.travis-ci.org/mlavin/django-selectable.png?branch=master
+    :alt: Build Status
+        :target: https://secure.travis-ci.org/mlavin/django-selectable
+
 Features
 -----------------------------------
 
