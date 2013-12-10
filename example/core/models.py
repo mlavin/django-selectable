@@ -1,6 +1,9 @@
 from __future__ import unicode_literals
 
-from django.contrib.localflavor.us.models import USStateField
+try:
+    from localflavor.us.models import USStateField
+except ImportError:
+    from django.contrib.localflavor.us.models import USStateField
 from django.db import models
 
 
