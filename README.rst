@@ -19,16 +19,18 @@ Installation Requirements
 -----------------------------------
 
 - Python 2.6 or Python 2.7
-- `Django <http://www.djangoproject.com/>`_ >= 1.3
+- `Django <http://www.djangoproject.com/>`_ >= 1.5
 - `jQuery <http://jquery.com/>`_ >= 1.4.4
 - `jQuery UI <http://jqueryui.com/>`_ >= 1.8
 
 .. note::
 
-    Begining with version django-selectable version 0.6, Django 1.2 is no longer supported.
-    While it may continue to work, bugs related to Django 1.2 support will not be fixed.
+    Version 0.8 drops support for Django < 1.5
 
-    Version 0.7 adds experimental support for Python 3.2+ when used with Django 1.5+.
+    Version 0.7 adds experimental support for Python 3.2+ when used with Django 1.5+
+
+    Version 0.6 drops support for Django < 1.3
+
 
 To install::
 

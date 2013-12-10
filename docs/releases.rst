@@ -10,6 +10,12 @@ v0.8.0 (Released TBD)
 - Update test suite compatibility with new test runner in Django 1.6. Thanks to Dan Poirier for the report and fix.
 - Tests now run on Travis CI.
 
+Backwards Incompatible Changes
+________________________________
+
+- Support for Django < 1.5 has been dropped. Most pieces should continue to work but there was an ugly JS hack to make django-selectable work nicely in the admin which too flakey to continue to maintain. If you aren't using the selectable widgets in inline-forms in the admin you can most likely continue to use Django 1.4 without issue.
+
+
 v0.7.0 (Released 2013-03-01)
 --------------------------------------
 
