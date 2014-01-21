@@ -58,10 +58,10 @@ against multiple versions of Django/Python. With tox installed you can run::
 to run all the version combinations. You can also run tox against a subset of supported
 environments::
 
-    tox -e py26-1.4.X
+    tox -e py27-1.5.X
 
-This example will run the test against the latest 1.5.X, 1.4.X, and 1.3.X releases
-using Python 2.6 and 3.2 for 1.5+. For more information on running/installing tox please see the
+This example will run the test against the latest 1.6.X and 1.5.X releases
+using Python 2.6 and 3.2. For more information on running/installing tox please see the
 tox documentation: http://tox.readthedocs.org/en/latest/index.html
 
 Client side tests are written using `QUnit <http://docs.jquery.com/QUnit>`_. They
