@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-selectable\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-02-17 14:18-0500\n"
-"PO-Revision-Date: 2013-02-13 14:21+0000\n"
+"POT-Creation-Date: 2014-01-20 20:08-0500\n"
+"PO-Revision-Date: 2013-11-20 10:18+0000\n"
 "Last-Translator: escriva <escriva@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/django-"
 "selectable/language/es/)\n"
@@ -22,6 +22,6 @@ msgstr ""
 msgid "Show more results"
 msgstr "Mostrar más resultados"
 
-#: forms/fields.py:22 forms/fields.py:69
+#: forms/fields.py:22 forms/fields.py:77
 msgid "Select a valid choice. That choice is not one of the available choices."
 msgstr "Seleccione una opción válida. La opción seleccionada no está disponible."

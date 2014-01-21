@@ -9,6 +9,7 @@ v0.8.0 (Released TBD)
 - Development moved from Bitbucket to Github.
 - Update test suite compatibility with new test runner in Django 1.6. Thanks to Dan Poirier for the report and fix.
 - Tests now run on Travis CI.
+- Added French and Chinese translations.
 
 Backwards Incompatible Changes
 ________________________________
