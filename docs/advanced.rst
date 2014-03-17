@@ -2,7 +2,7 @@ Advanced Usage
 ==========================
 
 We've gone through the most command and simple use cases for django-selectable. Now
-we'll take a lot at some of the more advanced features of this project. This assumes
+we'll take a look at some of the more advanced features of this project. This assumes
 that you are comfortable reading and writing a little bit of Javascript making
 use of jQuery.
 
