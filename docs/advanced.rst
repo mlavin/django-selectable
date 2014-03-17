@@ -16,7 +16,7 @@ The basic lookup is based on handling a search based on a single term string.
 If additional filtering is needed it can be inside the lookup ``get_query`` but
 you would need to define this when the lookup is defined. While this fits a fair
 number of use cases there are times when you need to define additional query
-parameters that won't be know until the either the form is bound or until selections
+parameters that won't be known until the either the form is bound or until selections
 are made on the client side. This section will detail how to handle both of these
 cases.
 
