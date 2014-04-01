@@ -2,7 +2,7 @@ Advanced Usage
 ==========================
 
 We've gone through the most command and simple use cases for django-selectable. Now
-we'll take a lot at some of the more advanced features of this project. This assumes
+we'll take a look at some of the more advanced features of this project. This assumes
 that you are comfortable reading and writing a little bit of Javascript making
 use of jQuery.
 
@@ -16,7 +16,7 @@ The basic lookup is based on handling a search based on a single term string.
 If additional filtering is needed it can be inside the lookup ``get_query`` but
 you would need to define this when the lookup is defined. While this fits a fair
 number of use cases there are times when you need to define additional query
-parameters that won't be know until the either the form is bound or until selections
+parameters that won't be known until either the form is bound or until selections
 are made on the client side. This section will detail how to handle both of these
 cases.
 
@@ -24,8 +24,8 @@ cases.
 How Parameters are Passed
 _______________________________________
 
-As with the search term the additional parameters you define will be passed in
-``request.GET``. Since ``get_query`` gets the current request so you will have access to
+As with the search term, the additional parameters you define will be passed in
+``request.GET``. Since ``get_query`` gets the current request, you will have access to
 them. Since they can be manipulated on the client side, these parameters should be
 treated like all user input. It should be properly validated and sanitized.
 
@@ -63,7 +63,7 @@ most common way to use this would be in the form ``__init__``.
 
 You can also pass the query parameters into the widget using the ``query_params``
 keyword argument. It depends on your use case as to whether the parameters are
-know when the form is defined or when an instance of the form is created.
+known when the form is defined or when an instance of the form is created.
 
 
 .. _client-side-parameters:
