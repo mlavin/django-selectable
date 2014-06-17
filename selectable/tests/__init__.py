@@ -11,6 +11,9 @@ class Thing(models.Model):
     def __unicode__(self):
         return self.name
 
+    def __str__(self):
+        return self.name
+
 
 class OtherThing(models.Model):
     name = models.CharField(max_length=100)
@@ -19,12 +22,18 @@ class OtherThing(models.Model):
     def __unicode__(self):
         return self.name
 
+    def __str__(self):
+        return self.name
+
 
 class ManyThing(models.Model):
     name = models.CharField(max_length=100)
     things = models.ManyToManyField(Thing)
 
     def __unicode__(self):
+        return self.name
+
+    def __str__(self):
         return self.name
 
 
