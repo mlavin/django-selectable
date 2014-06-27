@@ -1,10 +1,12 @@
-from django.conf.urls import handler404, handler500, patterns, url
+from django.conf.urls import url
 
-from selectable import registry
+from . import registry
+from . import views
 
 
 registry.autodiscover()
 
-urlpatterns = patterns('selectable.views',
-    url(r'^(?P<lookup_name>[-\w]+)/$', 'get_lookup', name="selectable-lookup"),
-)
+
+urlpatterns = [
+    url(r'^(?P<lookup_name>[-\w]+)/$', views.get_lookup, name="selectable-lookup"),
+]
