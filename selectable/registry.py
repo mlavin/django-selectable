@@ -40,16 +40,21 @@ def autodiscover():
 
     import copy
     from django.conf import settings
-    from django.utils.importlib import import_module
-    from django.utils.module_loading import module_has_submodule
+    try:
+        from django.utils.module_loading import autodiscover_modules
+    except ImportError:
+        from django.utils.importlib import import_module
+        from django.utils.module_loading import module_has_submodule
+        def autodiscover_modules(submod):
+            for app_name in settings.INSTALLED_APPS:
+                mod = import_module(app_name)
+                try:
+                    before_import_registry = copy.copy(registry._registry)
+                    import_module('%s.lookups' % app)
+                except:
+                    registry._registry = before_import_registry
+                    if module_has_submodule(mod, 'lookups'):
+                        raise
 
-    for app in settings.INSTALLED_APPS:
-        mod = import_module(app)
-        # Attempt to import the app's lookups module.
-        try:
-            before_import_registry = copy.copy(registry._registry)
-            import_module('%s.lookups' % app)
-        except:
-            registry._registry = before_import_registry
-            if module_has_submodule(mod, 'lookups'):
-                raise
+    # Attempt to import the app's lookups module.
+    autodiscover_modules("lookups")
