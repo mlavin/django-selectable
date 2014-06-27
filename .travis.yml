@@ -5,10 +5,11 @@ python:
 
 env:
   - TOXENV=py26-1.5.X,py32-1.5.X
-  - TOXENV=py26-1.6.X,py32-1.6.X
+  - TOXENV=py26-1.6.X,py33-1.6.X
+  - TOXENV=py27-1.7.X,py33-1.7.X
 
 install:
-  - pip install tox --use-mirrors
+  - pip install tox
 
 script:
     - tox
