@@ -10,6 +10,7 @@ from django.test import TestCase
 from ..base import ModelLookup
 from . import Thing
 
+
 def as_xml(html):
     "Convert HTML portion to minidom node."
     return parseString('<root>%s</root>' % html)
