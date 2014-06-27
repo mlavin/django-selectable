@@ -10,4 +10,5 @@ class SelectableConfig(AppConfig):
     name = 'selectable'
 
     def ready(self):
-        self.module.registry.autodiscover()
+        from . import registry
+        registry.autodiscover()
