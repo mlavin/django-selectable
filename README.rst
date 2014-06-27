@@ -18,7 +18,7 @@ Features
 Installation Requirements
 -----------------------------------
 
-- Python 2.6 or Python 2.7
+- Python 2.6-2.7, 3.2+
 - `Django <http://www.djangoproject.com/>`_ >= 1.5
 - `jQuery <http://jquery.com/>`_ >= 1.4.4
 - `jQuery UI <http://jqueryui.com/>`_ >= 1.8
