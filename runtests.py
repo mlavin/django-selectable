@@ -18,6 +18,7 @@ if not settings.configured:
                 'NAME': ':memory:',
             }
         },
+        MIDDLEWARE_CLASSES=(),
         INSTALLED_APPS=(
             'selectable',
         ),
