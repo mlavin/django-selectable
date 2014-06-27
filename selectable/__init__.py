@@ -2,3 +2,5 @@
 
 
 __version__ = '0.9.0dev'
+
+default_app_config = 'selectable.apps.SelectableConfig'

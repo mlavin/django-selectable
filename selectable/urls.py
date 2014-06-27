@@ -1,10 +1,14 @@
+from django import get_version
 from django.conf.urls import url
 
-from . import registry
 from . import views
 
 
-registry.autodiscover()
+if get_version() < (1, 7):
+    # Auto-discovery is now handled by the app configuration
+    from . import registry
+
+    registry.autodiscover()
 
 
 urlpatterns = [
