@@ -1,6 +1,13 @@
 Release Notes
 ==================
 
+v0.9.0 (Released TBD)
+--------------------------------------
+
+- Compatibility with Django 1.7. Thanks to Calvin Spealman for the fixes.
+- Fixes for Python 3 support.
+
+
 v0.8.0 (Released 2014-01-20)
 --------------------------------------
 
