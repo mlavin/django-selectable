@@ -28,3 +28,9 @@ try:
     from importlib import import_module
 except ImportError:
     from django.utils.importlib import import_module
+
+try:
+    from django.apps import AppConfig
+    LEGACY_AUTO_DISCOVER = False
+except ImportError:
+    LEGACY_AUTO_DISCOVER = True
