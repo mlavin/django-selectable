@@ -93,6 +93,7 @@ class FarmForm(forms.ModelForm):
         widgets = {
             'fruit': selectable.AutoCompleteSelectMultipleWidget(lookup_class=FruitLookup),
         }
+        fields = ('name', 'owner', 'fruit', )
 
 
 FarmFormset = modelformset_factory(Farm, FarmForm)
