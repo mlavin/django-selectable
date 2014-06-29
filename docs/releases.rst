@@ -4,6 +4,10 @@ Release Notes
 v0.9.0 (Released TBD)
 --------------------------------------
 
+This release primarily addresses incompatibility with Django 1.7. The app-loading refactor both
+broke the previous registration and at the same time provided better utilities in Django core to
+make it more robust.
+
 - Compatibility with Django 1.7. Thanks to Calvin Spealman for the fixes.
 - Fixes for Python 3 support.
 
