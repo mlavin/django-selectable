@@ -334,7 +334,7 @@
     function djangoAdminPatches() {
         /* Listen for new rows being added to the dynamic inlines.
         Requires Django 1.5+ */
-.        $('body').on('click', '.add-row', function (e) {
+        $('body').on('click', '.add-row', function (e) {
             var wrapper = $(this).parents('.inline-related'),
                 newRow = $('.form-row:not(.empty-form)', wrapper).last();
             window.bindSelectables(newRow);
