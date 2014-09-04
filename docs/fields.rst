@@ -1,7 +1,7 @@
 Fields
 ==========
 
-Django-Selectable defines a number of fields for selecting either single or mutliple
+Django-Selectable defines a number of fields for selecting either single or multiple
 lookup items. Item in this context corresponds to the object return by the underlying
 lookup ``get_item``. The single select select field :ref:`AutoCompleteSelectField`
 allows for the creation of new items. To use this feature the field's
