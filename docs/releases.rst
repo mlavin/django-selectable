@@ -11,6 +11,11 @@ make it more robust.
 - Compatibility with Django 1.7. Thanks to Calvin Spealman for the fixes.
 - Fixes for Python 3 support.
 
+Backwards Incompatible Changes
+________________________________
+
+- Dropped support for jQuery < 1.7
+
 
 v0.8.0 (Released 2014-01-20)
 --------------------------------------

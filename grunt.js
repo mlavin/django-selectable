@@ -5,11 +5,11 @@ module.exports = function(grunt) {
   grunt.initConfig({
     qunit: {
       urls: [
+        'http://localhost:<%= server.port %>/selectable/tests/qunit/index.html?jquery=1.11.1&ui=1.11.1'
         'http://localhost:<%= server.port %>/selectable/tests/qunit/index.html?jquery=1.10.2&ui=1.10.4',
         'http://localhost:<%= server.port %>/selectable/tests/qunit/index.html?jquery=1.9.1&ui=1.10.4',
         'http://localhost:<%= server.port %>/selectable/tests/qunit/index.html?jquery=1.8.3&ui=1.9.2',
         'http://localhost:<%= server.port %>/selectable/tests/qunit/index.html?jquery=1.7.2&ui=1.8.24',
-        'http://localhost:<%= server.port %>/selectable/tests/qunit/index.html?jquery=1.6.4&ui=1.8.24'
       ]
     },
     lint: {

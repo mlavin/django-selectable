@@ -1,14 +1,14 @@
 /*jshint trailing:true, indent:4*/
 /*
  * django-selectable UI widget
- * Source: https://bitbucket.org/mlavin/django-selectable
+ * Source: https://github.com/mlavin/django-selectable
  * Docs: http://django-selectable.readthedocs.org/
  *
  * Depends:
- *   - jQuery 1.4.4+
+ *   - jQuery 1.7+
  *   - jQuery UI 1.8 widget factory
  *
- * Copyright 2010-2013, Mark Lavin
+ * Copyright 2010-2014, Mark Lavin
  * BSD License
  *
 */
