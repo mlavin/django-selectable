@@ -66,13 +66,12 @@ tox documentation: http://tox.readthedocs.org/en/latest/index.html
 
 Client side tests are written using `QUnit <http://docs.jquery.com/QUnit>`_. They
 can be found in ``selectable/tests/qunit/index.html``. The test suite also uses
-`Grunt <https://github.com/gruntjs/grunt>`_ and `PhantomJS <http://phantomjs.org/>`_ to
-run the tests. You can install Grunt and PhantomJS from NPM::
+`PhantomJS <http://phantomjs.org/>`_ to
+run the tests. You can install PhantomJS from NPM::
 
-    # Install grunt requirements
-    npm install -g grunt phantomjs jshint
-    # Execute default grunt tasks
-    grunt
+    # Install requirements
+    npm install -g phantomjs jshint
+    make test-js
 
 
 Building the Documentation

@@ -313,7 +313,7 @@
         },
         close: function (event) {
             var page = $(this.element).data('page');
-            if (page != null) {
+            if (page !== null) {
                 return;
             }
             // Call super trigger
