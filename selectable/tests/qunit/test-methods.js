@@ -2,10 +2,15 @@
 
 define(['selectable'], function ($) {
 
-    var expectedNamespace = 'djselectable';
+    var expectedNamespace = 'djselectable',
+        useData = true;
     if (window.uiversion.lastIndexOf('1.10', 0) === 0) {
         // jQuery UI 1.10 introduces a namespace change to include ui-prefix
         expectedNamespace = 'ui-' + expectedNamespace;
+    }
+    if (window.uiversion.lastIndexOf('1.11', 0) === 0) {
+        // jQuery UI 1.11 introduces an instance method to get the current instance
+        useData = false;
     }
 
     module("Autocomplete Text Methods Tests");
@@ -16,7 +21,11 @@ define(['selectable'], function ($) {
         $('#qunit-fixture').append(input);
         bindSelectables('#qunit-fixture');
         ok(input.hasClass('ui-autocomplete-input'), "input should be bound with djselecable widget");
-        ok(input.data(expectedNamespace), "input should be bound with djselecable widget");
+        if (useData) {
+            ok(input.data(expectedNamespace), "input should be bound with djselecable widget");
+        } else {
+            ok(input.djselectable('instance'), "input should be bound with djselecable widget");
+        }
     });
 
     test("Manual Selection", function () {
@@ -48,7 +57,11 @@ define(['selectable'], function ($) {
         bindSelectables('#qunit-fixture');
         button = $('.ui-combo-button', '#qunit-fixture');
         ok(input.hasClass('ui-autocomplete-input'), "input should be bound with djselecable widget");
-        ok(input.data(expectedNamespace), "input should be bound with djselecable widget");
+        if (useData) {
+            ok(input.data(expectedNamespace), "input should be bound with djselecable widget");
+        } else {
+            ok(input.djselectable('instance'), "input should be bound with djselecable widget");
+        }
         equal(button.length, 1, "combobox button should be created");
     });
 
@@ -81,7 +94,11 @@ define(['selectable'], function ($) {
         $('#qunit-fixture').append(hiddenInput);
         bindSelectables('#qunit-fixture');
         ok(textInput.hasClass('ui-autocomplete-input'), "input should be bound with djselecable widget");
-        ok(textInput.data(expectedNamespace), "input should be bound with djselecable widget");
+        if (useData) {
+            ok(textInput.data(expectedNamespace), "input should be bound with djselecable widget");
+        } else {
+            ok(textInput.djselectable('instance'), "input should be bound with djselecable widget");
+        }
     });
 
     test("Manual Selection", function () {
@@ -121,7 +138,11 @@ define(['selectable'], function ($) {
         bindSelectables('#qunit-fixture');
         button = $('.ui-combo-button', '#qunit-fixture');
         ok(textInput.hasClass('ui-autocomplete-input'), "input should be bound with djselecable widget");
-        ok(textInput.data(expectedNamespace), "input should be bound with djselecable widget");
+        if (useData) {
+            ok(textInput.data(expectedNamespace), "input should be bound with djselecable widget");
+        } else {
+            ok(textInput.djselectable('instance'), "input should be bound with djselecable widget");
+        }
         equal(button.length, 1, "combobox button should be created");
     });
 
@@ -161,7 +182,11 @@ define(['selectable'], function ($) {
         bindSelectables('#qunit-fixture');
         deck = $('.selectable-deck', '#qunit-fixture');
         ok(textInput.hasClass('ui-autocomplete-input'), "input should be bound with djselecable widget");
-        ok(textInput.data(expectedNamespace), "input should be bound with djselecable widget");
+        if (useData) {
+            ok(textInput.data(expectedNamespace), "input should be bound with djselecable widget");
+        } else {
+            ok(textInput.djselectable('instance'), "input should be bound with djselecable widget");
+        }
         equal($('li', deck).length, 0, "no initial deck items");
     });
 
@@ -204,7 +229,11 @@ define(['selectable'], function ($) {
         deck = $('.selectable-deck', '#qunit-fixture');
         button = $('.ui-combo-button', '#qunit-fixture');
         ok(textInput.hasClass('ui-autocomplete-input'), "input should be bound with djselecable widget");
-        ok(textInput.data(expectedNamespace), "input should be bound with djselecable widget");
+        if (useData) {
+            ok(textInput.data(expectedNamespace), "input should be bound with djselecable widget");
+        } else {
+            ok(textInput.djselectable('instance'), "input should be bound with djselecable widget");
+        }
         equal($('li', deck).length, 0, "no initial deck items");
         equal(button.length, 1, "combobox button should be created");
     });
