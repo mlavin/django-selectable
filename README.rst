@@ -3,10 +3,9 @@ django-selectable
 
 Tools and widgets for using/creating auto-complete selection widgets using Django and jQuery UI.
 
-.. image::
-    https://secure.travis-ci.org/mlavin/django-selectable.png?branch=master
-    :alt: Build Status
-        :target: https://secure.travis-ci.org/mlavin/django-selectable
+.. image:: https://travis-ci.org/mlavin/django-selectable.svg?branch=master
+    :target: https://travis-ci.org/mlavin/django-selectable
+
 
 Features
 -----------------------------------
@@ -20,17 +19,8 @@ Installation Requirements
 
 - Python 2.6-2.7, 3.2+
 - `Django <http://www.djangoproject.com/>`_ >= 1.5
-- `jQuery <http://jquery.com/>`_ >= 1.4.4
+- `jQuery <http://jquery.com/>`_ >= 1.7
 - `jQuery UI <http://jqueryui.com/>`_ >= 1.8
-
-.. note::
-
-    Version 0.8 drops support for Django < 1.5
-
-    Version 0.7 adds experimental support for Python 3.2+ when used with Django 1.5+
-
-    Version 0.6 drops support for Django < 1.3
-
 
 To install::
 
