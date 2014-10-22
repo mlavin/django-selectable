@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-20 20:08-0500\n"
+"POT-Creation-Date: 2014-10-21 20:14-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,6 +21,6 @@ msgstr ""
 msgid "Show more results"
 msgstr ""
 
-#: forms/fields.py:22 forms/fields.py:77
+#: forms/fields.py:48 forms/fields.py:96
 msgid "Select a valid choice. That choice is not one of the available choices."
 msgstr ""
