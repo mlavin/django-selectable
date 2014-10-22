@@ -1,7 +1,7 @@
 Release Notes
 ==================
 
-v0.9.0 (Released TBD)
+v0.9.0 (Released 2014-10-21)
 --------------------------------------
 
 This release primarily addresses incompatibility with Django 1.7. The app-loading refactor both
