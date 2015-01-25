@@ -12,11 +12,6 @@ except ImportError:
     from django.utils.encoding import smart_unicode as smart_text
     from django.utils.encoding import force_unicode as force_text
 
-try:
-    from django.forms.utils import flatatt
-except ImportError:
-    from django.forms.util import flatatt
-
 PY3 = sys.version_info[0] == 3
 
 if PY3:

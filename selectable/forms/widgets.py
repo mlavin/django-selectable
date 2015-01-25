@@ -4,11 +4,12 @@ import json
 
 from django import forms, VERSION as DJANGO_VERSION
 from django.conf import settings
+from django.forms.utils import flatatt
 from django.utils.http import urlencode
 from django.utils.safestring import mark_safe
 
 from selectable import __version__
-from selectable.compat import force_text, flatatt
+from selectable.compat import force_text
 from selectable.forms.base import import_lookup_class
 
 __all__ = (
