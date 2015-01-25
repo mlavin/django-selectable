@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 from django.utils.encoding import force_text
 from django.utils.module_loading import autodiscover_modules
 
-from selectable.base import LookupBase, ModelLookup
+from selectable.base import LookupBase
 from selectable.exceptions import (LookupAlreadyRegistered, LookupNotRegistered,
                                     LookupInvalid)
 
