@@ -164,7 +164,7 @@ class AutoCompleteSelectWidgetTestCase(BaseSelectableTestCase, WidgetTestMixin):
         postdata = {'fruit': '1'}
         widget = self.get_widget_instance()
         widget_val = widget.value_from_datadict(postdata, [], 'fruit')
-        self.assertEquals(widget_val, '1')
+        self.assertEqual(widget_val, '1')
 
 
 class AutoComboboxWidgetTestCase(BaseSelectableTestCase, WidgetTestMixin):
