@@ -1,7 +1,5 @@
-from django.conf import settings
-
 from ..forms import BaseLookupForm
-from .base import BaseSelectableTestCase, PatchSettingsMixin
+from .base import BaseSelectableTestCase
 
 
 __all__ = (
@@ -9,7 +7,7 @@ __all__ = (
 )
 
 
-class BaseLookupFormTestCase(PatchSettingsMixin, BaseSelectableTestCase):
+class BaseLookupFormTestCase(BaseSelectableTestCase):
 
     def get_valid_data(self):
         data = {
@@ -39,12 +37,13 @@ class BaseLookupFormTestCase(PatchSettingsMixin, BaseSelectableTestCase):
         the form will return SELECTABLE_MAX_LIMIT.
         """
 
-        data = self.get_valid_data()
-        if 'limit' in data:
-            del data['limit']
-        form = BaseLookupForm(data)
-        self.assertTrue(form.is_valid(), "%s" % form.errors)
-        self.assertEqual(form.cleaned_data['limit'], settings.SELECTABLE_MAX_LIMIT)
+        with self.settings(SELECTABLE_MAX_LIMIT=25):
+            data = self.get_valid_data()
+            if 'limit' in data:
+                del data['limit']
+            form = BaseLookupForm(data)
+            self.assertTrue(form.is_valid(), "%s" % form.errors)
+            self.assertEqual(form.cleaned_data['limit'], 25)
 
     def test_no_max_set(self):
         """
@@ -52,12 +51,12 @@ class BaseLookupFormTestCase(PatchSettingsMixin, BaseSelectableTestCase):
         will return the given limit.
         """
 
-        settings.SELECTABLE_MAX_LIMIT = None
-        data = self.get_valid_data()
-        form = BaseLookupForm(data)
-        self.assertTrue(form.is_valid(), "%s" % form.errors)
-        if 'limit' in data:
-            self.assertTrue(form.cleaned_data['limit'], data['limit'])
+        with self.settings(SELECTABLE_MAX_LIMIT=None):
+            data = self.get_valid_data()
+            form = BaseLookupForm(data)
+            self.assertTrue(form.is_valid(), "%s" % form.errors)
+            if 'limit' in data:
+                self.assertTrue(form.cleaned_data['limit'], data['limit'])
 
     def test_no_max_set_not_given(self):
         """
@@ -65,13 +64,13 @@ class BaseLookupFormTestCase(PatchSettingsMixin, BaseSelectableTestCase):
         will return no limit.
         """
 
-        settings.SELECTABLE_MAX_LIMIT = None
-        data = self.get_valid_data()
-        if 'limit' in data:
-            del data['limit']
-        form = BaseLookupForm(data)
-        self.assertTrue(form.is_valid(), "%s" % form.errors)
-        self.assertFalse(form.cleaned_data.get('limit'))
+        with self.settings(SELECTABLE_MAX_LIMIT=None):
+            data = self.get_valid_data()
+            if 'limit' in data:
+                del data['limit']
+            form = BaseLookupForm(data)
+            self.assertTrue(form.is_valid(), "%s" % form.errors)
+            self.assertFalse(form.cleaned_data.get('limit'))
 
     def test_over_limit(self):
         """
@@ -79,8 +78,9 @@ class BaseLookupFormTestCase(PatchSettingsMixin, BaseSelectableTestCase):
         the form will return SELECTABLE_MAX_LIMIT.
         """
 
-        data = self.get_valid_data()
-        data['limit'] = settings.SELECTABLE_MAX_LIMIT + 100
-        form = BaseLookupForm(data)
-        self.assertTrue(form.is_valid(), "%s" % form.errors)
-        self.assertEqual(form.cleaned_data['limit'], settings.SELECTABLE_MAX_LIMIT)
+        with self.settings(SELECTABLE_MAX_LIMIT=25):
+            data = self.get_valid_data()
+            data['limit'] = 125
+            form = BaseLookupForm(data)
+            self.assertTrue(form.is_valid(), "%s" % form.errors)
+            self.assertEqual(form.cleaned_data['limit'], 25)

@@ -4,8 +4,6 @@ python:
   - "2.7"
 
 env:
-  - TOXENV=py27-django15,py33-django15
-  - TOXENV=py27-django16,py33-django16
   - TOXENV=py27-django17,py33-django17
   - TOXENV=py27-django18,py33-django18
 
@@ -18,7 +16,3 @@ script:
 branches:
   only:
     - master
-
-matrix:
-  allow_failures:
-    - env: TOXENV=py27-django18,py33-django18

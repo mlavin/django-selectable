@@ -1,7 +1,9 @@
 from __future__ import unicode_literals
 
-from selectable.base import LookupBase, ModelLookup
-from selectable.compat import force_text
+from django.utils.encoding import force_text
+from django.utils.module_loading import autodiscover_modules
+
+from selectable.base import LookupBase
 from selectable.exceptions import (LookupAlreadyRegistered, LookupNotRegistered,
                                     LookupInvalid)
 
@@ -37,26 +39,5 @@ registry = LookupRegistry()
 
 
 def autodiscover():
-
-    import copy
-    from django.conf import settings
-    
-    try:
-        from django.utils.module_loading import autodiscover_modules
-    except ImportError:
-        from django.utils.importlib import import_module
-        from django.utils.module_loading import module_has_submodule
-
-        def autodiscover_modules(submod, **kwargs):
-            for app_name in settings.INSTALLED_APPS:
-                mod = import_module(app_name)
-                try:
-                    before_import_registry = copy.copy(registry._registry)
-                    import_module('%s.lookups' % app_name)
-                except:
-                    registry._registry = before_import_registry
-                    if module_has_submodule(mod, 'lookups'):
-                        raise
-
     # Attempt to import the app's lookups module.
     autodiscover_modules('lookups', register_to=registry)

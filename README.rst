@@ -17,8 +17,8 @@ Features
 Installation Requirements
 -----------------------------------
 
-- Python 2.6-2.7, 3.2+
-- `Django <http://www.djangoproject.com/>`_ >= 1.5
+- Python 2.7, 3.3+
+- `Django <http://www.djangoproject.com/>`_ >= 1.7
 - `jQuery <http://jquery.com/>`_ >= 1.7
 - `jQuery UI <http://jqueryui.com/>`_ >= 1.8
 
@@ -40,10 +40,10 @@ Google CDN.
 
 Once installed you should add the urls to your root url patterns::
 
-    urlpatterns = patterns('',
+    urlpatterns = [
         # Other patterns go here
         (r'^selectable/', include('selectable.urls')),
-    )
+    ]
 
 
 Documentation

@@ -38,13 +38,3 @@ class ThingLookup(ModelLookup):
 
 
 registry.register(ThingLookup)
-
-
-from .test_base import *
-from .test_decorators import *
-from .test_fields import *
-from .test_functional import *
-from .test_forms import *
-from .test_templatetags import *
-from .test_views import *
-from .test_widgets import *

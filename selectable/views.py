@@ -1,6 +1,6 @@
 from __future__ import unicode_literals
 
-from django.http import HttpResponse, Http404
+from django.http import Http404
 
 from selectable.registry import registry
 

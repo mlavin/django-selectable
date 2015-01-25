@@ -12,10 +12,10 @@ from django.core.urlresolvers import reverse
 from django.core.serializers.json import DjangoJSONEncoder
 from django.http import HttpResponse
 from django.db.models import Q
+from django.utils.encoding import smart_text
 from django.utils.html import conditional_escape
 from django.utils.translation import ugettext as _
 
-from selectable.compat import smart_text
 from selectable.forms import BaseLookupForm
 
 

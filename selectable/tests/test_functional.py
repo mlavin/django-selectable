@@ -26,6 +26,7 @@ class OtherThingForm(forms.ModelForm):
 
     class Meta(object):
         model = OtherThing
+        fields = ('name', 'thing', )
 
 
 class FuncAutoCompleteSelectTestCase(BaseSelectableTestCase):
@@ -103,6 +104,7 @@ class SelectWidgetForm(forms.ModelForm):
 
     class Meta(object):
         model = OtherThing
+        fields = ('name', 'thing', )
         widgets = {
             'thing': AutoCompleteSelectWidget(lookup_class=ThingLookup)
         }
@@ -166,6 +168,7 @@ class ComboboxSelectWidgetForm(forms.ModelForm):
 
     class Meta(object):
         model = OtherThing
+        fields = ('name', 'thing', )
         widgets = {
             'thing': AutoComboboxSelectWidget(lookup_class=ThingLookup)
         }
@@ -231,6 +234,7 @@ class ManyThingForm(forms.ModelForm):
 
     class Meta(object):
         model = ManyThing
+        fields = ('name', 'things', )
 
 
 class FuncManytoManyMultipleSelectTestCase(BaseSelectableTestCase):

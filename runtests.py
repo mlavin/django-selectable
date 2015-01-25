@@ -3,11 +3,6 @@ import os
 import sys
 
 from django.conf import settings
-try:
-    from django import setup
-except ImportError:
-    def setup():
-        pass
 
 
 if not settings.configured:
@@ -28,6 +23,7 @@ if not settings.configured:
     )
 
 
+from django import setup
 from django.test.utils import get_runner
 
 
@@ -42,4 +38,3 @@ def runtests():
 
 if __name__ == '__main__':
     runtests()
-

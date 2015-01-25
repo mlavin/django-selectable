@@ -1,6 +1,21 @@
 Release Notes
 ==================
 
+
+v1.0.0 (Released TBD)
+--------------------------------------
+
+This project has been stable for quite some time and finally declaring a 1.0 release. With
+that comes new policies on official supported versions for Django, Python, jQuery, and jQuery UI.
+
+
+Backwards Incompatible Changes
+________________________________
+
+- Dropped support Python 2.6 and 3.2
+- Dropped support for Django < 1.7
+
+
 v0.9.0 (Released 2014-10-21)
 --------------------------------------
 

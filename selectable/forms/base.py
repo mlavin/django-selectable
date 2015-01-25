@@ -1,9 +1,10 @@
 from __future__ import unicode_literals
 
+from importlib import import_module
+
 from django import forms
 from django.conf import settings
-
-from selectable.compat import string_types, import_module
+from django.utils.six import string_types
 
 
 __all__ = (
