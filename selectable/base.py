@@ -1,7 +1,6 @@
 "Base classes for lookup creation."
 from __future__ import unicode_literals
 
-import json
 import operator
 import re
 from functools import reduce
@@ -9,8 +8,7 @@ from functools import reduce
 from django.conf import settings
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
 from django.core.urlresolvers import reverse
-from django.core.serializers.json import DjangoJSONEncoder
-from django.http import HttpResponse
+from django.http import JsonResponse
 from django.db.models import Q
 from django.utils.encoding import smart_text
 from django.utils.html import conditional_escape
@@ -23,14 +21,6 @@ __all__ = (
     'LookupBase',
     'ModelLookup',
 )
-
-
-class JsonResponse(HttpResponse):
-    "HttpResponse subclass for returning JSON data."
-
-    def __init__(self, *args, **kwargs):
-        kwargs['content_type'] = 'application/json'
-        super(JsonResponse, self).__init__(*args, **kwargs)
 
 
 class LookupBase(object):
@@ -100,8 +90,7 @@ class LookupBase(object):
             term = options.get('term', '')
             raw_data = self.get_query(request, term)
             results = self.format_results(raw_data, options)
-        content = self.serialize_results(results)
-        return self.response(content)
+        return self.response(results)
 
     def format_results(self, raw_data, options):
         '''
@@ -122,10 +111,6 @@ class LookupBase(object):
         results['data'] = [self.format_item(item) for item in page_data.object_list]
         results['meta'] = meta
         return results
-
-    def serialize_results(self, results):
-        "Returns serialized results for sending via http."
-        return json.dumps(results, cls=DjangoJSONEncoder, ensure_ascii=False)
 
 
 class ModelLookup(LookupBase):

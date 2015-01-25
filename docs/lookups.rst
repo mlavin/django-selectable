@@ -147,16 +147,6 @@ than jQuery UI. Most users will not need to override these methods.
     :return: The current `Page object <https://docs.djangoproject.com/en/stable/topics/pagination/#page-objects>`_
         of results.
 
-.. _lookup-serialize-results:
-
-.. py:method:: LookupBase.serialize_results(self, results)
-
-    Returns serialized results for sending via http. You may choose to override
-    this if you are making use of 
-
-    :param results: a python structure to be serialized e.g. the one returned by :ref:`format_results<lookup-format-results>`
-    :returns: JSON string.
-
 
 .. _ModelLookup:
 

@@ -14,6 +14,7 @@ ________________________________
 
 - Dropped support Python 2.6 and 3.2
 - Dropped support for Django < 1.7
+- ``LookupBase.serialize_results`` had been removed. This is now handled by the built-in ``JsonResponse`` in Django.
 
 
 v0.9.0 (Released 2014-10-21)
