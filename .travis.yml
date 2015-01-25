@@ -4,9 +4,10 @@ python:
   - "2.7"
 
 env:
-  - TOXENV=py26-1.5.X,py32-1.5.X
-  - TOXENV=py26-1.6.X,py33-1.6.X
-  - TOXENV=py27-1.7.X,py33-1.7.X
+  - TOXENV=py27-django15,py33-django15
+  - TOXENV=py27-django16,py33-django16
+  - TOXENV=py27-django17,py33-django17
+  - TOXENV=py27-django18,py33-django18
 
 install:
   - pip install tox
@@ -17,3 +18,7 @@ script:
 branches:
   only:
     - master
+
+matrix:
+  allow_failures:
+    - env: TOXENV=py27-django18,py33-django18
