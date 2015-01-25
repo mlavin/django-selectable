@@ -18,3 +18,7 @@ script:
 branches:
   only:
     - master
+
+matrix:
+  allow_failures:
+    - env: TOXENV=py27-django18,py33-django18
