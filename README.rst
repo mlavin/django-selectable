@@ -19,8 +19,8 @@ Installation Requirements
 
 - Python 2.7, 3.3+
 - `Django <http://www.djangoproject.com/>`_ >= 1.7
-- `jQuery <http://jquery.com/>`_ >= 1.7
-- `jQuery UI <http://jqueryui.com/>`_ >= 1.8
+- `jQuery <http://jquery.com/>`_ >= 1.9
+- `jQuery UI <http://jqueryui.com/>`_ >= 1.10
 
 To install::
 
@@ -42,7 +42,7 @@ Once installed you should add the urls to your root url patterns::
 
     urlpatterns = [
         # Other patterns go here
-        (r'^selectable/', include('selectable.urls')),
+        url(r'^selectable/', include('selectable.urls')),
     ]
 
 
