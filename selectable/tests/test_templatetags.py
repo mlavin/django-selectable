@@ -22,7 +22,7 @@ class JqueryTagTestCase(BaseSelectableTestCase):
         "Render template tag with default versions."
         template = Template("{% load selectable_tags %}{% include_jquery_libs %}")
         context = Context({})
-        result = template.render(context)r
+        result = template.render(context)
         self.assertJQueryVersion(result, '1.11.2')
         self.assertUIVersion(result, '1.11.3')
 
