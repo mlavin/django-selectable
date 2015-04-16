@@ -31,17 +31,17 @@ the  from the `Google CDN <http://code.google.com/apis/libraries/devguide.html#j
         {% load selectable_tags %}
         {% include_jquery_libs %}
 
-By default these will use jQuery v1.7.2 and jQuery UI v1.8.23. You can customize the versions
+By default these will use jQuery v1.11.2 and jQuery UI v1.11.4. You can customize the versions
 used by pass them to the tag. The first version is the jQuery version and the second is the
 jQuery UI version.
 
     .. code-block:: html
 
         {% load selectable_tags %}
-        {% include_jquery_libs '1.4.4' '1.8.13' %}
+        {% include_jquery_libs '1.11.2' '1.11.4' %}
 
-Django-Selectable should work with `jQuery <http://jquery.com/>`_ >= 1.4.4 and
-`jQuery UI <http://jqueryui.com/>`_ >= 1.8.13.
+Django-Selectable should work with `jQuery <http://jquery.com/>`_ >= 1.9 and
+`jQuery UI <http://jqueryui.com/>`_ >= 1.10.
 
 You must also include a `jQuery UI theme <http://jqueryui.com/themeroller/>`_ stylesheet. There
 is also a template tag to easily add this style sheet from the Google CDN.
@@ -51,13 +51,13 @@ is also a template tag to easily add this style sheet from the Google CDN.
         {% load selectable_tags %}
         {% include_ui_theme %}
 
-By default this will use the `base <http://jqueryui.com/themeroller/>`_ theme for jQuery UI v1.8.23.
+By default this will use the `base <http://jqueryui.com/themeroller/>`_ theme for jQuery UI v1.11.4.
 You can configure the theme and version by passing them in the tag.
 
     .. code-block:: html
 
         {% load selectable_tags %}
-        {% include_ui_theme 'ui-lightness' '1.8.13' %}
+        {% include_ui_theme 'ui-lightness' '1.11.4' %}
 
 Or only change the theme.
 
@@ -72,11 +72,11 @@ Of course you can choose to include these rescources manually::
 
     .. code-block:: html
 
-        <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.0/themes/base/jquery-ui.css" type="text/css">
-        <link href="{{ STATIC_URL }}selectable/css/dj.selectable.css" type="text/css" media="all" rel="stylesheet">
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-        <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.0/jquery-ui.js"></script>
-        <script type="text/javascript" src="{{ STATIC_URL }}selectable/js/jquery.dj.selectable.js"></script>
+        <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/base/jquery-ui.css" type="text/css">
+        <link href="{% static 'selectable/css/dj.selectable.css' %}" type="text/css" media="all" rel="stylesheet">
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.js"></script>
+        <script type="text/javascript" src="{% static 'selectable/js/jquery.dj.selectable.js' %}"></script>
 
 .. note::
 

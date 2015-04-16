@@ -15,6 +15,8 @@ ________________________________
 - Dropped support Python 2.6 and 3.2
 - Dropped support for Django < 1.7
 - ``LookupBase.serialize_results`` had been removed. This is now handled by the built-in ``JsonResponse`` in Django.
+- jQuery and jQuery UI versions for the ``include_jquery_libs`` and ``include_ui_theme`` template tags have been increased to 1.11.2 and 1.11.4 respectively.
+- Dropped testing support for jQuery < 1.9 and jQuery UI < 1.10. Earlier versions may continue to work but it is recommended to upgrade.
 
 
 v0.9.0 (Released 2014-10-21)
