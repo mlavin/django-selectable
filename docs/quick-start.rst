@@ -91,13 +91,37 @@ Defining a Lookup
 The lookup classes define the backend views. The most common case is defining a
 lookup which searchs models based on a particular field. Let's define a simple model:
 
-    .. literalinclude:: ../example/core/models.py
-        :pyobject: Fruit
+    .. code-block:: python
+
+        from __future__ import unicode_literals
+
+        from django.db import models
+        from django.utils.encoding import python_2_unicode_compatible
+
+
+        @python_2_unicode_compatible
+        class Fruit(models.Model):
+            name = models.CharField(max_length=200)
+
+            def __str__(self):
+                return self.name
 
 In a `lookups.py` we will define our lookup:
 
-    .. literalinclude:: ../example/core/lookups.py
-        :pyobject: FruitLookup
+    .. code-block:: python
+
+        from __future__ import unicode_literals
+
+        from selectable.base import ModelLookup
+        from selectable.registry import registry
+
+        from .models import Fruit
+
+
+        class FruitLookup(ModelLookup):
+            model = Fruit
+            search_fields = ('name__icontains', )
+
 
 This lookups extends ``selectable.base.ModelLookup`` and defines two things: one is
 the model on which we will be searching and the other is the field which we are searching.
@@ -128,9 +152,22 @@ Defining Forms
 
 Now that we have a working lookup we will define a form which uses it:
 
-    .. literalinclude:: ../example/core/forms.py
-        :pyobject: FruitForm
-        :end-before: newautocomplete
+    .. code-block:: python
+
+        from django import forms
+
+        from selectable.forms import AutoCompleteWidget
+
+        from .lookups import FruitLookup
+
+
+        class FruitForm(forms.Form):
+            autocomplete = forms.CharField(
+                label='Type the name of a fruit (AutoCompleteWidget)',
+                widget=AutoCompleteWidget(FruitLookup),
+                required=False,
+            )
+
 
 This replaces the default widget for the ``CharField`` with the ``AutoCompleteWidget``.
 This will allow the user to fill this field with values taken from the names of

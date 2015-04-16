@@ -24,9 +24,13 @@ Django admin that means overriding
 You can include this media in the block name `extrahead` which is defined in
 `admin/base.html <https://code.djangoproject.com/browser/django/trunk/django/contrib/admin/templates/admin/base.html>`_.
 
-    .. literalinclude:: ../example/example/templates/admin/base_site.html
-        :start-after: {% endblock title %}
-        :end-before: {% block branding %}
+    .. code-block:: html
+
+        {% block extrahead %}
+            {% load selectable_tags %}
+            {% include_ui_theme %}
+            {% include_jquery_libs %}
+        {% endblock %}
 
 See the Django documentation on
 `overriding admin templates <https://docs.djangoproject.com/en/stable/ref/contrib/admin/#overriding-admin-templates>`_.
@@ -50,19 +54,78 @@ and make use of them.
 Basic Example
 --------------------------------------
 
-In our sample project we have a ``Farm`` model with a foreign key to ``auth.User`` and
+For example, we may have a ``Farm`` model with a foreign key to ``auth.User`` and
 a many to many relation to our ``Fruit`` model.
 
-    .. literalinclude:: ../example/core/models.py
-       :pyobject: Farm
+    .. code-block:: python
+
+        from __future__ import unicode_literals
+
+        from django.db import models
+        from django.utils.encoding import python_2_unicode_compatible
+
+
+        @python_2_unicode_compatible
+        class Fruit(models.Model):
+            name = models.CharField(max_length=200)
+
+            def __str__(self):
+                return self.name
+
+
+        @python_2_unicode_compatible
+        class Farm(models.Model):
+            name = models.CharField(max_length=200)
+            owner = models.ForeignKey('auth.User', related_name='farms')
+            fruit = models.ManyToManyField(Fruit)
+
+            def __str__(self):
+                return "%s's Farm: %s" % (self.owner.username, self.name)
 
 In `admin.py` we will define the form and associate it with the `FarmAdmin`.
 
-    .. literalinclude:: ../example/core/admin.py
-        :pyobject: FarmAdminForm
+    .. code-block:: python
 
-    .. literalinclude:: ../example/core/admin.py
-        :pyobject: FarmAdmin
+        from django.contrib import admin
+        from django.contrib.auth.admin import UserAdmin
+        from django.contrib.auth.models import User
+        from django import forms
+
+        from selectable.forms import AutoCompleteSelectField, AutoCompleteSelectMultipleWidget
+
+        from .models import Fruit, Farm
+        from .lookups import FruitLookup, OwnerLookup
+
+
+        class FarmAdminForm(forms.ModelForm):
+            owner = AutoCompleteSelectField(lookup_class=OwnerLookup, allow_new=True)
+
+            class Meta(object):
+                model = Farm
+                widgets = {
+                    'fruit': AutoCompleteSelectMultipleWidget(lookup_class=FruitLookup),
+                }
+                exclude = ('owner', )
+
+            def __init__(self, *args, **kwargs):
+                super(FarmAdminForm, self).__init__(*args, **kwargs)
+                if self.instance and self.instance.pk and self.instance.owner:
+                    self.initial['owner'] = self.instance.owner.pk
+
+            def save(self, *args, **kwargs):
+                owner = self.cleaned_data['owner']
+                if owner and not owner.pk:
+                    owner = User.objects.create_user(username=owner.username, email='')
+                self.instance.owner = owner
+                return super(FarmAdminForm, self).save(*args, **kwargs)
+
+
+        class FarmAdmin(admin.ModelAdmin):
+            form = FarmAdminForm
+
+
+        admin.site.register(Farm, FarmAdmin)
+
 
 You'll note this form also allows new users to be created and associated with the
 farm, if no user is found matching the given name. To make use of this feature we
@@ -88,10 +151,23 @@ by making use of the `InlineModelAdmin
 <http://docs.djangoproject.com/en/stable/ref/contrib/admin/#inlinemodeladmin-objects>`_.
 We can even make use of the same ``FarmAdminForm``.
 
-    .. literalinclude:: ../example/core/admin.py
-        :pyobject: FarmInline
-    .. literalinclude:: ../example/core/admin.py
-        :pyobject: NewUserAdmin
+    .. code-block:: python
+
+        # continued from above
+
+        class FarmInline(admin.TabularInline):
+            model = Farm
+            form = FarmAdminForm
+
+
+        class NewUserAdmin(UserAdmin):
+            inlines = [
+                FarmInline,
+            ]
+
+
+        admin.site.unregister(User)
+        admin.site.register(User, NewUserAdmin)
 
 The auto-complete functions will be bound as new forms are added dynamically.
 

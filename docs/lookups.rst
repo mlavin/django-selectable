@@ -157,8 +157,21 @@ Perhaps the most common use case is to define a lookup based on a given Django m
 For this you can extend ``selectable.base.ModelLookup``. To extend ``ModelLookup`` you
 should set two class attributes: ``model`` and ``search_fields``.
 
-    .. literalinclude:: ../example/core/lookups.py
-        :pyobject: FruitLookup
+    .. code-block:: python
+
+        from __future__ import unicode_literals
+
+        from selectable.base import ModelLookup
+        from selectable.registry import registry
+
+        from .models import Fruit
+
+
+        class FruitLookup(ModelLookup):
+            model = Fruit
+            search_fields = ('name__icontains', )
+
+        registry.register(FruitLookup)
 
 The syntax for ``search_fields`` is the same as the Django
 `field lookup syntax <http://docs.djangoproject.com/en/stable/ref/models/querysets/#field-lookups>`_.

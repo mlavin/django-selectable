@@ -109,28 +109,90 @@ to write a little javascript.
 
 Suppose we have city model
 
-    .. literalinclude:: ../example/core/models.py
-        :pyobject: City
+    .. code-block:: python
+
+        from __future__ import unicode_literals
+
+        from django.db import models
+        from django.utils.encoding import python_2_unicode_compatible
+
+        from localflavor.us.models import USStateField
+
+
+        @python_2_unicode_compatible
+        class City(models.Model):
+            name = models.CharField(max_length=200)
+            state = USStateField()
+
+            def __str__(self):
+                return self.name
+
+Then in our lookup we will grab the state value and filter our results on it:
+
+    .. code-block:: python
+
+        from __future__ import unicode_literals
+
+        from selectable.base import ModelLookup
+        from selectable.registry import registry
+
+        from .models import City
+
+
+        class CityLookup(ModelLookup):
+            model = City
+            search_fields = ('name__icontains', )
+
+            def get_query(self, request, term):
+                results = super(CityLookup, self).get_query(request, term)
+                state = request.GET.get('state', '')
+                if state:
+                    results = results.filter(state=state)
+                return results
+
+            def get_item_label(self, item):
+                return "%s, %s" % (item.name, item.state)
+
+
+        registry.register(CityLookup)
 
 and a simple form
 
-    .. literalinclude:: ../example/core/forms.py
-        :pyobject: ChainedForm
+    .. code-block:: python
+
+        from django import forms
+
+        from localflavor.us.forms import USStateField, USStateSelect
+
+        from selectable.forms import AutoCompleteSelectField, AutoComboboxSelectWidget
+
+        from .lookups import CityLookup
+
+
+        class ChainedForm(forms.Form):
+            city = AutoCompleteSelectField(
+                lookup_class=CityLookup,
+                label='City',
+                required=False,
+                widget=AutoComboboxSelectWidget
+            )
+            state = USStateField(widget=USStateSelect, required=False)
+
 
 We want our users to select a city and if they choose a state then we will only
 show them cities in that state. To do this we will pass back chosen state as
 addition parameter with the following javascript:
 
-    .. literalinclude:: ../example/core/templates/advanced.html
-        :language: html
-        :start-after: {% block extra-js %}
-        :end-before: {% endblock %}
+    .. code-block:: html
 
-
-Then in our lookup we will grab the state value and filter our results on it:
-
-    .. literalinclude:: ../example/core/lookups.py
-        :pyobject: CityLookup
+        <script type="text/javascript">
+            $(document).ready(function() {
+                function newParameters(query) {
+                    query.state = $('#id_state').val();
+                }
+                $('#id_city_0').djselectable('option', 'prepareQuery', newParameters);
+            });
+        </script>
 
 And that's it! We now have a working chained selection example. The full source
 is included in the example project.
@@ -152,12 +214,6 @@ expose the events defined by the plugin.
     - djselectableselect
     - djselectableclose
     - djselectablechange
-
-.. note::
-
-    Prior to v0.7 these event names were under the ``autocomplete`` namespace. If you
-    are upgrading from a previous version and had customizations using these events
-    you should be sure to update the names.
 
 For the most part these event names should be self-explanatory. If you need additional
 detail you should refer to the `jQuery UI docs on these events <http://jqueryui.com/demos/autocomplete/#events>`_.
@@ -250,17 +306,8 @@ The item is a dictionary object matching what is returned by the lookup's
 :ref:`format_item <lookup-format-item>`. ``formatLabel`` should return the string
 which should be used for the label.
 
-.. note::
-
-    In v0.7 the scope of ``formatLabel`` was updated so that ``this`` refers to the
-    current ``djselectable`` plugin instance. Previously ``this`` refered to the
-    plugin ``options`` instance.
-
 Going back to the ``CityLookup`` we can adjust the label to wrap the city and state
 portions with their own classes for additional styling:
-
-    .. literalinclude:: ../example/core/lookups.py
-        :pyobject: CityLookup
 
     .. code-block:: html
 

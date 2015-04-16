@@ -20,15 +20,19 @@ Field tied to :ref:`AutoCompleteSelectWidget` to bind the selection to the form 
 create new items, if allowed. The ``allow_new`` keyword argument (default: ``False``)
 which determines if the field allows new items. This field cleans to a single item.
 
-    .. literalinclude:: ../example/core/forms.py
-        :start-after: # AutoCompleteSelectField (no new items)
-        :end-before: # AutoCompleteSelectField (allows new items)
-
-`lookup_class`` may also be a dotted path.
-
     .. code-block:: python
 
-	    selectable.AutoCompleteSelectField(lookup_class='core.lookups.FruitLookup')
+        from django import forms
+
+        from selectable.forms import AutoCompleteSelectField
+
+        from .lookups import FruitLookup
+
+
+        class FruitSelectionForm(forms.Form):
+            fruit = AutoCompleteSelectField(lookup_class=FruitLookup, label='Select a fruit')
+
+`lookup_class`` may also be a dotted path.
 
 
 .. _AutoCompleteSelectMultipleField:
@@ -40,6 +44,16 @@ Field tied to :ref:`AutoCompleteSelectMultipleWidget` to bind the selection to t
 This field cleans to a list of items. :ref:`AutoCompleteSelectMultipleField` does not
 allow for the creation of new items.
 
-    .. literalinclude:: ../example/core/forms.py
-        :start-after: # AutoCompleteSelectMultipleField
-        :end-before: # AutoComboboxSelectMultipleField
+
+    .. code-block:: python
+
+        from django import forms
+
+        from selectable.forms import AutoCompleteSelectMultipleField
+
+        from .lookups import FruitLookup
+
+
+        class FruitsSelectionForm(forms.Form):
+            fruits = AutoCompleteSelectMultipleField(lookup_class=FruitLookup,
+                label='Select your favorite fruits')
