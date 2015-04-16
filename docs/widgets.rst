@@ -9,8 +9,6 @@ additional query parameters to the lookup search. See the section on
 :ref:`Adding Parameters on the Server Side <server-side-parameters>` for more
 information.
 
-.. versionadded:: 0.7
-
 You can configure the plugin options by passing the configuration dictionary in the ``data-selectable-options``
 attribute. The set of options availble include those define by the base
 `autocomplete plugin <http://api.jqueryui.com/1.9/autocomplete/>`_ as well as the
@@ -64,8 +62,6 @@ You can simply replace the widget without replacing the entire field.
                 }
 
 The one catch is that you must use ``allow_new=False`` which is the default.
-
-.. versionadded:: 0.7
 
 ``lookup_class`` may also be a dotted path.
 

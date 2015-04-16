@@ -38,8 +38,6 @@ See the example project for the full template example.
 Using Grappelli
 --------------------------------------
 
-.. versionadded:: 0.7
-
 `Grappelli <https://django-grappelli.readthedocs.org>`_ is a popular customization of the Django
 admin interface. It includes a number of interface improvements which are also built on top of
 jQuery UI. When using Grappelli you do not need to make any changes to the ``admin/base_site.html``

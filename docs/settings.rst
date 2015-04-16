@@ -16,8 +16,6 @@ the query string to retrive more values.
 Default: ``25``
 
 
-.. versionadded:: 0.6
-
 .. _SELECTABLE_ESCAPED_KEYS:
 
 SELECTABLE_ESCAPED_KEYS

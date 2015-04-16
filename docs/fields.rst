@@ -24,9 +24,6 @@ which determines if the field allows new items. This field cleans to a single it
         :start-after: # AutoCompleteSelectField (no new items)
         :end-before: # AutoCompleteSelectField (allows new items)
 
-
-.. versionadded:: 0.7
-
 `lookup_class`` may also be a dotted path.
 
     .. code-block:: python

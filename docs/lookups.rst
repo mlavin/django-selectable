@@ -208,8 +208,6 @@ model.
 Lookup Decorators
 --------------------------------------
 
-.. versionadded:: 0.5
-
 Registering lookups with django-selectable creates a small API for searching the
 lookup data. While the amount of visible data is small there are times when you want
 to restrict the set of requests which can view the data. For this purpose there are
