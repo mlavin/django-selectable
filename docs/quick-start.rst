@@ -31,14 +31,14 @@ the  from the `Google CDN <http://code.google.com/apis/libraries/devguide.html#j
         {% load selectable_tags %}
         {% include_jquery_libs %}
 
-By default these will use jQuery v1.11.2 and jQuery UI v1.11.4. You can customize the versions
+By default these will use jQuery v1.11.2 and jQuery UI v1.11.3. You can customize the versions
 used by pass them to the tag. The first version is the jQuery version and the second is the
 jQuery UI version.
 
     .. code-block:: html
 
         {% load selectable_tags %}
-        {% include_jquery_libs '1.11.2' '1.11.4' %}
+        {% include_jquery_libs '1.11.2' '1.11.3' %}
 
 Django-Selectable should work with `jQuery <http://jquery.com/>`_ >= 1.9 and
 `jQuery UI <http://jqueryui.com/>`_ >= 1.10.
@@ -72,10 +72,10 @@ Of course you can choose to include these rescources manually::
 
     .. code-block:: html
 
-        <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/base/jquery-ui.css" type="text/css">
+        <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/base/jquery-ui.css" type="text/css">
         <link href="{% static 'selectable/css/dj.selectable.css' %}" type="text/css" media="all" rel="stylesheet">
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-        <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.js"></script>
         <script type="text/javascript" src="{% static 'selectable/js/jquery.dj.selectable.js' %}"></script>
 
 .. note::
