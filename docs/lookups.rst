@@ -25,7 +25,7 @@ you must register in with django-selectable. All lookups must extend from
         class MyLookup(LookupBase):
             def get_query(self, request, term):
                 data = ['Foo', 'Bar']
-                return filter(lambda x: x.startswith(term), data)
+                return [x for x in data if x.startswith(term)]
 
         registry.register(MyLookup)
 
