@@ -26,6 +26,7 @@ class OtherThingForm(forms.ModelForm):
 
     class Meta(object):
         model = OtherThing
+        exclude = ()
 
 
 class FuncAutoCompleteSelectTestCase(BaseSelectableTestCase):
@@ -106,7 +107,7 @@ class SelectWidgetForm(forms.ModelForm):
         widgets = {
             'thing': AutoCompleteSelectWidget(lookup_class=ThingLookup)
         }
-
+        exclude = ()
 
 class FuncSelectModelChoiceTestCase(BaseSelectableTestCase):
     """
@@ -169,7 +170,7 @@ class ComboboxSelectWidgetForm(forms.ModelForm):
         widgets = {
             'thing': AutoComboboxSelectWidget(lookup_class=ThingLookup)
         }
-
+        exclude = ()
 
 class FuncComboboxModelChoiceTestCase(BaseSelectableTestCase):
     """
@@ -231,7 +232,7 @@ class ManyThingForm(forms.ModelForm):
 
     class Meta(object):
         model = ManyThing
-
+        exclude = ()
 
 class FuncManytoManyMultipleSelectTestCase(BaseSelectableTestCase):
     """
