@@ -4,7 +4,7 @@ import random
 import string
 from xml.dom.minidom import parseString
 
-from django.test import TestCase
+from django.test import TestCase, override_settings
 
 from ..base import ModelLookup
 from . import Thing
@@ -27,8 +27,8 @@ def parsed_inputs(html):
     return inputs
 
 
+@override_settings(ROOT_URLCONF='selectable.tests.urls')
 class BaseSelectableTestCase(TestCase):
-    urls = 'selectable.tests.urls'
 
     def get_random_string(self, length=10):
         return ''.join(random.choice(string.ascii_letters) for x in range(length))
