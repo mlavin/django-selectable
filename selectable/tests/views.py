@@ -1,5 +1,6 @@
 from django.http import HttpResponseNotFound, HttpResponseServerError
 
+
 def test_404(request):
     return HttpResponseNotFound()
 
