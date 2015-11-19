@@ -377,7 +377,7 @@
         }
     }
 
-    $(document).ready(function () {
+    $(document).on('ready ajaxComplete', function () {
         // Patch the django admin JS
         if (typeof(djselectableAdminPatch) === "undefined" || djselectableAdminPatch) {
             djangoAdminPatches();
