@@ -23,20 +23,21 @@ setup(
     license='BSD',
     description=' '.join(__import__('selectable').__doc__.splitlines()).strip(),
     classifiers=[
-        'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
+        'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',
+        'Framework :: Django',
         'License :: OSI Approved :: BSD License',
+        'Operating System :: OS Independent',
         'Programming Language :: Python',
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: 3.4',
-        'Framework :: Django',
-        'Development Status :: 5 - Production/Stable',
-        'Operating System :: OS Independent',
+        'Programming Language :: Python :: 3.5',
+        'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
     ],
     long_description=read_file('README.rst'),
     test_suite="runtests.runtests",
     tests_require=['mock', ],
-    zip_safe=False, # because we're including media that Django needs
+    zip_safe=False,  # because we're including media that Django needs
 )

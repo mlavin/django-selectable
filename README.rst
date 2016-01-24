@@ -6,6 +6,9 @@ Tools and widgets for using/creating auto-complete selection widgets using Djang
 .. image:: https://travis-ci.org/mlavin/django-selectable.svg?branch=master
     :target: https://travis-ci.org/mlavin/django-selectable
 
+.. image:: https://codecov.io/github/mlavin/django-selectable/coverage.svg?branch=master
+    :target: https://codecov.io/github/mlavin/django-selectable?branch=master
+
 
 Features
 -----------------------------------
