@@ -131,10 +131,7 @@ class ModelLookup(LookupBase):
         return qs
 
     def get_queryset(self):
-        try:
-            qs = self.model._default_manager.get_queryset()
-        except AttributeError:  # Django <= 1.5.
-            qs = self.model._default_manager.get_query_set()
+        qs = self.model._default_manager.get_queryset()
         if self.filters:
             qs = qs.filter(**self.filters)
         return qs

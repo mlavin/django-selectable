@@ -2,7 +2,7 @@ from __future__ import unicode_literals
 
 import json
 
-from django import forms, VERSION as DJANGO_VERSION
+from django import forms
 from django.conf import settings
 from django.forms.utils import flatatt
 from django.utils.encoding import force_text
@@ -65,15 +65,6 @@ class SelectableMultiWidget(forms.MultiWidget):
 
     def update_query_parameters(self, qs_dict):
         self.widgets[0].update_query_parameters(qs_dict)
-
-    if DJANGO_VERSION < (1, 6):
-        def _has_changed(self, initial, data):
-            "Detects if the widget was changed. This is removed in Django 1.6."
-            if initial is None and data is None:
-                return False
-            if data and not hasattr(data, '__iter__'):
-                data = self.decompress(data)
-            return super(SelectableMultiWidget, self)._has_changed(initial, data)
 
     def decompress(self, value):
         if value:
@@ -164,7 +155,8 @@ class LookupMultipleHiddenInput(forms.MultipleHiddenInput):
 
     def render(self, name, value, attrs=None, choices=()):
         lookup = self.lookup_class()
-        if value is None: value = []
+        if value is None:
+            value = []
         final_attrs = self.build_attrs(attrs, type=self.input_type, name=name)
         id_ = final_attrs.get('id', None)
         inputs = []
@@ -231,17 +223,6 @@ class _BaseMultipleSelectWidget(SelectableMultiWidget, SelectableMediaMixin):
             value = [value]
         value = ['', value]
         return super(_BaseMultipleSelectWidget, self).render(name, value, attrs)
-
-    if DJANGO_VERSION < (1, 6):
-        def _has_changed(self, initial, data):
-            """"
-            Detects if the widget was changed. This is removed in Django 1.6.
-
-            For the multi-select case we only care if the hidden inputs changed.
-            """
-            initial = ['', initial]
-            data = ['', data]
-            return super(_BaseMultipleSelectWidget, self)._has_changed(initial, data)
 
 
 class AutoCompleteSelectMultipleWidget(_BaseMultipleSelectWidget):
