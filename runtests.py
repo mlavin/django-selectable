@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+import os
 import sys
 
 from django.conf import settings
@@ -19,7 +20,10 @@ if not settings.configured:
         SITE_ID=1,
         SECRET_KEY='super-secret',
         ROOT_URLCONF='selectable.tests.urls',
-    )
+        TEMPLATES=[{
+            'BACKEND': 'django.template.backends.django.DjangoTemplates',
+            'DIRS': [os.path.join(os.path.normpath(os.path.join(
+                os.path.dirname(__file__), 'selectable')), 'templates')]}])
 
 
 from django import setup
