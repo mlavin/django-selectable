@@ -1,6 +1,6 @@
 from __future__ import unicode_literals
 
-from django import forms
+from django import forms, VERSION as DJANGO_VERSION
 from django.core.exceptions import ValidationError
 from django.core.validators import EMPTY_VALUES
 from django.utils.translation import ugettext_lazy as _
@@ -26,7 +26,7 @@ def model_vars(obj):
 
 class BaseAutoCompleteField(forms.Field):
 
-    def _has_changed(self, initial, data):
+    def has_changed(self, initial, data):
         "Detects if the data was changed. This is added in 1.6."
         if initial is None and data is None:
             return False
@@ -40,6 +40,11 @@ class BaseAutoCompleteField(forms.Field):
             return model_vars(data) != model_vars(initial)
         else:
             return data != initial
+
+    if DJANGO_VERSION < (1, 8):
+        def _has_changed(self, initial, data):
+            return self.has_changed(initial, data)
+
 
 class AutoCompleteSelectField(BaseAutoCompleteField):
     widget = AutoCompleteSelectWidget
