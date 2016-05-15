@@ -77,7 +77,7 @@ Building the Documentation
 --------------------------------------
 
 The documentation is built using `Sphinx <http://sphinx.pocoo.org/>`_
-and available on `Read the Docs <http://django-selectable.readthedocs.org/>`_. With
+and available on `Read the Docs <http://django-selectable.readthedocs.io/>`_. With
 Sphinx installed you can build the documentation by running::
 
     make html
