@@ -1,6 +1,6 @@
 from __future__ import unicode_literals
 
-from six import python_2_unicode_compatible
+from django.utils.six import python_2_unicode_compatible
 
 try:
     from localflavor.us.models import USStateField
