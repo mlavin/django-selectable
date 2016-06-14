@@ -74,6 +74,17 @@ class FruitForm(forms.Form):
         required=False,
         widget=selectable.AutoComboboxSelectMultipleWidget
     )
+    # AutoComboboxSelectMultipleField with disabled attribute
+    disabledmulticomboboxselect = selectable.AutoCompleteSelectMultipleField(
+        lookup_class=FruitLookup,
+        label='Disabled Selectable field',
+        required=False,
+        widget=selectable.AutoComboboxSelectMultipleWidget
+    )
+
+    def __init__(self, *args, **kwargs):
+        super(FruitForm, self).__init__(*args, **kwargs)
+        self.fields['disabledmulticomboboxselect'].widget.attrs['disabled'] = 'disabled'
 
 
 class ChainedForm(forms.Form):
@@ -97,4 +108,3 @@ class FarmForm(forms.ModelForm):
 
 
 FarmFormset = modelformset_factory(Farm, FarmForm)
-
