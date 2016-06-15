@@ -71,7 +71,8 @@
                     icons: {
                         primary: this.options.removeIcon
                     },
-                    text: false
+                    text: false,
+                    disabled: this.disabled
                 },
                 button = $('<a>')
                 .attr('href', '#')

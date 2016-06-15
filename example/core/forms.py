@@ -79,7 +79,8 @@ class FruitForm(forms.Form):
         lookup_class=FruitLookup,
         label='Disabled Selectable field',
         required=False,
-        widget=selectable.AutoComboboxSelectMultipleWidget
+        widget=selectable.AutoComboboxSelectMultipleWidget,
+        initial={'1', '2'},
     )
 
     def __init__(self, *args, **kwargs):
