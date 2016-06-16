@@ -13,5 +13,5 @@ def include_jquery_libs(version='1.11.2', ui='1.11.3'):
 
 
 @register.inclusion_tag('selectable/jquery-css.html')
-def include_ui_theme(theme='base', version='1.11.3'):
+def include_ui_theme(theme='smoothness', version='1.11.3'):
     return {'theme': theme, 'version': version}
