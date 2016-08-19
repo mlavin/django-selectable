@@ -52,7 +52,7 @@ Once installed you should add the urls to your root url patterns::
 Documentation
 -----------------------------------
 
-Documentation for django-selectable is available on `Read The Docs <http://django-selectable.readthedocs.io/>`_.
+Documentation for django-selectable is available on `Read The Docs <http://django-selectable.readthedocs.io/en/latest/>`_.
 
 
 Additional Help/Support
