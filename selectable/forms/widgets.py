@@ -218,6 +218,12 @@ class _BaseMultipleSelectWidget(SelectableMultiWidget, SelectableMediaMixin):
             value = self.get_compatible_postdata(data, name)
         return value
 
+    def build_attrs(self, extra_attrs=None, **kwargs):
+        attrs = super(_BaseMultipleSelectWidget, self).build_attrs(extra_attrs, **kwargs)
+        if 'required' in attrs:
+            attrs.pop('required')
+        return attrs
+
     def render(self, name, value, attrs=None):
         if value and not hasattr(value, '__iter__'):
             value = [value]
