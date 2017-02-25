@@ -1,5 +1,14 @@
 [
     {
+        "model": "auth.user",
+        "pk": 1,
+        "fields": {
+            "is_superuser": true,
+            "username": "example_user",
+            "email": "ex@gmail.com"
+        }
+    },
+    {
         "pk": 1, 
         "model": "core.fruit", 
         "fields": {
