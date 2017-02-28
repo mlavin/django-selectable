@@ -1,7 +1,6 @@
 import pprint
 
-from django.shortcuts import render_to_response
-from django.template import RequestContext
+from django.shortcuts import render
 
 from core.forms import FruitForm, ChainedForm, FarmFormset
 
@@ -28,7 +27,7 @@ def index(request):
         'form': form,
         'raw_post': raw_post
     }
-    return render_to_response('base.html', context, context_instance=RequestContext(request))
+    return render(request, 'base.html', context)
 
 
 def advanced(request):
@@ -41,7 +40,7 @@ def advanced(request):
         else:
             form = ChainedForm()
 
-    return render_to_response('advanced.html', {'form': form}, context_instance=RequestContext(request))
+    return render(request, 'advanced.html', {'form': form})
 
 
 def formset(request):
@@ -54,4 +53,4 @@ def formset(request):
         else:
             formset = FarmFormset()
 
-    return render_to_response('formset.html', {'formset': formset}, context_instance=RequestContext(request))
+    return render(request, 'formset.html', {'formset': formset})
