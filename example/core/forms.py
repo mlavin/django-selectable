@@ -10,7 +10,7 @@ import selectable.forms as selectable
 
 from core.lookups import FruitLookup, CityLookup
 from core.models import Farm
-
+from selectable.registry import chained_field
 
 class FruitForm(forms.Form):
     autocomplete = forms.CharField(
@@ -87,7 +87,7 @@ class FruitForm(forms.Form):
         super(FruitForm, self).__init__(*args, **kwargs)
         self.fields['disabledmulticomboboxselect'].widget.attrs['disabled'] = 'disabled'
 
-
+@chained_field('city', 'state')
 class ChainedForm(forms.Form):
     city = selectable.AutoCompleteSelectField(
         lookup_class=CityLookup,
