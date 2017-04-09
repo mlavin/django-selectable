@@ -9,7 +9,7 @@ from django.conf import settings
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
 from django.core.urlresolvers import reverse
 from django.http import JsonResponse
-from django.db.models import Q
+from django.db.models import Q, Model
 from django.utils.encoding import smart_text
 from django.utils.html import conditional_escape
 from django.utils.translation import ugettext as _
@@ -142,6 +142,7 @@ class ModelLookup(LookupBase):
     def get_item(self, value):
         item = None
         if value:
+            value = value.pk if isinstance(value, Model) else value
             try:
                 item = self.get_queryset().get(pk=value)
             except (ValueError, self.model.DoesNotExist):
