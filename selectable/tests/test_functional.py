@@ -8,7 +8,7 @@ from django import forms
 from ..forms import AutoCompleteSelectField, AutoCompleteSelectMultipleField
 from ..forms import AutoCompleteSelectWidget, AutoComboboxSelectWidget
 from . import ManyThing, OtherThing, ThingLookup
-from .base import BaseSelectableTestCase, parsed_inputs
+from .base import BaseSelectableTestCase
 
 
 __all__ = (
@@ -83,16 +83,18 @@ class FuncAutoCompleteSelectTestCase(BaseSelectableTestCase):
             '''
             <input data-selectable-allow-new="false" data-selectable-type="text"
                 data-selectable-url="/selectable-tests/selectable-thinglookup/"
-                id="id_thing_0" name="thing_0" type="text" value="{}" required />
-            '''.format(self.test_thing.name),
+                id="id_thing_0" name="thing_0" type="text" value="{}" {} />
+            '''.format(self.test_thing.name,
+                       'required' if hasattr(form, 'use_required_attribute') else ''),
             rendered_form
         )
         # Selected pk should be populated
         self.assertInHTML(
             '''
             <input data-selectable-type="hidden" name="thing_1" id="id_thing_1"
-                type="hidden" value="{}" required />
-            '''.format(self.test_thing.pk),
+                type="hidden" value="{}" {} />
+            '''.format(self.test_thing.pk,
+                       'required' if hasattr(form, 'use_required_attribute') else ''),
             rendered_form,
         )
 
@@ -106,17 +108,19 @@ class FuncAutoCompleteSelectTestCase(BaseSelectableTestCase):
             '''
             <input data-selectable-allow-new="false" data-selectable-type="text"
                 data-selectable-url="/selectable-tests/selectable-thinglookup/"
-                id="id_thing_0" name="thing_0" type="text" value="{}" required />
-            '''.format(self.test_thing.name),
+                id="id_thing_0" name="thing_0" type="text" value="{}" {} />
+            '''.format(self.test_thing.name,
+                       'required' if hasattr(form, 'use_required_attribute') else ''),
             rendered_form
         )
         # Selected pk should be populated
         self.assertInHTML(
             '''
             <input data-selectable-type="hidden" name="thing_1" id="id_thing_1"
-                type="hidden" value="{}" required />
-            '''.format(self.test_thing.pk),
-            rendered_form,
+                type="hidden" value="{}" {} />
+            '''.format(self.test_thing.pk,
+                       'required' if hasattr(form, 'use_required_attribute') else ''),
+            rendered_form
         )
 
 
