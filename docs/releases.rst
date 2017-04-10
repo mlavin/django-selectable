@@ -8,12 +8,18 @@ v1.0.0 (Released TBD)
 This project has been stable for quite some time and finally declaring a 1.0 release. With
 that comes new policies on official supported versions for Django, Python, jQuery, and jQuery UI.
 
+- New translations for German and Czech.
+- Various bug and compatibility fixes.
+- Updated example project.
+
+Special thanks to Raphael Merx for helping track down issues related to this release
+and an updating the example project to work on Django 1.10.
 
 Backwards Incompatible Changes
 ________________________________
 
 - Dropped support Python 2.6 and 3.2
-- Dropped support for Django < 1.7
+- Dropped support for Django < 1.7. Django 1.11 is not yet supported.
 - ``LookupBase.serialize_results`` had been removed. This is now handled by the built-in ``JsonResponse`` in Django.
 - jQuery and jQuery UI versions for the ``include_jquery_libs`` and ``include_ui_theme`` template tags have been increased to 1.11.2 and 1.11.3 respectively.
 - Dropped testing support for jQuery < 1.9 and jQuery UI < 1.10. Earlier versions may continue to work but it is recommended to upgrade.

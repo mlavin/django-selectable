@@ -21,7 +21,7 @@ Installation Requirements
 -----------------------------------
 
 - Python 2.7, 3.3+
-- `Django <http://www.djangoproject.com/>`_ >= 1.7
+- `Django <http://www.djangoproject.com/>`_ >= 1.7, < 1.11
 - `jQuery <http://jquery.com/>`_ >= 1.9
 - `jQuery UI <http://jqueryui.com/>`_ >= 1.10
 

@@ -24,5 +24,9 @@ Thomas Güttler
 Yuri Khrustalev
 @SaeX
 Tam Huynh
+Raphael Merx
+Josh Addington
+Tobias Zanke
+Petr Dlouhy
 
 Thanks for all of your work!
