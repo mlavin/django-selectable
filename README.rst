@@ -10,6 +10,19 @@ Tools and widgets for using/creating auto-complete selection widgets using Djang
     :target: https://codecov.io/github/mlavin/django-selectable?branch=master
 
 
+.. note::
+
+    This project is looking for additional maintainers to help with Django/jQuery compatibility
+    issues as well as addressing support issues/questions. If you are looking to help out
+    on this project and take a look at the open
+    `help-wanted <https://github.com/mlavin/django-selectable/issues?q=is%3Aissue+is%3Aopen+label%3Ahelp-wanted>`_
+    or `question <https://github.com/mlavin/django-selectable/issues?q=is%3Aissue+is%3Aopen+label%3Aquestion>`_
+    and see if you can contribute a fix. Be bold! If you want to take a larger role on
+    the project, please reach out on the 
+    `mailing list <http://groups.google.com/group/django-selectable>`_. I'm happy to work
+    with you to get you going on an issue.
+
+
 Features
 -----------------------------------
 
