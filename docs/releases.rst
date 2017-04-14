@@ -2,7 +2,7 @@ Release Notes
 ==================
 
 
-v1.0.0 (Released TBD)
+v1.0.0 (Released 2017-04-14)
 --------------------------------------
 
 This project has been stable for quite some time and finally declaring a 1.0 release. With
