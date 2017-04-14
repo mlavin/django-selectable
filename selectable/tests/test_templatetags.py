@@ -23,8 +23,8 @@ class JqueryTagTestCase(BaseSelectableTestCase):
         template = Template("{% load selectable_tags %}{% include_jquery_libs %}")
         context = Context({})
         result = template.render(context)
-        self.assertJQueryVersion(result, '1.11.2')
-        self.assertUIVersion(result, '1.11.3')
+        self.assertJQueryVersion(result, '1.12.4')
+        self.assertUIVersion(result, '1.11.4')
 
     def test_render_jquery_version(self):
         "Render template tag with specified jQuery version."
@@ -82,7 +82,7 @@ class ThemeTagTestCase(BaseSelectableTestCase):
         template = Template("{% load selectable_tags %}{% include_ui_theme %}")
         context = Context({})
         result = template.render(context)
-        self.assertUICSS(result, 'smoothness', '1.11.3')
+        self.assertUICSS(result, 'smoothness', '1.11.4')
 
     def test_render_version(self):
         "Render template tag with alternate version."
@@ -104,7 +104,7 @@ class ThemeTagTestCase(BaseSelectableTestCase):
         template = Template("{% load selectable_tags %}{% include_ui_theme 'ui-lightness' %}")
         context = Context({})
         result = template.render(context)
-        self.assertUICSS(result, 'ui-lightness', '1.11.3')
+        self.assertUICSS(result, 'ui-lightness', '1.11.4')
 
     def test_variable_theme(self):
         "Render using theme from content variable."
@@ -112,4 +112,4 @@ class ThemeTagTestCase(BaseSelectableTestCase):
         template = Template("{% load selectable_tags %}{% include_ui_theme theme %}")
         context = Context({'theme': theme})
         result = template.render(context)
-        self.assertUICSS(result, theme, '1.11.3')
+        self.assertUICSS(result, theme, '1.11.4')
