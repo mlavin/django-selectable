@@ -19,10 +19,14 @@
 {% block extra-js %}
 <script type="text/javascript">
     $(document).ready(function() {
-        function newParameters(query) {
-            query.state = $('#id_state').val();
-        }
-        $('#id_city_0').djselectable('option', 'prepareQuery', newParameters);
+
+        $('#id_state').on('change', function() {
+            function newParameters(query) {
+                query.state = $('#id_state').val();
+            }
+            $('#id_city_0').djselectable('option', 'prepareQuery', newParameters);
+        });
+
     });
 </script>
 {% endblock %}
