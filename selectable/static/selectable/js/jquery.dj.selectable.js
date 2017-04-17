@@ -31,6 +31,7 @@
         _initDeck: function () {
             /* Create list display for currently selected items for multi-select */
             var self = this;
+            var $input = $(this.element).parent()
             var data = $(this.element).data();
             var style = data.selectablePosition || data['selectable-position'] || 'bottom';
             this.deck = $('<ul>').addClass('ui-widget selectable-deck selectable-deck-' + style);
@@ -39,7 +40,7 @@
             } else {
                 $(this.element).before(this.deck);
             }
-            $(self.hiddenMultipleSelector).each(function (i, input) {
+            $($input).find(self.hiddenMultipleSelector).each(function (i, input) {
                 self._addDeckItem(input);
             });
         },
@@ -94,7 +95,7 @@
                 if (this.allowMultiple) {
                     $input.val("");
                     this.term = "";
-                    if ($(this.hiddenMultipleSelector + '[value="' + item.id + '"]').length === 0) {
+                    if ($($input).find(this.hiddenMultipleSelector + '[value="' + item.id + '"]').length === 0) {
                         var newInput = $('<input />', {
                             'type': 'hidden',
                             'name': this.hiddenName,
