@@ -57,7 +57,7 @@ class AutoCompleteWidgetTestCase(BaseSelectableTestCase, WidgetTestMixin):
     widget_cls = widgets.AutoCompleteWidget
     lookup_cls = ThingLookup
 
-    def test_build_attrs(self):
+    def test_rendered_attrs(self):
         widget = self.get_widget_instance()
         attrs = parsed_widget_attributes(widget)
         self.assertTrue('data-selectable-url' in attrs)
@@ -165,7 +165,7 @@ class AutoComboboxWidgetTestCase(BaseSelectableTestCase, WidgetTestMixin):
     widget_cls = widgets.AutoComboboxWidget
     lookup_cls = ThingLookup
 
-    def test_build_attrs(self):
+    def test_rendered_attrs(self):
         widget = self.get_widget_instance()
         attrs = parsed_widget_attributes(widget)
         self.assertTrue('data-selectable-url' in attrs)
