@@ -42,7 +42,7 @@ class WidgetTestMixin(object):
         An invalid lookup_class dotted path should raise an ImportError.
         """
         with self.assertRaises(ImportError):
-            self.__class__.widget_cls('this.is.an.invalid.path')
+            self.__class__.widget_cls('that.is.an.invalid.path')
 
     def test_dotted_path_wrong_type(self):
         """
