@@ -312,7 +312,7 @@ class AutoCompleteSelectMultipleWidgetTestCase(BaseSelectableTestCase, WidgetTes
         widget = self.get_widget_instance()
         t1 = self.create_thing()
         t2 = self.create_thing()
-        qs_val = Thing.objects.filter(pk__in=[t1.pk, t2.pk]).values_list('pk', flat=True)
+        qs_val = Thing.objects.filter(pk__in=[t1.pk, t2.pk])
         rendered_value = widget.render('field_name', qs_val)
         inputs = parsed_inputs(rendered_value)
         found_values = []
@@ -411,7 +411,7 @@ class AutoComboboxSelectMultipleWidgetTestCase(BaseSelectableTestCase, WidgetTes
         widget = self.get_widget_instance()
         t1 = self.create_thing()
         t2 = self.create_thing()
-        qs_val = Thing.objects.filter(pk__in=[t1.pk, t2.pk]).values_list('pk', flat=True)
+        qs_val = Thing.objects.filter(pk__in=[t1.pk, t2.pk])
         rendered_value = widget.render('field_name', qs_val)
         inputs = parsed_inputs(rendered_value)
         found_values = []
