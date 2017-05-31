@@ -316,11 +316,14 @@ class AutoCompleteSelectMultipleWidgetTestCase(BaseSelectableTestCase, WidgetTes
         rendered_value = widget.render('field_name', qs_val)
         inputs = parsed_inputs(rendered_value)
         found_values = []
+        found_titles = []
         for field in inputs['field_name_1']:
             self.assertEqual(field.attributes['data-selectable-type'].value, 'hidden-multiple')
             self.assertEqual(field.attributes['type'].value, 'hidden')
-            found_values.append(int(field.attributes['value'].value))
-        self.assertListEqual(found_values, [t1.pk, t2.pk])
+            found_titles.append(field.attributes['title'].value)
+            found_values.append(field.attributes['value'].value)
+        self.assertListEqual(found_values, [str(t1.pk), str(t2.pk)])
+        self.assertListEqual(found_titles, [t1.name, t2.name])
 
     def test_update_query_parameters(self):
         params = {'active': 1}

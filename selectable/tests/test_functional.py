@@ -344,6 +344,15 @@ class FuncManytoManyMultipleSelectTestCase(BaseSelectableTestCase):
         form = ManyThingForm(data=data)
         self.assertTrue(form.is_valid(), str(form.errors))
 
+    def test_render_form(self):
+        thing_1 = self.create_thing()
+        manything = ManyThing.objects.create(name='Foo')
+        manything.things.add(thing_1)
+        form = ManyThingForm(instance=manything)
+        rendered = form.as_p()
+        self.assertIn('title="{0}"'.format(thing_1.name),
+                      rendered)
+
 
 class SimpleForm(forms.Form):
     "Non-model form usage."
