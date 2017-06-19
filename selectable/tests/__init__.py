@@ -13,6 +13,9 @@ class Thing(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        ordering = ['id']
+
 
 @python_2_unicode_compatible
 class OtherThing(models.Model):

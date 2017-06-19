@@ -3,11 +3,10 @@ import json
 from django import forms
 from django.utils.http import urlencode
 
+from . import Thing, ThingLookup
 from ..compat import urlparse
 from ..forms import widgets
-from . import Thing, ThingLookup
-from .base import BaseSelectableTestCase, parsed_inputs
-
+from .base import BaseSelectableTestCase, parsed_inputs, parsed_widget_attributes
 
 __all__ = (
     'AutoCompleteWidgetTestCase',
@@ -43,7 +42,7 @@ class WidgetTestMixin(object):
         An invalid lookup_class dotted path should raise an ImportError.
         """
         with self.assertRaises(ImportError):
-            self.__class__.widget_cls('this.is.an.invalid.path')
+            self.__class__.widget_cls('that.is.an.invalid.path')
 
     def test_dotted_path_wrong_type(self):
         """
@@ -58,9 +57,9 @@ class AutoCompleteWidgetTestCase(BaseSelectableTestCase, WidgetTestMixin):
     widget_cls = widgets.AutoCompleteWidget
     lookup_cls = ThingLookup
 
-    def test_build_attrs(self):
+    def test_rendered_attrs(self):
         widget = self.get_widget_instance()
-        attrs = widget.build_attrs()
+        attrs = parsed_widget_attributes(widget)
         self.assertTrue('data-selectable-url' in attrs)
         self.assertTrue('data-selectable-type' in attrs)
         self.assertTrue('data-selectable-allow-new' in attrs)
@@ -69,15 +68,15 @@ class AutoCompleteWidgetTestCase(BaseSelectableTestCase, WidgetTestMixin):
         params = {'active': 1}
         widget = self.get_widget_instance()
         widget.update_query_parameters(params)
-        attrs = widget.build_attrs()
+        attrs = parsed_widget_attributes(widget)
         url = attrs['data-selectable-url']
         parse = urlparse(url)
         query = parse.query
         self.assertEqual(query, urlencode(params))
 
-    def test_limit_paramter(self):
+    def test_limit_parameter(self):
         widget = self.get_widget_instance(limit=10)
-        attrs = widget.build_attrs()
+        attrs = parsed_widget_attributes(widget)
         url = attrs['data-selectable-url']
         parse = urlparse(url)
         query = parse.query
@@ -86,7 +85,7 @@ class AutoCompleteWidgetTestCase(BaseSelectableTestCase, WidgetTestMixin):
     def test_initial_query_parameters(self):
         params = {'active': 1}
         widget = self.get_widget_instance(query_params=params)
-        attrs = widget.build_attrs()
+        attrs = parsed_widget_attributes(widget)
         url = attrs['data-selectable-url']
         parse = urlparse(url)
         query = parse.query
@@ -96,7 +95,7 @@ class AutoCompleteWidgetTestCase(BaseSelectableTestCase, WidgetTestMixin):
         "Serialize selectable options as json in data attribute."
         options = {'autoFocus': True}
         widget = self.get_widget_instance(attrs={'data-selectable-options': options})
-        attrs = widget.build_attrs()
+        attrs = parsed_widget_attributes(widget)
         self.assertTrue('data-selectable-options' in attrs)
         self.assertEqual(attrs['data-selectable-options'], json.dumps(options))
 
@@ -115,8 +114,7 @@ class AutoCompleteSelectWidgetTestCase(BaseSelectableTestCase, WidgetTestMixin):
 
     def test_hidden_type(self):
         widget = self.get_widget_instance()
-        sub_widget = widget.widgets[1]
-        attrs = sub_widget.build_attrs()
+        attrs = parsed_widget_attributes(widget.widgets[1])
         self.assertTrue('data-selectable-type' in attrs)
         self.assertEqual(attrs['data-selectable-type'], 'hidden')
 
@@ -124,17 +122,15 @@ class AutoCompleteSelectWidgetTestCase(BaseSelectableTestCase, WidgetTestMixin):
         params = {'active': 1}
         widget = self.get_widget_instance()
         widget.update_query_parameters(params)
-        sub_widget = widget.widgets[0]
-        attrs = sub_widget.build_attrs()
+        attrs = parsed_widget_attributes(widget.widgets[0])
         url = attrs['data-selectable-url']
         parse = urlparse(url)
         query = parse.query
         self.assertEqual(query, urlencode(params))
 
-    def test_limit_paramter(self):
+    def test_limit_parameter(self):
         widget = self.get_widget_instance(limit=10)
-        sub_widget = widget.widgets[0]
-        attrs = sub_widget.build_attrs()
+        attrs = parsed_widget_attributes(widget.widgets[0])
         url = attrs['data-selectable-url']
         parse = urlparse(url)
         query = parse.query
@@ -143,8 +139,7 @@ class AutoCompleteSelectWidgetTestCase(BaseSelectableTestCase, WidgetTestMixin):
     def test_initial_query_parameters(self):
         params = {'active': 1}
         widget = self.get_widget_instance(query_params=params)
-        sub_widget = widget.widgets[0]
-        attrs = sub_widget.build_attrs()
+        attrs = parsed_widget_attributes(widget.widgets[0])
         url = attrs['data-selectable-url']
         parse = urlparse(url)
         query = parse.query
@@ -154,8 +149,7 @@ class AutoCompleteSelectWidgetTestCase(BaseSelectableTestCase, WidgetTestMixin):
         "Serialize selectable options as json in data attribute."
         options = {'autoFocus': True}
         widget = self.get_widget_instance(attrs={'data-selectable-options': options})
-        sub_widget = widget.widgets[0]
-        attrs = sub_widget.build_attrs()
+        attrs = parsed_widget_attributes(widget.widgets[0])
         self.assertTrue('data-selectable-options' in attrs)
         self.assertEqual(attrs['data-selectable-options'], json.dumps(options))
 
@@ -171,9 +165,9 @@ class AutoComboboxWidgetTestCase(BaseSelectableTestCase, WidgetTestMixin):
     widget_cls = widgets.AutoComboboxWidget
     lookup_cls = ThingLookup
 
-    def test_build_attrs(self):
+    def test_rendered_attrs(self):
         widget = self.get_widget_instance()
-        attrs = widget.build_attrs()
+        attrs = parsed_widget_attributes(widget)
         self.assertTrue('data-selectable-url' in attrs)
         self.assertTrue('data-selectable-type' in attrs)
         self.assertTrue('data-selectable-allow-new' in attrs)
@@ -182,15 +176,15 @@ class AutoComboboxWidgetTestCase(BaseSelectableTestCase, WidgetTestMixin):
         params = {'active': 1}
         widget = self.get_widget_instance()
         widget.update_query_parameters(params)
-        attrs = widget.build_attrs()
+        attrs = parsed_widget_attributes(widget)
         url = attrs['data-selectable-url']
         parse = urlparse(url)
         query = parse.query
         self.assertEqual(query, urlencode(params))
 
-    def test_limit_paramter(self):
+    def test_limit_parameter(self):
         widget = self.get_widget_instance(limit=10)
-        attrs = widget.build_attrs()
+        attrs = parsed_widget_attributes(widget)
         url = attrs['data-selectable-url']
         parse = urlparse(url)
         query = parse.query
@@ -199,7 +193,7 @@ class AutoComboboxWidgetTestCase(BaseSelectableTestCase, WidgetTestMixin):
     def test_initial_query_parameters(self):
         params = {'active': 1}
         widget = self.get_widget_instance(query_params=params)
-        attrs = widget.build_attrs()
+        attrs = parsed_widget_attributes(widget)
         url = attrs['data-selectable-url']
         parse = urlparse(url)
         query = parse.query
@@ -209,7 +203,7 @@ class AutoComboboxWidgetTestCase(BaseSelectableTestCase, WidgetTestMixin):
         "Serialize selectable options as json in data attribute."
         options = {'autoFocus': True}
         widget = self.get_widget_instance(attrs={'data-selectable-options': options})
-        attrs = widget.build_attrs()
+        attrs = parsed_widget_attributes(widget)
         self.assertTrue('data-selectable-options' in attrs)
         self.assertEqual(attrs['data-selectable-options'], json.dumps(options))
 
@@ -228,8 +222,7 @@ class AutoComboboxSelectWidgetTestCase(BaseSelectableTestCase, WidgetTestMixin):
 
     def test_hidden_type(self):
         widget = self.get_widget_instance()
-        sub_widget = widget.widgets[1]
-        attrs = sub_widget.build_attrs()
+        attrs = parsed_widget_attributes(widget.widgets[1])
         self.assertTrue('data-selectable-type' in attrs)
         self.assertEqual(attrs['data-selectable-type'], 'hidden')
 
@@ -237,17 +230,15 @@ class AutoComboboxSelectWidgetTestCase(BaseSelectableTestCase, WidgetTestMixin):
         params = {'active': 1}
         widget = self.get_widget_instance()
         widget.update_query_parameters(params)
-        sub_widget = widget.widgets[0]
-        attrs = sub_widget.build_attrs()
+        attrs = parsed_widget_attributes(widget.widgets[0])
         url = attrs['data-selectable-url']
         parse = urlparse(url)
         query = parse.query
         self.assertEqual(query, urlencode(params))
 
-    def test_limit_paramter(self):
+    def test_limit_parameter(self):
         widget = self.get_widget_instance(limit=10)
-        sub_widget = widget.widgets[0]
-        attrs = sub_widget.build_attrs()
+        attrs = parsed_widget_attributes(widget.widgets[0])
         url = attrs['data-selectable-url']
         parse = urlparse(url)
         query = parse.query
@@ -256,8 +247,7 @@ class AutoComboboxSelectWidgetTestCase(BaseSelectableTestCase, WidgetTestMixin):
     def test_initial_query_parameters(self):
         params = {'active': 1}
         widget = self.get_widget_instance(query_params=params)
-        sub_widget = widget.widgets[0]
-        attrs = sub_widget.build_attrs()
+        attrs = parsed_widget_attributes(widget.widgets[0])
         url = attrs['data-selectable-url']
         parse = urlparse(url)
         query = parse.query
@@ -267,8 +257,7 @@ class AutoComboboxSelectWidgetTestCase(BaseSelectableTestCase, WidgetTestMixin):
         "Serialize selectable options as json in data attribute."
         options = {'autoFocus': True}
         widget = self.get_widget_instance(attrs={'data-selectable-options': options})
-        sub_widget = widget.widgets[0]
-        attrs = sub_widget.build_attrs()
+        attrs = parsed_widget_attributes(widget.widgets[0])
         self.assertTrue('data-selectable-options' in attrs)
         self.assertEqual(attrs['data-selectable-options'], json.dumps(options))
 
@@ -283,8 +272,7 @@ class AutoCompleteSelectMultipleWidgetTestCase(BaseSelectableTestCase, WidgetTes
 
     def test_multiple_attr(self):
         widget = self.get_widget_instance()
-        sub_widget = widget.widgets[0]
-        attrs = sub_widget.build_attrs()
+        attrs = parsed_widget_attributes(widget.widgets[0])
         self.assertTrue('data-selectable-multiple' in attrs)
         self.assertEqual(attrs['data-selectable-multiple'], 'true')
 
@@ -294,8 +282,7 @@ class AutoCompleteSelectMultipleWidgetTestCase(BaseSelectableTestCase, WidgetTes
 
     def test_hidden_type(self):
         widget = self.get_widget_instance()
-        sub_widget = widget.widgets[1]
-        attrs = sub_widget.build_attrs()
+        attrs = parsed_widget_attributes(widget.widgets[1])
         self.assertTrue('data-selectable-type' in attrs)
         self.assertEqual(attrs['data-selectable-type'], 'hidden-multiple')
 
@@ -325,31 +312,32 @@ class AutoCompleteSelectMultipleWidgetTestCase(BaseSelectableTestCase, WidgetTes
         widget = self.get_widget_instance()
         t1 = self.create_thing()
         t2 = self.create_thing()
-        qs_val = Thing.objects.filter(pk__in=[t1.pk, t2.pk]).values_list('pk', flat=True)
+        qs_val = Thing.objects.filter(pk__in=[t1.pk, t2.pk])
         rendered_value = widget.render('field_name', qs_val)
         inputs = parsed_inputs(rendered_value)
         found_values = []
+        found_titles = []
         for field in inputs['field_name_1']:
             self.assertEqual(field.attributes['data-selectable-type'].value, 'hidden-multiple')
             self.assertEqual(field.attributes['type'].value, 'hidden')
-            found_values.append(int(field.attributes['value'].value))
-        self.assertListEqual(found_values, [t1.pk, t2.pk])
+            found_titles.append(field.attributes['title'].value)
+            found_values.append(field.attributes['value'].value)
+        self.assertListEqual(found_values, [str(t1.pk), str(t2.pk)])
+        self.assertListEqual(found_titles, [t1.name, t2.name])
 
     def test_update_query_parameters(self):
         params = {'active': 1}
         widget = self.get_widget_instance()
         widget.update_query_parameters(params)
-        sub_widget = widget.widgets[0]
-        attrs = sub_widget.build_attrs()
+        attrs = parsed_widget_attributes(widget.widgets[0])
         url = attrs['data-selectable-url']
         parse = urlparse(url)
         query = parse.query
         self.assertEqual(query, urlencode(params))
 
-    def test_limit_paramter(self):
+    def test_limit_parameter(self):
         widget = self.get_widget_instance(limit=10)
-        sub_widget = widget.widgets[0]
-        attrs = sub_widget.build_attrs()
+        attrs = parsed_widget_attributes(widget.widgets[0])
         url = attrs['data-selectable-url']
         parse = urlparse(url)
         query = parse.query
@@ -358,8 +346,7 @@ class AutoCompleteSelectMultipleWidgetTestCase(BaseSelectableTestCase, WidgetTes
     def test_initial_query_parameters(self):
         params = {'active': 1}
         widget = self.get_widget_instance(query_params=params)
-        sub_widget = widget.widgets[0]
-        attrs = sub_widget.build_attrs()
+        attrs = parsed_widget_attributes(widget.widgets[0])
         url = attrs['data-selectable-url']
         parse = urlparse(url)
         query = parse.query
@@ -369,8 +356,7 @@ class AutoCompleteSelectMultipleWidgetTestCase(BaseSelectableTestCase, WidgetTes
         "Serialize selectable options as json in data attribute."
         options = {'autoFocus': True}
         widget = self.get_widget_instance(attrs={'data-selectable-options': options})
-        sub_widget = widget.widgets[0]
-        attrs = sub_widget.build_attrs()
+        attrs = parsed_widget_attributes(widget.widgets[0])
         self.assertTrue('data-selectable-options' in attrs)
         self.assertEqual(attrs['data-selectable-options'], json.dumps(options))
 
@@ -385,8 +371,7 @@ class AutoComboboxSelectMultipleWidgetTestCase(BaseSelectableTestCase, WidgetTes
 
     def test_multiple_attr(self):
         widget = self.get_widget_instance()
-        sub_widget = widget.widgets[0]
-        attrs = sub_widget.build_attrs()
+        attrs = parsed_widget_attributes(widget.widgets[0])
         self.assertTrue('data-selectable-multiple' in attrs)
         self.assertEqual(attrs['data-selectable-multiple'], 'true')
 
@@ -396,8 +381,7 @@ class AutoComboboxSelectMultipleWidgetTestCase(BaseSelectableTestCase, WidgetTes
 
     def test_hidden_type(self):
         widget = self.get_widget_instance()
-        sub_widget = widget.widgets[1]
-        attrs = sub_widget.build_attrs()
+        attrs = parsed_widget_attributes(widget.widgets[1])
         self.assertTrue('data-selectable-type' in attrs)
         self.assertEqual(attrs['data-selectable-type'], 'hidden-multiple')
 
@@ -427,7 +411,7 @@ class AutoComboboxSelectMultipleWidgetTestCase(BaseSelectableTestCase, WidgetTes
         widget = self.get_widget_instance()
         t1 = self.create_thing()
         t2 = self.create_thing()
-        qs_val = Thing.objects.filter(pk__in=[t1.pk, t2.pk]).values_list('pk', flat=True)
+        qs_val = Thing.objects.filter(pk__in=[t1.pk, t2.pk])
         rendered_value = widget.render('field_name', qs_val)
         inputs = parsed_inputs(rendered_value)
         found_values = []
@@ -441,17 +425,15 @@ class AutoComboboxSelectMultipleWidgetTestCase(BaseSelectableTestCase, WidgetTes
         params = {'active': 1}
         widget = self.get_widget_instance()
         widget.update_query_parameters(params)
-        sub_widget = widget.widgets[0]
-        attrs = sub_widget.build_attrs()
+        attrs = parsed_widget_attributes(widget.widgets[0])
         url = attrs['data-selectable-url']
         parse = urlparse(url)
         query = parse.query
         self.assertEqual(query, urlencode(params))
 
-    def test_limit_paramter(self):
+    def test_limit_parameter(self):
         widget = self.get_widget_instance(limit=10)
-        sub_widget = widget.widgets[0]
-        attrs = sub_widget.build_attrs()
+        attrs = parsed_widget_attributes(widget.widgets[0])
         url = attrs['data-selectable-url']
         parse = urlparse(url)
         query = parse.query
@@ -460,8 +442,7 @@ class AutoComboboxSelectMultipleWidgetTestCase(BaseSelectableTestCase, WidgetTes
     def test_initial_query_parameters(self):
         params = {'active': 1}
         widget = self.get_widget_instance(query_params=params)
-        sub_widget = widget.widgets[0]
-        attrs = sub_widget.build_attrs()
+        attrs = parsed_widget_attributes(widget.widgets[0])
         url = attrs['data-selectable-url']
         parse = urlparse(url)
         query = parse.query
@@ -471,7 +452,6 @@ class AutoComboboxSelectMultipleWidgetTestCase(BaseSelectableTestCase, WidgetTes
         "Serialize selectable options as json in data attribute."
         options = {'autoFocus': True}
         widget = self.get_widget_instance(attrs={'data-selectable-options': options})
-        sub_widget = widget.widgets[0]
-        attrs = sub_widget.build_attrs()
+        attrs = parsed_widget_attributes(widget.widgets[0])
         self.assertTrue('data-selectable-options' in attrs)
         self.assertEqual(attrs['data-selectable-options'], json.dumps(options))
