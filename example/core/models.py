@@ -1,12 +1,9 @@
 from __future__ import unicode_literals
 
+from django.db import models
 from django.utils.six import python_2_unicode_compatible
 
-try:
-    from localflavor.us.models import USStateField
-except ImportError:
-    from django.contrib.localflavor.us.models import USStateField
-from django.db import models
+from localflavor.us.models import USStateField
 
 
 @python_2_unicode_compatible
@@ -20,7 +17,7 @@ class Fruit(models.Model):
 @python_2_unicode_compatible
 class Farm(models.Model):
     name = models.CharField(max_length=200)
-    owner = models.ForeignKey('auth.User', related_name='farms')
+    owner = models.ForeignKey('auth.User', related_name='farms', on_delete=models.CASCADE)
     fruit = models.ManyToManyField(Fruit)
 
     def __str__(self):
