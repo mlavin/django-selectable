@@ -2,6 +2,19 @@ Release Notes
 ==================
 
 
+v1.1.0 (Released TBD)
+--------------------------------------
+
+Primarily a Django support related release. This version adds support for Django 1.11 while
+dropping support for Django 1.7. A number of deprecation warnings for future Django
+versions have also been addressed.
+
+Backwards Incompatible Changes
+________________________________
+
+- Dropped support for Django 1.7
+
+
 v1.0.0 (Released 2017-04-14)
 --------------------------------------
 

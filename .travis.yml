@@ -6,7 +6,6 @@ python:
   - "3.5"
 
 env:
-  - TOXENV=py27-django17,py33-django17
   - TOXENV=py27-django18,py33-django18
   - TOXENV=py27-django19,py34-django19
   - TOXENV=py27-django110,py35-django110
