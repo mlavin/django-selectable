@@ -30,6 +30,7 @@ You can include this media in the block name `extrahead` which is defined in
             {% load selectable_tags %}
             {% include_ui_theme %}
             {% include_jquery_libs %}
+            {{ block.super }}
         {% endblock %}
 
 See the Django documentation on
