@@ -63,6 +63,15 @@ Lookup API
     :param item: An item from the search results.
     :return: A string representation of the item to be returned by the field/widget.
 
+
+.. py:method:: LookupBase.split_term(term)
+
+     Split searching term into array of subterms that will be searched separately.
+     You can override this function to achieve different splitting of the term.
+
+    :param term: The search term.
+    :return: Array with subterms
+
 .. py:method:: LookupBase.get_item_value(item)
 
     This is last of three formatting methods. The value is shown in the
