@@ -1,4 +1,4 @@
-from django.conf.urls import handler404, handler500, include, url
+from django.conf.urls import include, url
 
 
 handler404 = 'selectable.tests.views.test_404'
