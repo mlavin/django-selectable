@@ -2,6 +2,15 @@ Release Notes
 ==================
 
 
+v1.1.0 (Released 2018-01-12)
+--------------------------------------
+
+- Updated admin docs.
+- Added support for Django 1.11
+
+Special thanks to Luke Plant for contributing the fixes to support Django 1.11.
+
+
 v1.0.0 (Released 2017-04-14)
 --------------------------------------
 
