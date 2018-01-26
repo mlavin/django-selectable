@@ -21,6 +21,7 @@ env:
   - TOXENV=py27-django19,py34-django19,py35-django19
   - TOXENV=py27-django110,py34-django110,py35-django110
   - TOXENV=py27-django111,py34-django111,py35-django111
+  - TOXENV=py35-django20
 
 install:
   - pip install tox pip wheel codecov -U

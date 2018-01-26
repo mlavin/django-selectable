@@ -20,7 +20,7 @@ class Thing(models.Model):
 @python_2_unicode_compatible
 class OtherThing(models.Model):
     name = models.CharField(max_length=100)
-    thing = models.ForeignKey(Thing)
+    thing = models.ForeignKey(Thing, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
