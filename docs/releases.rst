@@ -9,6 +9,9 @@ Primarily a Django support related release. This version adds support for Django
 dropping support for Django 1.7. A number of deprecation warnings for future Django
 versions have also been addressed.
 
+Added the ability to search on multiple terms split by whitespace.
+
+
 Backwards Incompatible Changes
 ________________________________
 
