@@ -77,7 +77,7 @@ a many to many relation to our ``Fruit`` model.
         @python_2_unicode_compatible
         class Farm(models.Model):
             name = models.CharField(max_length=200)
-            owner = models.ForeignKey('auth.User', related_name='farms')
+            owner = models.ForeignKey('auth.User', related_name='farms', on_delete=models.CASCADE)
             fruit = models.ManyToManyField(Fruit)
 
             def __str__(self):
@@ -171,4 +171,3 @@ We can even make use of the same ``FarmAdminForm``.
         admin.site.register(User, NewUserAdmin)
 
 The auto-complete functions will be bound as new forms are added dynamically.
-
