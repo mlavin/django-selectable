@@ -33,8 +33,8 @@ Features
 Installation Requirements
 -----------------------------------
 
-- Python 2.7, 3.3+
-- `Django <http://www.djangoproject.com/>`_ >= 1.8, <= 1.11
+- Python 2.7, 3.4+
+- `Django <http://www.djangoproject.com/>`_ >= 1.9, <= 2.0
 - `jQuery <http://jquery.com/>`_ >= 1.9, < 3.0
 - `jQuery UI <http://jqueryui.com/>`_ >= 1.10, < 1.12
 

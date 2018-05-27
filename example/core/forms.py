@@ -1,10 +1,7 @@
 from django import forms
 from django.forms.models import modelformset_factory
 
-try:
-    from localflavor.us.forms import USStateField, USStateSelect
-except ImportError:
-    from django.contrib.localflavor.us.forms import USStateField, USStateSelect
+from localflavor.us.forms import USStateField, USStateSelect
 
 import selectable.forms as selectable
 

@@ -6,7 +6,7 @@ v1.2.0 (Released TBD)
 --------------------------------------
 
 Primarily a Django support related release. This version adds support for Django 2.0 while
-dropping support for Django 1.7. A number of deprecation warnings for future Django
+dropping support for Django 1.7 and 1.8. A number of deprecation warnings for future Django
 versions have also been addressed.
 
 Added the ability to search on multiple terms split by whitespace.
@@ -15,7 +15,7 @@ Added the ability to search on multiple terms split by whitespace.
 Backwards Incompatible Changes
 ________________________________
 
-- Dropped support for Django 1.7
+- Dropped support for Django 1.7 and 1.8
 
 
   v1.1.0 (Released 2018-01-12)
