@@ -9,11 +9,11 @@ from django.conf import settings
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
 from django.http import JsonResponse
 from django.db.models import Q, Model
+from django.urls import reverse
 from django.utils.encoding import smart_text
 from django.utils.html import conditional_escape
 from django.utils.translation import ugettext as _
 
-from .compat import reverse
 from .forms import BaseLookupForm
 
 __all__ = (

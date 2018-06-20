@@ -1,6 +1,6 @@
 from __future__ import unicode_literals
 
-from django import forms, VERSION as DJANGO_VERSION
+from django import forms
 from django.core.exceptions import ValidationError
 from django.core.validators import EMPTY_VALUES
 from django.utils.translation import ugettext_lazy as _
@@ -41,10 +41,6 @@ class BaseAutoCompleteField(forms.Field):
         else:
             return data != initial
 
-    if DJANGO_VERSION < (1, 8):
-        def _has_changed(self, initial, data):
-            return self.has_changed(initial, data)
-
 
 class AutoCompleteSelectField(BaseAutoCompleteField):
     widget = AutoCompleteSelectWidget
@@ -61,8 +57,6 @@ class AutoCompleteSelectField(BaseAutoCompleteField):
         if isinstance(widget, type):
             kwargs['widget'] = widget(lookup_class, allow_new=self.allow_new, limit=self.limit)
         super(AutoCompleteSelectField, self).__init__(*args, **kwargs)
-
-
 
     def to_python(self, value):
         if value in EMPTY_VALUES:

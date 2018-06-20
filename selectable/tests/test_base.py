@@ -1,10 +1,10 @@
 from __future__ import unicode_literals
 
+from django.urls import reverse
 from django.utils.html import escape
 from django.utils.safestring import SafeData, mark_safe
 
 from ..base import ModelLookup
-from ..compat import reverse
 from . import Thing
 from .base import BaseSelectableTestCase, SimpleModelLookup
 

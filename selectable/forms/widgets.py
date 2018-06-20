@@ -1,14 +1,11 @@
 from __future__ import unicode_literals
 
-import inspect
 import json
 
 from django import forms
 from django.conf import settings
-from django.forms.utils import flatatt
 from django.utils.encoding import force_text
 from django.utils.http import urlencode
-from django.utils.safestring import mark_safe
 
 from selectable import __version__
 from selectable.forms.base import import_lookup_class
@@ -35,59 +32,7 @@ class SelectableMediaMixin(object):
         js = ('%sjs/jquery.dj.selectable.js?v=%s' % (STATIC_PREFIX, __version__),)
 
 
-new_style_build_attrs = (
-    'base_attrs' in
-    inspect.getargs(forms.widgets.Widget.build_attrs.__code__).args)
-
-
-class BuildAttrsCompat(object):
-    """
-    Mixin to provide compatibility between old and new function
-    signatures for Widget.build_attrs, and a hook for adding our
-    own attributes.
-    """
-    # These are build_attrs definitions that make it easier for
-    # us to override, without having to worry about the signature,
-    # by adding a standard hook, `build_attrs_extra`.
-    # It has a different signature when we are running different Django
-    # versions.
-    if new_style_build_attrs:
-        def build_attrs(self, base_attrs, extra_attrs=None):
-            attrs = super(BuildAttrsCompat, self).build_attrs(
-                base_attrs, extra_attrs=extra_attrs)
-            return self.build_attrs_extra(attrs)
-    else:
-        def build_attrs(self, extra_attrs=None, **kwargs):
-            attrs = super(BuildAttrsCompat, self).build_attrs(
-                extra_attrs=extra_attrs, **kwargs)
-            return self.build_attrs_extra(attrs)
-
-    def build_attrs_extra(self, attrs):
-        # Default implementation, does nothing
-        return attrs
-
-    # These provide a standard interface for when we want to call build_attrs
-    # in our own `render` methods. In both cases it is the same as the Django
-    # 1.11 signature, but has a different implementation for different Django
-    # versions.
-    if new_style_build_attrs:
-        def build_attrs_compat(self, base_attrs, extra_attrs=None):
-            return self.build_attrs(base_attrs, extra_attrs=extra_attrs)
-
-    else:
-        def build_attrs_compat(self, base_attrs, extra_attrs=None):
-            # Implementation copied from Django 1.11, plus include our
-            # hook `build_attrs_extra`
-            attrs = base_attrs.copy()
-            if extra_attrs is not None:
-                attrs.update(extra_attrs)
-            return self.build_attrs_extra(attrs)
-
-
-CompatMixin = BuildAttrsCompat
-
-
-class AutoCompleteWidget(CompatMixin, forms.TextInput, SelectableMediaMixin):
+class AutoCompleteWidget(forms.TextInput, SelectableMediaMixin):
 
     def __init__(self, lookup_class, *args, **kwargs):
         self.lookup_class = import_lookup_class(lookup_class)
@@ -99,8 +44,8 @@ class AutoCompleteWidget(CompatMixin, forms.TextInput, SelectableMediaMixin):
     def update_query_parameters(self, qs_dict):
         self.qs.update(qs_dict)
 
-    def build_attrs_extra(self, attrs):
-        attrs = super(AutoCompleteWidget, self).build_attrs_extra(attrs)
+    def build_attrs(self, base_attrs, extra_attrs=None):
+        attrs = super(AutoCompleteWidget, self).build_attrs(base_attrs, extra_attrs)
         url = self.lookup_class.url()
         if self.limit and 'limit' not in self.qs:
             self.qs['limit'] = self.limit
@@ -114,7 +59,7 @@ class AutoCompleteWidget(CompatMixin, forms.TextInput, SelectableMediaMixin):
         return attrs
 
 
-class SelectableMultiWidget(CompatMixin, forms.MultiWidget):
+class SelectableMultiWidget(forms.MultiWidget):
 
     def update_query_parameters(self, qs_dict):
         self.widgets[0].update_query_parameters(qs_dict)
@@ -189,8 +134,8 @@ class AutoCompleteSelectWidget(_BaseSingleSelectWidget):
 
 class AutoComboboxWidget(AutoCompleteWidget, SelectableMediaMixin):
 
-    def build_attrs_extra(self, attrs):
-        attrs = super(AutoComboboxWidget, self).build_attrs_extra(attrs)
+    def build_attrs(self, base_attrs, extra_attrs=None):
+        attrs = super(AutoComboboxWidget, self).build_attrs(base_attrs, extra_attrs)
         attrs['data-selectable-type'] = 'combobox'
         return attrs
 
@@ -200,13 +145,12 @@ class AutoComboboxSelectWidget(_BaseSingleSelectWidget):
     primary_widget = AutoComboboxWidget
 
 
-class LookupMultipleHiddenInput(CompatMixin, forms.MultipleHiddenInput):
+class LookupMultipleHiddenInput(forms.MultipleHiddenInput):
 
     def __init__(self, lookup_class, *args, **kwargs):
         self.lookup_class = import_lookup_class(lookup_class)
         super(LookupMultipleHiddenInput, self).__init__(*args, **kwargs)
 
-    # This supports Django 1.11 and later
     def get_context(self, name, value, attrs):
         lookup = self.lookup_class()
         values = self._normalize_value(value)
@@ -223,32 +167,8 @@ class LookupMultipleHiddenInput(CompatMixin, forms.MultipleHiddenInput):
                 widget_ctx['attrs']['title'] = title
         return context
 
-    # This supports Django 1.10 and earlier
-    def render(self, name, value, attrs=None, choices=()):
-        lookup = self.lookup_class()
-        value = self._normalize_value(value)
-
-        base_attrs = dict(self.attrs, type=self.input_type, name=name)
-        combined_attrs = self.build_attrs_compat(base_attrs, attrs)
-        id_ = combined_attrs.get('id', None)
-        inputs = []
-        for i, v in enumerate(value):
-            input_attrs = combined_attrs.copy()
-            v_, title = self._lookup_value_and_title(lookup, v)
-            input_attrs.update(
-                value=v_,
-                title=title,
-            )
-            if id_:
-                # An ID attribute was given. Add a numeric index as a suffix
-                # so that the inputs don't all have the same ID attribute.
-                input_attrs['id'] = '%s_%s' % (id_, i)
-            inputs.append('<input%s />' % flatatt(input_attrs))
-        return mark_safe('\n'.join(inputs))
-
-    # These are used by both paths
-    def build_attrs_extra(self, attrs):
-        attrs = super(LookupMultipleHiddenInput, self).build_attrs_extra(attrs)
+    def build_attrs(self, base_attrs, extra_attrs=None):
+        attrs = super(LookupMultipleHiddenInput, self).build_attrs(base_attrs, extra_attrs)
         attrs['data-selectable-type'] = 'hidden-multiple'
         return attrs
 
@@ -305,17 +225,17 @@ class _BaseMultipleSelectWidget(SelectableMultiWidget, SelectableMediaMixin):
             value = self.get_compatible_postdata(data, name)
         return value
 
-    def build_attrs_extra(self, attrs):
-        attrs = super(_BaseMultipleSelectWidget, self).build_attrs_extra(attrs)
+    def build_attrs(self, base_attrs, extra_attrs=None):
+        attrs = super(_BaseMultipleSelectWidget, self).build_attrs(base_attrs, extra_attrs)
         if 'required' in attrs:
             attrs.pop('required')
         return attrs
 
-    def render(self, name, value, attrs=None):
+    def render(self, name, value, attrs=None, renderer=None):
         if value and not hasattr(value, '__iter__'):
             value = [value]
         value = ['', value]
-        return super(_BaseMultipleSelectWidget, self).render(name, value, attrs)
+        return super(_BaseMultipleSelectWidget, self).render(name, value, attrs, renderer)
 
 
 class AutoCompleteSelectMultipleWidget(_BaseMultipleSelectWidget):
