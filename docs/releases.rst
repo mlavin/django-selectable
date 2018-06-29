@@ -2,7 +2,23 @@ Release Notes
 ==================
 
 
-v1.1.0 (Released 2018-01-12)
+v1.2.0 (Released TBD)
+--------------------------------------
+
+Primarily a Django support related release. This version adds support for Django 2.0 while
+dropping support for Django versions below 1.11. A number of deprecation warnings for future Django
+versions have also been addressed.
+
+Added the ability to search on multiple terms split by whitespace.
+
+
+Backwards Incompatible Changes
+________________________________
+
+- Dropped support for Django versions below 1.11
+
+
+  v1.1.0 (Released 2018-01-12)
 --------------------------------------
 
 - Updated admin docs.

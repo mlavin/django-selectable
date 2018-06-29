@@ -40,7 +40,7 @@ def results_decorator(func):
 
 
 @results_decorator
-def ajax_required(request):    
+def ajax_required(request):
     "Lookup decorator to require AJAX calls to the lookup view."
     if not request.is_ajax():
         return HttpResponseBadRequest()
@@ -50,7 +50,7 @@ def ajax_required(request):
 def login_required(request):
     "Lookup decorator to require the user to be authenticated."
     user = getattr(request, 'user', None)
-    if user is None or not user.is_authenticated():
+    if user is None or not user.is_authenticated:
         return HttpResponse(status=401) # Unauthorized
 
 
@@ -58,7 +58,7 @@ def login_required(request):
 def staff_member_required(request):
     "Lookup decorator to require the user is a staff member."
     user = getattr(request, 'user', None)
-    if user is None or not user.is_authenticated():
+    if user is None or not user.is_authenticated:
         return HttpResponse(status=401) # Unauthorized
     elif not user.is_staff:
         return HttpResponseForbidden()

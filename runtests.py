@@ -13,11 +13,10 @@ if not settings.configured:
                 'NAME': ':memory:',
             }
         },
-        MIDDLEWARE_CLASSES=(),
+        MIDDLEWARE=(),
         INSTALLED_APPS=(
             'selectable',
         ),
-        SITE_ID=1,
         SECRET_KEY='super-secret',
         ROOT_URLCONF='selectable.tests.urls',
         TEMPLATES=[{

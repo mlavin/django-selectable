@@ -38,12 +38,12 @@ class LoginRequiredLookupTestCase(BaseSelectableTestCase):
 
     def setUp(self):
         self.lookup = login_required(SimpleModelLookup)()
-    
+
     def test_authenicated_call(self):
         "Authenicated call should yield a successful response."
         request = Mock()
         user = Mock()
-        user.is_authenticated = lambda: True
+        user.is_authenticated = True
         request.user = user
         response = self.lookup.results(request)
         self.assertTrue(response.status_code, 200)
@@ -52,7 +52,7 @@ class LoginRequiredLookupTestCase(BaseSelectableTestCase):
         "Non-Authenicated call should yield an unauthorized response."
         request = Mock()
         user = Mock()
-        user.is_authenticated = lambda: False
+        user.is_authenticated = False
         request.user = user
         response = self.lookup.results(request)
         self.assertEqual(response.status_code, 401)
@@ -67,7 +67,7 @@ class StaffRequiredLookupTestCase(BaseSelectableTestCase):
         "Staff member call should yield a successful response."
         request = Mock()
         user = Mock()
-        user.is_authenticated = lambda: True
+        user.is_authenticated = True
         user.is_staff = True
         request.user = user
         response = self.lookup.results(request)
@@ -77,7 +77,7 @@ class StaffRequiredLookupTestCase(BaseSelectableTestCase):
         "Authenicated but non staff call should yield a forbidden response."
         request = Mock()
         user = Mock()
-        user.is_authenticated = lambda: True
+        user.is_authenticated = True
         user.is_staff = False
         request.user = user
         response = self.lookup.results(request)
@@ -87,7 +87,7 @@ class StaffRequiredLookupTestCase(BaseSelectableTestCase):
         "Non-Authenicated call should yield an unauthorized response."
         request = Mock()
         user = Mock()
-        user.is_authenticated = lambda: False
+        user.is_authenticated = False
         user.is_staff = False
         request.user = user
         response = self.lookup.results(request)

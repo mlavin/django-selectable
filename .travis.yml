@@ -12,15 +12,12 @@ addons:
     - deadsnakes
     packages:
     - python2.7
-    - python3.3
     - python3.4
+    - python3.6
 
 env:
-  - TOXENV=py27-django17,py33-django17
-  - TOXENV=py27-django18,py33-django18
-  - TOXENV=py27-django19,py34-django19,py35-django19
-  - TOXENV=py27-django110,py34-django110,py35-django110
-  - TOXENV=py27-django111,py34-django111,py35-django111
+  - TOXENV=py27-django111,py34-django111,py35-django111,py36-django111
+  - TOXENV=py34-django20,py35-django20,py36-django20
 
 install:
   - pip install tox pip wheel codecov -U
