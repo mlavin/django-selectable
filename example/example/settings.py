@@ -57,21 +57,21 @@ STATIC_ROOT = ''
 STATIC_URL = '/static/'
 
 # Additional locations of static files
-STATICFILES_DIRS = (
+STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
-)
+]
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = '9i1lt2qz$#&amp;21tqxqhq@ep21(8f#^kpih!5yynr+ba1sq5w8+&amp;'
 
-MIDDLEWARE = (
+MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-)
+]
 
 ROOT_URLCONF = 'example.urls'
 
@@ -101,7 +101,7 @@ TEMPLATES = [
     },
 ]
 
-INSTALLED_APPS = (
+INSTALLED_APPS = [
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -110,7 +110,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'selectable',
     'core',
-)
+]
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to

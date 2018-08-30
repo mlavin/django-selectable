@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 import random
 import string
 from collections import defaultdict
-from xml.dom.minidom import parseString
+import html5lib
 
 
 from django.test import TestCase, override_settings
@@ -14,7 +14,7 @@ from ..base import ModelLookup
 
 def as_xml(html):
     "Convert HTML portion to minidom node."
-    return parseString('<root>%s</root>' % html)
+    return html5lib.parse(html, treebuilder="dom")
 
 
 def parsed_inputs(html):

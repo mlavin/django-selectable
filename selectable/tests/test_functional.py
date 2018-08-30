@@ -398,7 +398,7 @@ class FuncFormTestCase(BaseSelectableTestCase):
             'things_0': '',
             'things_1': [self.test_thing.pk, ]
         }
-        form = SimpleForm(data=data, empty_permitted=True)
+        form = SimpleForm(data=data, empty_permitted=True, use_required_attribute=False)
         self.assertTrue(form.has_changed())
         self.assertTrue(form.is_valid(), str(form.errors))
 
@@ -442,7 +442,10 @@ class FuncFormTestCase(BaseSelectableTestCase):
             'new_thing': '',
             'things': '',
         }
-        form = SimpleForm(data=data, initial=initial, empty_permitted=True)
+        form = SimpleForm(
+            data=data, initial=initial, empty_permitted=True,
+            use_required_attribute=False
+        )
         self.assertFalse(form.has_changed(), str(form.changed_data))
         self.assertTrue(form.is_valid(), str(form.errors))
 
@@ -459,7 +462,7 @@ class FuncFormTestCase(BaseSelectableTestCase):
             'things_0': '',
             'things_1': '',
         }
-        form = SimpleForm(data=data, empty_permitted=True)
+        form = SimpleForm(data=data, empty_permitted=True, use_required_attribute=False)
         self.assertFalse(form.has_changed(), str(form.changed_data))
         self.assertTrue(form.is_valid(), str(form.errors))
 
@@ -468,7 +471,7 @@ class FuncFormTestCase(BaseSelectableTestCase):
         If no data is submitted and allowed with no initial then
         the form should not be seen as changed.
         """
-        form = SimpleForm(data={}, empty_permitted=True)
+        form = SimpleForm(data={}, empty_permitted=True, use_required_attribute=False)
         self.assertFalse(form.has_changed(), str(form.changed_data))
         self.assertTrue(form.is_valid(), str(form.errors))
 
