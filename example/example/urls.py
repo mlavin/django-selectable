@@ -1,9 +1,9 @@
-from django.conf.urls import include, url
+from django.urls import include, path
 from django.contrib import admin
 
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-    url(r'^selectable/', include('selectable.urls')),
-    url(r'^', include('core.urls')),
+    path('admin/', admin.site.urls),
+    path('selectable/', include('selectable.urls')),
+    path('', include('core.urls')),
 ]

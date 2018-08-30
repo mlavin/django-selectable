@@ -1,2 +1,2 @@
-django>=1.11
+django>=2.1
 django-localflavor
