@@ -5,7 +5,7 @@ Release Notes
 v1.2.0 (Released TBD)
 --------------------------------------
 
-Primarily a Django support related release. This version adds support for Django 2.0 while
+Primarily a Django support related release. This version adds support for Django 2.0 and 2.1 while
 dropping support for Django versions below 1.11. A number of deprecation warnings for future Django
 versions have also been addressed.
 
