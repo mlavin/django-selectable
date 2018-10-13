@@ -292,9 +292,10 @@ class AutoCompleteSelectMultipleWidgetTestCase(BaseSelectableTestCase, WidgetTes
         rendered_value = widget.render('field_name', val)
         inputs = parsed_inputs(rendered_value)
         field = inputs['field_name_1'][0]
-        self.assertEqual(field.attributes['data-selectable-type'].value, 'hidden-multiple')
-        self.assertEqual(field.attributes['type'].value, 'hidden')
-        self.assertEqual(int(field.attributes['value'].value), val)
+        attributes = dict(field.attributes)
+        self.assertEqual(attributes['data-selectable-type'], 'hidden-multiple')
+        self.assertEqual(attributes['type'], 'hidden')
+        self.assertEqual(int(attributes['value']), val)
 
     def test_render_list(self):
         widget = self.get_widget_instance()
@@ -303,9 +304,10 @@ class AutoCompleteSelectMultipleWidgetTestCase(BaseSelectableTestCase, WidgetTes
         inputs = parsed_inputs(rendered_value)
         found_values = []
         for field in inputs['field_name_1']:
-            self.assertEqual(field.attributes['data-selectable-type'].value, 'hidden-multiple')
-            self.assertEqual(field.attributes['type'].value, 'hidden')
-            found_values.append(int(field.attributes['value'].value))
+            attributes = dict(field.attributes)
+            self.assertEqual(attributes['data-selectable-type'], 'hidden-multiple')
+            self.assertEqual(attributes['type'], 'hidden')
+            found_values.append(int(attributes['value']))
         self.assertListEqual(found_values, list_val)
 
     def test_render_qs(self):
@@ -318,10 +320,11 @@ class AutoCompleteSelectMultipleWidgetTestCase(BaseSelectableTestCase, WidgetTes
         found_values = []
         found_titles = []
         for field in inputs['field_name_1']:
-            self.assertEqual(field.attributes['data-selectable-type'].value, 'hidden-multiple')
-            self.assertEqual(field.attributes['type'].value, 'hidden')
-            found_titles.append(field.attributes['title'].value)
-            found_values.append(field.attributes['value'].value)
+            attributes = dict(field.attributes)
+            self.assertEqual(attributes['data-selectable-type'], 'hidden-multiple')
+            self.assertEqual(attributes['type'], 'hidden')
+            found_titles.append(attributes['title'])
+            found_values.append(attributes['value'])
         self.assertListEqual(found_values, [str(t1.pk), str(t2.pk)])
         self.assertListEqual(found_titles, [t1.name, t2.name])
 
@@ -391,9 +394,10 @@ class AutoComboboxSelectMultipleWidgetTestCase(BaseSelectableTestCase, WidgetTes
         rendered_value = widget.render('field_name', val)
         inputs = parsed_inputs(rendered_value)
         field = inputs['field_name_1'][0]
-        self.assertEqual(field.attributes['data-selectable-type'].value, 'hidden-multiple')
-        self.assertEqual(field.attributes['type'].value, 'hidden')
-        self.assertEqual(field.attributes['value'].value, str(val))
+        attributes = dict(field.attributes)
+        self.assertEqual(attributes['data-selectable-type'], 'hidden-multiple')
+        self.assertEqual(attributes['type'], 'hidden')
+        self.assertEqual(attributes['value'], str(val))
 
     def test_render_list(self):
         widget = self.get_widget_instance()
@@ -402,9 +406,10 @@ class AutoComboboxSelectMultipleWidgetTestCase(BaseSelectableTestCase, WidgetTes
         inputs = parsed_inputs(rendered_value)
         found_values = []
         for field in inputs['field_name_1']:
-            self.assertEqual(field.attributes['data-selectable-type'].value, 'hidden-multiple')
-            self.assertEqual(field.attributes['type'].value, 'hidden')
-            found_values.append(int(field.attributes['value'].value))
+            attributes = dict(field.attributes)
+            self.assertEqual(attributes['data-selectable-type'], 'hidden-multiple')
+            self.assertEqual(attributes['type'], 'hidden')
+            found_values.append(int(attributes['value']))
         self.assertListEqual(found_values, list_val)
 
     def test_render_qs(self):
@@ -416,9 +421,10 @@ class AutoComboboxSelectMultipleWidgetTestCase(BaseSelectableTestCase, WidgetTes
         inputs = parsed_inputs(rendered_value)
         found_values = []
         for field in inputs['field_name_1']:
-            self.assertEqual(field.attributes['data-selectable-type'].value, 'hidden-multiple')
-            self.assertEqual(field.attributes['type'].value, 'hidden')
-            found_values.append(int(field.attributes['value'].value))
+            attributes = dict(field.attributes)
+            self.assertEqual(attributes['data-selectable-type'], 'hidden-multiple')
+            self.assertEqual(attributes['type'], 'hidden')
+            found_values.append(int(attributes['value']))
         self.assertListEqual(found_values, [t1.pk, t2.pk])
 
     def test_update_query_parameters(self):
