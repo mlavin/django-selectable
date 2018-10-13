@@ -3,26 +3,21 @@ from __future__ import unicode_literals
 import random
 import string
 from collections import defaultdict
-from xml.dom.minidom import parseString
 
 
 from django.test import TestCase, override_settings
+from django.test.html import parse_html
 
 from . import Thing
 from ..base import ModelLookup
 
 
-def as_xml(html):
-    "Convert HTML portion to minidom node."
-    return parseString('<root>%s</root>' % html)
-
-
 def parsed_inputs(html):
     "Returns a dictionary mapping name --> node of inputs found in the HTML."
-    node = as_xml(html)
+    node = parse_html(html)
     inputs = {}
-    for field in node.getElementsByTagName('input'):
-        name = dict(field.attributes.items())['name']
+    for field in [c for c in node.children if c.name == 'input']:
+        name = dict(field.attributes)['name']
         current = inputs.get(name, [])
         current.append(field)
         inputs[name] = current
@@ -66,14 +61,14 @@ def parsed_widget_attributes(widget):
 
 class AttrMap(object):
     def __init__(self, html):
-        dom = as_xml(html)
+        dom = parse_html(html)
         self._attrs = defaultdict(set)
         self._build_attr_map(dom)
 
     def _build_attr_map(self, dom):
         for node in _walk_nodes(dom):
             if node.attributes is not None:
-                for k, v in node.attributes.items():
+                for (k, v) in node.attributes:
                     self._attrs[k].add(v)
 
     def __contains__(self, key):
@@ -92,6 +87,6 @@ class AttrMap(object):
 
 def _walk_nodes(dom):
     yield dom
-    for child in dom.childNodes:
+    for child in dom.children:
         for item in _walk_nodes(child):
             yield item

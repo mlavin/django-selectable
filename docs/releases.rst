@@ -2,10 +2,10 @@ Release Notes
 ==================
 
 
-v1.2.0 (Released TBD)
+v1.2.0 (Released 2018-10-13)
 --------------------------------------
 
-Primarily a Django support related release. This version adds support for Django 2.0 while
+Primarily a Django support related release. This version adds support for Django 2.0 and 2.1 while
 dropping support for Django versions below 1.11. A number of deprecation warnings for future Django
 versions have also been addressed.
 
@@ -18,7 +18,7 @@ ________________________________
 - Dropped support for Django versions below 1.11
 
 
-  v1.1.0 (Released 2018-01-12)
+v1.1.0 (Released 2018-01-12)
 --------------------------------------
 
 - Updated admin docs.

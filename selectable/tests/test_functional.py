@@ -38,8 +38,8 @@ class FuncAutoCompleteSelectTestCase(BaseSelectableTestCase):
         "Valid form using an AutoCompleteSelectField."
         data = {
             'name': self.get_random_string(),
-            'thing_0': self.test_thing.name, # Text input
-            'thing_1': self.test_thing.pk, # Hidden input
+            'thing_0': self.test_thing.name,  # Text input
+            'thing_1': self.test_thing.pk,  # Hidden input
         }
         form = OtherThingForm(data=data)
         self.assertTrue(form.is_valid(), str(form.errors))
@@ -48,8 +48,8 @@ class FuncAutoCompleteSelectTestCase(BaseSelectableTestCase):
         "Invalid form using an AutoCompleteSelectField."
         data = {
             'name': self.get_random_string(),
-            'thing_0': self.test_thing.name, # Text input
-            'thing_1': '', # Hidden input
+            'thing_0': self.test_thing.name,  # Text input
+            'thing_1': '',  # Hidden input
         }
         form = OtherThingForm(data=data)
         self.assertFalse(form.is_valid(), 'Form should not be valid')
@@ -60,8 +60,8 @@ class FuncAutoCompleteSelectTestCase(BaseSelectableTestCase):
         "Invalid form using an AutoCompleteSelectField."
         data = {
             'name': '',
-            'thing_0': self.test_thing.name, # Text input
-            'thing_1': self.test_thing.pk, # Hidden input
+            'thing_0': self.test_thing.name,  # Text input
+            'thing_1': self.test_thing.pk,  # Hidden input
         }
         form = OtherThingForm(data=data)
         self.assertFalse(form.is_valid(), 'Form should not be valid')
@@ -72,8 +72,8 @@ class FuncAutoCompleteSelectTestCase(BaseSelectableTestCase):
         "Invalid form should keep selected item."
         data = {
             'name': '',
-            'thing_0': self.test_thing.name, # Text input
-            'thing_1': self.test_thing.pk, # Hidden input
+            'thing_0': self.test_thing.name,  # Text input
+            'thing_1': self.test_thing.pk,  # Hidden input
         }
         form = OtherThingForm(data=data)
         self.assertFalse(form.is_valid(), 'Form should not be valid')
@@ -147,8 +147,8 @@ class FuncSelectModelChoiceTestCase(BaseSelectableTestCase):
         "Valid form using an AutoCompleteSelectWidget."
         data = {
             'name': self.get_random_string(),
-            'thing_0': self.test_thing.name, # Text input
-            'thing_1': self.test_thing.pk, # Hidden input
+            'thing_0': self.test_thing.name,  # Text input
+            'thing_1': self.test_thing.pk,  # Hidden input
         }
         form = SelectWidgetForm(data=data)
         self.assertTrue(form.is_valid(), str(form.errors))
@@ -157,8 +157,8 @@ class FuncSelectModelChoiceTestCase(BaseSelectableTestCase):
         "Invalid form (missing required pk) using an AutoCompleteSelectWidget."
         data = {
             'name': self.get_random_string(),
-            'thing_0': self.test_thing.name, # Text input
-            'thing_1': '', # Hidden input missing
+            'thing_0': self.test_thing.name,  # Text input
+            'thing_1': '',  # Hidden input missing
         }
         form = SelectWidgetForm(data=data)
         self.assertFalse(form.is_valid())
@@ -168,8 +168,8 @@ class FuncSelectModelChoiceTestCase(BaseSelectableTestCase):
         "Invalid form (invalid pk value) using an AutoCompleteSelectWidget."
         data = {
             'name': self.get_random_string(),
-            'thing_0': self.test_thing.name, # Text input
-            'thing_1': 'XXX', # Hidden input doesn't match a PK
+            'thing_0': self.test_thing.name,  # Text input
+            'thing_1': 'XXX',  # Hidden input doesn't match a PK
         }
         form = SelectWidgetForm(data=data)
         self.assertFalse(form.is_valid())
@@ -211,8 +211,8 @@ class FuncComboboxModelChoiceTestCase(BaseSelectableTestCase):
         "Valid form using an AutoComboboxSelectWidget."
         data = {
             'name': self.get_random_string(),
-            'thing_0': self.test_thing.name, # Text input
-            'thing_1': self.test_thing.pk, # Hidden input
+            'thing_0': self.test_thing.name,  # Text input
+            'thing_1': self.test_thing.pk,  # Hidden input
         }
         form = ComboboxSelectWidgetForm(data=data)
         self.assertTrue(form.is_valid(), str(form.errors))
@@ -221,8 +221,8 @@ class FuncComboboxModelChoiceTestCase(BaseSelectableTestCase):
         "Invalid form (missing required pk) using an AutoComboboxSelectWidget."
         data = {
             'name': self.get_random_string(),
-            'thing_0': self.test_thing.name, # Text input
-            'thing_1': '', # Hidden input missing
+            'thing_0': self.test_thing.name,  # Text input
+            'thing_1': '',  # Hidden input missing
         }
         form = ComboboxSelectWidgetForm(data=data)
         self.assertFalse(form.is_valid())
@@ -232,8 +232,8 @@ class FuncComboboxModelChoiceTestCase(BaseSelectableTestCase):
         "Invalid form (invalid pk value) using an AutoComboboxSelectWidget."
         data = {
             'name': self.get_random_string(),
-            'thing_0': self.test_thing.name, # Text input
-            'thing_1': 'XXX', # Hidden input doesn't match a PK
+            'thing_0': self.test_thing.name,  # Text input
+            'thing_1': 'XXX',  # Hidden input doesn't match a PK
         }
         form = ComboboxSelectWidgetForm(data=data)
         self.assertFalse(form.is_valid())
@@ -274,8 +274,8 @@ class FuncManytoManyMultipleSelectTestCase(BaseSelectableTestCase):
         "Valid form using an AutoCompleteSelectMultipleField."
         data = {
             'name': self.get_random_string(),
-            'things_0': '', # Text input
-            'things_1': [self.test_thing.pk, ], # Hidden inputs
+            'things_0': '',  # Text input
+            'things_1': [self.test_thing.pk, ],  # Hidden inputs
         }
         form = ManyThingForm(data=data)
         self.assertTrue(form.is_valid(), str(form.errors))
@@ -284,8 +284,8 @@ class FuncManytoManyMultipleSelectTestCase(BaseSelectableTestCase):
         "Saving data from a valid form."
         data = {
             'name': self.get_random_string(),
-            'things_0': '', # Text input
-            'things_1': [self.test_thing.pk, ], # Hidden inputs
+            'things_0': '',  # Text input
+            'things_1': [self.test_thing.pk, ],  # Hidden inputs
         }
         form = ManyThingForm(data=data)
         manything = form.save()
@@ -298,8 +298,8 @@ class FuncManytoManyMultipleSelectTestCase(BaseSelectableTestCase):
         "Valid form where many to many is not required."
         data = {
             'name': self.get_random_string(),
-            'things_0': '', # Text input
-            'things_1': [], # Hidden inputs
+            'things_0': '',  # Text input
+            'things_1': [],  # Hidden inputs
         }
         form = ManyThingForm(data=data)
         form.fields['things'].required = False
@@ -309,8 +309,8 @@ class FuncManytoManyMultipleSelectTestCase(BaseSelectableTestCase):
         "Saving data when many to many is not required."
         data = {
             'name': self.get_random_string(),
-            'things_0': '', # Text input
-            'things_1': [], # Hidden inputs
+            'things_0': '',  # Text input
+            'things_1': [],  # Hidden inputs
         }
         form = ManyThingForm(data=data)
         form.fields['things'].required = False
@@ -326,8 +326,8 @@ class FuncManytoManyMultipleSelectTestCase(BaseSelectableTestCase):
         manything.things.add(thing_1)
         data = {
             'name': manything.name,
-            'things_0': '', # Text input
-            'things_1': [thing_1.pk], # Hidden inputs
+            'things_0': '',  # Text input
+            'things_1': [thing_1.pk],  # Hidden inputs
         }
         form = ManyThingForm(data=data, instance=manything)
         self.assertFalse(form.has_changed(), str(form.changed_data))
@@ -398,7 +398,7 @@ class FuncFormTestCase(BaseSelectableTestCase):
             'things_0': '',
             'things_1': [self.test_thing.pk, ]
         }
-        form = SimpleForm(data=data, empty_permitted=True)
+        form = SimpleForm(data=data, empty_permitted=True, use_required_attribute=False)
         self.assertTrue(form.has_changed())
         self.assertTrue(form.is_valid(), str(form.errors))
 
@@ -442,7 +442,7 @@ class FuncFormTestCase(BaseSelectableTestCase):
             'new_thing': '',
             'things': '',
         }
-        form = SimpleForm(data=data, initial=initial, empty_permitted=True)
+        form = SimpleForm(data=data, initial=initial, empty_permitted=True, use_required_attribute=False)
         self.assertFalse(form.has_changed(), str(form.changed_data))
         self.assertTrue(form.is_valid(), str(form.errors))
 
@@ -459,7 +459,7 @@ class FuncFormTestCase(BaseSelectableTestCase):
             'things_0': '',
             'things_1': '',
         }
-        form = SimpleForm(data=data, empty_permitted=True)
+        form = SimpleForm(data=data, empty_permitted=True, use_required_attribute=False)
         self.assertFalse(form.has_changed(), str(form.changed_data))
         self.assertTrue(form.is_valid(), str(form.errors))
 
@@ -468,7 +468,7 @@ class FuncFormTestCase(BaseSelectableTestCase):
         If no data is submitted and allowed with no initial then
         the form should not be seen as changed.
         """
-        form = SimpleForm(data={}, empty_permitted=True)
+        form = SimpleForm(data={}, empty_permitted=True, use_required_attribute=False)
         self.assertFalse(form.has_changed(), str(form.changed_data))
         self.assertTrue(form.is_valid(), str(form.errors))
 
