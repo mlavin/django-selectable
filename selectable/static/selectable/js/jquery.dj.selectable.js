@@ -268,7 +268,7 @@
                 ul.empty();
             }
             $input.data('page', null);
-            ul.zIndex($input.zIndex() + 1);
+            ul.css("zIndex", $input.css("zIndex") + 1);
             this._renderMenu(ul, items);
             // jQuery UI menu does not define deactivate
             if (this.menu.deactivate) {
