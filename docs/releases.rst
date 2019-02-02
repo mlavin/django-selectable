@@ -2,6 +2,12 @@ Release Notes
 ==================
 
 
+v1.2.1 (Released 2019-02-02)
+--------------------------------------
+
+Fixed compatibility issue with jQuery UI 1.12. Thanks to Christian Klus (kluchrj) for the fix.
+
+
 v1.2.0 (Released 2018-10-13)
 --------------------------------------
 
