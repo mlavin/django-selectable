@@ -11,12 +11,11 @@ addons:
     sources:
     - deadsnakes
     packages:
-    - python2.7
     - python3.4
     - python3.6
 
 env:
-  - TOXENV=py27-django111,py34-django111,py35-django111,py36-django111
+  - TOXENV=py34-django111,py35-django111,py36-django111
   - TOXENV=py34-django20,py35-django20,py36-django20
   - TOXENV=py35-django21,py36-django21
 

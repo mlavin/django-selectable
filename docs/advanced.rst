@@ -111,15 +111,11 @@ Suppose we have city model
 
     .. code-block:: python
 
-        from __future__ import unicode_literals
-
         from django.db import models
-        from django.utils.encoding import python_2_unicode_compatible
 
         from localflavor.us.models import USStateField
 
 
-        @python_2_unicode_compatible
         class City(models.Model):
             name = models.CharField(max_length=200)
             state = USStateField()
@@ -130,8 +126,6 @@ Suppose we have city model
 Then in our lookup we will grab the state value and filter our results on it:
 
     .. code-block:: python
-
-        from __future__ import unicode_literals
 
         from selectable.base import ModelLookup
         from selectable.registry import registry

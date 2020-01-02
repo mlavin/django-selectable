@@ -1,10 +1,8 @@
-from __future__ import unicode_literals
-
 import json
 
 from django import forms
 from django.conf import settings
-from django.utils.encoding import force_text
+from django.utils.encoding import force_str
 from django.utils.http import urlencode
 
 from selectable import __version__
@@ -187,7 +185,7 @@ class LookupMultipleHiddenInput(forms.MultipleHiddenInput):
         if v:
             item = item or lookup.get_item(v)
             title = lookup.get_item_value(item)
-        return force_text(v), title
+        return force_str(v), title
 
 
 class _BaseMultipleSelectWidget(SelectableMultiWidget, SelectableMediaMixin):

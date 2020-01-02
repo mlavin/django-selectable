@@ -1,6 +1,17 @@
 Release Notes
 ==================
 
+v1.3.0 (Unreleased)
+-------------------
+
+- Added support for Django 3.0
+
+
+Backwards Incompatible Changes
+________________________________
+
+- Dropped support for python 2
+
 
 v1.2.1 (Released 2019-02-02)
 --------------------------------------

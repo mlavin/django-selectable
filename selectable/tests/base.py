@@ -1,5 +1,3 @@
-from __future__ import unicode_literals
-
 import random
 import string
 from collections import defaultdict
