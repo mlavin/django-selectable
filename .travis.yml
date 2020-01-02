@@ -1,6 +1,8 @@
 sudo: false
 
 language: python
+cache: pip
+dist: xenial
 
 python:
   - "3.5"
@@ -13,11 +15,15 @@ addons:
     packages:
     - python3.4
     - python3.6
+    - python3.7
+    - python3.8
 
 env:
-  - TOXENV=py34-django111,py35-django111,py36-django111
-  - TOXENV=py34-django20,py35-django20,py36-django20
-  - TOXENV=py35-django21,py36-django21
+  - TOXENV=py34-django111,py35-django111,py36-django111,py37-django111
+  - TOXENV=py34-django20,py35-django20,py36-django20,py37-django20
+  - TOXENV=py35-django21,py36-django21,py37-django21
+  - TOXENV=py35-django22,py36-django22,py37-django22,py38-django22
+  - TOXENV=py36-django30,py37-django30,py38-django30
 
 install:
   - pip install tox pip wheel codecov -U
