@@ -12,7 +12,7 @@ from core.lookups import FruitLookup, OwnerLookup
 class FarmAdminForm(forms.ModelForm):
     owner = selectable.AutoCompleteSelectField(lookup_class=OwnerLookup, allow_new=True)
 
-    class Meta(object):
+    class Meta:
         model = Farm
         widgets = {
             'fruit': selectable.AutoCompleteSelectMultipleWidget(lookup_class=FruitLookup),

@@ -21,9 +21,9 @@ __all__ = (
 STATIC_PREFIX = '%sselectable/' % settings.STATIC_URL
 
 
-class SelectableMediaMixin(object):
+class SelectableMediaMixin():
 
-    class Media(object):
+    class Media():
         css = {
             'all': ('%scss/dj.selectable.css?v=%s' % (STATIC_PREFIX, __version__),)
         }

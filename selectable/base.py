@@ -20,7 +20,7 @@ __all__ = (
 )
 
 
-class LookupBase(object):
+class LookupBase():
     "Base class for all django-selectable lookups."
 
     form = BaseLookupForm

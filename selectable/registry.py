@@ -6,7 +6,7 @@ from selectable.exceptions import (LookupAlreadyRegistered, LookupNotRegistered,
                                    LookupInvalid)
 
 
-class LookupRegistry(object):
+class LookupRegistry():
 
     def __init__(self):
         self._registry = {}

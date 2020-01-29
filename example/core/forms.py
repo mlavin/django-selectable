@@ -97,7 +97,7 @@ class ChainedForm(forms.Form):
 
 class FarmForm(forms.ModelForm):
 
-    class Meta(object):
+    class Meta:
         model = Farm
         widgets = {
             'fruit': selectable.AutoCompleteSelectMultipleWidget(lookup_class=FruitLookup),

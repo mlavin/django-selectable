@@ -10,7 +10,7 @@ __all__ = (
     'AutoCompleteSelectMultipleFieldTestCase',
 )
 
-class FieldTestMixin(object):
+class FieldTestMixin():
     field_cls = None
     lookup_cls = None
 

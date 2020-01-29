@@ -96,7 +96,7 @@ In `admin.py` we will define the form and associate it with the `FarmAdmin`.
         class FarmAdminForm(forms.ModelForm):
             owner = AutoCompleteSelectField(lookup_class=OwnerLookup, allow_new=True)
 
-            class Meta(object):
+            class Meta:
                 model = Farm
                 widgets = {
                     'fruit': AutoCompleteSelectMultipleWidget(lookup_class=FruitLookup),
