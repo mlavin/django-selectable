@@ -104,7 +104,7 @@ In `admin.py` we will define the form and associate it with the `FarmAdmin`.
                 exclude = ('owner', )
 
             def __init__(self, *args, **kwargs):
-                super(FarmAdminForm, self).__init__(*args, **kwargs)
+                super().__init__(*args, **kwargs)
                 if self.instance and self.instance.pk and self.instance.owner:
                     self.initial['owner'] = self.instance.owner.pk
 
@@ -113,7 +113,7 @@ In `admin.py` we will define the form and associate it with the `FarmAdmin`.
                 if owner and not owner.pk:
                     owner = User.objects.create_user(username=owner.username, email='')
                 self.instance.owner = owner
-                return super(FarmAdminForm, self).save(*args, **kwargs)
+                return super().save(*args, **kwargs)
 
 
         class FarmAdmin(admin.ModelAdmin):

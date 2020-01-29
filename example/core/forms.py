@@ -81,7 +81,7 @@ class FruitForm(forms.Form):
     )
 
     def __init__(self, *args, **kwargs):
-        super(FruitForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.fields['disabledmulticomboboxselect'].widget.attrs['disabled'] = 'disabled'
 
 

@@ -54,7 +54,7 @@ class AutoCompleteSelectField(BaseAutoCompleteField):
         widget = kwargs.get('widget', self.widget) or self.widget
         if isinstance(widget, type):
             kwargs['widget'] = widget(lookup_class, allow_new=self.allow_new, limit=self.limit)
-        super(AutoCompleteSelectField, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
     def to_python(self, value):
         if value in EMPTY_VALUES:
@@ -99,7 +99,7 @@ class AutoCompleteSelectMultipleField(BaseAutoCompleteField):
         widget = kwargs.get('widget', self.widget) or self.widget
         if isinstance(widget, type):
             kwargs['widget'] = widget(lookup_class, limit=self.limit)
-        super(AutoCompleteSelectMultipleField, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
     def to_python(self, value):
         if value in EMPTY_VALUES:

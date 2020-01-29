@@ -26,7 +26,7 @@ class CityLookup(ModelLookup):
     search_fields = ('name__icontains', )
 
     def get_query(self, request, term):
-        results = super(CityLookup, self).get_query(request, term)
+        results = super().get_query(request, term)
         state = request.GET.get('state', '')
         if state:
             results = results.filter(state=state)

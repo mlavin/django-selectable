@@ -17,7 +17,7 @@ __all__ = (
 class SelectableViewTest(BaseSelectableTestCase):
 
     def setUp(self):
-        super(SelectableViewTest, self).setUp()
+        super().setUp()
         self.url = ThingLookup.url()
         self.lookup = ThingLookup()
         self.thing = self.create_thing()
