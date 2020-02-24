@@ -28,6 +28,10 @@ class BaseAutoCompleteField(forms.Field):
 
     def has_changed(self, initial, data):
         "Detects if the data was changed. This is added in 1.6."
+        # Always return False if the field is disabled since self.bound_data
+        # always uses the initial value in this case.
+        if self.disabled:
+            return False
         if initial is None and data is None:
             return False
         if data and not hasattr(data, '__iter__'):
