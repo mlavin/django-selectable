@@ -1,6 +1,4 @@
 "Base classes for lookup creation."
-from __future__ import unicode_literals
-
 import operator
 import re
 from functools import reduce
@@ -10,9 +8,9 @@ from django.core.paginator import Paginator, InvalidPage, EmptyPage
 from django.http import JsonResponse
 from django.db.models import Q, Model
 from django.urls import reverse
-from django.utils.encoding import smart_text
+from django.utils.encoding import smart_str
 from django.utils.html import conditional_escape
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 
 from .forms import BaseLookupForm
 
@@ -22,7 +20,7 @@ __all__ = (
 )
 
 
-class LookupBase(object):
+class LookupBase():
     "Base class for all django-selectable lookups."
 
     form = BaseLookupForm
@@ -50,13 +48,13 @@ class LookupBase(object):
         return []
 
     def get_item_label(self, item):
-        return smart_text(item)
+        return smart_str(item)
 
     def get_item_id(self, item):
-        return smart_text(item)
+        return smart_str(item)
 
     def get_item_value(self, item):
-        return smart_text(item)
+        return smart_str(item)
 
     def get_item(self, value):
         return value

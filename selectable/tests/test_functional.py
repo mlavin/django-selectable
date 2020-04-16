@@ -1,8 +1,6 @@
 """
 Larger functional tests for fields and widgets.
 """
-from __future__ import unicode_literals
-
 from django import forms
 
 from ..forms import AutoCompleteSelectField, AutoCompleteSelectMultipleField
@@ -24,7 +22,7 @@ class OtherThingForm(forms.ModelForm):
 
     thing = AutoCompleteSelectField(lookup_class=ThingLookup)
 
-    class Meta(object):
+    class Meta:
         model = OtherThing
         fields = ('name', 'thing', )
 
@@ -126,7 +124,7 @@ class FuncAutoCompleteSelectTestCase(BaseSelectableTestCase):
 
 class SelectWidgetForm(forms.ModelForm):
 
-    class Meta(object):
+    class Meta:
         model = OtherThing
         fields = ('name', 'thing', )
         widgets = {
@@ -190,7 +188,7 @@ class FuncSelectModelChoiceTestCase(BaseSelectableTestCase):
 
 class ComboboxSelectWidgetForm(forms.ModelForm):
 
-    class Meta(object):
+    class Meta:
         model = OtherThing
         fields = ('name', 'thing', )
         widgets = {
@@ -256,7 +254,7 @@ class ManyThingForm(forms.ModelForm):
 
     things = AutoCompleteSelectMultipleField(lookup_class=ThingLookup)
 
-    class Meta(object):
+    class Meta:
         model = ManyThing
         fields = ('name', 'things', )
 

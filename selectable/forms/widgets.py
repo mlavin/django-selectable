@@ -1,10 +1,8 @@
-from __future__ import unicode_literals
-
 import json
 
 from django import forms
 from django.conf import settings
-from django.utils.encoding import force_text
+from django.utils.encoding import force_str
 from django.utils.http import urlencode
 
 from selectable import __version__
@@ -23,9 +21,9 @@ __all__ = (
 STATIC_PREFIX = '%sselectable/' % settings.STATIC_URL
 
 
-class SelectableMediaMixin(object):
+class SelectableMediaMixin():
 
-    class Media(object):
+    class Media():
         css = {
             'all': ('%scss/dj.selectable.css?v=%s' % (STATIC_PREFIX, __version__),)
         }
@@ -39,13 +37,13 @@ class AutoCompleteWidget(forms.TextInput, SelectableMediaMixin):
         self.allow_new = kwargs.pop('allow_new', False)
         self.qs = kwargs.pop('query_params', {})
         self.limit = kwargs.pop('limit', None)
-        super(AutoCompleteWidget, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
     def update_query_parameters(self, qs_dict):
         self.qs.update(qs_dict)
 
     def build_attrs(self, base_attrs, extra_attrs=None):
-        attrs = super(AutoCompleteWidget, self).build_attrs(base_attrs, extra_attrs)
+        attrs = super().build_attrs(base_attrs, extra_attrs)
         url = self.lookup_class.url()
         if self.limit and 'limit' not in self.qs:
             self.qs['limit'] = self.limit
@@ -114,10 +112,10 @@ class _BaseSingleSelectWidget(SelectableMultiWidget, SelectableMediaMixin):
             ),
             forms.HiddenInput(attrs={'data-selectable-type': 'hidden'})
         ]
-        super(_BaseSingleSelectWidget, self).__init__(widgets, *args, **kwargs)
+        super().__init__(widgets, *args, **kwargs)
 
     def value_from_datadict(self, data, files, name):
-        value = super(_BaseSingleSelectWidget, self).value_from_datadict(data, files, name)
+        value = super().value_from_datadict(data, files, name)
         if not value[1]:
             compatible_postdata = self.get_compatible_postdata(data, name)
             if compatible_postdata:
@@ -135,7 +133,7 @@ class AutoCompleteSelectWidget(_BaseSingleSelectWidget):
 class AutoComboboxWidget(AutoCompleteWidget, SelectableMediaMixin):
 
     def build_attrs(self, base_attrs, extra_attrs=None):
-        attrs = super(AutoComboboxWidget, self).build_attrs(base_attrs, extra_attrs)
+        attrs = super().build_attrs(base_attrs, extra_attrs)
         attrs['data-selectable-type'] = 'combobox'
         return attrs
 
@@ -149,14 +147,14 @@ class LookupMultipleHiddenInput(forms.MultipleHiddenInput):
 
     def __init__(self, lookup_class, *args, **kwargs):
         self.lookup_class = import_lookup_class(lookup_class)
-        super(LookupMultipleHiddenInput, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
     def get_context(self, name, value, attrs):
         lookup = self.lookup_class()
         values = self._normalize_value(value)
         values = list(values)  # force evaluation
 
-        context = super(LookupMultipleHiddenInput, self).get_context(name, values, attrs)
+        context = super().get_context(name, values, attrs)
 
         # Now override/add to what super() did:
         subwidgets = context['widget']['subwidgets']
@@ -168,7 +166,7 @@ class LookupMultipleHiddenInput(forms.MultipleHiddenInput):
         return context
 
     def build_attrs(self, base_attrs, extra_attrs=None):
-        attrs = super(LookupMultipleHiddenInput, self).build_attrs(base_attrs, extra_attrs)
+        attrs = super().build_attrs(base_attrs, extra_attrs)
         attrs['data-selectable-type'] = 'hidden-multiple'
         return attrs
 
@@ -187,7 +185,7 @@ class LookupMultipleHiddenInput(forms.MultipleHiddenInput):
         if v:
             item = item or lookup.get_item(v)
             title = lookup.get_item_value(item)
-        return force_text(v), title
+        return force_str(v), title
 
 
 class _BaseMultipleSelectWidget(SelectableMultiWidget, SelectableMediaMixin):
@@ -216,7 +214,7 @@ class _BaseMultipleSelectWidget(SelectableMultiWidget, SelectableMediaMixin):
             ),
             LookupMultipleHiddenInput(lookup_class)
         ]
-        super(_BaseMultipleSelectWidget, self).__init__(widgets, *args, **kwargs)
+        super().__init__(widgets, *args, **kwargs)
 
     def value_from_datadict(self, data, files, name):
         value = self.widgets[1].value_from_datadict(data, files, name + '_1')
@@ -226,7 +224,7 @@ class _BaseMultipleSelectWidget(SelectableMultiWidget, SelectableMediaMixin):
         return value
 
     def build_attrs(self, base_attrs, extra_attrs=None):
-        attrs = super(_BaseMultipleSelectWidget, self).build_attrs(base_attrs, extra_attrs)
+        attrs = super().build_attrs(base_attrs, extra_attrs)
         if 'required' in attrs:
             attrs.pop('required')
         return attrs
@@ -235,7 +233,7 @@ class _BaseMultipleSelectWidget(SelectableMultiWidget, SelectableMediaMixin):
         if value and not hasattr(value, '__iter__'):
             value = [value]
         value = ['', value]
-        return super(_BaseMultipleSelectWidget, self).render(name, value, attrs, renderer)
+        return super().render(name, value, attrs, renderer)
 
 
 class AutoCompleteSelectMultipleWidget(_BaseMultipleSelectWidget):

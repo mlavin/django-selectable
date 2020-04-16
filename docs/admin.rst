@@ -60,13 +60,9 @@ a many to many relation to our ``Fruit`` model.
 
     .. code-block:: python
 
-        from __future__ import unicode_literals
-
         from django.db import models
-        from django.utils.encoding import python_2_unicode_compatible
 
 
-        @python_2_unicode_compatible
         class Fruit(models.Model):
             name = models.CharField(max_length=200)
 
@@ -74,7 +70,6 @@ a many to many relation to our ``Fruit`` model.
                 return self.name
 
 
-        @python_2_unicode_compatible
         class Farm(models.Model):
             name = models.CharField(max_length=200)
             owner = models.ForeignKey('auth.User', related_name='farms', on_delete=models.CASCADE)
@@ -101,7 +96,7 @@ In `admin.py` we will define the form and associate it with the `FarmAdmin`.
         class FarmAdminForm(forms.ModelForm):
             owner = AutoCompleteSelectField(lookup_class=OwnerLookup, allow_new=True)
 
-            class Meta(object):
+            class Meta:
                 model = Farm
                 widgets = {
                     'fruit': AutoCompleteSelectMultipleWidget(lookup_class=FruitLookup),
@@ -109,7 +104,7 @@ In `admin.py` we will define the form and associate it with the `FarmAdmin`.
                 exclude = ('owner', )
 
             def __init__(self, *args, **kwargs):
-                super(FarmAdminForm, self).__init__(*args, **kwargs)
+                super().__init__(*args, **kwargs)
                 if self.instance and self.instance.pk and self.instance.owner:
                     self.initial['owner'] = self.instance.owner.pk
 
@@ -118,7 +113,7 @@ In `admin.py` we will define the form and associate it with the `FarmAdmin`.
                 if owner and not owner.pk:
                     owner = User.objects.create_user(username=owner.username, email='')
                 self.instance.owner = owner
-                return super(FarmAdminForm, self).save(*args, **kwargs)
+                return super().save(*args, **kwargs)
 
 
         class FarmAdmin(admin.ModelAdmin):

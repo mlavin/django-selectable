@@ -1,7 +1,4 @@
-try:
-    from unittest.mock import Mock
-except ImportError:
-    from mock import Mock
+from unittest.mock import Mock
 
 from ..decorators import ajax_required, login_required, staff_member_required
 from .base import BaseSelectableTestCase, SimpleModelLookup

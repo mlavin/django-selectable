@@ -18,7 +18,7 @@ __all__ = (
 )
 
 
-class WidgetTestMixin(object):
+class WidgetTestMixin():
     widget_cls = None
     lookup_cls = None
 

@@ -55,7 +55,7 @@ You can simply replace the widget without replacing the entire field.
 
         class FarmAdminForm(forms.ModelForm):
 
-            class Meta(object):
+            class Meta:
                 model = Farm
                 widgets = {
                     'owner': selectable.AutoCompleteSelectWidget(lookup_class=FruitLookup),
@@ -85,7 +85,7 @@ You can simply replace the widget without replacing the entire field.
 
         class FarmAdminForm(forms.ModelForm):
 
-            class Meta(object):
+            class Meta:
                 model = Farm
                 widgets = {
                     'owner': selectable.AutoComboboxSelectWidget(lookup_class=FruitLookup),

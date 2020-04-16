@@ -12,7 +12,7 @@ from core.lookups import FruitLookup, OwnerLookup
 class FarmAdminForm(forms.ModelForm):
     owner = selectable.AutoCompleteSelectField(lookup_class=OwnerLookup, allow_new=True)
 
-    class Meta(object):
+    class Meta:
         model = Farm
         widgets = {
             'fruit': selectable.AutoCompleteSelectMultipleWidget(lookup_class=FruitLookup),
@@ -20,7 +20,7 @@ class FarmAdminForm(forms.ModelForm):
         exclude = ('owner', )
 
     def __init__(self, *args, **kwargs):
-        super(FarmAdminForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         if self.instance and self.instance.pk and self.instance.owner:
             self.initial['owner'] = self.instance.owner.pk
 
@@ -29,7 +29,7 @@ class FarmAdminForm(forms.ModelForm):
         if owner and not owner.pk:
             owner = User.objects.create_user(username=owner.username, email='')
         self.instance.owner = owner
-        return super(FarmAdminForm, self).save(*args, **kwargs)
+        return super().save(*args, **kwargs)
 
 
 class FarmAdmin(admin.ModelAdmin):

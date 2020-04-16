@@ -93,13 +93,9 @@ lookup which searchs models based on a particular field. Let's define a simple m
 
     .. code-block:: python
 
-        from __future__ import unicode_literals
-
         from django.db import models
-        from django.utils.encoding import python_2_unicode_compatible
 
 
-        @python_2_unicode_compatible
         class Fruit(models.Model):
             name = models.CharField(max_length=200)
 
@@ -109,8 +105,6 @@ lookup which searchs models based on a particular field. Let's define a simple m
 In a `lookups.py` we will define our lookup:
 
     .. code-block:: python
-
-        from __future__ import unicode_literals
 
         from selectable.base import ModelLookup
         from selectable.registry import registry

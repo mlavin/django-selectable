@@ -1,9 +1,7 @@
-from __future__ import unicode_literals
-
 from django import forms
 from django.core.exceptions import ValidationError
 from django.core.validators import EMPTY_VALUES
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from django.db.models import Model
 
 from selectable.forms.base import import_lookup_class
@@ -60,7 +58,7 @@ class AutoCompleteSelectField(BaseAutoCompleteField):
         widget = kwargs.get('widget', self.widget) or self.widget
         if isinstance(widget, type):
             kwargs['widget'] = widget(lookup_class, allow_new=self.allow_new, limit=self.limit)
-        super(AutoCompleteSelectField, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
     def to_python(self, value):
         if value in EMPTY_VALUES:
@@ -105,7 +103,7 @@ class AutoCompleteSelectMultipleField(BaseAutoCompleteField):
         widget = kwargs.get('widget', self.widget) or self.widget
         if isinstance(widget, type):
             kwargs['widget'] = widget(lookup_class, limit=self.limit)
-        super(AutoCompleteSelectMultipleField, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
     def to_python(self, value):
         if value in EMPTY_VALUES:

@@ -1,5 +1,3 @@
-from __future__ import unicode_literals
-
 import random
 import string
 from collections import defaultdict
@@ -59,7 +57,7 @@ def parsed_widget_attributes(widget):
     return AttrMap(rendered)
 
 
-class AttrMap(object):
+class AttrMap():
     def __init__(self, html):
         dom = parse_html(html)
         self._attrs = defaultdict(set)

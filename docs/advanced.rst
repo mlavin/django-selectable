@@ -58,7 +58,7 @@ most common way to use this would be in the form ``__init__``.
             )
 
             def __init__(self, *args, **kwargs):
-                super(FruitForm, self).__init__(*args, **kwargs)
+                super().__init__(*args, **kwargs)
                 self.fields['autocomplete'].widget.update_query_parameters({'foo': 'bar'})
 
 You can also pass the query parameters into the widget using the ``query_params``
@@ -111,15 +111,11 @@ Suppose we have city model
 
     .. code-block:: python
 
-        from __future__ import unicode_literals
-
         from django.db import models
-        from django.utils.encoding import python_2_unicode_compatible
 
         from localflavor.us.models import USStateField
 
 
-        @python_2_unicode_compatible
         class City(models.Model):
             name = models.CharField(max_length=200)
             state = USStateField()
@@ -130,8 +126,6 @@ Suppose we have city model
 Then in our lookup we will grab the state value and filter our results on it:
 
     .. code-block:: python
-
-        from __future__ import unicode_literals
 
         from selectable.base import ModelLookup
         from selectable.registry import registry
@@ -144,7 +138,7 @@ Then in our lookup we will grab the state value and filter our results on it:
             search_fields = ('name__icontains', )
 
             def get_query(self, request, term):
-                results = super(CityLookup, self).get_query(request, term)
+                results = super().get_query(request, term)
                 state = request.GET.get('state', '')
                 if state:
                     results = results.filter(state=state)
