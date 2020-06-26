@@ -1,0 +1,6 @@
+Release 1.3
+-----------------
+* added support to python 3.7 and 3.8
+* added support to django 3.0
+* added support to italian language
+* dropped support to python 2.7

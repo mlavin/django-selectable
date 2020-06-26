@@ -29,5 +29,6 @@ Josh Addington
 Tobias Zanke
 Petr Dlouhy
 Vinod Kurup
+Domenico Di Nicola
 
 Thanks for all of your work!
