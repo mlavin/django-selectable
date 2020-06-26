@@ -8,6 +8,9 @@
 docs/_build/*
 docs/_static/*
 dist/*
+build/
 *.egg-info/*
 .coverage
 .tox/*
+.idea/
+.venv/
