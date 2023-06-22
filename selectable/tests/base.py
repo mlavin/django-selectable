@@ -2,37 +2,35 @@ import random
 import string
 from collections import defaultdict
 
-
 from django.test import TestCase, override_settings
 from django.test.html import parse_html
 
-from . import Thing
 from ..base import ModelLookup
+from . import Thing
 
 
 def parsed_inputs(html):
     "Returns a dictionary mapping name --> node of inputs found in the HTML."
     node = parse_html(html)
     inputs = {}
-    for field in [c for c in node.children if c.name == 'input']:
-        name = dict(field.attributes)['name']
+    for field in [c for c in node.children if c.name == "input"]:
+        name = dict(field.attributes)["name"]
         current = inputs.get(name, [])
         current.append(field)
         inputs[name] = current
     return inputs
 
 
-@override_settings(ROOT_URLCONF='selectable.tests.urls')
+@override_settings(ROOT_URLCONF="selectable.tests.urls")
 class BaseSelectableTestCase(TestCase):
-
     def get_random_string(self, length=10):
-        return ''.join(random.choice(string.ascii_letters) for x in range(length))
+        return "".join(random.choice(string.ascii_letters) for x in range(length))
 
     def create_thing(self, data=None):
         data = data or {}
         defaults = {
-            'name': self.get_random_string(),
-            'description': self.get_random_string(),
+            "name": self.get_random_string(),
+            "description": self.get_random_string(),
         }
         defaults.update(data)
         return Thing.objects.create(**defaults)
@@ -40,7 +38,7 @@ class BaseSelectableTestCase(TestCase):
 
 class SimpleModelLookup(ModelLookup):
     model = Thing
-    search_fields = ('name__icontains', )
+    search_fields = ("name__icontains",)
 
 
 def parsed_widget_attributes(widget):
@@ -53,11 +51,11 @@ def parsed_widget_attributes(widget):
     """
     # For the tests that use this, it generally doesn't matter what the value
     # is, so we supply anything.
-    rendered = widget.render('a_name', 'a_value')
+    rendered = widget.render("a_name", "a_value")
     return AttrMap(rendered)
 
 
-class AttrMap():
+class AttrMap:
     def __init__(self, html):
         dom = parse_html(html)
         self._attrs = defaultdict(set)
@@ -66,7 +64,7 @@ class AttrMap():
     def _build_attr_map(self, dom):
         for node in _walk_nodes(dom):
             if node.attributes is not None:
-                for (k, v) in node.attributes:
+                for k, v in node.attributes:
                     self._attrs[k].add(v)
 
     def __contains__(self, key):
@@ -77,8 +75,11 @@ class AttrMap():
             raise KeyError(key)
         vals = self._attrs[key]
         if len(vals) > 1:
-            raise ValueError("More than one value for attribute {0}: {1}".
-                             format(key, ", ".join(vals)))
+            raise ValueError(
+                "More than one value for attribute {0}: {1}".format(
+                    key, ", ".join(vals)
+                )
+            )
         else:
             return list(vals)[0]
 

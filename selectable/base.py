@@ -4,9 +4,9 @@ import re
 from functools import reduce
 
 from django.conf import settings
-from django.core.paginator import Paginator, InvalidPage, EmptyPage
+from django.core.paginator import EmptyPage, InvalidPage, Paginator
+from django.db.models import Model, Q
 from django.http import JsonResponse
-from django.db.models import Q, Model
 from django.urls import reverse
 from django.utils.encoding import smart_str
 from django.utils.html import conditional_escape
@@ -15,22 +15,23 @@ from django.utils.translation import gettext as _
 from .forms import BaseLookupForm
 
 __all__ = (
-    'LookupBase',
-    'ModelLookup',
+    "LookupBase",
+    "ModelLookup",
 )
 
 
-class LookupBase():
+class LookupBase:
     "Base class for all django-selectable lookups."
 
     form = BaseLookupForm
     response = JsonResponse
 
     def _name(cls):
-        app_name = cls.__module__.split('.')[-2].lower()
+        app_name = cls.__module__.split(".")[-2].lower()
         class_name = cls.__name__.lower()
-        name = '%s-%s' % (app_name, class_name)
+        name = "%s-%s" % (app_name, class_name)
         return name
+
     name = classmethod(_name)
 
     def split_term(self, term):
@@ -41,7 +42,8 @@ class LookupBase():
         return term.split()
 
     def _url(cls):
-        return reverse('selectable-lookup', args=[cls.name()])
+        return reverse("selectable-lookup", args=[cls.name()])
+
     url = classmethod(_url)
 
     def get_query(self, request, term):
@@ -60,14 +62,14 @@ class LookupBase():
         return value
 
     def create_item(self, value):
-        raise NotImplemented()
+        raise NotImplementedError()
 
     def format_item(self, item):
         "Construct result dictionary for the match item."
         result = {
-            'id': self.get_item_id(item),
-            'value': self.get_item_value(item),
-            'label': self.get_item_label(item),
+            "id": self.get_item_id(item),
+            "value": self.get_item_value(item),
+            "label": self.get_item_label(item),
         }
         for key in settings.SELECTABLE_ESCAPED_KEYS:
             if key in result:
@@ -76,9 +78,9 @@ class LookupBase():
 
     def paginate_results(self, results, options):
         "Return a django.core.paginator.Page of results."
-        limit = options.get('limit', settings.SELECTABLE_MAX_LIMIT)
+        limit = options.get("limit", settings.SELECTABLE_MAX_LIMIT)
         paginator = Paginator(results, limit)
-        page = options.get('page', 1)
+        page = options.get("page", 1)
         try:
             results = paginator.page(page)
         except (EmptyPage, InvalidPage):
@@ -91,29 +93,29 @@ class LookupBase():
         form = self.form(request.GET)
         if form.is_valid():
             options = form.cleaned_data
-            term = options.get('term', '')
+            term = options.get("term", "")
             raw_data = self.get_query(request, term)
             results = self.format_results(raw_data, options)
         return self.response(results)
 
     def format_results(self, raw_data, options):
-        '''
+        """
         Returns a python structure that later gets serialized.
         raw_data
             full list of objects matching the search term
         options
             a dictionary of the given options
-        '''
+        """
         page_data = self.paginate_results(raw_data, options)
         results = {}
         meta = options.copy()
-        meta['more'] = _('Show more results')
+        meta["more"] = _("Show more results")
         if page_data and page_data.has_next():
-            meta['next_page'] = page_data.next_page_number()
+            meta["next_page"] = page_data.next_page_number()
         if page_data and page_data.has_previous():
-            meta['prev_page'] = page_data.previous_page_number()
-        results['data'] = [self.format_item(item) for item in page_data.object_list]
-        results['meta'] = meta
+            meta["prev_page"] = page_data.previous_page_number()
+        results["data"] = [self.format_item(item) for item in page_data.object_list]
+        results["meta"] = meta
         return results
 
 
@@ -157,7 +159,7 @@ class ModelLookup(LookupBase):
     def create_item(self, value):
         data = {}
         if self.search_fields:
-            field_name = re.sub(r'__\w+$', '',  self.search_fields[0])
+            field_name = re.sub(r"__\w+$", "", self.search_fields[0])
             if field_name:
                 data = {field_name: value}
         return self.model(**data)

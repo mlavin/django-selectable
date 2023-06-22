@@ -1,9 +1,9 @@
 from django.urls import re_path
 
-from .views import formset, advanced, index
+from .views import advanced, formset, index
 
 urlpatterns = [
-    url(r'^formset/', formset, name='example-formset'),
-    url(r'^advanced/', advanced, name='example-advanced'),
-    url(r'^', index, name='example-index'),
+    re_path(r"^formset/", formset, name="example-formset"),
+    re_path(r"^advanced/", advanced, name="example-advanced"),
+    re_path(r"^", index, name="example-index"),
 ]

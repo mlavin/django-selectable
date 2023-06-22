@@ -9,34 +9,30 @@ from selectable import __version__
 from selectable.forms.base import import_lookup_class
 
 __all__ = (
-    'AutoCompleteWidget',
-    'AutoCompleteSelectWidget',
-    'AutoComboboxWidget',
-    'AutoComboboxSelectWidget',
-    'AutoCompleteSelectMultipleWidget',
-    'AutoComboboxSelectMultipleWidget',
+    "AutoCompleteWidget",
+    "AutoCompleteSelectWidget",
+    "AutoComboboxWidget",
+    "AutoComboboxSelectWidget",
+    "AutoCompleteSelectMultipleWidget",
+    "AutoComboboxSelectMultipleWidget",
 )
 
 
-STATIC_PREFIX = '%sselectable/' % settings.STATIC_URL
+STATIC_PREFIX = "%sselectable/" % settings.STATIC_URL
 
 
-class SelectableMediaMixin():
-
-    class Media():
-        css = {
-            'all': ('%scss/dj.selectable.css?v=%s' % (STATIC_PREFIX, __version__),)
-        }
-        js = ('%sjs/jquery.dj.selectable.js?v=%s' % (STATIC_PREFIX, __version__),)
+class SelectableMediaMixin:
+    class Media:
+        css = {"all": ("%scss/dj.selectable.css?v=%s" % (STATIC_PREFIX, __version__),)}
+        js = ("%sjs/jquery.dj.selectable.js?v=%s" % (STATIC_PREFIX, __version__),)
 
 
 class AutoCompleteWidget(forms.TextInput, SelectableMediaMixin):
-
     def __init__(self, lookup_class, *args, **kwargs):
         self.lookup_class = import_lookup_class(lookup_class)
-        self.allow_new = kwargs.pop('allow_new', False)
-        self.qs = kwargs.pop('query_params', {})
-        self.limit = kwargs.pop('limit', None)
+        self.allow_new = kwargs.pop("allow_new", False)
+        self.qs = kwargs.pop("query_params", {})
+        self.limit = kwargs.pop("limit", None)
         super().__init__(*args, **kwargs)
 
     def update_query_parameters(self, qs_dict):
@@ -45,27 +41,28 @@ class AutoCompleteWidget(forms.TextInput, SelectableMediaMixin):
     def build_attrs(self, base_attrs, extra_attrs=None):
         attrs = super().build_attrs(base_attrs, extra_attrs)
         url = self.lookup_class.url()
-        if self.limit and 'limit' not in self.qs:
-            self.qs['limit'] = self.limit
+        if self.limit and "limit" not in self.qs:
+            self.qs["limit"] = self.limit
         if self.qs:
-            url = '%s?%s' % (url, urlencode(self.qs))
-        if 'data-selectable-options' in attrs:
-            attrs['data-selectable-options'] = json.dumps(attrs['data-selectable-options'])
-        attrs['data-selectable-url'] = url
-        attrs['data-selectable-type'] = 'text'
-        attrs['data-selectable-allow-new'] = str(self.allow_new).lower()
+            url = "%s?%s" % (url, urlencode(self.qs))
+        if "data-selectable-options" in attrs:
+            attrs["data-selectable-options"] = json.dumps(
+                attrs["data-selectable-options"]
+            )
+        attrs["data-selectable-url"] = url
+        attrs["data-selectable-type"] = "text"
+        attrs["data-selectable-allow-new"] = str(self.allow_new).lower()
         return attrs
 
 
 class SelectableMultiWidget(forms.MultiWidget):
-
     def update_query_parameters(self, qs_dict):
         self.widgets[0].update_query_parameters(qs_dict)
 
     def decompress(self, value):
         if value:
             lookup = self.lookup_class()
-            model = getattr(self.lookup_class, 'model', None)
+            model = getattr(self.lookup_class, "model", None)
             if model and isinstance(value, model):
                 item = value
                 value = lookup.get_item_id(item)
@@ -101,16 +98,18 @@ class _BaseSingleSelectWidget(SelectableMultiWidget, SelectableMediaMixin):
 
     def __init__(self, lookup_class, *args, **kwargs):
         self.lookup_class = import_lookup_class(lookup_class)
-        self.allow_new = kwargs.pop('allow_new', False)
-        self.limit = kwargs.pop('limit', None)
-        query_params = kwargs.pop('query_params', {})
+        self.allow_new = kwargs.pop("allow_new", False)
+        self.limit = kwargs.pop("limit", None)
+        query_params = kwargs.pop("query_params", {})
         widgets = [
             self.primary_widget(
-                lookup_class, allow_new=self.allow_new,
-                limit=self.limit, query_params=query_params,
-                attrs=kwargs.get('attrs'),
+                lookup_class,
+                allow_new=self.allow_new,
+                limit=self.limit,
+                query_params=query_params,
+                attrs=kwargs.get("attrs"),
             ),
-            forms.HiddenInput(attrs={'data-selectable-type': 'hidden'})
+            forms.HiddenInput(attrs={"data-selectable-type": "hidden"}),
         ]
         super().__init__(widgets, *args, **kwargs)
 
@@ -126,25 +125,21 @@ class _BaseSingleSelectWidget(SelectableMultiWidget, SelectableMediaMixin):
 
 
 class AutoCompleteSelectWidget(_BaseSingleSelectWidget):
-
     primary_widget = AutoCompleteWidget
 
 
 class AutoComboboxWidget(AutoCompleteWidget, SelectableMediaMixin):
-
     def build_attrs(self, base_attrs, extra_attrs=None):
         attrs = super().build_attrs(base_attrs, extra_attrs)
-        attrs['data-selectable-type'] = 'combobox'
+        attrs["data-selectable-type"] = "combobox"
         return attrs
 
 
 class AutoComboboxSelectWidget(_BaseSingleSelectWidget):
-
     primary_widget = AutoComboboxWidget
 
 
 class LookupMultipleHiddenInput(forms.MultipleHiddenInput):
-
     def __init__(self, lookup_class, *args, **kwargs):
         self.lookup_class = import_lookup_class(lookup_class)
         super().__init__(*args, **kwargs)
@@ -157,17 +152,17 @@ class LookupMultipleHiddenInput(forms.MultipleHiddenInput):
         context = super().get_context(name, values, attrs)
 
         # Now override/add to what super() did:
-        subwidgets = context['widget']['subwidgets']
+        subwidgets = context["widget"]["subwidgets"]
         for widget_ctx, item in zip(subwidgets, values):
             input_value, title = self._lookup_value_and_title(lookup, item)
-            widget_ctx['value'] = input_value  # override what super() did
+            widget_ctx["value"] = input_value  # override what super() did
             if title:
-                widget_ctx['attrs']['title'] = title
+                widget_ctx["attrs"]["title"] = title
         return context
 
     def build_attrs(self, base_attrs, extra_attrs=None):
         attrs = super().build_attrs(base_attrs, extra_attrs)
-        attrs['data-selectable-type'] = 'hidden-multiple'
+        attrs["data-selectable-type"] = "hidden-multiple"
         return attrs
 
     def _normalize_value(self, value):
@@ -176,7 +171,7 @@ class LookupMultipleHiddenInput(forms.MultipleHiddenInput):
         return value
 
     def _lookup_value_and_title(self, lookup, v):
-        model = getattr(self.lookup_class, 'model', None)
+        model = getattr(self.lookup_class, "model", None)
         item = None
         if model and isinstance(v, model):
             item = v
@@ -199,25 +194,28 @@ class _BaseMultipleSelectWidget(SelectableMultiWidget, SelectableMediaMixin):
 
     def __init__(self, lookup_class, *args, **kwargs):
         self.lookup_class = import_lookup_class(lookup_class)
-        self.limit = kwargs.pop('limit', None)
-        position = kwargs.pop('position', 'bottom')
+        self.limit = kwargs.pop("limit", None)
+        position = kwargs.pop("position", "bottom")
         attrs = {
-            'data-selectable-multiple': 'true',
-            'data-selectable-position': position
+            "data-selectable-multiple": "true",
+            "data-selectable-position": position,
         }
-        attrs.update(kwargs.get('attrs', {}))
-        query_params = kwargs.pop('query_params', {})
+        attrs.update(kwargs.get("attrs", {}))
+        query_params = kwargs.pop("query_params", {})
         widgets = [
             self.primary_widget(
-                lookup_class, allow_new=False,
-                limit=self.limit, query_params=query_params, attrs=attrs
+                lookup_class,
+                allow_new=False,
+                limit=self.limit,
+                query_params=query_params,
+                attrs=attrs,
             ),
-            LookupMultipleHiddenInput(lookup_class)
+            LookupMultipleHiddenInput(lookup_class),
         ]
         super().__init__(widgets, *args, **kwargs)
 
     def value_from_datadict(self, data, files, name):
-        value = self.widgets[1].value_from_datadict(data, files, name + '_1')
+        value = self.widgets[1].value_from_datadict(data, files, name + "_1")
         if not value:
             # Fall back to the compatible POST name
             value = self.get_compatible_postdata(data, name)
@@ -225,22 +223,20 @@ class _BaseMultipleSelectWidget(SelectableMultiWidget, SelectableMediaMixin):
 
     def build_attrs(self, base_attrs, extra_attrs=None):
         attrs = super().build_attrs(base_attrs, extra_attrs)
-        if 'required' in attrs:
-            attrs.pop('required')
+        if "required" in attrs:
+            attrs.pop("required")
         return attrs
 
     def render(self, name, value, attrs=None, renderer=None):
-        if value and not hasattr(value, '__iter__'):
+        if value and not hasattr(value, "__iter__"):
             value = [value]
-        value = ['', value]
+        value = ["", value]
         return super().render(name, value, attrs, renderer)
 
 
 class AutoCompleteSelectMultipleWidget(_BaseMultipleSelectWidget):
-
     primary_widget = AutoCompleteWidget
 
 
 class AutoComboboxSelectMultipleWidget(_BaseMultipleSelectWidget):
-
     primary_widget = AutoComboboxWidget

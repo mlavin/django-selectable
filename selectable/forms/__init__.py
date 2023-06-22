@@ -1,3 +1,3 @@
-from selectable.forms.base import *
-from selectable.forms.fields import *
-from selectable.forms.widgets import *
+from selectable.forms.base import *  # noqa
+from selectable.forms.fields import *  # noqa
+from selectable.forms.widgets import *  # noqa

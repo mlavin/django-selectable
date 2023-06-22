@@ -12,7 +12,7 @@ class Thing(models.Model):
         return self.name
 
     class Meta:
-        ordering = ['id']
+        ordering = ["id"]
 
 
 class OtherThing(models.Model):
@@ -33,7 +33,7 @@ class ManyThing(models.Model):
 
 class ThingLookup(ModelLookup):
     model = Thing
-    search_fields = ('name__icontains', )
+    search_fields = ("name__icontains",)
 
 
 registry.register(ThingLookup)

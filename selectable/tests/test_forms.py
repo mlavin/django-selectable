@@ -1,18 +1,14 @@
 from ..forms import BaseLookupForm
 from .base import BaseSelectableTestCase
 
-
-__all__ = (
-    'BaseLookupFormTestCase',
-)
+__all__ = ("BaseLookupFormTestCase",)
 
 
 class BaseLookupFormTestCase(BaseSelectableTestCase):
-
     def get_valid_data(self):
         data = {
-            'term': 'foo',
-            'limit': 10,
+            "term": "foo",
+            "limit": 10,
         }
         return data
 
@@ -27,7 +23,7 @@ class BaseLookupFormTestCase(BaseSelectableTestCase):
         """
 
         data = self.get_valid_data()
-        data['limit'] = 'bar'
+        data["limit"] = "bar"
         form = BaseLookupForm(data)
         self.assertFalse(form.is_valid())
 
@@ -39,11 +35,11 @@ class BaseLookupFormTestCase(BaseSelectableTestCase):
 
         with self.settings(SELECTABLE_MAX_LIMIT=25):
             data = self.get_valid_data()
-            if 'limit' in data:
-                del data['limit']
+            if "limit" in data:
+                del data["limit"]
             form = BaseLookupForm(data)
             self.assertTrue(form.is_valid(), "%s" % form.errors)
-            self.assertEqual(form.cleaned_data['limit'], 25)
+            self.assertEqual(form.cleaned_data["limit"], 25)
 
     def test_no_max_set(self):
         """
@@ -55,8 +51,8 @@ class BaseLookupFormTestCase(BaseSelectableTestCase):
             data = self.get_valid_data()
             form = BaseLookupForm(data)
             self.assertTrue(form.is_valid(), "%s" % form.errors)
-            if 'limit' in data:
-                self.assertTrue(form.cleaned_data['limit'], data['limit'])
+            if "limit" in data:
+                self.assertTrue(form.cleaned_data["limit"], data["limit"])
 
     def test_no_max_set_not_given(self):
         """
@@ -66,11 +62,11 @@ class BaseLookupFormTestCase(BaseSelectableTestCase):
 
         with self.settings(SELECTABLE_MAX_LIMIT=None):
             data = self.get_valid_data()
-            if 'limit' in data:
-                del data['limit']
+            if "limit" in data:
+                del data["limit"]
             form = BaseLookupForm(data)
             self.assertTrue(form.is_valid(), "%s" % form.errors)
-            self.assertFalse(form.cleaned_data.get('limit'))
+            self.assertFalse(form.cleaned_data.get("limit"))
 
     def test_over_limit(self):
         """
@@ -80,7 +76,7 @@ class BaseLookupFormTestCase(BaseSelectableTestCase):
 
         with self.settings(SELECTABLE_MAX_LIMIT=25):
             data = self.get_valid_data()
-            data['limit'] = 125
+            data["limit"] = 125
             form = BaseLookupForm(data)
             self.assertTrue(form.is_valid(), "%s" % form.errors)
-            self.assertEqual(form.cleaned_data['limit'], 25)
+            self.assertEqual(form.cleaned_data["limit"], 25)

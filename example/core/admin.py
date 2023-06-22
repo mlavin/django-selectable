@@ -1,12 +1,11 @@
+from core.lookups import FruitLookup, OwnerLookup
+from core.models import Farm, Fruit
+from django import forms
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
-from django import forms
 
 import selectable.forms as selectable
-
-from core.models import Fruit, Farm
-from core.lookups import FruitLookup, OwnerLookup
 
 
 class FarmAdminForm(forms.ModelForm):
@@ -15,19 +14,21 @@ class FarmAdminForm(forms.ModelForm):
     class Meta:
         model = Farm
         widgets = {
-            'fruit': selectable.AutoCompleteSelectMultipleWidget(lookup_class=FruitLookup),
+            "fruit": selectable.AutoCompleteSelectMultipleWidget(
+                lookup_class=FruitLookup
+            ),
         }
-        exclude = ('owner', )
+        exclude = ("owner",)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         if self.instance and self.instance.pk and self.instance.owner:
-            self.initial['owner'] = self.instance.owner.pk
+            self.initial["owner"] = self.instance.owner.pk
 
     def save(self, *args, **kwargs):
-        owner = self.cleaned_data['owner']
+        owner = self.cleaned_data["owner"]
         if owner and not owner.pk:
-            owner = User.objects.create_user(username=owner.username, email='')
+            owner = User.objects.create_user(username=owner.username, email="")
         self.instance.owner = owner
         return super().save(*args, **kwargs)
 

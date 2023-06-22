@@ -3,16 +3,14 @@ from unittest.mock import Mock
 from ..decorators import ajax_required, login_required, staff_member_required
 from .base import BaseSelectableTestCase, SimpleModelLookup
 
-
 __all__ = (
-    'AjaxRequiredLookupTestCase',
-    'LoginRequiredLookupTestCase',
-    'StaffRequiredLookupTestCase',
+    "AjaxRequiredLookupTestCase",
+    "LoginRequiredLookupTestCase",
+    "StaffRequiredLookupTestCase",
 )
 
 
 class AjaxRequiredLookupTestCase(BaseSelectableTestCase):
-
     def setUp(self):
         self.lookup = ajax_required(SimpleModelLookup)()
 
@@ -32,7 +30,6 @@ class AjaxRequiredLookupTestCase(BaseSelectableTestCase):
 
 
 class LoginRequiredLookupTestCase(BaseSelectableTestCase):
-
     def setUp(self):
         self.lookup = login_required(SimpleModelLookup)()
 
@@ -56,7 +53,6 @@ class LoginRequiredLookupTestCase(BaseSelectableTestCase):
 
 
 class StaffRequiredLookupTestCase(BaseSelectableTestCase):
-
     def setUp(self):
         self.lookup = staff_member_required(SimpleModelLookup)()
 

@@ -4,18 +4,20 @@ from selectable.forms import fields, widgets
 from selectable.tests import ThingLookup
 from selectable.tests.base import BaseSelectableTestCase
 
-
 __all__ = (
-    'AutoCompleteSelectFieldTestCase',
-    'AutoCompleteSelectMultipleFieldTestCase',
+    "AutoCompleteSelectFieldTestCase",
+    "AutoCompleteSelectMultipleFieldTestCase",
 )
 
-class FieldTestMixin():
+
+class FieldTestMixin:
     field_cls = None
     lookup_cls = None
 
     def get_field_instance(self, allow_new=False, limit=None, widget=None):
-        return self.field_cls(self.lookup_cls, allow_new=allow_new, limit=limit, widget=widget)
+        return self.field_cls(
+            self.lookup_cls, allow_new=allow_new, limit=limit, widget=widget
+        )
 
     def test_init(self):
         field = self.get_field_instance()
@@ -27,13 +29,13 @@ class FieldTestMixin():
         self.assertEqual(field.widget.limit, 10)
 
     def test_clean(self):
-        self.fail('This test has not yet been written')
+        self.fail("This test has not yet been written")
 
     def test_dotted_path(self):
         """
         Ensure lookup_class can be imported from a dotted path.
         """
-        dotted_path = '.'.join([self.lookup_cls.__module__, self.lookup_cls.__name__])
+        dotted_path = ".".join([self.lookup_cls.__module__, self.lookup_cls.__name__])
         field = self.field_cls(dotted_path)
         self.assertEqual(field.lookup_class, self.lookup_cls)
 
@@ -42,15 +44,16 @@ class FieldTestMixin():
         An invalid lookup_class dotted path should raise an ImportError.
         """
         with self.assertRaises(ImportError):
-            self.field_cls('that.is.an.invalid.path')
+            self.field_cls("that.is.an.invalid.path")
 
     def test_dotted_path_wrong_type(self):
         """
         lookup_class must be a subclass of LookupBase.
         """
-        dotted_path = 'selectable.forms.fields.AutoCompleteSelectField'
+        dotted_path = "selectable.forms.fields.AutoCompleteSelectField"
         with self.assertRaises(TypeError):
             self.field_cls(dotted_path)
+
 
 class AutoCompleteSelectFieldTestCase(BaseSelectableTestCase, FieldTestMixin):
     field_cls = fields.AutoCompleteSelectField
@@ -65,12 +68,12 @@ class AutoCompleteSelectFieldTestCase(BaseSelectableTestCase, FieldTestMixin):
     def test_new_not_allowed(self):
         field = self.get_field_instance()
         value = self.get_random_string()
-        self.assertRaises(forms.ValidationError, field.clean, [value, ''])
+        self.assertRaises(forms.ValidationError, field.clean, [value, ""])
 
     def test_new_allowed(self):
         field = self.get_field_instance(allow_new=True)
         value = self.get_random_string()
-        value = field.clean([value, ''])
+        value = field.clean([value, ""])
         self.assertTrue(isinstance(value, ThingLookup.model))
 
     def test_default_widget(self):
@@ -90,7 +93,7 @@ class AutoCompleteSelectFieldTestCase(BaseSelectableTestCase, FieldTestMixin):
     def test_invalid_pk(self):
         field = self.get_field_instance()
         value = self.get_random_string()
-        self.assertRaises(forms.ValidationError, field.clean, [value, 'XXX'])
+        self.assertRaises(forms.ValidationError, field.clean, [value, "XXX"])
 
 
 class AutoCompleteSelectMultipleFieldTestCase(BaseSelectableTestCase, FieldTestMixin):
@@ -116,7 +119,9 @@ class AutoCompleteSelectMultipleFieldTestCase(BaseSelectableTestCase, FieldTestM
 
     def test_default_widget(self):
         field = self.get_field_instance()
-        self.assertTrue(isinstance(field.widget, widgets.AutoCompleteSelectMultipleWidget))
+        self.assertTrue(
+            isinstance(field.widget, widgets.AutoCompleteSelectMultipleWidget)
+        )
 
     def test_alternate_widget(self):
         widget_cls = widgets.AutoComboboxSelectMultipleWidget
@@ -126,9 +131,17 @@ class AutoCompleteSelectMultipleFieldTestCase(BaseSelectableTestCase, FieldTestM
     def test_alternate_widget_instance(self):
         widget = widgets.AutoComboboxSelectMultipleWidget(self.lookup_cls)
         field = self.get_field_instance(widget=widget)
-        self.assertTrue(isinstance(field.widget, widgets.AutoComboboxSelectMultipleWidget))
+        self.assertTrue(
+            isinstance(field.widget, widgets.AutoComboboxSelectMultipleWidget)
+        )
 
     def test_invalid_pk(self):
         field = self.get_field_instance()
-        value = self.get_random_string()
-        self.assertRaises(forms.ValidationError, field.clean, ['XXX', ])
+        self.get_random_string()
+        self.assertRaises(
+            forms.ValidationError,
+            field.clean,
+            [
+                "XXX",
+            ],
+        )

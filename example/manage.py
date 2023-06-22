@@ -2,7 +2,6 @@
 import os
 import sys
 
-
 # add parent path to PYTHONPATH so we can use current selectable package instead of installing it from pipy
 sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 
