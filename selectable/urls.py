@@ -1,8 +1,8 @@
-from django.conf.urls import url
+from django.urls import re_path
 
 from . import views
 
 
 urlpatterns = [
-    url(r'^(?P<lookup_name>[-\w]+)/$', views.get_lookup, name="selectable-lookup"),
+    re_path(r'^(?P<lookup_name>[-\w]+)/$', views.get_lookup, name="selectable-lookup"),
 ]
