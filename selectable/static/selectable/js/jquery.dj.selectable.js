@@ -278,7 +278,9 @@
             // size and position menu
             ul.show();
             this._resizeMenu();
-            ul.position($.extend({of: this.element}, this.options.position));
+	    //Replace incompatible Jqyery with native javascript to fix Jquery 3.0+ support
+	    var selectRect = document.getElementById($(this.element[0]).attr('id')).getBoundingClientRect();
+            ul.offset({top:selectRect.bottom,left:selectRect.left})
             if (this.options.autoFocus) {
                 this.menu.next(new $.Event("mouseover"));
             } else if (page) {
