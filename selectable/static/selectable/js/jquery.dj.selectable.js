@@ -12,6 +12,18 @@
  * BSD License
  *
 */
+function positionDropdown(input, ul) {
+    //Given an input element and a ul, positions the ul dropdown appropriately
+    //Uses native javascript where necessary to fix compatibility with Jquery 3.0 and newer
+    var selectRect = document.getElementById($(input.element[0]).attr('id')).getBoundingClientRect();
+    //Account for scrollbar position
+    var left = parseFloat(selectRect.left) + parseFloat(window.scrollX);
+    var top = parseFloat(selectRect.bottom) + parseFloat(window.scrollY);
+    //Use element style attribute to set the position
+    var style = $(ul).attr('style')+ 'left:'+left+'px;' + 'top: '+top+'px;';
+    $(ul).attr('style', style);
+}
+
 (function ($) {
 
 	$.widget("ui.djselectable", $.ui.autocomplete, {
@@ -278,7 +290,8 @@
             // size and position menu
             ul.show();
             this._resizeMenu();
-            ul.position($.extend({of: this.element}, this.options.position));
+            positionDropdown(this, ul); //Call function that uses native Javascript
+            //ul.position($.extend/({of: $(this).element}, $(this).position));
             if (this.options.autoFocus) {
                 this.menu.next(new $.Event("mouseover"));
             } else if (page) {
