@@ -16,15 +16,13 @@ class AjaxRequiredLookupTestCase(BaseSelectableTestCase):
 
     def test_ajax_call(self):
         "Ajax call should yield a successful response."
-        request = Mock()
-        request.is_ajax = lambda: True
+        request = Mock(headers={"x-requested-with": "XMLHttpRequest"})
         response = self.lookup.results(request)
         self.assertTrue(response.status_code, 200)
 
     def test_non_ajax_call(self):
         "Non-Ajax call should yield a bad request response."
         request = Mock()
-        request.is_ajax = lambda: False
         response = self.lookup.results(request)
         self.assertEqual(response.status_code, 400)
 

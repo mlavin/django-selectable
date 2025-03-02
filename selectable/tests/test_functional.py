@@ -1,10 +1,15 @@
 """
 Larger functional tests for fields and widgets.
 """
+
 from django import forms
 
 from ..forms import (
-    AutoComboboxSelectWidget, AutoCompleteSelectField, AutoCompleteSelectMultipleField, AutoCompleteSelectWidget)
+    AutoComboboxSelectWidget,
+    AutoCompleteSelectField,
+    AutoCompleteSelectMultipleField,
+    AutoCompleteSelectWidget,
+)
 from . import ManyThing, OtherThing, ThingLookup
 from .base import BaseSelectableTestCase
 
@@ -369,6 +374,7 @@ class FuncManytoManyMultipleSelectTestCase(BaseSelectableTestCase):
 
 class SimpleForm(forms.Form):
     "Non-model form usage."
+
     thing = AutoCompleteSelectField(lookup_class=ThingLookup)
     new_thing = AutoCompleteSelectField(lookup_class=ThingLookup, allow_new=True)
     things = AutoCompleteSelectMultipleField(lookup_class=ThingLookup)

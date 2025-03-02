@@ -2,7 +2,11 @@ from django.utils.encoding import force_str
 from django.utils.module_loading import autodiscover_modules
 
 from selectable.base import LookupBase
-from selectable.exceptions import LookupAlreadyRegistered, LookupInvalid, LookupNotRegistered
+from selectable.exceptions import (
+    LookupAlreadyRegistered,
+    LookupInvalid,
+    LookupNotRegistered,
+)
 
 
 class LookupRegistry:

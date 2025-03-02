@@ -1,4 +1,5 @@
 "Decorators for additional lookup functionality."
+
 from functools import wraps
 
 from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseForbidden
@@ -43,7 +44,7 @@ def results_decorator(func):
 @results_decorator
 def ajax_required(request):
     "Lookup decorator to require AJAX calls to the lookup view."
-    if not request.is_ajax():
+    if not request.headers.get("x-requested-with") == "XMLHttpRequest":
         return HttpResponseBadRequest()
 
 
