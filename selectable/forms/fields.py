@@ -5,7 +5,10 @@ from django.db.models import Model
 from django.utils.translation import gettext_lazy as _
 
 from selectable.forms.base import import_lookup_class
-from selectable.forms.widgets import AutoCompleteSelectMultipleWidget, AutoCompleteSelectWidget
+from selectable.forms.widgets import (
+    AutoCompleteSelectMultipleWidget,
+    AutoCompleteSelectWidget,
+)
 
 __all__ = (
     "AutoCompleteSelectField",

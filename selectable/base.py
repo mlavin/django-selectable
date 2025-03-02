@@ -1,4 +1,5 @@
 "Base classes for lookup creation."
+
 import operator
 import re
 from functools import reduce
